@@ -1,0 +1,1646 @@
+<!doctype html>
+<html lang="en">
+
+
+   
+    
+	<head>
+		<meta charset="utf-8">
+
+		<title>Machine Learning and Neural Networks</title>
+                <meta name="author" content="Roberto Santana">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<!-- <link rel="stylesheet" href="css/reveal.css">  -->
+                <link rel="stylesheet" href="css/fullscreen-img.css">
+                <link rel="stylesheet" href="css/added_css/notebook.css">
+   	        <link rel="stylesheet" href="css/reveal.css">
+                <link rel="stylesheet" href="css/theme/nncourse.css" id="theme">
+
+
+		
+        <script>
+	  var link = document.createElement( 'link' );
+	  link.rel = 'stylesheet';
+	  link.type = 'text/css';
+	  link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+	  document.getElementsByTagName( 'head' )[0].appendChild( link );
+	</script>		
+                          
+                                
+
+	</head>
+
+
+
+	
+	<body>
+
+
+		<div class="reveal">
+			<div class="slides">
+
+				<section>
+                                          <div class="my_container">
+                                        <h2>Machine Learning and Neural Networks</h2>
+					<p>Roberto Santana and Unai Garciarena<p>
+					<p>Department of Computer Science and Artificial Intelligence</p>
+                                        <p>University of the Basque Country</p>
+                          		 </div>   
+				</section>
+                                <section id="sec:NN_Intro">   
+                                            <div class="my_container">
+                                             <h3> Neural Network Paradigms: Table of Contents </h3>
+                                        
+                                              <table style="width:100%"; border=solid>
+
+                                                  <tr>
+						    
+						      <td> <p class="paragraph2"> <a href="#/sec:McCullochPit"> McCulloch-Pitt (MPC) model </a></p></td>
+                                                      <td> <p class="paragraph2"> <a href="#/sec:NNs_Questions"> NN key questions </a></p></td>
+                                                      <td> <p class="paragraph2"> <a href="#/sec:NNs_Taxonomy"> NN Taxonomy </a></p></td>
+						     
+                                                  </tr>
+
+
+                                                 <tr>                                                   
+                                                       <td> <p class="paragraph2"> <a href="#/sec:NNs_Hopfield"> Hopfield Network </a></p></td> 
+                                                       <td> <p class="paragraph2"> <a href="#/sec:NNs_BoltzmannMachines"> Boltzmann Machines </a></p></td>
+
+
+						        <td><p class="paragraph2"> <a href="#/sec:NNs_RBMs"> Restricted Boltzmann Machines </a></p></td>
+
+                                                  </tr>
+
+
+
+                    
+                                                 
+
+
+
+                               
+
+                                    
+				              </table>	  
+                          	          </div>   
+
+  		   	       </section> 				
+                          </section>                  
+
+                          <section> 
+
+                                       <section  id="sec:McCullochPit">
+                                          <div class="my_container">
+                                          <mark class="red"></mark>
+                                 	        <h3>Initial neuron models</h3>
+                             		        <h4>McCulloch-Pitt (MPC) model</h4>                                                  
+						     <br>
+                                                      <ul> 
+
+                                                          <li class="paragraph2">Fairly simple neuron model based on <mark class="red">electrical circuits</mark>. </li>
+                                                          <li class="paragraph2">The weights $w_i$ are <mark class="red">fixed</mark>. </li>
+                                                          <li class="paragraph2">All weights should be <mark class="red">assigned by manual calculation</mark>.  </li>
+                                                          <li class="paragraph2"><mark class="red">Inhibitory inputs</mark> are part of the model and influence its computation.</li>
+
+
+                                                      </ul> 
+                                                        
+                          		  </div>
+					  <p class="paragraph2">H. Wang, B. Raj, and E. P. Xing. <a href="https://arxiv.org/abs/1702.07800">On the Origin of Deep Learning.</a>   arXiv preprint arXiv:1702.07800. 2017.</p>   
+
+ 				       </section>
+
+                                       <section>
+                                                <mark class="red"></mark>
+                                 	        <h3>Initial neuron models</h3>
+                             		        <h4>McCulloch-Pitt (MPC) model</h4>                                                  
+                                                   
+
+                                                <div class="container">
+
+                                                <div class="right">
+                                                     <p class="paragraph2">
+                                                          \[   
+                                                                  y =   \begin{cases} 1, & \mbox{if } \sum_i w_i x_i \geq \theta \wedge  z_j=0,  \, \forall j \\ 
+                                                                                      0, & \mbox{otherwise}  
+                                                                         \end{cases}
+                                                           \]
+                                                     </p>   
+
+                                                   <ul>                                                                                         
+                                                         <p class="paragraph2"> \( y \): output. </p>  
+                                                         <p class="paragraph2"> \(x_i\): input signals </p>    
+                                                         <p class="paragraph2"> \( \theta \): threshold </p>   
+                                                         <p class="paragraph2"> \(w_i\): weights </p>                
+                                                         <p class="paragraph2"> \(z_i\): inhibitory input </p>                                                                                           <ul/>                                                                  
+                                                 </div>            
+
+                                                <div class="left">      
+                                                      <ul>                                                
+                                                         <p class="paragraph2"><img src="href=../../img/artificial-neuron.png"  height="220" width="350"></p>                                                  
+                                                     <ul/>                    
+						 </div>                                           
+                                                 
+                                               
+                                    
+                                                </div>
+						 <p class="paragraph2"> W. S. McCulloch and W. Pitts.<a href="https://link.springer.com/article/10.1007/BF02478259"> A logical calculus of the ideas immanent in nervous activity.</a> Bulletin of Mathematical Biophysics, Vol. 5, Pp. 115-133. 1943.</p>
+                                                   <aside class="notes">
+                                                       Warren McCulloch was a neurophysiologist  and Walter Pitts a logician. They conceived the first neuron model, the MCP neural model.
+                                                       They intended to make computations using a model that keeps some characteristics of real neurons.
+
+                                                       In the MCP model, weights are fixed. 
+                                                       The idea of having inhibitory neuron is interesting and unusual nowadays.
+
+                                            	   </aside>
+        			      </section>
+
+
+                          </section> 
+
+        	              
+                           <section> 
+				      <section  id="sec:NNs_Questions">
+                                          <div class="my_container">
+                                               <mark class="red"></mark>   
+                                                   <h3>Neural Networks</h3>                                             
+                                                   <h4>Key questions</h4>
+                                                   <ol>
+                                                          <li class="paragraph2"> What <mark class="red">class of problems</mark> can be solved with the NN? (e.g., supervised vs unsupervised) </li>
+                                                          <li class="paragraph2"> What is the <mark class="red"> network architecture</mark>? (e.g., type and number of <mark class="red">layers</mark>, <mark class="red">parameters</mark>, <mark class="red">connectivity</mark>, etc.). </li>
+
+                                                         <li class="paragraph2"> What is the <mark class="red">rationale</mark> behind the conception of the NN? </li>
+                                                          <li class="paragraph2"> How is <mark class="red">inference</mark> implemented? (e.g., How is the information extracted from the network?). Type of prediction or type of inference process. </li>	
+
+                                                          <li class="paragraph2"> What are the <mark class="red">learning methods</mark>  used to learn the network ?  Algorithms used for learning the network.  </li>		
+
+                                                          <li class="paragraph2"> What is the <mark class="red">relationship to other types of NNs</mark> ? </li>		
+
+                                                          <li class="paragraph2"> What are the <mark class="red">limitations</mark> of the network? </li>						  
+                                                    </ol>     						           
+                          		 </div>                                                 
+                                                  <aside class="notes">
+                                                                                                  
+                                           	  </aside>
+ 				      </section> 
+
+                                      <section  id="sec:NNs_Taxonomy">
+                                          <div class="my_container">           
+                                                   <h4>An NN Taxonomy</h4>                                   
+                                                   <ul>
+                                                    <img src="href=../../img_2019_Lect_5/NN_Taxonomy.png"  height="450" width="1200">   
+                                                   </ul>                
+          
+                          		 </div>   
+                                            
+                                                      <p class="paragraph2">A. K. Jain, J. Mao, and K. M. Mohiuddin.   Figure. <a href="http://metalab.uniten.edu.my/~abdrahim/mitm613/Jain1996_ANN%20-%20A%20Tutorial.pdf"> Artificial neural networks: A tutorial.</a> Computer. Vol. 29 No. 3. Pp. 31-44. 1996.  </p>                               
+             
+                                                  <aside class="notes">
+                                            	  </aside>
+ 				      </section>
+
+				         <section>
+                                               <mark class="red"></mark>
+                                               <div class="container">                                                 
+                                                   <h3>An NN Taxonomy</h3>
+                                                  <div class="right">
+                                                      <div>  
+                                                      <h4>Recurrent/feedback neural networks</h4>
+                                                      </div>  
+                                                      <ul>      
+                                                        <li class="paragraph2"> The network includes <mark class="red">backward connections</mark>. </li>
+
+							<li class="paragraph2"> The graph representation of the network has <mark class="red">cycles</mark>. </li>
+
+							<li class="paragraph2"> Example of this class of networks includes the Hopfield network and the RNN. </li>
+					   
+					                
+                                                      <ul/>                                                      
+                                                   
+                          		          </div>
+  
+                                      
+                                                  <div class="left">   
+                                                      <div>  
+                                                      <h4>Feed-forward networks</h4>
+                                                      </div>  
+                                                      <ul>      
+
+						        <li class="paragraph2">Information only flows in  <mark class="red"> one direction</mark>.  </li>
+
+							<li class="paragraph2">They can be represented as <mark class="red">acyclic graphs</mark>.  </li>
+
+			
+							<li class="paragraph2"> Examples of this class of networks includes the <mark class="red">single-layers perceptron</mark> and the <mark class="red">multi-layer perceptron</mark>. </li>
+					   
+					                				
+						         
+                                                         					                
+                                                      </ul>    
+                                                  
+                                                  </div>    
+                                                   
+                                               </div>
+        		             </section> 
+			       
+                            </section> 
+                           <section> 
+                                      <section   id="sec:NNs_Hopfield">
+                                               <mark class="red"></mark>
+                                               <div class="container">                                                 
+                                                   <h3>Hopfield network</h3>
+                                                  <div class="right">
+                                                      <div>  
+                                                      <h4>Network architecture</h4>
+                                                      </div>  
+                                                      <ul>      
+                                                        <img src="href=../../img/NNZoo/hn.png"  height="300" width="450">           
+					                
+                                                      <ul/>                                                      
+                                                      <p class="paragraph2"> Figure credit. <a href="http://www.asimovinstitute.org/neural-network-zoo/"> Neural network zoo.</a> </p>
+                          		          </div>
+  
+                                      
+                                                  <div class="left">   
+                                                      <div>  
+                                                      <h4>Characteristics</h4>
+                                                      </div>  
+                                                      <ul>      
+
+						          <li class="paragraph2">One of the first examples of (recurrent) networks whose weights are <mark class="red"></mark>bidirectional. </li>
+						          <li class="paragraph2">Inspired in the <mark class="red">spin glass theory</mark> from Physics. </li>
+						          <li class="paragraph2">A <mark class="red">fully connected NN</mark> with binary thresholding neural units. </li>     
+						          <li class="paragraph2">Exhibits the <mark class="red">content-addressable memory</mark> property. </li>
+						          <li class="paragraph2">Typically applied to <mark class="red">memorize</mark> the state of data. </li>
+                                                         					                
+                                                      </ul>    
+                                                  
+                                                  </div>    
+                                                   
+                                               </div>
+					          <p class="paragraph2"> J. J. Hopfield. <a href="http://www.pnas.org/content/79/8/2554.abstract"> Neural networks and physical systems with emergent collective computational abilities.</a> Proceedings of the National Academy of Sciences, 79(8):2554–2558. 1982. </p>
+                                          
+                                                  <aside class="notes">
+                                                      Jonh Hopfield introduced the Hopfield network which takes as inspirations the spin glass theory used in Physics to describe magnetic phenomena.
+                                                      It was one of the first NNs to have weights in the both directions between layers.
+                                                      It was also proposed as a way to implement memories.
+                                                      This type of network has been very influencial in the de NN field.						  
+                                            	  </aside>                                               
+ 
+        		              </section>
+
+
+				      <section>
+                                               <mark class="red"></mark>
+                                               <div class="container">                                                 
+                                                   <h3>Hopfield network</h3>
+                                                  <div class="right">
+                                                      <div>  
+                                                      <h4>Network architecture in time</h4>
+                                                      </div>  
+                                                      <ul>
+						      <img src="href=../../img_2019_Lect_5/Hopfield_Delay.png"  height="400" width="300">
+	          
+                                                 
+					                
+                                                      <ul/>                                                      
+                                                   
+                          		          </div>
+  
+                                      
+                                                  <div class="left">   
+                                                      <div>  
+                                                      <h4>Characteristics</h4>
+                                                      </div>  
+                                                      <ul>      
+
+						          <li class="paragraph2"> Consists of a <mark class="red">set of neurons</mark> and a <mark class="red">set of units </mark> forming a <mark class="red">multiple loop feedback system</mark>. </li>
+						          <li class="paragraph2"> The output of the neuron is fed back, via a <mark class="red">unit delay element</mark> to each of the other neurons. </li>
+						          <li class="paragraph2">The matrix of synaptic weights is <mark class="red"> symmetric</mark>. </li>     						                                                                  					                
+                                                      </ul>    
+                                                  
+                                                  </div>    
+                                                   
+                                               </div>
+					       <p class="paragraph2">  S. Haykin <a href="https://cdn.preterhuman.net/texts/science_and_technology/artificial_intelligence/Neural%20Networks%20-%20A%20Comprehensive%20Foundation%20-%20Simon%20Haykin.pdf"> Neural Networks. A Comprehensive Foundation. </a> Eastern Economy Edition. Second Edition. 2007.</p>
+					       
+					        
+                                          
+                                                  <aside class="notes">
+                                                      Jonh Hopfield introduced the Hopfield network which takes as inspirations the spin glass theory used in Physics to describe magnetic phenomena.
+                                                      It was one of the first NNs to have weights in the both directions between layers.
+                                                      It was also proposed as a way to implement memories.
+                                                      This type of network has been very influencial in the de NN field.						  
+                                            	  </aside>                                               
+ 
+        		             </section> 
+
+				     <section>
+                                          <div class="my_container">
+                                                   <h3>Hopfield network application</h3>
+                                                   <div>                                                     
+                                                     <h4>Content addressable memory</h4>  
+                                                   </div>                                              
+                                                   
+
+                                                 
+                                                   <ul>                                                                                         
+                                                         <p class="paragraph2"> The primary function of a content-addressable memory is to <mark class="red">retrieve a pattern (item) stored</mark> in memory given an <mark class="red">incomplete or noisy</mark>  version of that pattern.  </p>                                                         <p class="paragraph2"> Given <mark class="red">sufficient partial information</mark> the content addressable memory will be able to retrieve the pattern. </p>  
+                                                         <p class="paragraph2"> A content-addressable memory is therefore <mark class="red">error correcting</mark>.  </p>    
+ 
+                                                         <p class="paragraph2"> The Hopfield network works, by defining an energy function whose <mark class="red">fixed points correspond to the patterns</mark>  to be stored. </p>                
+                                                    <ul/>                                                                  
+                          		 </div>    
+					       <p class="paragraph2">  S. Haykin <a href="https://cdn.preterhuman.net/texts/science_and_technology/artificial_intelligence/Neural%20Networks%20-%20A%20Comprehensive%20Foundation%20-%20Simon%20Haykin.pdf"> Neural Networks. A Comprehensive Foundation. </a> Eastern Economy Edition. Second Edition. 2007.</p>
+                                                   <aside class="notes">
+                                                       
+                                            	   </aside>
+                                       </section>
+									   
+
+
+                                       <section>
+                                          <div class="my_container">
+                                                   <h3>Hopfield network</h3>
+                                                   <div>                                                     
+                                                     <h4>Energy model</h4>  
+                                                   </div>                                              
+                                                   
+
+                                                     <p class="paragraph2">
+                                                          \[   
+                                                                  E =  - \frac{1}{2} \sum_{i,j} s_is_jw_{i,j} -  \sum_i s_i b_i
+                                                           \]
+                                                     </p>   
+
+                                                   <ul>                                                                                         
+                                                         <p class="paragraph2"> \(s_i\): is the state of unit \(i\) (initially, the input \(x_i\)) </p>  
+                                                         <p class="paragraph2"> \(b_i\): denotes the bias applied externaly to neuron \(i\)</p>    
+                                                         <p class="paragraph2"> \(i,j\): indices of the units </p>   
+                                                         <p class="paragraph2"> \(w_{i,j}\): bidirectional weight between neurons \(i\) and \(j\) </p>                
+                                                    <ul/>                                                                  
+                          		 </div>    
+
+                                                   <aside class="notes">
+                                                         The energy resembles the spin glass system.
+                                                         When a group of dipoles is placed together in any space. Each dipole is forced to align itself with the field generated by these dipoles at its location.
+                                                         However, by aligning itself, it changes the field at other locations, leading other dipoles to flip, causing the field in the original location to change. 
+                                                         Eventually, these changes will converge to a stable state.                                           
+                                            	   </aside>
+        			       </section>
+
+				         
+
+        		             <section>       
+                                               <mark class="red"></mark>
+                                                <div class="container">
+                                                   <h3>Example Hopfield network (four variables)</h3>         
+                                                   <div class="right">        
+                                                     <div>  
+                                                       <h4>State space<h4>
+                                                     </div>  
+                                                     <ol>
+                                          		
+						          <p class="paragraph2"> \( s^1 = (-1,-1,-1,-1) \) </p>  
+						          <p class="paragraph2"> \( s^2 = (-1,-1,-1,1) \) </p>
+  						          <p class="paragraph2"> \( \dots \) </p>
+						          <p class="paragraph2"> \( s^{16} = (1,1,1,1) \) </p>    				          
+                                                     </ol>                  
+                         		       
+                                                   
+                                                   </div>  
+
+                                               <div class="left">       
+                                                   <div>  
+                                                     <h4>Weight matrix</h4> 
+                                                   </div>                           		 
+                                                   <ul>  
+                                                    <p class="paragraph4"> 
+                                                      \[
+                                                      W = \begin{pmatrix} 
+                                                       0&  2&  2&    0\\
+                                                       2&  0&  -2&  -2\\
+                                                       2&  -2&  0&   0\\                                                  
+                                                       0&  -2&   0&   0                                                          
+                                                        \end{pmatrix} 
+                                                      \] 
+                                                    </p>         
+                          		           </ul>             
+                                                     <div>                    		       
+                                                       <h4>Hopfield network<h4>
+                                                     </div>  
+                                                      <ol>                                         		
+						         		
+                                                           <p class="paragraph2"><img src="href=../../img_2019_Lect_5/init_state_hopfield.png"  height="200" width="250"></p>                       
+	          
+                                                     </ol>           
+                                                  
+
+                                                  </div>            
+                                               </div>                                             
+                                                                                
+                                                  <aside class="notes">
+                                                    
+                                           	  </aside>
+                              
+        		             </section>   
+
+
+        		             <section>       
+                                               <mark class="red"></mark>
+                                                <div class="container">
+                                                   <h3>Energy model for the Hopfield network example</h3>         
+                                                   <div class="right">     
+                                                     <div>          
+                                                     <h4>Representation<h4>
+                                                     </div>  
+                                                     <ol>
+                                          		
+						          <p class="paragraph2"> \( s^1 = (-1,1,1,1) \) </p>  
+						          <p class="paragraph2"> \( s^2 = (-1,-1,1,-1) \) </p>    				          
+                                                     </ol>                  
+                                                     <div>  
+                                                     <h4>Energy computation example<h4>
+                                                     </div>  
+                                                      <ol>                                          		
+						          <p class="paragraph4">
+                                                           \[ 
+                                                              \begin{align}
+                                                                   E(s^1) &=& -1* (-1*1*2+ -1*1*2  \\
+                                                                          &+& -1*1*0 + 1*1*-2 \\
+                                                                          &+&  1*1*-2 + 1*1*0 ) \\
+                                                                          &=& -1*-8= 8
+                                                              \end{align}
+                                                           \]
+                                                           </p>  
+						          <p class="paragraph4"> <mark class="red">\( E(s^2) = ? \)</mark>  </p>   			          
+                                                     </ol>          
+  
+                                             </div>  
+
+                                             <div class="left">      
+                                                   <div>       
+                                                     <h4>Energy model</h4>       
+                                                    </div>                                        
+                                                   
+                                                     <p class="paragraph2">
+                                                          \[   
+                                                                  E =  - \frac{1}{2} \sum_{i,j} s_i s_j w_{i,j}      
+                                                           \]
+                                                     </p>   
+
+                                                  <div>  
+                                                   <h4>Weight matrix</h4>   
+                                                  </div>                         		 
+                                                   <ul>  
+                                                    <p class="paragraph4"> 
+                                                      \[
+                                                      W = \begin{pmatrix} 
+                                                       0&  2&  2&    0\\
+                                                       2&  0&  -2&  -2\\
+                                                       2&  -2&  0&   0\\                                                  
+                                                       0&  -2&   0&   0                                                          
+                                                        \end{pmatrix} 
+                                                      \] 
+                                                    </p>         
+                          		           <ul/>            
+                                                  </div>          
+                                               </div>                                               
+                                                                                
+                                                  <aside class="notes">
+                                                    
+                                           	  </aside>
+                              
+        		             </section>   
+
+        		             <section>       
+                                               <mark class="red"></mark>
+                                                <div class="container">
+                                                   <h3>Hopfield network</h3>         
+                                                   <div class="right">             
+                                                     <div>  
+                                                     <h4>Update rule</h4>
+                                                    </div>  
+                                                     <ol>                                          		
+						          <p class="paragraph2"> \( s_i(t+1) = sign(\sum_j w_{ij} s_j(t) +b_i) \) </p>    				          				         <p class="paragraph2">
+                                                           \[
+
+                                                               sign(x) = \begin{cases}
+                                                                       1, & \mbox{if } x \geq 0 \\ 
+                                                                       -1, & \mbox{otherwise} 
+                                                                      \end{cases}
+                                                           \]
+							  </p> 
+                                                     </ol>                  
+
+    
+                                                  </div>     
+                                                  <div class="left">           
+                                                 
+                                                   <h4>Retrieval phase (inference)</h4>
+                                                   <ol>						          
+    
+						          <li class="paragraph2">To infer the output, given an input state, the NN checks if inverting the state of a unit <mark class="red">decreases the energy</mark>. </li>
+						          <li class="paragraph2">Inference can be done using <mark class="red">asynchronous or synchronous</mark> updates. In the first case, every time that an improving unit is found, it is inverted. </li>
+
+			                                  <li class="paragraph2"> The state of the network is updated until <mark class="red">a fixed stated is found</mark>, i.e., no change in the state configuration.</li> 
+						  
+                                                    </ol>  
+
+ 
+                                                  </div>     
+                                               </div>                                                             
+					       <p class="paragraph2">  S. Haykin <a href="https://cdn.preterhuman.net/texts/science_and_technology/artificial_intelligence/Neural%20Networks%20-%20A%20Comprehensive%20Foundation%20-%20Simon%20Haykin.pdf"> Neural Networks. A Comprehensive Foundation. </a> Eastern Economy Edition. Second Edition. 2007.</p>                                                                                
+                                                  <aside class="notes">
+                                                    
+                                           	  </aside>
+                              
+        		             </section>   
+
+        		             <section>       
+                                               <mark class="red"></mark>
+                                                <div class="container">
+                                                   <h3>Hopfield network example (four variables) </h3>         
+                                                   <div class="right">    
+                                                     <div>           
+                                                     <h4>Update rule<h4>
+                                                     </div>  
+                                                     <ol>                                          		
+						          <p class="paragraph2"> \( s_i(t+1) = sign(\sum_j w_{ij} s_j(t)) \) </p>    				          
+                                                     </ol>                  
+                                                     <div>  
+                                                     <h4>Asynchronous update example<h4>
+                                                     </div>  
+
+                                                      <ol>                      
+						          <p class="paragraph4"> \( s^1(t) = (-1,1,1,1). E(s^1(t))=8. \; i=3 \) </p>
+						          <p class="paragraph4"> \(s^1_3(t) = sign( w_{3,1}*s^1_1 + w_{3,2}*s^1_2 + w_{3,4}*s^1_4)=-1\) </p>              
+						          <p class="paragraph4"> \( s^2(t) = (-1,1,-1,1). E(s^2(t))=0. \; i=1 \) </p>
+						          <p class="paragraph4"> \(s^2_1(t) = sign( w_{1,2}*s^2_2 + w_{1,3}*s^2_3 + w_{1,4}*s^2_4)=1\) </p>            						 <p class="paragraph4"> \( s^3(t) = (1,1,-1,1). E(s^3(t))=0. \; i=4 \) </p>
+                                                     </ol>          
+  
+                                                  </div>  
+
+                                                  <div class="left">   
+        
+                                                  <div>      
+                                                   <h4>Weight matrix</h4>    
+                                                  </div>                        		 
+                                                   <ul>  
+                                                    <p class="paragraph4"> 
+                                                      \[
+                                                      W = \begin{pmatrix} 
+                                                       0&  2&  2&    0\\
+                                                       2&  0&  -2&  -2\\
+                                                       2&  -2&  0&   0\\                                                  
+                                                       0&  -2&   0&   0                                                          
+                                                        \end{pmatrix} 
+                                                      \] 
+                                                    </p>         
+                          		           </ul>    
+         
+                                                     <div>                    		       
+                                                     <h4>Hopfield network<h4>
+                                                     </div>  
+                                                      <ol>                                         		
+						         		
+                                                           <p class="paragraph2"><img src="href=../../img_2019_Lect_5/init_state_hopfield.png"  height="200" width="250"></p>                       
+	          
+                                                     </ol>                                                   
+                                                   
+
+ 
+                                                  </div>     
+                                               </div>                                                             
+                                                                                
+                                                  <aside class="notes">
+                                                    
+                                           	  </aside>
+                              
+        		             </section>
+
+				     <section>       
+                                               <mark class="red"></mark>
+                                                <div class="container">
+                                                   <h3>Hopfield network</h3>         
+                                                   <div class="right">             
+                                                     <div>  
+                                                     <h4>Update rule</h4>
+                                                    </div>  
+                                                     <ol>                                          		
+						       <p class="paragraph2">
+							 \(  w_{i,j} = \frac{1}{N} \sum_{k=1}^{N} (s^k_i)(s^k_j) \)
+						       </p>    				          				      
+                                                     </ol>                  
+
+    
+                                                  </div>     
+                                                  <div class="left">           
+                                                 
+                                                   <h4>Storage phase (learning)</h4>
+                                                   <ol>						          
+						     <li class="paragraph2">Let us assumed a set of $N$ data vectors that want to be memorized. They  are called  <mark class="red">fundamental memories</mark>.   </li>     
+						          <li class="paragraph2"> The weight \( w_{i,j} \) is computed as the average among all \(k \in 1\dots N\) of the product of \(s_i^k\) and \(s_j^k \).   </li>
+						          <li class="paragraph2"> For  \( i=j \),  \( w_{i,j}=0 \). </li>
+						  
+                                                    </ol>  
+
+ 
+                                                  </div>     
+                                               </div>                                                             
+					       <p class="paragraph2">  S. Haykin <a href="https://cdn.preterhuman.net/texts/science_and_technology/artificial_intelligence/Neural%20Networks%20-%20A%20Comprehensive%20Foundation%20-%20Simon%20Haykin.pdf"> Neural Networks. A Comprehensive Foundation. </a> Eastern Economy Edition. Second Edition. 2007.</p>                                                                                
+                                                  <aside class="notes">
+                                                    
+                                           	  </aside>
+                              
+        		             </section>   
+
+
+        		             <section>       
+                                               <mark class="red"></mark>
+                                               <div class="container">
+                                                   <h3>Hopfield network (Learning)</h3>         
+    
+
+                                                  <div class="right">  
+                                                  <div>
+                                                   <h4>Learning rule for weights</h4>    
+                                                  </div>                                		              
+                                                   <ol>
+                                          		
+						          <p class="paragraph2"> \(  w_{i,j} = \frac{1}{N} \sum_{k=1}^{N} (s^k_i)(s^k_j) \) </p>   				          
+                                                   </ol>    
+      
+                                                  <div>   
+                                                   <h4>Weight matrix</h4>       
+                                                  </div>                     		 
+                                                   <ul>  
+                                                    <p class="paragraph4" style="font-size: 14px"> 
+                                                      \[
+                                                      W = \begin{pmatrix} 
+
+                                                       0&  1&  1&  1& -1& -1&  1&  1&  1\\
+                                                       1&  0&  1&  1& -1& -1&  1&  1&  1\\
+                                                       1&  1&  0&  1& -1& -1&  1&  1&  1\\
+                                                        1&  1&  1&  0& -1& -1&  1&  1&  1\\
+                                                       -1& -1& -1& -1&  0&  1& -1& -1& -1\\
+                                                       -1& -1& -1& -1&  1&  0& -1& -1& -1\\
+                                                        1&  1&  1&  1& -1& -1&  0&  1&  1\\
+                                                        1&  1&  1&  1& -1& -1&  1&  0&  1\\
+                                                        1&  1&   1&  1& -1& -1&  1&  1&  0
+                                                          
+                                                        \end{pmatrix} 
+                                                      \] 
+                                                    </p>         
+                          		 
+                                                   
+                                                  <ul/>              
+                                                  </div>      
+
+                                                  <div class="left">  
+                          		           <div>     
+                                                     <h4>Input (letter C)</h4>
+                          		           </div>  
+                                                     <p class="paragraph2"><img src="href=../../img_2019_Lect_5/C_letter.png"  height="200" width="200"></p>                       
+                            		           <div>
+                                                     <h4>Representation<h4>
+                          		           </div>  
+         
+                                                     <ol>
+                                          		
+						          <p class="paragraph2"> \( s^1 = (1,1,1,1,-1,-1,1,1,1) \) </p>   				          
+                                                     <ol/>                   
+       
+
+                           		           </div>     
+                                             </div>  
+                                          
+                                      
+                                                  <aside class="notes">
+                                                    
+                                           	  </aside>
+                              
+        		             </section>   
+
+        		             <section>       
+                                               <mark class="red"></mark>
+                                               <div class="container">
+                                                   <h3>Hopfield network (Learning)</h3>         
+    
+
+                                                  <div class="right">  
+                                                  <div>
+                                                   <h4>Hinton maps C-letter</h4>    
+                                                  </div>                
+  
+                                                               <p class="paragraph2"><img src="href=../../img_2019_Lect_5/Hinton_C_Letters.png"  height="400" width="650"></p>                       
+            
+                                                  
+                                                  </div>      
+
+                                                  <div class="left">    
+                                                  <div>   
+                                                   <h4>Weight matrix</h4>       
+                                                  </div>                     		 
+                                                   <ul>  
+                                                    <p class="paragraph4"  style="font-size: 14px"> 
+                                                      \[
+                                                      W = \begin{pmatrix} 
+
+                                                       0&  1&  1&  1& -1& -1&  1&  1&  1\\
+                                                       1&  0&  1&  1& -1& -1&  1&  1&  1\\
+                                                       1&  1&  0&  1& -1& -1&  1&  1&  1\\
+                                                        1&  1&  1&  0& -1& -1&  1&  1&  1\\
+                                                       -1& -1& -1& -1&  0&  1& -1& -1& -1\\
+                                                       -1& -1& -1& -1&  1&  0& -1& -1& -1\\
+                                                        1&  1&  1&  1& -1& -1&  0&  1&  1\\
+                                                        1&  1&  1&  1& -1& -1&  1&  0&  1\\
+                                                        1&  1&   1&  1& -1& -1&  1&  1&  0
+                                                          
+                                                        \end{pmatrix} 
+                                                      \] 
+                                                    </p>         
+                          		 
+                                                   
+                                                  <ul/>               
+                          		             
+       
+
+                           		           </div>     
+                                             </div>  
+                                          
+                                      
+                                                  <aside class="notes">
+                                                    
+                                           	  </aside>
+                              
+        		             </section>   
+        		             <section>       
+                                               <mark class="red"></mark>
+                                               <div class="container">
+                                                   <h3>Hopfield network  (Learning)</h3>         
+    
+
+                                                  <div class="right">  
+
+                          		           <div>  
+                                                   <h4>Weight rule <h4>    
+                          		           </div>                                		              
+                                                   <ol>
+                                          		
+						          <p class="paragraph2"> \(  w_{i,j} = \frac{1}{N} \sum_{k=1}^{N} (s^k_i)(s^k_j) \) </p>   				          
+                                                   </ol>    
+
+               
+                          		           <div>  
+                                                   <h4>Weight matrix</h4>     
+                          		           </div>                       		 
+                                                   <ul>  
+                                                    <p class="paragraph4"  style="font-size: 14px"> 
+                                                      \[
+                                                      W = \begin{pmatrix} 
+
+                                                       0&  1&  1&  0& 0& -1&  0&  1&  0\\
+                                                       1&  0&  1&  0& 0& -1&  0&  1&  0\\
+                                                       1&  1&  0&  0& 0& -1&  0&  1&  0\\
+                                                       0&  0&  0&  0& -1& 0&  1&  0&  1\\
+                                                       0&  0&  0& -1&  0&  0& -1& 0& -1\\
+                                                       -1& -1& -1& 0&  0&  0& 0& -1&  0\\
+                                                        0&  0&  0&  1& -1& 0&  0&  0&  1\\
+                                                        1&  1&  1&  0& 0& -1&  0&  0&  0\\
+                                                        0&  0&   0&  1& -1& 0&  1&  0&  0
+                                                          
+                                                        \end{pmatrix} 
+                                                      \] 
+
+                                                    </p>         
+                          		 
+                                                  <ul/>              
+                                                  </div>      
+
+                                                  <div class="left">  
+                          		           <div>             
+                                                     <h4>Input (letters C and T)</h4>  
+                                                   </div>      
+                                                               <p class="paragraph2"><img src="href=../../img_2019_Lect_5/C_letter.png"  height="200" width="200"> <img src="href=../../img_2019_Lect_5/T_letter.png"  height="200" width="200"></p>                       
+
+    
+                           		           <div>
+                                                     <h4>Representation<h4>
+                          		           </div>       
+                                                      
+                                                     <ol>
+                                          		
+						          <p class="paragraph2"> \( s^1 = (1,1,1,1,-1,-1,1,1,1) \) </p>  
+						          <p class="paragraph2"> \( s^2 = (1,1,1,-1,1,-1,-1,1,-1) \) </p>    				          
+                                                     <ol/>                   
+                           		           </div>     
+                                             </div>  
+                                          
+                                      
+                                                  <aside class="notes">
+                                                    
+                                           	  </aside>
+                              
+        		             </section>   
+
+        		             <section>       
+                                               <mark class="red"></mark>
+                                               <div class="container">
+                                                   <h3>Hopfield network (Learning)</h3>         
+    
+
+                                                  <div class="right">  
+                                                  <div>
+                                                   <h4>Hinton maps C and T letters</h4>    
+                                                  </div>                
+  
+                                                               <p class="paragraph2"><img src="href=../../img_2019_Lect_5/Hinton_C_T_Letters.png"  height="400" width="650"></p>                       
+            
+                                                  
+                                                  </div>      
+
+                                                  <div class="left">    
+                                                  <div>   
+                                                   <h4>Weight matrix</h4>       
+                                                  </div>                     		 
+                                                   <ul>  
+
+                                                    <p class="paragraph4"  style="font-size: 14px"> 
+                                                      \[
+                                                      W = \begin{pmatrix}
+
+						        0&  1&  1&  0& 0& -1&  0&  1&  0\\
+                                                       1&  0&  1&  0& 0& -1&  0&  1&  0\\
+                                                       1&  1&  0&  0& 0& -1&  0&  1&  0\\
+                                                       0&  0&  0&  0& -1& 0&  1&  0&  1\\
+                                                       0&  0&  0& -1&  0&  0& -1& 0& -1\\
+                                                       -1& -1& -1& 0&  0&  0& 0& -1&  0\\
+                                                        0&  0&  0&  1& -1& 0&  0&  0&  1\\
+                                                        1&  1&  1&  0& 0& -1&  0&  0&  0\\
+                                                        0&  0&   0&  1& -1& 0&  1&  0&  0
+
+                                                          
+                                                        \end{pmatrix} 
+                                                      \] 
+
+                                                    </p>    
+                                                   
+                          		 
+                                                   
+                                                  <ul/>               
+                          		             
+       
+
+                           		           </div>     
+                                             </div>  
+                                          
+                                      
+                                                  <aside class="notes">
+                                                    
+                                           	  </aside>
+                              
+        		             </section>   
+
+        		             <section>       
+                                               <mark class="red"></mark>
+                                               <div class="container">
+                                                   <h3>Hopfield network</h3>         
+    
+
+                                                  <div class="right">  
+
+                          		           <div>       
+                                                   <h4>Energy model</h4>     
+                                                   </div> 
+                                            
+
+                                                     <p class="paragraph2">
+                                                          \[   
+                                                                  E =  -\frac{1}{2} \sum_{i,j} s_i s_j w_{i,j}      
+                                                           \]
+                                                     </p>   
+                          		           <div>       
+                                                     <h4>Weight matrix</h4>        
+                                                   </div>    
+
+                        		 
+                                                   <ul>  
+                                                    <p class="paragraph4"  style="font-size: 14px"> 
+                                                      \[
+                                                      W = \begin{pmatrix}
+
+						       0&  1&  1&  0& 0& -1&  0&  1&  0\\
+                                                       1&  0&  1&  0& 0& -1&  0&  1&  0\\
+                                                       1&  1&  0&  0& 0& -1&  0&  1&  0\\
+                                                       0&  0&  0&  0& -1& 0&  1&  0&  1\\
+                                                       0&  0&  0& -1&  0&  0& -1& 0& -1\\
+                                                       -1& -1& -1& 0&  0&  0& 0& -1&  0\\
+                                                        0&  0&  0&  1& -1& 0&  0&  0&  1\\
+                                                        1&  1&  1&  0& 0& -1&  0&  0&  0\\
+                                                      0&  0&   0&  1& -1& 0&  1&  0&  0
+						      
+                                                          
+                                                        \end{pmatrix} 
+                                                      \] 
+                                                    </p>                           		 
+                                                   
+                                                  <ul/>              
+                                                  </div>      
+
+                                                  <div class="left">  
+
+                          		           <div>             
+                                                      <h4>Local optima of the energy<h4>
+                                                   </div>      
+                                                     <ol>
+                                          		
+						          <p class="paragraph4"><mark class="red"> \( s^1 = (1,1,1,1,-1,-1,1,1,1). \; E(s^1) = -16 \) </mark>.  </p>  
+						          <p class="paragraph4"> \( r^1 = ( \) <mark class="red">\(-1\)</mark> \(,1,1,1,-1,-1,1,1,1). \; E(r^1) = -8 \) </p>  
+						          <p class="paragraph4"> \( r^2 = (1, \)<mark class="red">\(-1\)</mark>\(,1,1,-1,-1,1,1,1). \; E(r^2) = -8  \)</p>  
+						          <p class="paragraph4"> \( r^3 = (1,1,-1,1,-1,-1,1,1,1). \; E(r^3) = -8  \)</p>  
+						          <p class="paragraph4"> \( r^4 = (1,1,1,-1,-1,-1,1,1,1). \;  E(r^4) = -10 \) </p>  
+						          <p class="paragraph4"> \( r^5 = (1,1,1,1,1,-1,1,1,1).  \; E(r^5) = -10 \) </p>  
+						          <p class="paragraph4"> \( r^6 = (1,1,1,1,-1,1,1,1,1).  \; E(r^6) = -8\) </p>  
+						          <p class="paragraph4"> \( r^7 = (1,1,1,1,-1,-1,-1,1,1).  \; E(r^7) = -10 \)  </p>  
+						          <p class="paragraph4"> \( r^8 = (1,1,1,1,-1,-1,1,-1,1).  \; E(r^8) = -8 \)  </p> 
+						          <p class="paragraph4"> \( r^{9} = (1,1,1,1,-1,-1,1,1,-1).  \; E(r^9) = -10 \)  </p>  
+ 				          
+                                                     <ol/>                   
+                           		           </div>     
+
+                             
+                                                       
+                                                     
+                                             </div>  
+                                          
+                                      
+                                                  <aside class="notes">
+                                                    
+                                           	  </aside>
+                              
+        		             </section>   
+
+
+
+ 				      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                   <h3>Hopfield network</h3>                                                   
+                                                   <h4>Limitations</h4>
+                                                   <ol>
+                                                          <li class="paragraph2"> Local optima and <mark class="red">low memory capacity</mark> </li>   
+                                                       
+						          <li class="paragraph2">Synchronous and asynchronous methods can lead to <mark class="red">local optima</mark> (the energy is not minimized). </li>
+						          <li class="paragraph2"> Synchronous methods can increase the energy. </li>
+				  	             
+				
+
+						  
+                                                    </ol>     						           
+                          		 </div>                                                 
+                                                  <aside class="notes">
+                                                       Although the Hopfield network is a very interesting and for its time novel model, it has a number of serious disadvantages.  
+                                                       One of them is that the learning process can be stucked in local optima. What the learning process does is in fact an optimization process an local moves (single unit inversions) are not guaranteed that we will find the states that minimizes the NN energy. 
+                                                       If we first identify the units and then change them together we can even move to a state of higher energy.
+                                                       The main limitation is related to its low storage capacity. The Hopfield network is supposed to be a model that stores the states. However it requires a lot of memory to store these data.                                                                               A network of \(N\) units can only store up to \(0.15N\) bits but it needs \(N^2\) edges.      	
+                                           	  </aside>
+ 				      </section> 
+		         </section> 
+
+		         <section> 
+                                      <section  id="sec:NNs_BoltzmannMachines">
+                                               <mark class="red"></mark>
+                                               <div class="container">
+                                                   <h3>Boltzmann machines</h3>      
+                                    
+                                                  <div class="right">
+                                                  <h4>Network architecture</h4>
+                                                      <ul>      
+                                                        <img src="href=../../img/NNZoo/bm.png"  height="300" width="600">           
+					                
+                                                      <ul/>                                                      
+                                                      <p class="paragraph2"> Figure credit. <a href="http://www.asimovinstitute.org/neural-network-zoo/"> Neural network zoo.</a> </p>
+
+                          		          </div>
+  
+                                      
+                                                  <div class="left">   
+                                                      <h4>Characteristics</h4>
+                                                      <ul>      
+
+                                                          <li class="paragraph2">A  <mark class="red">stochastic with-hidden-unit</mark> version of a Hopfield Network.</li>
+						          <li class="paragraph2">The model conceptually splits into the <mark class="red">visible</mark> part and the <mark class="red">hidden</mark> part. </li>
+						          <li class="paragraph2">Only visible units are connected with data. </li>
+						          <li class="paragraph2">Hidden units are used to assist visible units to describe the distribution of data.   </li>     
+						          <li class="paragraph2">Uses the <mark class="red">Boltzmann distribution</mark>, extensively applied in statistical physics. </li>
+						         
+                                                         					                
+                                                      <ul/>                                                         
+                                                     
+                                                  </div>    
+                                                   
+                                              
+						   <p class="paragraph2">  D. H. Ackley, G. E. Hinton, and T. J. Sejnowski. <a href="http://onlinelibrary.wiley.com/doi/10.1207/s15516709cog0901_7/abstract;jsessionid=518EAEFCDED489B63CB1CE49C661409C.f03t03"> A learning algorithm for Boltzmann machines. </a> Cognitive science, 9(1):147–169, 1985. </p>
+
+						</div>
+                                      
+                                                  <aside class="notes">
+                                                         While different methods were proposed to address the limitations of the Hopfield network, a more complete solution to these limitation was the introduction of a new class of networks, the Boltzmann machine. 
+                                                         I will explain the Boltzmann distribution later.                  
+                                           	  </aside>
+                              
+ 
+        		             </section>      
+
+
+				      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>   
+                                                   <h3>Boltzmann machines</h3>                                             
+                                                   <h4>Applications</h4>
+                                                   <ol>
+                                                          <li class="paragraph2"><mark class="red">Pattern recognition</mark>: The latent features produced by the network can be used as descriptors of the data. </li>
+                                                          <li class="paragraph2"><mark class="red">Probabilistic modeling</mark>: It can learn the distribution of the data and detect outliers.</li>
+
+                                                          <li class="paragraph2"><mark class="red">Optimization</mark>: Combinatorial optimization problems can be directly mapped onto the structure of a Boltzmann machine by choosing the right connections. </li>
+						  
+                                                    </ol>     						           
+                          		 </div>                  
+
+                                     <p class="paragraph2"> E. H. L. Aarst and J. H. M. Korst. <a href="https://pdfs.semanticscholar.org/84c2/e2c0354521070072c5676d03f67a438fef0f.pdf"> Boltzmann machines and their applications.</a> International Conference on Parallel Architectures and Languages Europe. Springer, Berlin, Heidelberg, 1987.</p>                                 
+                                                  <aside class="notes">
+                                                                                                  
+                                           	  </aside>
+ 				      </section> 
+
+
+       		                      <section>       
+                                               <mark class="red"></mark>
+                                                <div class="container">
+                                                   <h3>Boltzmann Machine example (four variables)</h3>         
+                                                   <div class="right">        
+                                                     <div>  
+                                                       <h4>State space<h4>
+                                                     </div>  
+                                                     <ol>
+                                          		
+						          <p class="paragraph2"> \( s^1 = (-1,-1,-1,-1) \) </p>  
+						          <p class="paragraph2"> \( s^2 = (-1,-1,-1,1) \) </p>
+  						          <p class="paragraph2"> \( \dots \) </p>
+						          <p class="paragraph2"> \( s^{16} = (1,1,1,1) \) </p>    				          
+                                                     </ol>                  
+                         		       
+                                                   
+                                                   </div>  
+
+                                               <div class="left">       
+                                                   <div>  
+                                                     <h4>Weight matrix and network</h4> 
+                                                   </div>                           		 
+                                                   <ul>  
+                                                    <p class="paragraph4"> 
+                                                      \[
+                                                      W = \begin{pmatrix} 
+                                                       0&   2&  2&   0 & 1 & 1  \\
+                                                       2&   0& -2&  -2 & -1& 2  \\
+                                                       2&  -2&  0&   0 & 2 & 0   \\                                                  
+                                                       0&  -2&  0&   0 & -1& 0   \\    
+                                                       1&  -1&  2&  -1 & 0 & 1 \\                                                  
+                                                       1&   2&  0&   0 & 1 & 0                                             
+                                                        \end{pmatrix} 
+                                                      \] 
+                                                    </p>         
+                          		           </ul>             
+                                                      <ol>                                         		
+						         		
+                                                           <p class="paragraph2"><img src="href=../../img_2019_Lect_5/BM_Example.png"  height="200" width="400"></p>                       
+	          
+                                                     </ol>           
+                                                  
+
+                                                  </div>            
+                                               </div>                                             
+                                                                                
+                                                  <aside class="notes">
+                                                    
+                                           	  </aside>
+                              
+        		             </section>     
+
+                                     <section>
+                                          <div class="my_container">
+                                   	  <h3>Boltzmann machine</h3>
+                                          <h4>Energy function</h4>
+                          		 
+                                              <p class="paragraph2"> 
+                                                \[
+
+                                                      E(v,h) = -\sum_i v_ib_i  -\sum_k h_k d_k    -\sum_{i,j} v_iv_jw_{i,j}  -\sum_{i,k} v_ih_k w_{i,k}   -\sum_{k,l} h_kh_lw_{k,l}
+                                                \] 
+                                              </p>         
+                          		 
+                                              <p class="paragraph2"> \( v \): visible units. </p>
+                                              <p class="paragraph2"> \( h \): hidden units. </p>         
+                                              <p class="paragraph2"> \( w \): weights. </p>
+                                              <p class="paragraph2"> \( i,j,k,l \):  indices of the units. </p>         
+                          		 </div>   
+
+                                           <aside class="notes"
+                                                  When Boltzmann Machine is trained to its stable state, which is called thermal equilibrium, the distribution of these probabilities  \( p(v, h) \) will remain constant because the distribution of energy will be a constant. 
+  \item However, the probability for each visible unit or hidden unit may vary and the energy may not be at their minimum. 
+
+                                                 Originally used to describe the probability distribution of particles in a system over various possible states.
+                                           </aside>
+
+ 				      </section>  
+
+
+        		             <section>       
+                                               <mark class="red"></mark>
+                                                <div class="container">
+                                                   <h3>Boltzmann machine</h3>         
+                                                   <div class="right">             
+                                                     <div>  
+                                                     <h4>Update rule Boltzmann machine</h4>
+                                                    </div>  
+                                                     <ol>                               
+
+                                                          <p class="paragraph2"> \( z_i(t) = b_i + \sum_j w_{ij} s_j(t) \) </p>           		
+						          <p class="paragraph2"> \( p(s_i(t+1)=1) = \frac{1}{1+e^{-z_i}} \) </p>    	
+
+						          <p class="paragraph2"> \( p(s_i(t+1)=-1) = 1-\frac{1}{1+e^{-z_i}} \) </p>    				          				    
+                                                     </ol>                  
+
+    
+                                                  </div>     
+                                                  <div class="left">           
+                                                 
+                                                     <div>  
+                                                     <h4>Update rule Hopfield network</h4>
+                                                    </div>  
+                                                     <ol>                                          		
+						          <p class="paragraph2"> \( s_i(t+1) =  sign(\sum_j w_{ij} s_j(t) +  b_i) \) </p>    				          				         <p class="paragraph2">
+                                                           \[
+
+                                                               sign(x) = \begin{cases}
+                                                                       1, & \mbox{if } x \geq 0 \\ 
+                                                                       -1, & \mbox{otherwise} 
+                                                                      \end{cases}
+                                                           \]
+							  </p> 
+                                                     </ol>  
+
+
+ 
+                                                  </div>     
+                                               </div>                                                             
+                                                                                
+                                                  <aside class="notes">
+                                                    
+                                           	  </aside>
+                              
+        		             </section> 
+         
+
+
+                                      <section>
+                                               <mark class="red"></mark>
+                                               <div class="container">   
+                                                   <h3>Boltzmann machines</h3>      
+                                                  <div class="right">                    
+
+                          		           <div>                       
+                                                     <h4>Why to add a stochastic factor to a Hopfield network?<h4>
+                          		           </div>
+                                                     <ul>
+
+						          <li class="paragraph2"> Using probabilities helps the learning procedure to <mark class="red"> scape from local optima</mark>.</li>
+						          <li class="paragraph2"> Set transition probabilities <mark class="red">to move from the current state</mark>.</li>					                                                  						           
+                                                     </ul>                   
+                                 		              
+                           		           </div>   
+
+                                                  <div class="left">  
+                                           	     <div>
+                                                     <h4>Why to add a hidden layer to a Hopfield network?<h4>
+                    		                     </div>
+
+                                                     <ul>
+
+						          <li class="paragraph2"> The hidden units act as <mark class="red">latent variables</mark> (features). </li>
+						          <li class="paragraph2"> To model distributions over visible state vectors that  <mark class="red">cannot be modelled by direct pairwise interactions</mark>  between the visible states.</li>
+						       	                                               
+						       	                                                  						           
+                                                     </ul>                   
+
+                                                                                        
+                                               </div>  
+                                                     
+                                             </div>  
+                                          
+                                      
+                                                  <aside class="notes">
+                                                       Boltzmann distribution:    Originally used to describe the probability distribution of particles in a system over various possible states.
+                                                       The idea of \( T \) is inspired by a physics process that the higher the temperature is, the more likely the state will transfer.
+                                                        The probability of higher energy state transferring to lower energy state will be always greater than the reverse process.
+                                                        It is also related to the idea of the Simulated Annealing optimization algorithm used scape local optimal.                                   
+      
+                                           	  </aside>
+                              
+        		             </section>       
+  
+
+
+
+ 				      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                   <h3>Boltzmann machines</h3>
+                                               
+                                                  <div>	 
+                                                     <h4>Boltzmann distribution</h4>   
+                          		         </div>                           		 
+                                                   <ul>  
+                                                    <p class="paragraph2"> The probability distribution of any global state is computed as:
+                                                      \[
+                                                         p({\bf{v}},{\bf{h}}) = \frac{e^{-E({\bf{v}},{\bf{h}})}}{Z},
+                                                      \] 
+                                                    </p>     
+                                                    <p class="paragraph2"> where \(Z\) is the <mark class="red">normalizing constant</mark>:
+                                                      \[
+                                                        Z = \sum_{{\bf{v}},{\bf{h}}} e^{-E({\bf{v}},{\bf{h}})}
+                                                      \] 
+                                                    </p>                              		 
+                                                   
+                                                   </ul>
+
+
+					  </div>					   			  
+
+
+						  <p class="paragraph2">D. H. Ackley, G. E. Hinton, and T. J. Sejnowski.   <a href="http://onlinelibrary.wiley.com/doi/10.1207/s15516709cog0901_7/abstract;jsessionid=518EAEFCDED489B63CB1CE49C661409C.f03t03">A learning algorithm for Boltzmann machines.</a>Cognitive science, 9(1):147–169. 1985. </p>
+
+					                            		           			
+                     
+
+                                         <aside class="notes">
+                                                       Boltzmann distribution:    Originally used to describe the probability distribution of particles in a system over various possible states.
+                                                       The idea of \( T \) is inspired by a physics process that the higher the temperature is, the more likely the state will transfer.
+                                                        The probability of higher energy state transferring to lower energy state will be always greater than the reverse process.
+                                                        It is also related to the idea of the Simulated Annealing optimization algorithm used scape local optimal.                                   
+      
+                                         </aside>
+                                                  
+ 				      </section>
+
+
+
+ 				      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                   <h3>Boltzmann machines</h3>                                              
+                                                 
+                                                  
+                          		           <div>
+                                                   <h4>Marginal probabilities</h4> 
+                          		           </div>                         		 
+                                                   <ul>  
+                                                    <p class="paragraph2"> The <mark class="red"> probabilities of visible units</mark> are the sum of the probabilities of all the joint configurations that contain them: 
+                                                      \[
+                                                          p({\bf{v}}) = \sum_{{\bf{h}}} p({\bf{v}},{\bf{h}}) = \frac{\sum_{{\bf{h}}} e^{-E({\bf{v}},{\bf{h}})}}{Z}.
+                                                      \] 
+                                                    </p>                                                        
+                                                  </ul>              
+                                         
+                                               </div>  						
+                     
+                                         <aside class="notes">
+                                                       Boltzmann distribution:    Originally used to describe the probability distribution of particles in a system over various possible states.
+                                                       The idea of \( T \) is inspired by a physics process that the higher the temperature is, the more likely the state will transfer.
+                                                        The probability of higher energy state transferring to lower energy state will be always greater than the reverse process.
+                                                        It is also related to the idea of the Simulated Annealing optimization algorithm used scape local optimal.                                   
+      
+                                         </aside>
+					                  
+					 <p class="paragraph2">D. H. Ackley, G. E. Hinton, and T. J. Sejnowski.   <a href="http://onlinelibrary.wiley.com/doi/10.1207/s15516709cog0901_7/abstract;jsessionid=518EAEFCDED489B63CB1CE49C661409C.f03t03">A learning algorithm for Boltzmann machines.</a>Cognitive science, 9(1):147–169. 1985. </p>
+                                                  
+ 				      </section>
+
+				      
+		       
+ 				      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                   <h3>Boltzmann machines</h3>
+                                                   <h4>Model learning</h4>
+                                                   <ol>
+
+						          <li class="paragraph2"> Estimate the parameters of the NN that <mark class="red">maximize the likelihood</mark> of the observed data.</li>
+						          <li class="paragraph2"> One possibility is to do <mark class="red">gradient descent</mark>  of the log of the likelihood.</li>						        
+						          <li class="paragraph2"> Expressions for the gradient of the likelihood are derived.</li>
+						          <li class="paragraph2"> Approximate methods such <mark class="red">Markov Chain Monte Carlo</mark> (MCMC) optimization are used. </li>     
+						          <li class="paragraph2"> Still, computing the approximation can be <mark class="red">computationally costly</mark>. </li>
+                                                 						           
+   					  
+                                                    </ol>     						           
+                                                        
+                          		  </div>
+			                
+					    <p class="paragraph2">D. H. Ackley, G. E. Hinton, and T. J. Sejnowski.   <a href="http://onlinelibrary.wiley.com/doi/10.1207/s15516709cog0901_7/abstract;jsessionid=518EAEFCDED489B63CB1CE49C661409C.f03t03">A learning algorithm for Boltzmann machines.</a>Cognitive science, 9(1):147–169. 1985. </p>  
+                                      
+                                                  <aside class="notes">
+                                                      The estimation of the parameters is more cumbersome than for the Hopfield network.
+                                                      Basically, we will train the NN to maximize the log-likelihood of the training data.
+                                                      To find the parameters, gradient descent of the likelihood can be performed. 
+                                                      The expressions of the likelihood are expectations with respect to the distributions of the state configurations.
+                                                      Calculating these expressions is not feasbile  due to the large number of states and configurations. 
+                                                      MCMC methods are then applied but they can also take a long time. 
+                                                
+                                           	  </aside>
+ 				      </section>
+</section>
+
+
+
+		         <section> 
+                                      <section  id="sec:NNs_RBMs"> 
+                                                <mark class="red"></mark>
+                                               <div class="container">
+                                                    <h3>Restricted Boltzmann machines</h3>      
+                                    
+                                                  <div class="right">
+                                                  <h4>Network architecture</h4>
+                                                      <ul>      
+                                                        <img src="href=../../img/NNZoo/rbm.png"  height="300" width="250">           
+					                
+                                                      <ul/>                                                
+                                                      <p class="paragraph2"> Figure credit. <a href="http://www.asimovinstitute.org/neural-network-zoo/"> Neural network zoo.</a> </p>
+      
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Characteristics</h4>
+                                                      <ul>      
+						          <li class="paragraph2">Originally known by <mark class="red">Harmonium</mark>. </li>
+						          <li class="paragraph2">There is <mark class="red">no connections either between visible units or between hidden units</mark>. </li>
+						          <li class="paragraph2">The structure of the model becomes a <mark class="red">bipartite graph</mark>. </li>     
+						          <li class="paragraph2">Training methods similar to those used for Boltzmann machines could be used. </li>
+						          <li class="paragraph2">However, other methods (to be covered later in the course) could be used.  </li>   	
+			                
+                                                      <ul/>    
+                                                   
+                                                  </div>    
+                                                   
+                                               </div>
+					        
+                                                     <p class="paragraph2">  P. Smolensky. <a href="http://dl.acm.org/citation.cfm?id=104290"> Information processing in dynamical systems: Foundations of harmony theory. </a> Technical report, DTIC Document, 1986. </p>              
+                                                <aside class="notes">
+                                                      As the name indicates, the RBM introduces some sort of restriction to the Boltzmann machine.
+                                                      This restriction is in the network structure.
+                                                      We will remove the connections within hidden neurons and also the connections withing visible neurons. 
+                                                      In principle, this reduces the power of the network but on the other hand this makes training more efficient.                                                                     
+                                           	  </aside>
+ 				      </section>
+
+
+       		                      <section>       
+                                               <mark class="red"></mark>
+                                                <div class="container">
+                                                   <h3>Restricted Boltzmann Machine example (four variables)</h3>         
+                                                   <div class="right">        
+                                                     <div>  
+                                                       <h4>State space<h4>
+                                                     </div>  
+                                                     <ol>
+                                          		
+						          <p class="paragraph2"> \( s^1 = (-1,-1,-1,-1) \) </p>  
+						          <p class="paragraph2"> \( s^2 = (-1,-1,-1,1) \) </p>
+  						          <p class="paragraph2"> \( \dots \) </p>
+						          <p class="paragraph2"> \( s^{16} = (1,1,1,1) \) </p>    				          
+                                                     </ol>                  
+                         		       
+                                                   
+                                                   </div>  
+
+                                               <div class="left">       
+                                                   <div>  
+                                                     <h4>Weight matrix</h4> 
+                                                   </div>                           		 
+                                                   <ul>  
+                                                    <p class="paragraph4"> 
+                                                      \[
+                                                      W = \begin{pmatrix} 
+                                                       0&   0&  2&   0 & 1 & 1  \\
+                                                       0&   0& -2&  -2 & -1& 2  \\
+                                                       2&  -2&  0&   0 & 0 & 0   \\                                                  
+                                                       0&  -2&  0&   0 & 0 & 0   \\    
+                                                       1&  -1&  0&   0 & 0 & 0 \\                                                  
+                                                       1&   2&  0&   0 & 0 & 0                                             
+                                                        \end{pmatrix} 
+                                                      \] 
+                                                    </p>         
+                          		           </ul>             
+                                                     <div>                    		       
+                                                       <h4>Network<h4>
+                                                     </div>  
+                                                      <ol>                                         		
+						         		
+                                                           <p class="paragraph2"><img src="href=../../img_2019_Lect_5/RBM_Example.png"  height="250" width="400"></p>                       
+	          
+                                                     </ol>           
+                                                  
+
+                                                  </div>            
+                                               </div>                                             
+                                                                                
+                                                  <aside class="notes">
+                                                    
+                                           	  </aside>
+                              
+        		             </section>     
+
+
+                                      <section>
+                                          <div class="my_container">
+                                   	  <h3>Restricted Boltzmann machine</h3>
+                                          <h4>Energy function</h4>
+                          		 
+                                              <p class="paragraph2"> 
+                                                \[
+                                                    E(v,h) = -\sum_i v_ib_i -\sum_k h_k d_k  -\sum_{i,k} v_ih_k w_{i,k}                                                                    \] 
+                                              </p>         
+                          		 
+                                              <p class="paragraph2"> \( v \): visible units. </p>
+                                              <p class="paragraph2"> \( h \): hidden units. </p>         
+                                              <p class="paragraph2"> \( w \): bidirectional weights. </p>
+                                              <p class="paragraph2"> \( i,k \):  indices of the units. </p>         
+                          		 </div>   
+
+                                           <aside class="notes"
+                                                The energy function of the RBM is simplified as a result of simplified the structure. 
+                                                Then, to learn the parameters, we could apply MCMC methods to minimize the likelihood given the model.
+                                                However, Hinton proposed other types of methods. We will leave the discussion of these methods for after we do the practice with Boltzmann machines and RBMs.           
+                                           </aside>
+ 				      </section>    
+
+
+                                     <section>
+                                               <mark class="red"></mark>
+                                               <div class="container">     
+                                                   <h3>Restricted Boltzmann machines</h3>      
+                                                  <div class="right">      
+
+                                                       <div>                                   
+                                                         <h4>Difference to Boltzmann machines<h4>             	
+                          		                </div>	 
+                                            
+                                                       <ul>     
+                                                        <p class="paragraph2"> The visible nodes are conditionally dependent among them given the hidden nodes. 
+                                                        <p class="paragraph2"> The hidden nodes are conditionally dependent among them given the visible nodes. 
+                                                 
+                                                      </ul>              
+                                         
+                                                   </div>                 		         
+
+                                                   <div class="left">  
+                          		           <div>	 
+                                                      <h4>Boltzmann distribution</h4>   
+                          		            </div>	                        		 
+                                                   <ul>  
+                                                    <p class="paragraph2"> The probability distribution of any global state is computed as:
+                                                      \[
+                                                         p({\bf{v}},{\bf{h}}) = \frac{e^{-E({\bf{v}},{\bf{h}})}}{Z},
+                                                      \] 
+                                                    </p>     
+                                                    <p class="paragraph2"> where \(Z\) is the <mark class="red">normalizing constant</mark>:
+                                                      \[
+                                                        Z = \sum_{{\bf{x}},{\bf{y}}} e^{-E({\bf{v}},{\bf{h}})}
+                                                      \] 
+                                                    </p>                              		 
+                                                   
+                                                  </ul>              
+                          		           <div>
+                                                   <h4>Marginal probabilities</h4> 
+                          		           </div>                         		 
+                                                   <ul>  
+                                                    <p class="paragraph2"> The <mark class="red"> probabilities of visible units</mark> are the sum of the probabilities of all the joint configurations that contain them: 
+                                                      \[
+                                                          p({\bf{v}}) = \sum_{{\bf{h}}} p({\bf{v}},{\bf{h}}) = \frac{\sum_{{\bf{h}}} e^{-E({\bf{v}},{\bf{h}})}}{Z}.
+                                                      \] 
+                                                    </p>                                                        
+                                                  </ul>              
+                                         
+                                               </div>  
+                                                     
+                                             </div>  
+                                          
+                                      
+                                                  <aside class="notes">
+                                            	  </aside>
+                              
+        		             </section>       
+
+
+                                     <section>
+                                               <mark class="red"></mark>
+                                               <div class="container">     
+                                                   <h3>Restricted Boltzmann machines (learning)</h3>      
+                                                  <div class="right">      
+
+                          		            <div>	 
+                                                     <h4>Negative phase</h4>   
+                          		            </div>
+                                                     <ul> 
+                                                    <p class="paragraph2"> Given the hidden states, the <mark class="red">visible states</mark> are reconstructed using  \( \phi \) according to: 
+                                                      \[
+                                                         p(v_i|{\bf{h}}) = \phi \left( \sum_j w_{i,j} h_j -b_i \right),
+                                                      \] 
+                                                    </p>     
+                                                   
+                                                  </ul> 
+
+
+                                                    <div>	 
+                                                     <h4>Update weights and biases</h4>   
+                          		            </div>
+                                                    <ul> 
+                                                    <p class="paragraph2">Weights <mark class="red"></mark> and <mark class="red">biases</mark> are updated as: 
+                                                      \[
+
+                                                        \begin{align}
+                                                             w_{i,j}^{\prime} &=& w_{i,j} + \eta \left( \langle v_i h_i \rangle_O - \langle v_i h_i\rangle_S \right) \\
+                                                             b_{i}^{\prime}   &=& b_{i}   + \eta \left( \langle v_i \rangle_O - \langle v_i \rangle_S \right)  \\
+                                                             d_{i}^{\prime}   &=& d_{i}   + \eta \left( \langle v_i \rangle_O - \langle v_i \rangle_S \right)
+                                                       \end{align}
+
+                                                      \] 
+                                                    </p>     
+                                                   <p class="paragraph2"> where \(\eta\) is the <mark class="red">learning rate</mark>, \(\langle \rangle_O\) comprises the  <mark class="red">original states</mark> of the neurons and \( \langle \rangle_S\) is the <mark class="red"> expected states</mark>  of the neurons after \( S \) step reconstruction.  </p>                                                                                                                                        </ul> 
+                                                   </div>                 		         
+
+                                                   <div class="left">  
+                          		            <div>	 
+                                                      <h4>Contrastive divergence</h4>   
+                          		            </div>	                        		 
+                                                     <ul>  
+                                                        <li class="paragraph2"> <mark class="red">Learning method</mark> used to learn RBMs. </li>
+                                                        <li class="paragraph2"> It has two phases: <mark class="red">positive</mark> and <mark class="red">negative</mark>. </li>
+                                                       <li class="paragraph2"> The process involving these two phases is repeated <mark class="red">  \(S\) times</mark>. </li>
+                                                     </ul>    
+
+                          		            <div>	 
+                                                     <h4>Positive phase</h4>   
+                          		            </div>
+                                                     <ul> 
+                                                    <p class="paragraph2"> The inputs are rendered into the visible units. The <mark class="red">hidden states</mark> are determined using <mark class="red">Gibbs sampling</mark> according to: 
+                                                      \[
+                                                         p(h_i|{\bf{v}}) = \phi \left( \sum_i w_{i,j} v_i - d_j \right),
+                                                      \] 
+                                                    </p>     
+                                                    <p class="paragraph2"> where \(\phi({\bf{x}}) \) is the <mark class="red">logistic function</mark>.</p>                                               
+                                                  </ul>             
+                                                </div>  
+                                                     
+                                             </div>  
+                                          
+                                      
+                                                  <aside class="notes">
+                                            	  </aside>
+                              
+        		             </section>   
+      		           </section> 
+
+
+	      
+			</div>
+		</div>
+
+
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			Reveal.initialize({
+   	                        history: true,
+				transition: 'linear',
+
+				math: {
+					// mathjax: 'http://cdn.mathjax.org/mathjax/latest/MathJax.js',
+					config: 'TeX-AMS_HTML-full'
+				},
+
+				dependencies: [
+                                        { src: 'lib/js/fullscreen-img.js' },
+					{ src: 'lib/js/classList.js' },
+					{ src: 'plugin/math/math.js', async: true }
+
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
