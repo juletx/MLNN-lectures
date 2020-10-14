@@ -1,0 +1,1488 @@
+<!doctype html>
+<html lang="en">
+
+
+   
+    
+	<head>
+		<meta charset="utf-8">
+
+		<title>Machine Learning and Deep Learning</title>
+                <meta name="author" content="Roberto Santana">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<!-- <link rel="stylesheet" href="css/reveal.css">  -->
+                <link rel="stylesheet" href="css/fullscreen-img.css">
+                <link rel="stylesheet" href="css/added_css/notebook.css">
+   	        <link rel="stylesheet" href="css/reveal.css">
+                <link rel="stylesheet" href="css/theme/nncourse.css" id="theme">
+                                
+
+	</head>
+
+	<body>
+
+
+		<div class="reveal">
+			<div class="slides">
+
+				<section>
+                                          <div class="my_container">
+                                        <h2>Machine Learning and Neural Networks</h2>
+					<p>Roberto Santana and Unai Garciarena<p>
+					<p>Department of Computer Science and Artificial Intelligence</p>
+                                        <p>University of the Basque Country</p>
+                          		 </div>   
+				</section>
+
+
+
+                                 <section>
+                                        <div class="my_container">
+                                        <h3>Table of Contents </h3>
+                                        
+                                         <table style="width:100%"; border=solid>
+
+  				   
+							  
+					    <tr>
+
+					        
+
+                                                 <td> <p class="paragraph2"> <a href="#/sec:ML_S_LDA"> Linear Discriminant Analysis </a> </p></td>
+				                 <td> <p class="paragraph2"> <a href="#/sec:ML_S_LOGR"> Logistic regression  </a></p></td>   
+                                                 <td> <p class="paragraph2"> <a href="#/sec:ML_S_CLF_OTHER"> Other classifiers </a></p></td>   
+			                  
+                                            </tr>
+										      
+					   <tr>
+
+				                
+
+						 <td> <p class="paragraph2"> <a href="#/sec:ML_S_DT"> Decision trees </a></p></td>      
+
+						 <td> <p class="paragraph2"> <a href="#/sec:ENSEMBLES"> Ensembles </a></p></td>
+
+			                         <td> <p class="paragraph2"> <a href="#/sec:RF"> Random Forests </a></p></td>      
+                                           </tr>
+					   
+					    <tr>
+											 
+			                         <td> <p class="paragraph2"> <a href="#/sec:ML_S_EVAL_CLASS"> Evaluation of classifiers </a></p></td>      
+                                                
+
+						 <td> <p class="paragraph2"> <a href="#/sec:ML_S_METRICS"> Metrics </a></p></td>
+
+						 <td> <p class="paragraph2"> <a href="#/sec:ML_S_CONF_MATRIX"> Confusion Matrix </a></p></td>
+						 
+						 <td> <p class="paragraph2"> <a href="#/sec:ML_S_CLF_OTHER"> Cross-validation </a></p></td>
+						 
+                                            </tr>
+
+				         </table>	  
+                          	     </div>   
+
+				 </section>
+
+
+
+				   <section data-transition="none">                                                             		  
+                             	          <h3>Supervised learning</h3>       
+                                	  <h4>How to separate the classes?</h4>                                                 
+                                                <div class="container">
+                                                <div class="left">                                                 
+                                                   <ul>                                                                                                                                                        <p class="paragraph2"><img src="href=../../img/classregions/Linear_Class_No_HP.png"  height="420" width="500"></p>                            
+                                                                                                                                                                                                           <ul/>                                                                  
+                                                 </div>            
+                                                                                                                    
+                                               </div>                           
+                                
+                                                   <aside class="notes">
+                                                       Classification problems can vary in their complexity.                   
+                                            	   </aside>
+        		  	         </section>
+                                          <section data-transition="none">                                
+                             	          <h3>Supervised learning</h3>       
+                                	  <h4>A line (hyperplane) is sufficient</h4>                                                       
+                                                <div class="container">                                             
+                                                <div class="left">                                                 
+                                                   <ul>                                                                                                                                                         <p class="paragraph2"><img src="href=../../img/classregions/Linear_Class_HP.png"  height="420" width="500"></p>                            
+                                                   <ul/>                                                                  
+                                                 </div>            
+                                                                                                                      
+                                               </div>                           
+                                
+                                                   <aside class="notes">
+                                                       Classification problems can vary in their complexity.                   
+                                            	   </aside>
+        			      </section>
+                                      <section data-transition="none">       
+                             	            <h3>Supervised learning</h3>                                
+                               	           <h4>Are these two classification problems similarly difficult?</h4>                                                      
+                                              <div class="container">
+                                                <div class="right">      
+                                                  <ul>                                                                                                                                                            <p class="paragraph2"><img src="href=../../img/classregions/OverlapLinear_Class_No_HP.png"  height="420" width="500"></p>                            
+                                                                                                                                                                                                        <ul/>                                                              
+                                                 </div>   
+                                               
+
+                                                <div class="left">                                                 
+                                                   <ul>                                                                                                                                                           <p class="paragraph2"><img src="href=../../img/classregions/Linear_Class_HP.png"  height="420" width="500"></p>                            
+                                                   <ul/>                                                                  
+                                                 </div>                                                                   
+                                                 </div>                           
+                                
+                                                   <aside class="notes">
+                                                       Classification problems can vary in their complexity.                    
+
+                                            	   </aside>
+        			       </section>
+                                       <section data-transition="none">      
+                             	          <h3>Supervised learning</h3>     
+                                          <h4>No. In the right figure, the line does not perfectly separate classes.</h4>                                           
+                                                  
+                                              <div class="container">
+                                                <div class="right">      
+                                                  <ul>                                                                                                                                               <p class="paragraph2"><img src="href=../../img/classregions/OverlapLinear_Class_HP.png"  height="420" width="500"></p>                            
+                                                                                                                                                                                               <ul/>                                                              
+                                                 </div>   
+                                               
+
+                                                <div class="left">                                                 
+                                                   <ul>                                                                                                                                               <p class="paragraph2"><img src="href=../../img/classregions/Linear_Class_HP.png"  height="420" width="500"></p>                            
+                                                                                                                                                                                                <ul/>                                                                  
+                                                 </div>                                                           
+                                                 </div>                           
+                                
+                                                   <aside class="notes">
+                                                       Classification problems can vary in their complexity.                    
+
+                                            	   </aside>
+        		     </section>
+				       
+        	             <section>
+
+                                    <section  id="sec:ML_S_LDA">
+                                          <div class="my_container">
+
+                             	          <h3>Supervised learning</h3>              
+                                 	  <h4>Linear Discriminant Analysis</h4>                    
+
+                                         <ul>  
+
+                  		               <li class="paragraph2"> LDA learns a <mark class="red">linear combinations of the features</mark> as a way to separate observations from the two classes. </li>
+
+                                              <li class="paragraph2"> It is assumed that \(p({\bf{x}}|y=0) \) and \(p({\bf{x}}|y=1) \)     follow a similar distribution. </li>
+
+                                               <li class="paragraph2"> Furthermore, it is assumed that the two conditional distributions follow <mark class="red">a normal distribution</mark>  with the same covariance matrix  \( \Sigma \) and means \( \mu_0 \) and \( \mu_1 \), respectively.  </li>
+
+                                               <li class="paragraph2"> Given a vector of features \( {\bf{x}} \) , the decision criterion is  \(w {\bf{x}} > c \), where  \(w\) and \(c\) <mark class="red"> have a closed-form expression</mark>  that depends on the parameters of the normal distributions.   </li>
+                                         </ul>                            			        
+                                                
+
+                              		     </div>   
+
+ 	               		       
+                                               <aside class="notes">
+                                                       
+                                               </aside>
+
+ 				    </section>
+
+
+				    <section>
+                                          <div class="my_container">
+
+                             	          <h3>Supervised learning</h3>              
+                                 	  <h4>Linear Discriminant Analysis</h4>                    
+
+                                          <ul>
+
+
+                                               <p class="paragraph2"> Computing the prediction with LDA:
+                                                \[
+                                                      p(y=1|x)  =  sigm \left( {\bf{w}}^T ({\bf{x}} - {\bf{x}}_0) \right) 
+                                                   
+                                                \] 
+                                              </p>        
+
+
+                                               <p class="paragraph2"> Assuming that the a-priori probability of the two classes is the same:
+
+
+						 
+                                                 \[
+						    \begin{align}
+                                                      w &= \Sigma^{-1} (\mu_1 - \mu_0)  \\
+                                                      {\bf{x}}_0 &=  \frac{1}{2} (\mu_1 + \mu_0)
+						    \end{align}
+						 \] 
+                                              </p>        
+
+                                           </ul>                            
+
+					 
+                              		     </div>   
+
+ 	               		       
+                                               <aside class="notes">
+                                                       
+                                               </aside>
+				     </section>    
+                             </section>
+			     <section>    
+                                     <section  id="sec:ML_S_LOGR">
+                                          <div class="my_container">
+
+                             	          <h3>Supervised learning</h3>              
+                                 	  <h4>Logistic regression</h4>                                        
+                                                                          
+                          		      <p class="paragraph2"> Let the Bernoulli distribution be defined as: 
+
+                                                \[
+                                                      Ber({\bf{x}},p) = p^{{\bf{x}}} (1-p)^{1-{\bf{x}}} \;  \forall {\bf{x}} \in \{0,1\} 
+                                                   
+                                                \] 
+                                              </p>        
+
+                                              <p class="paragraph2">and the sigmoid function defined as: 
+
+                                                \[
+                                                      g(\eta) =  \frac{1}{1+e^{-\eta}} = \frac{e^{\eta}}{e^{\eta}+1}  
+                                                   
+                                                \] 
+                                               </p>
+
+                                               <p class="paragraph2"> Then the logistic regression classifier is defined as: 
+                                                \[ 
+                                                   p(y \mid {\bf{x}}, {\bf{w}}) =  Ber(y, g({\bf{w}}^T {\bf{x}}))     
+                                                \] 
+                                               </p>  
+
+                              		     </div>   
+
+ 	               		              <p class="paragraph2">   K. P. Murphy. <a href="https://mitpress.mit.edu/books/machine-learning-0"> Machine learning. A probabilistic perspective.</a> MIT Press. 2012. </p>                                                                                                
+
+
+                                               <aside class="notes">
+                                                       
+                                               </aside>
+
+ 				           </section>    
+
+                                        <section>
+                             	          <h3>Supervised learning</h3>               
+
+                                              <div class="container">
+                                                  <span class="fragment"> 
+                                                  <div class="right">   
+                                                   <h4>Characteristics of the logistic function</h4>                                                          
+                                                   <ul>  
+
+                                                           <li class="paragraph2"> The output of the sigmoid (logistic, or logit) function is always in \([0,1]\). </li>   
+                                                           <li class="paragraph2"> \(g(-\infty)=0\),  \(g(\infty)=1\), and  \(g(0)=0.5\).  </li>   
+                                                
+                                                     </ul>        
+                                                     <h4>Characteristics logistic regression</h4>        
+                                                     <ul>  
+                                                           <li class="paragraph2"> It is a classification method, not a regression method.</li>
+                                                           <li class="paragraph2"> Works well for linearly separable problems. </li>                                                                                              <li class="paragraph2">Multinomial logistic regression is a classification method that generalizes logistic regression to problems with more than two classes. </li>
+                                                     </ul>                                                                      
+                                                  </div>   
+                                                  </span>
+                                                 <div class="left">
+                                                   <h4>Logistic function</h4>        
+                                                     <ul>  
+                                                            <p class="paragraph2"><img src="href=../../img/classifiers/Sigmoid_Function.png"  height="310" width="480"></p>                                                          
+                                                     </ul>                                                                                     	                       
+                                                  </div>  
+ 
+                                                  <aside class="notes">                                                       
+                                                  </aside>
+                                                                                          
+                                              </div>  
+                                    </section>
+                                     <section data-transition="none">        
+                               	            <h3>Supervised learning</h3>                               
+                                            <h4>What about the problem in the left figure. Is it easier? Does a line suffice in this case?</h4>                                                  
+                                              <div class="container">
+                                                <div class="right">      
+                                                  <ul>                                                                                                                                               <p class="paragraph2"><img src="href=../../img/classregions/OverlapLinear_Class_HP.png"  height="420" width="500"></p>                            
+                                                                                                                                                                                               <ul/>                                                              
+                                                 </div>   
+                                               
+
+                                                <div class="left">                                                 
+                                                   <ul>                                                                                                                                               <p class="paragraph2"><img src="href=../../img/classregions/NonLinear_Class_No_HP.png"  height="420" width="500"></p>                            
+                                                                                                                                                                                                <ul/>                                                                  
+                                                 </div>            
+                                               
+                                              
+                                                                               
+                                                 </div>                           
+                                
+                                                   <aside class="notes">
+                                                       Classification problems can vary in their complexity.                    
+
+                                            	   </aside>
+        			       </section>
+                                       <section data-transition="none">                     
+                             	          <h3>Supervised learning</h3>                  
+                                	  <h4>It is easy but a line is not sufficient.</h4>                                                 
+                                                  
+                                              <div class="container">
+                                                <div class="right">      
+                                                  <ul>             
+                                               
+                                               <p class="paragraph2"><img src="href=../../img/classregions/OverlapLinear_Class_HP.png"  height="420" width="500"></p>                            
+                                                                                                                                                                                                     <ul/>                                                              
+                                                 </div>   
+                                               
+
+                                                <div class="left">                                                 
+                                                   <ul>                                                                                                                                               <p class="paragraph2"><img src="href=../../img/classregions/NonLinear_Class_HP.png"  height="420" width="500"></p>                            
+                                                                                                                                                                                                      <ul/>                                                                  
+                                                 </div>          
+                                                                               
+                                                 </div>                           
+                                
+                                                      <aside class="notes">
+                                                           Classification problems can vary in their complexity.                    
+                                             	      </aside>
+        			       </section>
+				</section>
+
+				<section>			
+                                        <section id="sec:ML_S_CLF_OTHER">
+                                                 <div class="my_container">
+                                                   <h3>Supervised learning</h3>                                                   
+                                                   <h4>Classifiers</h4>
+                                                   <ol>
+
+      		 				          <li class="paragraph2"><a href="#/sec:ML_S_DT"> Decision trees </a>  </li>
+						          <li class="paragraph2"><a href="#/sec:ENSEMBLES"> Ensembles </a> </li>
+
+						          <li class="paragraph2"><a href="#/sec:RF"> Random Forests </a> </li>
+                                                     
+ 		
+                                                   
+                                                   </ol>						           
+                                                   
+                                         
+     
+                          		           </div>                                                         
+                                                   
+                                                   <aside class="notes">
+  					
+                                            	   </aside>
+        			          </section>
+                                           <section id="sec:ML_S_DT" data-background-color="#e6ff99">
+                                                  <h3>Supervised learning</h3>   
+                                                   <h4>Decision Tree</h4>
+                                                      <img src="href=../../img/ml_types/Donostia_Flat.png"  height="450" width="1100">           
+
+                                           </section>
+
+					   <section>
+                                                 <mark class="red"></mark>
+                                                 <div class="my_container">
+						   <h3>Decision Trees: How does it work?</h3>
+                                                   <ul>
+
+						          
+						          <li class="paragraph2">Each <mark class="red">internal node</mark> corresponds to a test of the value of one of the input attributes \(A_i\) and the <mark class="red">branches from the node</mark> are labeled with the possible values of the attribute. </li>
+						          <li class="paragraph2">Each <mark class="red">leaf node</mark> in the tree specifies a value to be returned by the function. </li>
+                                                          <li class="paragraph2">A learning algorithm is used to extract the tree structure from the data. </li>
+
+                                                   
+                                                   </ul>
+   
+                               		         </div>
+						  <p class="paragraph2">S. Russell and P. Norvig.  <a href="http://aima.cs.berkeley.edu/"> Artificial Intelligence. A Modern Approach.</a> Third Edition. Pearson Press. 2010. </p>      
+						        
+                                                   <aside class="notes">
+  						   
+                                            	   </aside>
+        			          </section>
+                                          <section>
+                                                 <mark class="red"></mark>
+                                                 <div class="my_container">
+                                                   <h3>Supervised learning</h3>   
+                                                   <h4>Decision Trees</h4>
+                                                   <ol>
+
+						          <li class="paragraph2">A decision tree represents a function that takes as input a  <mark class="red">vector of attribute values</mark>  and returns a decision (<mark class="red">a single output value</mark>). </li>
+						          <li class="paragraph2">It reaches its decision by performing a <mark class="red">sequence of tests</mark>. </li>
+                                                  <span class="fragment"> 
+						          <li class="paragraph2">Each <mark class="red">internal node</mark> corresponds to a test of the value of one of the input attributes \(A_i\) and the <mark class="red">branches from the node</mark> are labeled with the possible values of the attribute. </li>
+						          <li class="paragraph2">Each <mark class="red">leaf node</mark> in the tree specifies a value to be returned by the function. </li>
+                                                  </span> 
+                                                  <span class="fragment"> 
+                                                          <li class="paragraph2">For many problems, the decision tree format yields a nice, <mark class="red">concise result </mark>. </li>
+                                                  </span> 
+                                                   
+                                                   </ol>
+                                                         
+						           
+                               		         </div>
+						 <p class="paragraph2">S. Russell and P. Norvig.  <a href="http://aima.cs.berkeley.edu/"> Artificial Intelligence. A Modern Approach.</a> Third Edition. Pearson Press. 2010. </p>
+                                                   <aside class="notes">
+  						   
+                                            	   </aside>
+        			          </section>
+
+
+                                         <section data-background-image="https://lab.montera34.com/airbnb/donostia/images/densidad-airbnb-donostia_2.png" data-background-size="1600px">
+                                            
+                                        <h3>Renting a shared flat in Donosti </h3>
+
+                                        <table id="customers">
+                                        <colgroup>                                         
+                                          <col style="background-color:yellow">
+                                          <col span="8" style="background-color:white">
+                                          <col span="3" style="background-color: #bfff00">
+
+                                        </colgroup>
+                                             <tr> <th>Criteria/Flat</th> <th>F1</th><th>F2</th><th>F3</th><th>F4</th> <th>F5</th><th>F6</th><th>F7</th><th>F8</th><th>C1</th><th>C2</th><th>C3</th> </tr>
+                                             <tr><td>Price </td> <td>high </td><td>low</td><td>med.</td><td>high</td><td>low</td><td>med.</td><td>med.</td><td>high</td><td>med.</td><td>high</td><td>low</td> </tr>
+                                             <tr><td>Distance to University </td><td>far </td> <td>far</td><td>close</td>  <td>close </td> <td>close</td><td>close</td><td>close</td><td>close</td><td>far</td><td>far</td><td>close</td> </tr>
+                                             <tr><td>Parking </td><td>no</td> <td>no</td><td>no</td>  <td>no</td> <td>no</td><td>yes</td><td>no</td><td>no</td><td>no</td><td>no</td><td>yes</td> </tr>
+                                             <tr><td>Cool Roommates? </td><td>cool </td> <td>cool</td><td>cool</td>  <td>no</td> <td>no</td><td>cool</td><td>cool</td><td>cool</td><td>cool</td><td>cool</td><td>no</td> </tr>
+                                             <tr><td>Flat owner </td><td>nice</td> <td>nice</td><td>not nice</td>  <td>nice </td> <td>not nice</td><td>not nice</td><td>not nice</td><td>?</td><td>nice</td><td>?</td><td>?</td> </tr>
+                                             <tr><td>Heating for winter</td><td>no</td> <td>no</td><td>no</td>  <td>yes</td> <td>yes</td><td>no</td><td>yes</td><td>yes</td><td>no</td><td>no</td><td>yes</td> </tr>
+                                             <tr><td>Distance to Bus </td><td> close</td> <td>close</td><td>close</td>  <td>far </td> <td>close</td><td>close</td><td>far</td><td>far</td><td>far</td><td>close</td><td>close</td> </tr>
+                                              <tr><td>Room space </td><td>med.</td> <td>large</td><td>small</td>  <td>small </td> <td>small</td><td>med.</td><td>small</td><td>small</td><td>med.</td><td>small</td><td>small</td> </tr>
+                                             <tr><td>Noisy area </td><td>no</td> <td>yes</td><td>yes</td>  <td> no</td> <td>no</td><td>yes</td><td>yes</td><td>no</td><td>no</td><td>no</td><td>no</td> </tr>
+                                             <tr><td>Mother advice  </td><td>yes </td> <td>?</td><td>no</td>  <td>?</td> <td>no</td><td>yes</td><td>yes</td><td>no</td><td>yes</td><td>no</td><td>no</td> </tr>
+
+                                              <tr><td>Cat </td><td>no</td> <td>yes</td><td>no</td>  <td>no</td> <td>yes</td><td>yes</td><td>no</td><td>yes</td><td>yes</td><td>no</td><td>no</td> </tr>
+                                              <tr><td>Kitchen </td><td>small </td> <td>small</td><td>large</td>  <td>med.</td> <td>med.</td><td>small</td><td>small</td><td>med.</td><td>large</td><td>small</td><td>small</td> </tr>
+                                              <tr><td>Distance to beach </td><td>far</td> <td>far</td><td>close</td>  <td>close </td> <td>far</td><td>far</td><td>far</td><td>far</td><td>far</td><td>far</td><td>far</td> </tr>
+                                              <tr><td>Floor </td><td>2</td> <td>7</td><td>1</td>  <td>1</td> <td>0</td><td>3</td><td>1</td><td>2</td><td>4</td><td>0</td><td>3</td> </tr>
+                                              <tr><td>Elevator </td><td>no </td> <td>yes</td><td>no</td>  <td> no</td> <td>no</td><td>no</td><td>no</td><td>no</td><td>no</td><td>yes</td><td>yes</td> </tr>
+                                              <tr><td>Bars around </td><td>yes</td> <td>yes</td><td>yes</td>  <td>yes </td> <td>no</td><td>yes</td><td>no</td><td>no</td><td>no</td><td>yes</td><td>no</td> </tr>
+ 
+                                              <tr  style="background-color: #ffb3b3"><td> Did (Will) I like it?</td><td> no</td> <td>yes</td><td>no</td>  <td>no</td> <td>no</td><td>yes</td><td>yes</td><td>no</td><td>?</td><td>?</td><td>?</td> </tr>
+                                              </table>
+ 		 	                 </section>
+                                         <section data-background-image="https://lab.montera34.com/airbnb/donostia/images/densidad-airbnb-donostia_2.png" data-background-size="1600px">
+                                            
+                                        <h3>Renting a shared flat in Donosti </h3>
+
+                                        <table id="customers">
+                                        <colgroup>                                         
+                                          <col style="background-color:yellow">
+                                          <col span="8" style="background-color:white">
+                                          <col span="3" style="background-color: #bfff00">
+
+                                        </colgroup>
+                                             <tr> <th>Criteria/Flat</th> <th>F1</th><th>F2</th><th>F3</th><th>F4</th> <th>F5</th><th>F6</th><th>F7</th><th>F8</th><th>C1</th><th>C2</th><th>C3</th> </tr>
+                                             <tr><td>Price </td> <td>high </td><td>low</td><td>med.</td><td>high</td><td>low</td><td>med.</td><td>med.</td><td>high</td><td>med.</td><td>high</td><td>low</td> </tr>
+                                             <tr><td>Distance to University </td><td>far </td> <td>far</td><td>close</td>  <td>close </td> <td>close</td><td>close</td><td>close</td><td>close</td><td>far</td><td>far</td><td>close</td> </tr>
+                                             <tr><td>Cool Roommates? </td><td>cool </td> <td>cool</td><td>cool</td>  <td>no</td> <td>no</td><td>cool</td><td>cool</td><td>cool</td><td>cool</td><td>cool</td><td>no</td> </tr>
+                                             <tr><td>Mother advice  </td><td>yes </td> <td>?</td><td>no</td>  <td>?</td> <td>no</td><td>yes</td><td>yes</td><td>no</td><td>yes</td><td>no</td><td>no</td> </tr>
+
+                                              <tr><td>Cat </td><td>no</td> <td>yes</td><td>no</td>  <td>no</td> <td>yes</td><td>yes</td><td>no</td><td>yes</td><td>yes</td><td>no</td><td>no</td> </tr>
+                                              <tr  style="background-color: #ffb3b3"><td> Did (Will) I like it?</td><td> no</td> <td>yes</td><td>no</td>  <td>no</td> <td>no</td><td>yes</td><td>yes</td><td>no</td><td>?</td><td>?</td><td>?</td> </tr>
+
+                                         </table>
+                                              
+
+			 	          </section>
+                                           <section data-background-color="#e6ff99">
+                                                  <h3>Supervised learning</h3>   
+                                                   <h4>Decision Tree</h4>
+                                                      <img src="href=../../img/ml_types/Donostia_Flat.png"  height="450" width="1100">           
+
+                                          </section>
+                                          <section>
+                                                 <mark class="red"></mark>
+                                                 <div class="my_container">
+                                                   <h3>Supervised learning</h3>   
+                                                   <h4>Learning decision trees from examples</h4>
+                                                   <ol>
+
+						          <li class="paragraph2">The algorithm to learn the decision trees  <mark class="red"> (\(DT\_Learning\))</mark> adopts a greedy divide-and-conquer strategy: always test the most important attribute first. </li>
+                                                  <span class="fragment"> 
+						          <li class="paragraph2">The test divides the problem up into smaller problems that can be  <mark class="red">solved recursively</mark>. </li>			
+                                                  </span> 			         
+                                                  <span class="fragment"> 
+						          <li class="paragraph2"> The most important attribute is the one that makes the  <mark class="red"> most important difference</mark> to the classification of an example. </li>
+                                                  </span> 			         
+                                                  <span class="fragment"> 
+						          <li class="paragraph2"> The goal is to get to the correct classification with  <mark class="red">a small number of tests</mark>.</li>					
+                                                  </span> 			         
+                                                  <span class="fragment"> 
+                                                          <li class="paragraph2"> To identify the most important attributes, different <mark class="red"> importance  measures </mark> are defined.</li>						         
+                                                  </span> 
+                                                   
+                                                   </ol>
+                                                     
+						           
+                               		         </div>
+                                                 <p class="paragraph2">S. Russell and P. Norvig.  <a href="http://aima.cs.berkeley.edu/"> Artificial Intelligence. A Modern Approach.</a> Third Edition. Pearson Press. 2010. </p>    
+                                                   <aside class="notes">
+  						   
+                                            	   </aside>
+        			          </section>
+
+                                          <section>
+                                                 <mark class="red"></mark>
+                                                 <div class="my_container">
+                                                   <h3>Supervised learning</h3>   
+                                                   <h4>Learning decision trees: Split metrics</h4>
+                                                   <ol>
+                                                        <li class="paragraph2"> At each step, the DT learning algorithm finds the pair of attribute and cutting point which makes the maximal impurity decrease.</li>	
+
+
+  
+                                                          <li class="paragraph2">Let \(p_i\) denote the probability of a class computed from the observations at a given node.</li>	
+
+  
+                                                          <li class="paragraph2"> <mark class="red">Gini impurity</mark>:
+                                                          \[
+							     1- \sum_{i=1}^{c} p_i^2
+ 
+							    \]
+                                                          </li>	
+
+                                                          <li class="paragraph2"><mark class="red">Entropy</mark>:
+                                                          \[
+							     - \sum_{i=1}^{c} p_i^2 log_2(p_i)
+ 
+							    \]
+                                                      
+                                                          </li>		
+                                                          <li class="paragraph2"><mark class="red">Classification error</mark>:
+                                                          \[
+							      1 - \max_{i \in \{1 \dots c\}} p_i
+ 
+							    \]
+                                                      
+                                                          </li>						         
+
+                                                   
+                                                   </ol>
+                                                 
+                               		           </div>                                                       
+                                                   <aside class="notes">
+  						   
+                                            	   </aside>
+        			          </section>
+        		                  <section data-background-image="https://lab.montera34.com/airbnb/donostia/images/densidad-airbnb-donostia_2.png" data-background-size="1600px">
+                                            
+                                        <h3>Renting a shared flat in Donosti </h3>
+
+                                        <table id="customers">
+                                        <colgroup>                                         
+                                          <col style="background-color:yellow">
+                                          <col span="8" style="background-color:white">
+                                          <col span="3" style="background-color: #bfff00">
+
+                                        </colgroup>
+                                             <tr> <th>Criteria/Flat</th> <th>F1</th><th>F2</th><th>F3</th><th>F4</th> <th>F5</th><th>F6</th><th>F7</th><th>F8</th></tr>
+                                             <tr><td>Price </td> <td>high </td><td>low</td><td>med.</td><td>high</td><td>low</td><td>med.</td><td>med.</td><td>high</td> </tr>
+                                             <tr><td>Distance to University </td><td>far </td> <td>far</td><td>close</td>  <td>close </td> <td>close</td><td>close</td><td>close</td><td>close</td> </tr>
+                                             <tr><td>Cool Roommates? </td><td>cool </td> <td>cool</td><td>cool</td>  <td>no</td> <td>no</td><td>cool</td><td>cool</td><td>cool</td> </tr>
+                                             <tr><td>Mother advice  </td><td>yes </td> <td>?</td><td>no</td>  <td>?</td> <td>no</td><td>yes</td><td>yes</td><td>no</td </tr>
+
+                                              <tr><td>Cat </td><td>no</td> <td>yes</td><td>no</td>  <td>no</td> <td>yes</td><td>yes</td><td>no</td><td>yes</td> </tr>
+                                              <tr  style="background-color: #ffb3b3"><td> Did (Will) I like it?</td><td> no</td> <td>yes</td><td>no</td>  <td>no</td> <td>no</td><td>yes</td><td>yes</td><td>no</td> </tr>
+
+                                        </table>
+
+
+					                                        <table id="customers">
+                                        <colgroup>                                         
+                                          <col style="background-color:yellow">
+                                          <col span="8" style="background-color:white">
+                                          <col span="3" style="background-color: #bfff00">
+
+                                        </colgroup>
+                                        <tr> <th>Criteria/Value</th> <th>p(class=yes)</th><th>p(class=no)</th><th>Impurity</th><th>Entropy</th> <th>Error</th>< </tr>
+																				<tr> <th>Price/high</th> <th>p(class=yes)=0</th><th>p(class=no)=1</th><th>0</th><th>0</th> <th>0</th>< </tr>
+																																       <tr> <th>Price/low</th> <th>p(class=yes)=0.5</th><th>p(class=no)=0.5</th><th>0.5</th><th>\(-2*0.5^2*log(0.5) \)</th> <th>0.5</th>< </tr>																																														           <tr> <th>cat/yes</th> <th>p(class=yes)=0.5</th><th>p(class=no)=0.5</th><th>0.5</th><th>\(-2*0.5^2*log(0.5) \)</th> <th>0.5</th>< </tr>
+		<tr> <th>cat/no </th> <th>p(class=yes)=0.25</th><th>p(class=no)=0.75</th><th>?</th><th>?</th> <th>?</th>< </tr>																																																																													      
+
+                                         </table>
+                                              
+
+			 	          </section>
+
+                                          <section data-background-color="#e6ff99">
+                                                   <h3>Decision Tree learning algorithm</h3>
+                                                      <img src="href=../../img/classifiers/decision_tree_learning_algorithm.svg"  height="450" width="1100">           
+                                                      <p class="paragraph2">S. Russell and P. Norvig.  <a href="http://aima.cs.berkeley.edu/"> Artificial Intelligence. A Modern Approach.</a> Third Edition. Pearson Press. 2010. </p>      
+
+                                          </section>
+
+                                          <section>
+                                                 <mark class="red"></mark>
+                                                 <div class="my_container">
+                                                   <h3>Supervised learning</h3>   
+                                                   <h4>Learning decision trees: Variants of the algorithm according to split criteria</h4>
+                                                   <ol>
+
+                                                          <li class="paragraph2"> Iterative Dichotomiser 3 (ID3) algorithm is based on <mark class="red">Shannon entropy</mark>.</li>	
+
+                                                          <li class="paragraph2">  C4.5 algorithm is based on Gain Ratio which is considered as a <mark class="red">normalized Shannon entropy</mark>.  </li>						         
+                                                          <li class="paragraph2">  Classification And Regression Tree (CART) algorithm is based on   <mark class="red">Gini index</mark>.      </li>						         
+
+                                                   </ol>
+                               		           </div>                                                       
+                                                   <aside class="notes">
+  						   
+                                            	   </aside>
+        			          </section>            		    
+				</section>
+				<section>
+				         <section id="sec:ENSEMBLES">
+                                                 <mark class="red"></mark>
+                                                 <div class="my_container">                                                   
+                                                   <h3>Ensembles: What is it? </h3>   
+ 
+                                                   <ol>
+
+						          <li class="paragraph2"> An ensemble is a  <mark class="red">combination</mark> of classifiers of the same type.</li>
+         
+						          <li class="paragraph2"> The classifiers are expected to be different in the structure and  <mark class="red">diverse</mark>. </li>
+                                                			         
+
+						          <li class="paragraph2"> Different methods for creating ensembles of classifiers exist. Two of this types are <mark class="red">Boosting</mark> and <mark class="red">Bagging</mark> ensembles.</li>                                                
+
+						          <li class="paragraph2"> <mark class="red">Boosting</mark>: Each classifier is trained using samples that have been misclassified by the previous classifiers in the ensemble (e.g. Adaboost).</li>
+ 
+                                                                                                   
+                                                   </ol>
+                                                  
+                               		           </div>                                                       
+                                                   <aside class="notes">
+  						   
+                                            	   </aside>
+        			        </section>
+
+
+					<section id="sec:ML_S_RFs">
+                                                 <mark class="red"></mark>
+                                                 <div class="my_container">
+                                                   <h3>Supervised learning</h3>   
+                                                   <h4>Bootstrap Aggregating (Bagging)</h4>   
+ 
+                                                   <ol>
+
+						          <li class="paragraph2"> Sets of observations (<mark class="red">bootstrap samples</mark>) are chosen from the data with replacement (some observations can be in more than one bootstrap sample).</li>
+         
+                                                  <span class="fragment"> 
+						          <li class="paragraph2"> From each bootstrap sample, a  <mark class="red">classifier is learned</mark>. </li>
+                                                  </span> 			         
+                                                  <span class="fragment"> 
+
+						          <li class="paragraph2"> The predictions computed from all samples are combined.</li>                                                  </span> 			         
+                                                  <span class="fragment"> 
+
+						          <li class="paragraph2"> It is a variant of  ensemble classifiers, is a method to reduce the <mark class="red">variance of the prediction</mark>.</li>
+                                                  </span> 			         
+                                                  <span class="fragment"> 
+
+                                                          <li class="paragraph2"> When used with decision trees, usually the same greedy algorithm is used to learn each tree, <mark class="red">producing similar split points</mark>.</li>
+                                                  </span>                                                    
+                                                   </ol>
+                                                   <p class="paragraph2">  L. Breimann. <a href="https://link.springer.com/article/10.1023/A:1018054314350"> Bagging predictors.</a> Machine Learning. Vol. 24 No. 2. Pp. 123--140. 1996. </p>			
+                               		           </div>                                                       
+                                                   <aside class="notes">
+  						   
+                                            	   </aside>
+        				</section>
+
+					<section data-background-color="#e6ff99">
+                                                    
+                                                   <h3>Bagging </h3>
+                                                   <img src="https://sebastianraschka.com/images/faq/bagging-boosting-rf/bagging.png"  height="350" width="800">
+						    <p class="paragraph2">  Figure credit. Sebastian Raschka. <a href="https://sebastianraschka.com/faq/docs/bagging-boosting-rf.html">  How does the random forest model work?</a>  </p>	
+
+                                         </section>						    
+                                  </section>
+                                   <section>                                   
+                                          <section id="sec:RF">
+                                                 <mark class="red"></mark>
+                                                 <div class="my_container">
+                                                   <h3>Random forests: What it is?</h3>
+ 
+                                                   <ul>
+
+						     
+
+ 					           <li class="paragraph2">A <mark class="red">random forest</mark>  is an ensemble  of decision trees each one learned on a bootstrap sample. </li>
+
+						   <li class="paragraph2">Each tree is learned on a <mark class="red">bootstrap sample</mark>. </li>
+
+
+						   <li class="paragraph2">Each is computed using only a  <mark class="red">subset of variables</mark> selected randomly. </li>  
+
+						  <li class="paragraph2"> A large number of tree is generally used. </li>
+
+                                                 
+                                                   </ul>		
+		           
+                              		         </div>
+						 <p class="paragraph2">   L. Breimann. <a href="https://link.springer.com/article/10.1023/A:1010933404324">Random Forests.</a> Machine Learning. Vol. 45 No. 1. Pp. 5--32. 2001.</p>			
+                                                   <aside class="notes">
+  						   
+                                            	   </aside>
+        			          </section>
+
+
+
+					 <section>
+                                                 <mark class="red"></mark>
+                                                 <div class="my_container">
+                                                   <h3>Random forests: How does it work?</h3>
+ 
+                                                   <ul>
+
+					          <li class="paragraph2"> In each sample, at the time of learning a tree,  a <mark class="red">subset of all variables</mark> is selected to determine the best split.</li>
+
+ 						  <li class="paragraph2"> The class prediction for an example is the <mark class="red">majority class</mark> among the decision trees classifiers. </li>
+
+						  
+						  <li class="paragraph2"> Notably improves the <mark class="red">accuracy</mark> of decision trees classifiers. </li>
+						  
+
+						  <li class="paragraph2"> However, the <mark class="red">interpretability</mark> of the random forest is very limited.</li>
+                                                  
+
+						         
+                                                   
+                                                   </ul>		
+		           
+                              		         </div>
+						 <p class="paragraph2">   L. Breimann. <a href="https://link.springer.com/article/10.1023/A:1010933404324">Random Forests.</a> Machine Learning. Vol. 45 No. 1. Pp. 5--32. 2001.</p>			
+                                                   <aside class="notes">
+  						   
+                                            	   </aside>
+        			          </section>
+
+                                          <section>
+                                                 <mark class="red"></mark>
+                                                 <div class="my_container">
+                                                   <h3>Random forests: Variable importance</h3>
+ 
+                                                   <ol>
+
+						          <li class="paragraph2"><mark class="red">Variable importance:</mark> A relevant concept in machine learning. It is a measure of how important each variable is for the classification process. </li>
+						          <li class="paragraph2">Two variable importance measures are usually computed from random forests: 
+                                                             <ul>
+ 						                    <li class="paragraph2"> Based on the  <mark class="red">Gini</mark>, or other information-based measures. </li>
+						                    <li class="paragraph2"> Based on  <mark class="red">permutations</mark> of the variables in the trees and  the quantification of their effect on the classification error. </li>
+                                                   			
+                                                             </ul>
+                                                          </li>
+						          <li class="paragraph2"><mark class="red">Local variable importance</mark> can be also computed since son variables are relevant to classify subsets of observations. </li>
+
+                                                   
+                                                   </ol>						           
+                               		           </div>                                                       
+                                                   <aside class="notes">
+  						   
+                                            	   </aside>
+        			          </section>
+
+                                          <section data-background-color="#e6ff99">
+                                              <h3>Random forests: Variable importance</h3>                                              
+                                                   <img src="http://scikit-learn.org/stable/_images/sphx_glr_plot_forest_importances_001.png"  height="450" width="800">
+						    <p class="paragraph2">  Figure credit. Sklearn. <a href="http://scikit-learn.org/stable/auto_examples/svm/plot_iris.html">  Feature importances with forests of trees.</a>  </p>	
+
+                                    </section>
+
+
+					  
+                                          <section>
+                                                 <mark class="red"></mark>
+                                                 <div class="my_container">
+                                                   <h3>Supervised learning</h3>   
+                                                   <h4>Random forests: Other uses</h4> 
+                                                   <ol>
+
+						          <li class="paragraph2">Variable selection</li>
+						          <li class="paragraph2">Survival analysis (survival random forests) </li>
+						          <li class="paragraph2">Clustering</li>						                                                         <li class="paragraph2">Imputation of missing data</li>
+						          <li class="paragraph2">Visualization</li>
+                                                  
+                                                   </ol>						           
+                               		           </div>                                                       
+                                                   <aside class="notes">
+  						   
+                                            	   </aside>
+        				  </section>
+        		   </section>
+                           <section  id="sec:ML_S_EVAL_CLASS">
+                                     <section>
+                                                 <div class="my_container">
+                                                   <h3>Supervised learning</h3>                                                   
+                                                   <h4>Evaluating classifiers</h4>
+                                                   <ol>
+
+      		 				      <li class="paragraph2"><a href="#/sec:ML_S_PERFORM"> Performance measures </a>  </li>
+						      <li class="paragraph2"><a href="#/sec:ML_S_CONF_MATRIX"> Confusion matrix </a> </li>
+						      <li class="paragraph2"><a href="#/sec:ML_S_CROSSVAL"> Cross-validation </a> </li>                                                       
+                                                   </ol>						                                                                                     </div>                                                         
+                                                   
+                                                   <aside class="notes">  					
+                                            	   </aside>
+        			       </section>
+ 
+
+                                      <section data-transition="none" id="sec:ML_S_PERFORM">                       
+                                         <div class="my_container">                      
+                                            <h4>Evaluating classifiers</h4>                                       
+
+                                             <table id="customers">
+                                                <colgroup>                                         
+                                                  <col style="background-color:white">
+                                                  <col span="7" style="background-color:white">
+                                               </colgroup>
+
+                                               <tr> <th>ind.</th> <th>X0</th> <th>X1</th><th>X2</th><th>X3</th><th>Class</th> <th>Prediction</th> </tr>
+                                               <tr> <td>1</td> <td>0</td> <td>0</td><td>1</td><td>0</td><td>-1</td> <td style="background-color: #ffb3b3">1</td> </tr>                                       
+                                               <tr> <td>2</td> <td>1</td> <td>0</td><td>0</td><td>0</td><td>-1</td> <td style="background-color: #ffb3b3"> 1</td> </tr>
+                                               <tr> <td>3</td> <td>0</td> <td>0</td><td>1</td><td>1</td><td> 1</td> <td style="background-color: #DC7633">-1</td> </tr>
+                                               <tr> <td>4</td> <td>1</td> <td>1</td><td>0</td><td>0</td><td>-1</td> <td style="background-color: #DC7633">-1</td> </tr>
+                                               <tr> <td>5</td> <td>1</td> <td>1</td><td>1</td><td>0</td><td> 1</td> <td style="background-color: #ffb3b3"> 1</td> </tr>
+                                               <tr> <td>6</td> <td>0</td> <td>1</td><td>0</td><td>1</td><td>-1</td> <td style="background-color: #ffb3b3"> 1</td> </tr>
+                                               <tr> <td>7</td> <td>0</td> <td>0</td><td>0</td><td>0</td><td> 1</td> <td style="background-color: #ffb3b3"> 1</td> </tr>
+                                               <tr> <td>8</td> <td>1</td> <td>1</td><td>1</td><td>1</td><td> 1</td> <td style="background-color: #DC7633"> -1</td> </tr>
+                                             </table>
+                                            <br/>
+
+
+                                            <h4>Characterizing predictions</h4>     
+                                                   <ul>
+     
+      		 				      <li class="paragraph2"><mark  style="background-color: #ffb3b3"> Positive:</mark> Predictions have value 1. </li>
+                                                      <li class="paragraph2"><mark  style="background-color: #DC7633"> Negative:</mark> Predictions have value -1. </li>
+     		 				      
+                                                   </ul>
+
+                                            </div>
+			 	      </section>
+
+                                      <section data-transition="none">                       
+                                         <div class="my_container">                      
+                                            <h4>Evaluating classifiers</h4>                                       
+
+                                             <table id="customers">
+                                                <colgroup>                                         
+                                                  <col style="background-color:white">
+                                                  <col span="7" style="background-color:white">
+                                               </colgroup>
+
+                                               <tr> <th>ind.</th> <th>X0</th> <th>X1</th><th>X2</th><th>X3</th><th>Class</th> <th>Prediction</th> </tr>
+                                               <tr> <td>1</td> <td>0</td> <td>0</td><td>1</td><td>0</td><td style="background-color: #CB4335">-1</td> <td style="background-color: #CB4335">1</td> </tr>                                       
+                                               <tr> <td>2</td> <td>1</td> <td>0</td><td>0</td><td>0</td><td style="background-color: #CB4335">-1</td> <td style="background-color: #CB4335"> 1</td> </tr>
+                                               <tr> <td>3</td> <td>0</td> <td>0</td><td>1</td><td>1</td><td style="background-color: #3498DB"> 1</td> <td style="background-color: #3498DB">-1</td> </tr>
+                                               <tr> <td>4</td> <td>1</td> <td>1</td><td>0</td><td>0</td><td style="background-color: #F6DDCC">-1</td> <td style="background-color: #F6DDCC">-1</td> </tr>
+                                               <tr> <td>5</td> <td>1</td> <td>1</td><td>1</td><td>0</td><td style="background-color: #F7DC6F"> 1</td> <td style="background-color: #F7DC6F"> 1</td> </tr>
+                                               <tr> <td>6</td> <td>0</td> <td>1</td><td>0</td><td>1</td><td style="background-color: #CB4335">-1</td> <td style="background-color: #CB4335"> 1</td> </tr>
+                                               <tr> <td>7</td> <td>0</td> <td>0</td><td>0</td><td>0</td><td style="background-color: #F7DC6F"> 1</td> <td style="background-color: #F7DC6F"> 1</td> </tr>
+                                               <tr> <td>8</td> <td>1</td> <td>1</td><td>1</td><td>1</td><td style="background-color: #3498DB"> 1</td> <td style="background-color: #3498DB"> -1</td> </tr>
+                                             </table>
+                                   <br/>
+                                            <h4>Comparing predictions to labels</h4>     
+                                                   <ul>
+      		 				      <li class="paragraph2"><mark  style="background-color: #F7DC6F">True positive:</mark> Class 1 correctly predicted as 1. </li>
+     		 				      <li class="paragraph2"><mark  style="background-color: #F6DDCC">True negative:</mark> Class -1 correctly predicted as -1. </li>   
+      		 				      <li class="paragraph2"><mark  style="background-color: #CB4335">False positive:</mark> Class -1 incorrectly predicted as 1. </li>
+     		 				      <li class="paragraph2"><mark  style="background-color: #3498DB">False negative:</mark> Class 1 incorrectly predicted as -1. </li>  
+                                                   </ul>
+
+                                            </div>
+			 	      </section>
+
+
+
+                                      <section data-transition="none"  id="sec:ML_S_METRICS">                       
+                                         <div class="my_container">                      
+                                            <h4>Evaluating classifiers</h4>                                       
+
+                                             <table id="customers">
+                                                <colgroup>                                         
+                                                  <col style="background-color:white">
+                                                  <col span="7" style="background-color:white">
+                                               </colgroup>
+
+                                               <tr> <th>ind.</th> <th>X0</th> <th>X1</th><th>X2</th><th>X3</th><th>Class</th> <th>Prediction</th> </tr>
+                                               <tr> <td>1</td> <td>0</td> <td>0</td><td>1</td><td>0</td><td style="background-color: #CB4335">-1</td> <td style="background-color: #CB4335">1</td> </tr>                                       
+                                               <tr> <td>2</td> <td>1</td> <td>0</td><td>0</td><td>0</td><td style="background-color: #CB4335">-1</td> <td style="background-color: #CB4335"> 1</td> </tr>
+                                               <tr> <td>3</td> <td>0</td> <td>0</td><td>1</td><td>1</td><td style="background-color: #3498DB"> 1</td> <td style="background-color: #3498DB">-1</td> </tr>
+                                               <tr> <td>4</td> <td>1</td> <td>1</td><td>0</td><td>0</td><td style="background-color: #F6DDCC">-1</td> <td style="background-color: #F6DDCC">-1</td> </tr>
+                                               <tr> <td>5</td> <td>1</td> <td>1</td><td>1</td><td>0</td><td style="background-color: #F7DC6F"> 1</td> <td style="background-color: #F7DC6F"> 1</td> </tr>
+                                               <tr> <td>6</td> <td>0</td> <td>1</td><td>0</td><td>1</td><td style="background-color: #CB4335">-1</td> <td style="background-color: #CB4335"> 1</td> </tr>
+                                               <tr> <td>7</td> <td>0</td> <td>0</td><td>0</td><td>0</td><td style="background-color: #F7DC6F"> 1</td> <td style="background-color: #F7DC6F"> 1</td> </tr>
+                                               <tr> <td>8</td> <td>1</td> <td>1</td><td>1</td><td>1</td><td style="background-color: #3498DB"> 1</td> <td style="background-color: #3498DB"> -1</td> </tr>
+                                             </table>
+                                   <br/>
+                                            <h4>Accuracy</h4>     
+                                                   <ul>
+      		 				      <li class="paragraph2"><mark  style="background-color: #ffb3b3"> P</mark>= <mark  style="background-color: #F7DC6F">TP</mark> + <mark  style="background-color: #CB4335">FP</mark></li>
+     		 				      <li class="paragraph2"><mark  style="background-color: #DC7633"> N</mark>=<mark  style="background-color: #F6DDCC">TN</mark> + <mark  style="background-color: #3498DB">FN</mark></li>  
+
+                                                      <p class="paragraph2">
+                                                       \[
+                                                          Accuracy = \frac{TP+TN}{P+N}
+                                                       \]
+                                                      </p>  
+                                                   </ul>
+
+                                            </div>
+			 	      </section>
+                                        <section>
+                             	          <h3>Evaluating classifiers</h3>               
+
+                                              <div class="container">
+                                                  <span class="fragment"> 
+                                                  <div class="right">   
+                                                   <h4>Other metrics</h4>                                                                                                         <ul>  
+
+                                                           <p class="paragraph2"> 
+                                                            \[
+
+                                                              Sensitivity = \frac{TP}{P}
+                                                            \]
+                                                           </p>  
+                                                 
+                                                           <p class="paragraph2"> 
+                                                            \[
+                                                               Specificity = \frac{TN}{N}
+                                                            
+                                                            \]
+                                                           </p>                                                           
+                                                         
+                                                    
+                                                           <p class="paragraph2"> 
+                                                            \[
+                                                               Precision = \frac{TP}{TP+FP}
+                                                            
+                                                            \]
+                                                           </p>  
+ <p class="paragraph2"> 
+                                                            \[
+
+                                                              Recall = \frac{TP}{TP+FN}
+                                                            \]
+                                                           </p>  
+                                                         
+   
+                                                     </ul>
+                                                                 
+                                                  </div>   
+                                                  </span>
+                                                 <div class="left">
+                                                   <h4>Balanced accuracy</h4> 
+                                                  <ul>  
+
+                                                           <p class="paragraph2"> 
+                                                            \[
+							      BACC = \frac{\frac{TP}{P} + \frac{TN}{N}}{2}                                                         
+                                                            \]
+                                                           </p>  
+                                                         
+                                                     </ul>       
+                                                   <h4>F1 score</h4> 
+                                                  <ul>  
+
+                                                           <p class="paragraph2"> 
+                                                            \[
+                                                                F1 = \frac{2TP}{2TP+FP+FN}
+                                                            
+                                                            \]
+                                                           </p>  
+                                                         
+                                                     </ul>        
+                                                              
+                                                  </div>  
+ 
+                                                  <aside class="notes">                                                       
+                                                  </aside>
+                                                                                          
+                                              </div>  
+                                    </section>
+
+                                     <section data-transition="none">                       
+                                         <div class="my_container">                      
+                                            <h4>Evaluating classifiers using metrics</h4>                                       
+
+                                             <table id="customers">
+                                                <colgroup>                                         
+                                                  <col style="background-color:white">
+                                                  <col span="7" style="background-color:white">
+                                               </colgroup>
+
+                                               <tr> <th>ind.</th> <th>X0</th> <th>X1</th><th>X2</th><th>X3</th><th>X4</th><th>Class</th> <th>Prediction</th> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>1</td> <td>0</td><td>0</td> <td>0</td><td>1</td><td>0</td><td> 1</td> <td style="background-color: red">1 </td> </tr>                                       
+                                               <tr style="background-color: #ffb3b3"> <td>2</td> <td>0</td><td>1</td> <td>0</td><td>0</td><td>0</td><td> 1</td> <td style="background-color: red">1 </td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>3</td> <td>1</td><td>0</td> <td>0</td><td>1</td><td>1</td><td> 1</td> <td style="background-color: red">1</td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>4</td> <td>1</td> <td>1</td><td>0</td><td>0</td><td>0</td><td> 1</td> <td style="background-color: red">1</td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>5</td> <td>1</td> <td>1</td><td>1</td><td>0</td><td>1</td><td> 1</td> <td style="background-color: red"> 1</td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>6</td> <td>0</td><td>0</td> <td>1</td><td>0</td><td>1</td><td>-1</td> <td style="background-color: red">1</td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>7</td> <td>1</td><td>1</td> <td>0</td><td>0</td><td>0</td><td>-1</td> <td style="background-color: red">1</td></tr>
+                                               <tr style="background-color: #ffb3b3"> <td>8</td> <td>0</td> <td>1</td><td>1</td><td>0</td><td>1</td><td>-1</td> <td style="background-color: red">1</td></tr>
+                                               <tr style="background-color: #ffb3b3"> <td>9</td> <td>0</td> <td>0</td><td>0</td><td>1</td><td>1</td><td> 1</td> <td style="background-color: red">1</td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>10</td> <td>1</td> <td>0</td><td>1</td><td>0</td><td>1</td><td> 1</td> <td style="background-color: red">1</td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>11</td> <td>0</td> <td>0</td><td>0</td><td>1</td><td>0</td><td> 1</td> <td style="background-color: red">1</td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>12</td> <td>0</td> <td>1</td><td>1</td><td>1</td><td>1</td><td> 1</td> <td style="background-color: red">-1</td> </tr>
+                                             </table>
+                                            <br/>
+<mark class="red"></mark>
+
+                                            <h4>Exercise</h4>     
+                                                   <ul>
+      		 				      <li class="paragraph2">For the table shown above, compute: <mark class="red">Accuracy</mark>, <mark class="red">Precision</mark>, <mark class="red">Recall</mark>, and <mark class="red">Balanced accuracy</mark>. </li>
+                                 		  
+     		 				      
+                                                   </ul>
+
+                                            </div>
+			 	      </section>
+
+                                       <section id="sec:ML_S_CONF_MATRIX">
+                             	          <h3>Evaluating classifiers: Confusion matrix</h3>               
+
+                                              <div class="container">
+
+                                                  <div class="right">   
+                                                  
+                                                <h4>Example binary case</h4>
+
+                                            <table id="customers">
+                                                <colgroup>                                       
+                                                  <col style="background-color:white">
+                                               </colgroup>
+
+                                                <tr><th  colspan="2" rowspan="2" style="background-color:  #e6fff9"></th><th colspan="2" style="background-color: red">True Class</th></tr>
+                                                <tr><th>Good </th><th>Bad </th></tr>
+                                                <tr><th rowspan="2"  style="background-color: red"  vertical-align="middle"> Predicted</th><th>Good </th><td>3</td><td>2</td></tr>
+                                                <tr><th>Bad </th><td>1</td><td>2</td></tr>
+                                             </table>                                            
+                                              </div>  
+
+
+                                                 <div class="left">
+                                                   <h4>Confusion matrix</h4> 
+                                                  <ul>  
+
+                                                           <li class="paragraph2">Serves to evaluate the performance of the classifier.</li>
+                                                           <li class="paragraph2">Predictions are organized according to the class.  </li>  
+                                                           <li class="paragraph2">Columns represent the true class.  </li>  
+                                                           <li class="paragraph2">Rows represent the predicted class. </li>                                                             
+                                                     </ul>                                                        
+                                                              
+                                                  </div>  
+                                                  <div class="right">   
+                                                  
+                                            <h4>Example ternary case</h4>
+                                            <table id="customers">
+                                                <colgroup>                                       
+                                                  <col style="background-color:white">
+                                               </colgroup>
+
+
+                                                <tr><th  colspan="2" rowspan="2" style="background-color:  #e6fff9"></th><th colspan="3" style="background-color: red">True Class</th></tr>
+                                                <tr><th>Small</th><th>Medium</th><th>Large</th></tr>
+                                                <tr><th rowspan="3"  style="background-color: red"  vertical-align="middle"> Predicted Class</th><th>Small</th><td>100</td><td>30</td><td>15</td></tr>
+                                                <tr><th>Medium</th><td>0</td><td>40</td><td>5</td></tr>
+                                                <tr><th>Large</th><td>0</td><td>30</td><td>80</td></tr>
+                                             </table>                  
+                                                </div>  
+
+
+                                                 <div class="left">
+                                               <h4>Binary case</h4>
+
+                                            <table id="customers">
+                                                <colgroup>                                       
+                                                  <col style="background-color:white">
+                                               </colgroup>
+
+                                                <tr><th  colspan="2" rowspan="2" style="background-color:  #e6fff9"></th><th colspan="2" style="background-color: red">True Class</th></tr>
+                                                <tr><th>Positive</th><th>Negative</th></tr>
+                                                <tr><th rowspan="2"  style="background-color: red"  vertical-align="middle"> Predicted Class</th><th>Positive</th><td>TP</td><td>FP</td></tr>
+                                                <tr><th>Negative</th><td>FN</td><td>TN</td></tr>
+                                             </table>                                            
+                                                
+                                                  </div>  
+
+ 
+                                                  <aside class="notes">                                                       
+                                                  </aside>
+                                                                                          
+                                              </div>  
+                                    </section>
+
+                                     <section data-transition="none" id="sec:ML_S_CROSSVAL">                       
+                                         <div class="my_container">                      
+                                            <h4>Evaluating classifiers: k-fold crossvalidation</h4>                                       
+
+                                             <table id="customers">
+                                                <colgroup>                                         
+                                                  <col style="background-color:white">
+                                                  <col span="7" style="background-color:white">
+                                               </colgroup>
+
+                                               <tr><th>Fold</th> <th>ind.</th> <th>X0</th> <th>X1</th><th>X2</th><th>X3</th><th>Class</th> <th>Prediction</th> </tr>
+                                               <tr style="background-color: #feb2b3"> <td>1</td> <td>1</td> <td>0</td> <td>0</td><td>1</td><td>0</td><td>-1</td> <td style="background-color: white"> </td> </tr>                                       
+                                               <tr style="background-color: #feb2b3"> <td>1</td> <td>2</td> <td>1</td> <td>0</td><td>0</td><td>0</td><td>-1</td> <td style="background-color: white"> </td> </tr>
+                                               <tr style="background-color: #2fb3b3"> <td>2</td><td>3</td> <td>0</td> <td>0</td><td>1</td><td>1</td><td> 1</td> <td style="background-color: white"> </td> </tr>
+                                               <tr style="background-color: #2fb3b3"> <td>2</td><td>4</td> <td>1</td> <td>1</td><td>0</td><td>0</td><td>-1</td> <td style="background-color: white"></td> </tr>
+                                               <tr style="background-color: #edc3b1"> <td>3</td><td>5</td> <td>1</td> <td>1</td><td>1</td><td>0</td><td> 1</td> <td style="background-color: white"></td> </tr>
+                                               <tr style="background-color: #edc3b1"> <td>3</td><td>6</td> <td>0</td> <td>1</td><td>0</td><td>1</td><td>-1</td> <td style="background-color: white"></td> </tr>
+                                               <tr style="background-color: #fc23b3"> <td>4</td><td>7</td> <td>0</td> <td>0</td><td>0</td><td>0</td><td> 1</td> <td style="background-color: white"></td> </tr>
+                                               <tr style="background-color: #fc23b3"> <td>4</td><td>8</td> <td>1</td> <td>1</td><td>1</td><td>1</td><td> 1</td> <td style="background-color: white"></td> </tr>
+                                               <tr style="background-color: #3c23b3"> <td>5</td><td>9</td> <td>0</td> <td>0</td><td>0</td><td>0</td><td> 1</td> <td style="background-color: white"></td> </tr>
+                                               <tr style="background-color: #3c23b3"> <td>5</td><td>10</td> <td>1</td> <td>1</td><td>1</td><td>1</td><td> 1</td> <td style="background-color: white"></td> </tr>
+                                             </table>
+                                            <br/>
+
+
+                                            <h4>5-fold crossvalidation example</h4>     
+                                                   <ul>
+                                                      <li class="paragraph2"> The dataset is divided into five folds.  \( Fold_1 = \{1,2\}, Fold_2= \{3,4 \} \dots, Fold_5 = \{9,10\} \). </li>     		 				
+                               			      
+                                                   </ul>
+
+                                            </div>
+			 	      </section>
+                                     <section data-transition="none">                       
+                                         <div class="my_container">                      
+                                            <h4>Evaluating classifiers: k-fold crossvalidation</h4>                                       
+
+                                             <table id="customers">
+                                                <colgroup>                                         
+                                                  <col style="background-color:white">
+                                                  <col span="7" style="background-color:white">
+                                               </colgroup>
+
+                                               <tr> <th>ind.</th> <th>X0</th> <th>X1</th><th>X2</th><th>X3</th><th>Class</th> <th>Prediction</th> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>1</td> <td>0</td> <td>0</td><td>1</td><td>0</td><td>-1</td> <td style="background-color: white"> </td> </tr>                                       
+                                               <tr style="background-color: #ffb3b3"> <td>2</td> <td>1</td> <td>0</td><td>0</td><td>0</td><td>-1</td> <td style="background-color: white"> </td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>3</td> <td>0</td> <td>0</td><td>1</td><td>1</td><td> 1</td> <td style="background-color: white"> </td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>4</td> <td>1</td> <td>1</td><td>0</td><td>0</td><td>-1</td> <td style="background-color: white"></td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>5</td> <td>1</td> <td>1</td><td>1</td><td>0</td><td> 1</td> <td style="background-color: white"></td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>6</td> <td>0</td> <td>1</td><td>0</td><td>1</td><td>-1</td> <td style="background-color: white"></td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>7</td> <td>0</td> <td>0</td><td>0</td><td>0</td><td> 1</td> <td style="background-color: white"></td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>8</td> <td>1</td> <td>1</td><td>1</td><td>1</td><td> 1</td> <td style="background-color: white"></td> </tr>
+                                               <tr> <td>9</td> <td>0</td> <td>0</td><td>0</td><td>0</td><td> 1</td> <td style="background-color: white"></td> </tr>
+                                               <tr> <td>10</td> <td>1</td> <td>1</td><td>1</td><td>1</td><td> 1</td> <td style="background-color: white"></td> </tr>
+                                             </table>
+                                            <br/>
+
+
+                                            <h4>5-fold crossvalidation example</h4>     
+                                                   <ul>
+      		 				      <li class="paragraph2">In the first step, <mark  style="background-color: #ffb3b3"> Train data </mark> comprises 4 folds:  \( \{ Fold_1, Fold_2, Fold_3, Fold_4 \} \). </li>
+                                                    
+     		 				      
+                                                   </ul>
+
+                                            </div>
+			 	      </section>
+                                     <section data-transition="none">                       
+                                         <div class="my_container">                      
+                                            <h4>Evaluating classifiers: k-fold crossvalidation</h4>                                       
+
+                                             <table id="customers">
+                                                <colgroup>                                         
+                                                  <col style="background-color:white">
+                                                  <col span="7" style="background-color:white">
+                                               </colgroup>
+
+                                               <tr> <th>ind.</th> <th>X0</th> <th>X1</th><th>X2</th><th>X3</th><th>Class</th> <th>Prediction</th> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>1</td> <td>0</td> <td>0</td><td>1</td><td>0</td><td>-1</td> <td style="background-color: white"> </td> </tr>                                       
+                                               <tr style="background-color: #ffb3b3"> <td>2</td> <td>1</td> <td>0</td><td>0</td><td>0</td><td>-1</td> <td style="background-color: white"> </td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>3</td> <td>0</td> <td>0</td><td>1</td><td>1</td><td> 1</td> <td style="background-color: white"> </td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>4</td> <td>1</td> <td>1</td><td>0</td><td>0</td><td>-1</td> <td style="background-color: white"></td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>5</td> <td>1</td> <td>1</td><td>1</td><td>0</td><td> 1</td> <td style="background-color: white"></td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>6</td> <td>0</td> <td>1</td><td>0</td><td>1</td><td>-1</td> <td style="background-color: white"></td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>7</td> <td>0</td> <td>0</td><td>0</td><td>0</td><td> 1</td> <td style="background-color: white"></td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>8</td> <td>1</td> <td>1</td><td>1</td><td>1</td><td> 1</td> <td style="background-color: white"></td> </tr>
+                                               <tr style="background-color: #3498DB"> <td>9</td> <td>0</td> <td>0</td><td>0</td><td>0</td><td> 1</td> <td style="background-color: white"></td> </tr>
+                                               <tr style="background-color: #3498DB"> <td>10</td> <td>1</td> <td>1</td><td>1</td><td>1</td><td> 1</td> <td style="background-color: white"></td> </tr>
+                                             </table>
+                                            <br/>
+
+
+                                            <h4>5-fold crossvalidation example</h4>     
+                                                   <ul>
+      		 				      <li class="paragraph2">In the first step, <mark  style="background-color: #ffb3b3"> Train data </mark> comprises 4 folds:  \( \{ Fold_1, Fold_2, Fold_3, Fold_4 \} \). </li>
+                                 		      <li class="paragraph2">And <mark  style="background-color: #3498DB"> Test data </mark> comprises 1 fold:  \( \{ Fold_5 \} \). </li>                         
+     		 				      
+                                                   </ul>
+
+                                            </div>
+			 	      </section>
+                                     <section data-transition="none">                       
+                                         <div class="my_container">                      
+                                            <h4>Evaluating classifiers: k-fold crossvalidation</h4>                                       
+
+                                             <table id="customers">
+                                                <colgroup>                                         
+                                                  <col style="background-color:white">
+                                                  <col span="7" style="background-color:white">
+                                               </colgroup>
+
+                                               <tr> <th>ind.</th> <th>X0</th> <th>X1</th><th>X2</th><th>X3</th><th>Class</th> <th>Prediction</th> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>1</td> <td>0</td> <td>0</td><td>1</td><td>0</td><td>-1</td> <td style="background-color: white"> </td> </tr>                                       
+                                               <tr style="background-color: #ffb3b3"> <td>2</td> <td>1</td> <td>0</td><td>0</td><td>0</td><td>-1</td> <td style="background-color: white"> </td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>3</td> <td>0</td> <td>0</td><td>1</td><td>1</td><td> 1</td> <td style="background-color: white"> </td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>4</td> <td>1</td> <td>1</td><td>0</td><td>0</td><td>-1</td> <td style="background-color: white"></td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>5</td> <td>1</td> <td>1</td><td>1</td><td>0</td><td> 1</td> <td style="background-color: white"></td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>6</td> <td>0</td> <td>1</td><td>0</td><td>1</td><td>-1</td> <td style="background-color: white"></td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>7</td> <td>0</td> <td>0</td><td>0</td><td>0</td><td> 1</td> <td style="background-color: white"></td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>8</td> <td>1</td> <td>1</td><td>1</td><td>1</td><td> 1</td> <td style="background-color: white"></td> </tr>
+                                               <tr style="background-color: #3498DB"> <td>9</td> <td>0</td> <td>0</td><td>0</td><td>0</td><td> 1</td> <td style="background-color: red">-1</td> </tr>
+                                               <tr style="background-color: #3498DB"> <td>10</td> <td>1</td> <td>1</td><td>1</td><td>1</td><td> 1</td> <td style="background-color: red">1</td> </tr>
+                                             </table>
+                                            <br/>
+
+
+                                            <h4>5-fold crossvalidation example</h4>     
+                                                   <ul>
+      		 				      <li class="paragraph2">In the first step, <mark  style="background-color: #ffb3b3"> Train data </mark> comprises 4 folds:  \( \{ Fold_1, Fold_2, Fold_3, Fold_4 \} \). </li>
+                                 		      <li class="paragraph2">And <mark  style="background-color: #3498DB"> Test data </mark> comprises 1 fold:  \( \{ Fold_5 \} \). </li>             
+                                                      <li class="paragraph2">So we learn on  <mark  style="background-color: #ffb3b3"> Train data </mark>  and predict the <mark  style="background-color: #3498DB"> Test data </mark>. </li>                         
+     		 				      
+                                                   </ul>
+
+                                            </div>
+			 	      </section>
+                                     <section data-transition="none">                       
+                                         <div class="my_container">                      
+                                            <h4>Evaluating classifiers: k-fold crossvalidation</h4>                                       
+
+                                             <table id="customers">
+                                                <colgroup>                                         
+                                                  <col style="background-color:white">
+                                                  <col span="7" style="background-color:white">
+                                               </colgroup>
+
+                                               <tr> <th>ind.</th> <th>X0</th> <th>X1</th><th>X2</th><th>X3</th><th>Class</th> <th>Prediction</th> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>1</td> <td>0</td> <td>0</td><td>1</td><td>0</td><td>-1</td> <td style="background-color: white"> </td> </tr>                                       
+                                               <tr style="background-color: #ffb3b3"> <td>2</td> <td>1</td> <td>0</td><td>0</td><td>0</td><td>-1</td> <td style="background-color: white"> </td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>3</td> <td>0</td> <td>0</td><td>1</td><td>1</td><td> 1</td> <td style="background-color: white"> </td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>4</td> <td>1</td> <td>1</td><td>0</td><td>0</td><td>-1</td> <td style="background-color: white"></td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>5</td> <td>1</td> <td>1</td><td>1</td><td>0</td><td> 1</td> <td style="background-color: white"></td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>6</td> <td>0</td> <td>1</td><td>0</td><td>1</td><td>-1</td> <td style="background-color: white"></td> </tr>
+                                               <tr style="background-color: #3498DB"> <td>7</td> <td>0</td> <td>0</td><td>0</td><td>0</td><td> 1</td> <td style="background-color: white"></td> </tr>
+                                               <tr style="background-color: #3498DB"> <td>8</td> <td>1</td> <td>1</td><td>1</td><td>1</td><td> 1</td> <td style="background-color: white"></td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>9</td> <td>0</td> <td>0</td><td>0</td><td>0</td><td> 1</td> <td style="background-color: red">-1</td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>10</td> <td>1</td> <td>1</td><td>1</td><td>1</td><td> 1</td> <td style="background-color: red">1</td> </tr>
+                                             </table>
+                                            <br/>
+
+
+                                            <h4>5-fold crossvalidation example</h4>     
+                                                   <ul>
+      		 				      <li class="paragraph2">In the second step, <mark  style="background-color: #ffb3b3"> Train data </mark> comprises 4 folds:  \( \{ Fold_1, Fold_2, Fold_3, Fold_5 \} \). </li>
+                                 		      <li class="paragraph2">And <mark  style="background-color: #3498DB"> Test data </mark> comprises 1 fold:  \( \{ Fold_4 \} \). </li>             
+                                              
+     		 				      
+                                                   </ul>
+
+                                            </div>
+			 	      </section>
+                                     <section data-transition="none">                       
+                                         <div class="my_container">                      
+                                            <h4>Evaluating classifiers: k-fold crossvalidation</h4>                                       
+
+                                             <table id="customers">
+                                                <colgroup>                                         
+                                                  <col style="background-color:white">
+                                                  <col span="7" style="background-color:white">
+                                               </colgroup>
+
+                                               <tr> <th>ind.</th> <th>X0</th> <th>X1</th><th>X2</th><th>X3</th><th>Class</th> <th>Prediction</th> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>1</td> <td>0</td> <td>0</td><td>1</td><td>0</td><td>-1</td> <td style="background-color: white"> </td> </tr>                                       
+                                               <tr style="background-color: #ffb3b3"> <td>2</td> <td>1</td> <td>0</td><td>0</td><td>0</td><td>-1</td> <td style="background-color: white"> </td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>3</td> <td>0</td> <td>0</td><td>1</td><td>1</td><td> 1</td> <td style="background-color: white"> </td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>4</td> <td>1</td> <td>1</td><td>0</td><td>0</td><td>-1</td> <td style="background-color: white"></td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>5</td> <td>1</td> <td>1</td><td>1</td><td>0</td><td> 1</td> <td style="background-color: white"></td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>6</td> <td>0</td> <td>1</td><td>0</td><td>1</td><td>-1</td> <td style="background-color: white"></td> </tr>
+                                               <tr style="background-color: #3498DB"> <td>7</td> <td>0</td> <td>0</td><td>0</td><td>0</td><td> 1</td> <td style="background-color: red">1</td></tr>
+                                               <tr style="background-color: #3498DB"> <td>8</td> <td>1</td> <td>1</td><td>1</td><td>1</td><td> 1</td> <td style="background-color: red">-1</td></tr>
+                                               <tr style="background-color: #ffb3b3"> <td>9</td> <td>0</td> <td>0</td><td>0</td><td>0</td><td> 1</td> <td style="background-color: red">-1</td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>10</td> <td>1</td> <td>1</td><td>1</td><td>1</td><td> 1</td> <td style="background-color: red">1</td> </tr>
+                                             </table>
+                                            <br/>
+
+
+                                            <h4>5-fold crossvalidation example</h4>     
+                                                   <ul>
+      		 				      <li class="paragraph2">In the second step, <mark  style="background-color: #ffb3b3"> Train data </mark> comprises 4 folds:  \( \{ Fold_1, Fold_2, Fold_3, Fold_5 \} \). </li>
+                                 		      <li class="paragraph2">And <mark  style="background-color: #3498DB"> Test data </mark> comprises 1 fold:  \( \{ Fold_4 \} \). </li>             
+                                                      <li class="paragraph2">So we learn on  <mark  style="background-color: #ffb3b3"> Train data </mark>  and predict the <mark  style="background-color: #3498DB"> Test data </mark>. </li>                                                 
+     		 				      
+                                                   </ul>
+
+                                            </div>
+			 	      </section>
+                                     <section data-transition="none">                       
+                                         <div class="my_container">                      
+                                            <h4>Evaluating classifiers: k-fold crossvalidation</h4>                                       
+
+                                             <table id="customers">
+                                                <colgroup>                                         
+                                                  <col style="background-color:white">
+                                                  <col span="7" style="background-color:white">
+                                               </colgroup>
+
+                                               <tr> <th>ind.</th> <th>X0</th> <th>X1</th><th>X2</th><th>X3</th><th>Class</th> <th>Prediction</th> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>1</td> <td>0</td> <td>0</td><td>1</td><td>0</td><td>-1</td> <td style="background-color: white"> </td> </tr>                                       
+                                               <tr style="background-color: #ffb3b3"> <td>2</td> <td>1</td> <td>0</td><td>0</td><td>0</td><td>-1</td> <td style="background-color: white"> </td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>3</td> <td>0</td> <td>0</td><td>1</td><td>1</td><td> 1</td> <td style="background-color: white"> </td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>4</td> <td>1</td> <td>1</td><td>0</td><td>0</td><td>-1</td> <td style="background-color: white"></td> </tr>
+                                               <tr style="background-color: #3498DB"> <td>5</td> <td>1</td> <td>1</td><td>1</td><td>0</td><td> 1</td> <td style="background-color: red">1</td> </tr>
+                                               <tr style="background-color: #3498DB"> <td>6</td> <td>0</td> <td>1</td><td>0</td><td>1</td><td>-1</td> <td style="background-color: red">-1</td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>7</td> <td>0</td> <td>0</td><td>0</td><td>0</td><td> 1</td> <td style="background-color: red">1</td></tr>
+                                               <tr style="background-color: #ffb3b3"> <td>8</td> <td>1</td> <td>1</td><td>1</td><td>1</td><td> 1</td> <td style="background-color: red">-1</td></tr>
+                                               <tr style="background-color: #ffb3b3"> <td>9</td> <td>0</td> <td>0</td><td>0</td><td>0</td><td> 1</td> <td style="background-color: red">-1</td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>10</td> <td>1</td> <td>1</td><td>1</td><td>1</td><td> 1</td> <td style="background-color: red">1</td> </tr>
+                                             </table>
+                                            <br/>
+
+
+                                            <h4>5-fold crossvalidation example</h4>     
+                                                   <ul>
+      		 				      <li class="paragraph2">In the third step, <mark  style="background-color: #ffb3b3"> Train data </mark> comprises 4 folds:  \( \{ Fold_1, Fold_2, Fold_4, Fold_5 \} \). </li>
+                                 		      <li class="paragraph2">And <mark  style="background-color: #3498DB"> Test data </mark> comprises 1 fold:  \( \{ Fold_3 \} \). </li>             
+                                                      <li class="paragraph2">So we learn on  <mark  style="background-color: #ffb3b3"> Train data </mark>  and predict the <mark  style="background-color: #3498DB"> Test data </mark>. </li>                                                 
+     		 				      
+                                                   </ul>
+
+                                            </div>
+			 	      </section>
+                                     <section data-transition="none">                       
+                                         <div class="my_container">                      
+                                            <h4>Evaluating classifiers: k-fold crossvalidation</h4>                                       
+
+                                             <table id="customers">
+                                                <colgroup>                                         
+                                                  <col style="background-color:white">
+                                                  <col span="7" style="background-color:white">
+                                               </colgroup>
+
+                                               <tr> <th>ind.</th> <th>X0</th> <th>X1</th><th>X2</th><th>X3</th><th>Class</th> <th>Prediction</th> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>1</td> <td>0</td> <td>0</td><td>1</td><td>0</td><td>-1</td> <td style="background-color: white"> </td> </tr>                                       
+                                               <tr style="background-color: #ffb3b3"> <td>2</td> <td>1</td> <td>0</td><td>0</td><td>0</td><td>-1</td> <td style="background-color: white"> </td> </tr>
+                                               <tr style="background-color: #3498DB"> <td>3</td> <td>0</td> <td>0</td><td>1</td><td>1</td><td> 1</td> <td style="background-color: red">-1</td> </tr>
+                                               <tr style="background-color: #3498DB"> <td>4</td> <td>1</td> <td>1</td><td>0</td><td>0</td><td>-1</td> <td style="background-color: red">-1</td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>5</td> <td>1</td> <td>1</td><td>1</td><td>0</td><td> 1</td> <td style="background-color: red"> 1</td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>6</td> <td>0</td> <td>1</td><td>0</td><td>1</td><td>-1</td> <td style="background-color: red"> -1</td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>7</td> <td>0</td> <td>0</td><td>0</td><td>0</td><td> 1</td> <td style="background-color: red">1</td></tr>
+                                               <tr style="background-color: #ffb3b3"> <td>8</td> <td>1</td> <td>1</td><td>1</td><td>1</td><td> 1</td> <td style="background-color: red">-1</td></tr>
+                                               <tr style="background-color: #ffb3b3"> <td>9</td> <td>0</td> <td>0</td><td>0</td><td>0</td><td> 1</td> <td style="background-color: red">-1</td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>10</td> <td>1</td> <td>1</td><td>1</td><td>1</td><td> 1</td> <td style="background-color: red">1</td> </tr>
+                                             </table>
+                                            <br/>
+
+
+                                            <h4>5-fold crossvalidation example</h4>     
+                                                   <ul>
+      		 				      <li class="paragraph2">In the fourth step, <mark  style="background-color: #ffb3b3"> Train data </mark> comprises 4 folds:  \( \{ Fold_1, Fold_3, Fold_4, Fold_5 \} \). </li>
+                                 		      <li class="paragraph2">And <mark  style="background-color: #3498DB"> Test data </mark> comprises 1 fold:  \( \{ Fold_2 \} \). </li>             
+                                                      <li class="paragraph2">So we learn on  <mark  style="background-color: #ffb3b3"> Train data </mark>  and predict the <mark  style="background-color: #3498DB"> Test data </mark>. </li>                                                 
+     		 				      
+                                                   </ul>
+
+                                            </div>
+			 	      </section>
+                                     <section data-transition="none">                       
+                                         <div class="my_container">                      
+                                            <h4>Evaluating classifiers: k-fold crossvalidation</h4>                                       
+
+                                             <table id="customers">
+                                                <colgroup>                                         
+                                                  <col style="background-color:white">
+                                                  <col span="7" style="background-color:white">
+                                               </colgroup>
+
+                                               <tr> <th>ind.</th> <th>X0</th> <th>X1</th><th>X2</th><th>X3</th><th>Class</th> <th>Prediction</th> </tr>
+                                               <tr style="background-color: #3498DB"> <td>1</td> <td>0</td> <td>0</td><td>1</td><td>0</td><td>-1</td> <td style="background-color: red">1 </td> </tr>                                       
+                                               <tr style="background-color: #3498DB"> <td>2</td> <td>1</td> <td>0</td><td>0</td><td>0</td><td>-1</td> <td style="background-color: red">1 </td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>3</td> <td>0</td> <td>0</td><td>1</td><td>1</td><td> 1</td> <td style="background-color: red">-1</td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>4</td> <td>1</td> <td>1</td><td>0</td><td>0</td><td>-1</td> <td style="background-color: red">-1</td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>5</td> <td>1</td> <td>1</td><td>1</td><td>0</td><td> 1</td> <td style="background-color: red"> 1</td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>6</td> <td>0</td> <td>1</td><td>0</td><td>1</td><td>-1</td> <td style="background-color: red"> -1</td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>7</td> <td>0</td> <td>0</td><td>0</td><td>0</td><td> 1</td> <td style="background-color: red">1</td></tr>
+                                               <tr style="background-color: #ffb3b3"> <td>8</td> <td>1</td> <td>1</td><td>1</td><td>1</td><td> 1</td> <td style="background-color: red">-1</td></tr>
+                                               <tr style="background-color: #ffb3b3"> <td>9</td> <td>0</td> <td>0</td><td>0</td><td>0</td><td> 1</td> <td style="background-color: red">-1</td> </tr>
+                                               <tr style="background-color: #ffb3b3"> <td>10</td> <td>1</td> <td>1</td><td>1</td><td>1</td><td> 1</td> <td style="background-color: red">1</td> </tr>
+                                             </table>
+                                            <br/>
+
+
+                                            <h4>5-fold crossvalidation example</h4>     
+                                                   <ul>
+      		 				      <li class="paragraph2">In the fourth step, <mark  style="background-color: #ffb3b3"> Train data </mark> comprises 4 folds:  \( \{ Fold_2, Fold_3, Fold_4, Fold_5 \} \). </li>
+                                 		      <li class="paragraph2">And <mark  style="background-color: #3498DB"> Test data </mark> comprises 1 fold:  \( \{ Fold_1 \} \). </li>             
+                                                      <li class="paragraph2">So we learn on  <mark  style="background-color: #ffb3b3"> Train data </mark>  and predict the <mark  style="background-color: #3498DB"> Test data </mark>. </li>                                                 
+     		 				      
+                                                   </ul>
+
+                                            </div>
+			 	      </section>
+                                     <section data-transition="none">  
+                                         <mark  class="red"> </mark>                     
+                                         <div class="my_container">                      
+                                            <h3>Evaluating classifiers</h3>                                                                                          <h4>k-fold crossvalidation</h4>                  
+                                                   <ul>
+     
+      		 				      <li class="paragraph2"> Used to  <mark  class="red">estimate</mark>  the classifier performance (e.g., accuracy) when a validation set is not available.</li>
+      		 				      <li class="paragraph2"> The dataset is <mark  class="red">randomly partitioned </mark>  into k equal sized folds.</li>
+
+      		 				  
+      		 				      <li class="paragraph2">The cross-validation process is <mark  class="red">repeated k times</mark>. Every time instances in a different fold are predicted.</li>
+
+                                                      <li class="paragraph2">Leave-one-out cross-validation <mark  class="red">(LOOCV)</mark>: Each fold corresponds to an instance. In every step, <mark  class="red">one instance is leave out</mark>  for training and its class predicted.</li>
+      		 				                                                 
+
+
+                                                   </ul>
+
+                                            </div>
+   	 	                </section>
+                           </section>
+ 
+
+
+			</div>
+		</div>
+
+
+
+
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			Reveal.initialize({
+				history: true,
+				transition: 'linear',
+
+				math: {
+					// mathjax: 'http://cdn.mathjax.org/mathjax/latest/MathJax.js',
+					config: 'TeX-AMS_HTML-full'
+				},
+
+				dependencies: [
+                                        { src: 'lib/js/fullscreen-img.js' },
+					{ src: 'lib/js/classList.js' },
+					{ src: 'plugin/math/math.js', async: true }
+
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

@@ -1,0 +1,1172 @@
+<!doctype html>
+<html lang="en">
+
+
+   
+    
+	<head>
+		<meta charset="utf-8">
+
+		<title>Machine Learning and Neural Networks</title>
+                <meta name="author" content="Roberto Santana">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<!-- <link rel="stylesheet" href="css/reveal.css">  -->
+                <link rel="stylesheet" href="css/fullscreen-img.css">
+                <link rel="stylesheet" href="css/added_css/notebook.css">
+   	        <link rel="stylesheet" href="css/reveal.css">
+                <link rel="stylesheet" href="css/theme/nncourse.css" id="theme">
+                                
+
+	</head>
+
+	<body>
+
+
+		<div class="reveal">
+			<div class="slides">
+
+				<section>
+                                          <div class="my_container">
+                                        <h2>Machine Learning and Neural Networks</h2>
+					<p>Roberto Santana and Unai Garciarena<p>
+					<p>Department of Computer Science and Artificial Intelligence</p>
+                                        <p>University of the Basque Country</p>
+                          		 </div>   
+				</section>
+
+
+				  <section>
+				  
+
+				      <section data-background-image="href=../../new_img/ISG_Group.png">
+                                           
+  	                                            <h1><a href="http://www.sc.ehu.es/ccwbayes/"> Intelligent Systems Group.</a></h1>
+                                      </section>
+
+                                      <section>
+                                        <h4>PhD. Students ML</h4>
+
+
+				      <p class="paragraph1">
+					  <img src="href=../../new_img/iroman.jpg"  height="95" width="95"  class="float-img">
+                                          
+					     &ensp; &thinsp; &thinsp;   <mark class="red">Ibai Roman</mark> </br>
+					     &ensp; &thinsp; &thinsp;  &bull; Gaussian Process 
+					     &ensp; &thinsp; &thinsp;  &bull; Bayesian Optimization 					    
+					</p>
+
+				
+					<p class="paragraph1">
+					  <img src="href=../../new_img/ugarciarena.jpg"  height="95" width="95"  class="float-img">
+                                          
+
+ 					     &ensp; &thinsp; &thinsp;  <mark class="red">Unai Garciarena</mark>  <br>
+					     &ensp; &thinsp; &thinsp;   &bull; Deep Neural Networks     
+					     &ensp; &thinsp; &thinsp;   &bull; Generative models (GANs and VAEs) 					    
+					</p>					
+
+					<p class="paragraph1">
+					  <img src="href=../../new_img/maialen.jpeg"  height="95" width="95"  class="float-img">
+                                          
+					     &ensp; &thinsp; &thinsp;    <mark class="red">Maialen Murua</mark> (Tecnalia) <br/>
+					     &ensp; &thinsp; &thinsp;  &bull; Advanced regression methods
+					     &ensp; &thinsp; &thinsp;  &bull; Optimization 					    
+					</p>		
+		                      </section>
+
+
+				       <section>
+                                         <h4>PhD. Students ML</h4>
+
+					 <p class="paragraph1">
+					  <img src="href=../../new_img/dcarrera.jpg"  height="95" width="95"  class="float-img">
+                                          
+					     &ensp; &thinsp; &thinsp;  <mark class="red">Diana Carrera</mark> </br>
+					     &ensp; &thinsp; &thinsp;  &bull; Probabilistic Graphical Models 
+					     &ensp; &thinsp; &thinsp;  &bull; Copula Models and Vines 					    
+					</p>
+
+					<p class="paragraph1">
+					  <img src="href=../../new_img/Ning_Mei.png"  height="95" width="95"  class="float-img">
+                                          
+					     &ensp; &thinsp; &thinsp;  <mark class="red">Ning Mei</mark> (BCBL) </br>
+					     &ensp; &thinsp; &thinsp;  &bull; Neuroscience
+					     &ensp; &thinsp; &thinsp;  &bull; Deep Learning 					    
+					</p>
+
+					<p class="paragraph1">
+					  <img src="href=../../new_img/jvadillo.png"  height="95" width="95"  class="float-img">                                          
+
+ 					     &ensp; &thinsp; &thinsp;  <mark class="red">Jon Vadillo</mark>  <br>
+					     &ensp; &thinsp; &thinsp;   &bull; Adversarial Examples     
+					     &ensp; &thinsp; &thinsp;   &bull; Deep Learning 					    
+					</p>					
+					
+                                      </section>
+				</section>
+                                <section>
+
+                                     <section  id="sec:CourseIntroduction">
+                                          <div class="my_container">
+                                          <h3>Introduction to the course: Table of Contents </h3>                                        
+                                          <table style="width:100%"; border=solid>
+
+                                            <tr>
+
+					              <td> <p class="paragraph2"> <a href="#/sec:ML_Ubiquity"> Ubiquity of ML </a></p></td>  
+
+
+					              <td> <p class="paragraph2"> <a href="#/sec:ML_AI"> Artificial intelligence </a></p></td>        
+                                                
+
+                                                      <td> <p class="paragraph2"> <a href="#/sec:ML_WHAT"> What is machine learning </a></p></td>                                                                  
+
+						                                                           
+                                                      <td> <p class="paragraph2"> <a href="#/sec:ML_AI_and_ML"> Artificial intelligence and ML </a></p></td>        
+                                         
+                                                   
+                                                      
+                                            </tr>
+
+                                                  <tr>
+
+                                                      <td> <p class="paragraph2"> <a href="#/sec:ML_Approaches"> ML approaches </a></p></td>       
+                                                      <td> <p class="paragraph2"> <a href="#/sec:ML_Supervised"> Supervised classification </a></p></td>  
+                                                      <td> <p class="paragraph2"> <a href="#/sec:ML_UnSupervised" > Unsupervised classification </a></p></td>
+
+						      <td> <p class="paragraph2"> <a href="#/sec:ML_Reinforcement"> Reinforcement learning </a></p></td>        
+                                                    
+                                                  </tr>        
+                                                  <tr>
+                                                     
+
+                                                      <td> <p class="paragraph2"> <a href="#/sec:ML_GeneticProgramming"> Genetic Programming </a></p></td>
+
+						       <td> <p class="paragraph2"> <a href="#/sec:ML_Course_Objectives"> Objectives of the course </a></p></td>
+      
+                                                      <td> <p class="paragraph2"> <a href="#/sec:ML_Course_Organization"> Course organization </a></p></td>				     
+                                                  
+                                             
+         
+                                                  </tr>          
+
+					    
+                                            <tr>
+
+					             <td><p class="paragraph2"> <a href="#/sec:ML_Course_Evaluation"> Course evaluation </a></p></td>
+
+                                                      <td> <p class="paragraph2"> <a href="#/sec:ML_Project"> Project characteristics </a></p></td>        
+
+                                                      <td> <p class="paragraph2"> <a href="#/sec:ML_APPL"> ML applications </a></p></td>
+                                                                                                        
+        
+                                                     
+                                                  </tr>                                                         
+  
+                                
+                                    
+
+				             </table>	  
+                          	         </div>   
+
+			  	     </section>
+
+     				      
+			      
+   
+				     
+                                      <section  id="sec:ML_Ubiquity">
+                                                   <h3>Machine learning applications</h3>                                                   
+                                                   <h4>Self-driving vehicles: Google self-driving car</h4>                                                     
+                                                   <a title="By Driving_Google_Self-Driving_Car.jpg: Steve Jurvetson derivative work: Mariordo [CC BY 2.0 (http://creativecommons.org/licenses/by/2.0)], via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File%3AGoogle's_Lexus_RX_450h_Self-Driving_Car.jpg"><img width="512" alt="Google&#039;s Lexus RX 450h Self-Driving Car" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Google%27s_Lexus_RX_450h_Self-Driving_Car.jpg/512px-Google%27s_Lexus_RX_450h_Self-Driving_Car.jpg"/></a>
+
+                                                     <p class="paragraph2"> Figure: <a href="https://commons.wikimedia.org/wiki/File%3AGoogle's_Lexus_RX_450h_Self-Driving_Car.jpg"> Commons Wikipedia.</a>  </p>
+
+
+                                      </section>
+
+                                      <section>
+                                                   <h3>Machine learning applications</h3>                                                   
+                                                   <h4>Self-driving vehicles: NASA Mars Exploration Rover</h4>
+                                                        <img src="href=../../img/ml_applications/1024px-NASA_Mars_Rover.jpg"  height="450" width="1100">           
+                                                     <p class="paragraph2"> Figure: <a href="https://en.wikipedia.org/wiki/History_of_technology#/media/File:NASA_Mars_Rover.jpg"> Commons Wikipedia.</a>  </p>
+                                      </section>
+                                      <section>
+                                                   <h3>Machine learning applications</h3>                                                   
+                                                   <h4>Bioinformatics</h4>
+                                                        <img src="href=../../img/ml_applications/ML_Bioinformatics.jpeg"  height="400" width="1100">           
+                                                       <p class="paragraph2">Larrañaga et al.  <a href="https://academic.oup.com/bib/article/doi/10.1093/bib/bbk007/264025/Machine-learning-in-bioinformatics">  Machine learning in Bioinformatics</a> Briefings in Bioinformatics. DOI: doi.org/10.1093/bib/bbk007.  2006.</p>               
+
+                                      </section>
+
+                                        <section  data-background-image="href=../../img/games/black-and-white-game.jpg" data-background-size="1600px" data-background-repeat="repeat">
+
+
+                                                       <h1><mark class="red">ML methods in PC Games</mark></h1> 
+                                                       <h2><mark class="blue">Black & White</mark></h2> 
+                                                       <h3><mark class="red">Lionhead Studios and Electronic Arts. 2001.</mark></h3> 
+
+                                        </section>
+					
+
+
+                                      <section>
+                                         <h3>Use of Machine Learning in local companies </h3>
+                                         <div id="my-div">
+                                	 <iframe 
+                                           width="1150"
+                   	                   height="700"
+                             	           frameborder="0"
+                                  	   marginheight="0"
+                                           marginwidth="0"                                    	
+                                           scrolling="no"	 
+                                           src="https://sherpa.ai/"
+                                  	  > 
+                                 	  </iframe>
+                                          </div>
+                                                  <aside class="notes">
+						  
+                                            	  </aside>
+ 				      </section>
+                                      
+
+
+                                       <section>                   
+                                              <div class="container">
+
+                           		         <h3>Ubiquity of "learning algorithms"</h3>
+                                                  <span class="fragment">
+                                                  <div class="right">
+                                                  <h4>ML Research</h4>
+                                                      <ul>      
+  					                  <p class="paragraph2"><mark class="red">Automated programming</mark> and bug fixing.</p>
+  					                  <p class="paragraph2"><mark class="red">Self-explaining</mark> learning methods.</p>
+  					                  <p class="paragraph2"><mark class="red">Optimization techniques</mark> for hyperparameter search in high dimensions.</p>
+  					                  <p class="paragraph2"><mark class="red">Emotion recognition</mark>.</p>
+  					                  <p class="paragraph2">Implementing faster, less data-hungry <mark class="red">learning algorithms</mark>.</p>
+  					                  <p class="paragraph2"><mark class="red">Ethical issues</mark> (algorithm bias, ML-enhanced weapons).</p>
+                                                      <ul/>                                                      
+                          		          </div>
+                                                  </span>           
+                                      
+                                                  <div class="left">   
+                                                      <h4>ML Applications</h4>
+                                                      <ul>      
+  					                  <p class="paragraph2"><mark class="red">Finance</mark> (fraud detection, portfolio management, algorithmic trading) .</p>
+  					                  <p class="paragraph2"><mark class="red">Autonomous vehicles</mark> (self-driving cars).</p>
+  					                  <p class="paragraph2"><mark class="red">Social-media analysis</mark> and intervention (prioritize, censor posts in social networks).</p>
+  					                  <p class="paragraph2"><mark class="red">Robotics</mark>.</p>
+  					                  <p class="paragraph2"><mark class="red">Gaming</mark> (intelligent content generation, player experience modeling, artificial game players)</p>
+  					                  <p class="paragraph2"><mark class="red">Medicine</mark> (brain-computer interfaces, personalised medicine).</p>
+  					                  <p class="paragraph2">And <mark class="red">many more</mark>.</p>
+                                                      <ul/>    
+                                                  </div>                                                                                 
+                                                   <aside class="notes">
+                                                       What is ML? 
+                                            	   </aside>
+
+                             	      </section>
+				   
+                                    <section id="sec:ML_AI">
+                               	              <h3>Artificial Intelligence</h3>
+                                              <div class="container">
+                                                  <span class="fragment">
+                                                  <div class="right">
+                                                  <h4>Other classification of AI</h4>
+                                                      <ol>  
+      		           			           <li class="paragraph2"> Computer systems that act like humans.</li>
+      		           			           <li class="paragraph2"> Programs that simulate the human mind.</li>
+      		           			           <li class="paragraph2"> Knowledge representation and mechanistic reasoning.</li>
+      		           			           <li class="paragraph2"> Intelligent or rational agent design.</li>
+                     
+
+                                                     </ol>  
+                                                
+                          		          </div>
+                                                  </span>
+                                                 
+                                                  <div class="left">   
+                                                  <h4>What is AI?</h4>
+                                                      <ul>  
+      		           			           <li class="paragraph2"> Devise algorithms to make computers <mark class="red">behave intelligently</mark>.</li>
+      		           			           <li class="paragraph2"> Development of machines that can <mark class="red">perceive</mark>,  <mark class="red">reason</mark>,  <mark class="red">communicate</mark>, and <mark class="red">act </mark> in complex environments much like humans can, or possibly even better than humans can. </li>     
+                                                           <li class="paragraph2"> <mark class="red">Turing test</mark>: The computer is considered intelligent if the observer cannot tell the difference between the computer responses and the human responses.</li>
+		           			          
+                                                           
+                                                     </ul>                                                    
+
+                                                  </div>    
+                                                   
+                                              </div>  
+                                                   <aside class="notes">
+                                                       What is ML? 
+                                            	   </aside>
+
+                             	    </section>
+
+
+
+
+				     <section>                   
+                                                 <div class="my_container">            	                
+                           		         <h3>Impact of AI</h3>
+                           		         <h4>Challenges and opportunities</h4>                                                
+                                                     <ul>  
+                                                       <li class="paragraph2">Usually called the <mark class="red">next electricity</mark>.</li>
+						       
+                                                           <li class="paragraph2">AI  is changing all areas of the society: communications, economy, politics.</li>
+							   <li class="paragraph2">Very strong impact in learning,  teaching, and  education.</li>
+							   <li class="paragraph2">Profound impacts  on  future <mark class="red"> labour markets</mark> and <mark class="red">competence requirements</mark>.</li>
+							   <li class="paragraph2">In 2016, more than <mark class="red">1600 startups</mark> specialized in IA were registered in the word. </li>
+                                                           <li class="paragraph2"><mark class="red">Race for supremacy</mark> in the word. Among the advanced countries: EUA, Canada, China, UK, Israel.</li>							   
+ 
+                                                     </ul>                                              
+				   
+                          			 </div>
+						 <p class="paragraph2"> I. Tuomi. The Impact of Artificial Intelligence on Learning, Teaching, and Education.<a href="http://publications.jrc.ec.europa.eu/repository/bitstream/JRC113226/jrc113226_jrcb4_the_impact_of_artificial_intelligence_on_learning_final_2.pdf"></a>JRC Science for Policy Report. 2018</p>
+                                                   <aside class="notes">
+                                                       What is ML? 
+                                            	   </aside>
+
+                             	           </section>
+                                          <section>
+                               	              <h3>Artificial Intelligence</h3>
+                                              <div class="container">
+                                                  <span class="fragment">
+                                                  <div class="right">
+                                                 <h4>Some AI disciplines</h4>
+                                                      <ul>  
+      		           			           <li class="paragraph2"> Machine vision </li>
+      		           			           <li class="paragraph2"> Natural language processing (NLP) </li>
+      		           			           <li class="paragraph2"> Logical reasoning and representation </li>
+      		           			           <li class="paragraph2"> Heuristic search </li>
+      		           			           <li class="paragraph2"> Planning </li>
+      		           			           <li class="paragraph2"> Expert systems </li>
+       		           			           <li class="paragraph2"> Robotics </li>     		           			         
+                                                           
+                                                     </ul>                                     
+                           		          </div>
+                                                  </span>
+                                                 
+                                                  <div class="left">   
+                                                  <h4>AI paradigms</h4>
+                                                      <ul>  
+      		           			           <li class="paragraph2"> <mark class="red">Symbol-Processing Approaches</mark>: all aspects
+of intelligent behavior can be exhibited by physical symbol systems.</li>
+      		           			           <li class="paragraph2"> <mark class="red">Biocomputational Approaches</mark>: react directly to input signals of some sort.</li>
+      		           			           <li class="paragraph2"> <mark class="red">Heterogeneous Approaches</mark>: having
+several symbolic processes working together.</li>
+      		           			            <li class="paragraph2"><mark class="red">Integrative Approaches </mark>: borrow ideas from several previous approaches. </li>      		           	
+      		           			           <li class="paragraph2"> <mark class="red">Machine learning</mark>:  computers are instructed to learn from experience or data.  </li>
+
+                                                     	  <p class="paragraph2">  <a href="http://samoa.santafe.edu/media/workingpapers/93-08-052.pdf"> N. Nilsson and D. Rumelhart. Approaches to Artificial Intelligence. 1993.</a> </p>	           			   
+      		           			   
+                                                           
+                                                     </ul> 
+
+                                                  </div>    
+                                                   
+                                              </div>  
+                                                   <aside class="notes">
+                                                       What is ML? 
+                                            	   </aside>
+
+                             	          </section>
+
+
+                                          <section id="sec:ML_WHAT">                   
+                                                 <div class="my_container">            	                
+                           		         <h3>What is machine learning?</h3>
+                           		         <h4>Definitions</h4>
+                                                  <span class="fragment">
+                                                     <ul>  
+                                                           <li class="paragraph2"> The capacity of a computer to  <mark class="red">learn from experience</mark>, i.e., to modify its processing on the basis of newly acquired information (Oxford dictionary).</li>
+      		           			           <li class="paragraph2"> ML is the field of study that gives computers the <mark class="red">ability to learn</mark>  without being explicitly programmed (Samuel:1959).</li>
+     		           			           <li class="paragraph2">A computer program is said to  <mark class="red">learn from experience</mark>  E with respect to some task T and some performance measure P, <mark class="red">if its performance</mark>  on T, as measured by P, <mark class="red">improves with experience</mark> E (Mitchell:1997). </li>
+                                                           <li class="paragraph2"> Make the computer  <mark class="red">to adapt</mark>  to new circumstances and <mark class="red">to detect and extrapolate</mark>  patterns. </li>
+
+ 
+                                                     </ul>                                               
+                                                  </span>
+                          			 </div>
+						 
+                                                     <p class="paragraph2">A. Géron.  <a href="http://shop.oreilly.com/product/0636920052289.do">Hands on Machine Learning with scikit-learn and Tensorflow.</a> 2017.</p>
+                                                   <aside class="notes">
+                                                       What is ML? 
+                                            	   </aside>
+
+                             	           </section>
+
+                                          <section  id="sec:ML_AI_and_ML">
+                               	              <h3>Artificial Intelligence versus Machine learning</h3>
+                                              <div class="container">
+                                                  <span class="fragment">
+                                                  <div class="right">
+                                                  <h4>Criticism to Machine Learning</h4>
+                                                     <ul>  
+                                                          <li class="paragraph2">  The field's heavy use of statistical techniques to pick regularities in masses of data is unlikely to yield <mark class="red">the explanatory insight that science ought to offer</mark> <a href="http://shop.oreilly.com/product/0636920052289.do">[Chomsky:2012]</a>.</li>      	                                                                   <li class="paragraph2">  AI and robotics got to the point where you could actually do things that were useful, so it turned to the practical applications and somewhat, maybe not abandoned, but <mark class="red">put to the side, the more fundamental scientific questions</mark>. </li>  			          
+ 
+                                                           
+                                                     </ul>                                                   
+                           		          </div>
+                                                  </span>
+                                                 
+
+                                                  <div class="left">   
+                                                  <h4>Criticism to  Good Old Fashioned AI (GOFAI)</h4>
+                                                      <ul>  
+                                                           <li class="paragraph2"> In the logic-inspired paradigm, an instance of a symbol is something for which the only property is that it is either identical or non-identical to other symbol instances. <mark class="red">It has no internal structure that is relevant to its use</mark>. </li>
+      		           			           <li class="paragraph2"> Human knowledge is encoded in the algorithm and  <mark class="red">human intervention is needed</mark> to update it. </li>
+      		           			           <li class="paragraph2"> Methods may require a lot of hand-tuning or long lists of rules. </li>
+ 
+                                                           
+                                                     </ul> 
+
+                                                  </div>    
+                                                  <p class="paragraph2">Y. LeCun, Y. Bengio, and G. Hinton. <a href="https://arxiv.org/abs/1702.07800">Deep learning.</a>  Nature. 521.7553. 436-444. 2015.</p>  
+                                                   
+                                              </div>  
+                                                   <aside class="notes">
+                                                       What is ML? 
+                                            	   </aside>
+
+                             	          </section>
+
+					  
+                                         <section id="sec:ML_Approaches">
+                                          <div class="my_container">                               	                
+                           		         <h3>Machine learning</h3>
+                           		         <h4>Classification criteria for ML Methods </h4>
+                                                     <ul>  
+                                                           <span class="fragment"> 
+                                                           <li class="paragraph2">Whether or not they are trained with <mark class="red">human supervision</mark>  (supervised, unsupervised, semi-supervised and reinforcement learning).</li>
+                                                           </span>
+                                                           <span class="fragment">                                  
+                                                           <li class="paragraph2">Whether or not they can learn incrementally on the fly <mark class="red">(online vs batch learning)</mark>. </li>
+                                                           </span>
+                                                           <span class="fragment">                                                       
+                                                           <li class="paragraph2">Whether they work by simply comparing new data points to known data points, or instead they detect patterns in the training data and build a predictive model, much like scientists do <mark class="red"> (instance based vs model based learning)</mark>. </li>      
+                                                           </span>		           			         
+                                                     </ul> 
+                          		  </div>
+					   <p class="paragraph2">A. Géron.  <a href="http://shop.oreilly.com/product/0636920052289.do">Hands on Machine Learning with scikit-learn and Tensorflow.</a> 2017.</p>           
+
+                                                   <aside class="notes">
+                                                       What is ML? 
+                                            	   </aside>
+                             	      </section>
+
+                                 <section id="sec:ML_Supervised" >
+                                        <div class="my_container">
+                                        <h3>Supervised learning</h3>
+                                                 <h4>Renting a shared flat in Donosti </h4>
+                                                 <mark class="red"></mark>
+                                                      <ul>  
+                                                           <li class="paragraph2">After four years studying in San Sebastian a universitary student, not original from Donosti, perhaps from Ghana, has to find a flat  <mark class="red">again </mark>. </li>
+                                                                                                                                                                                              <span class="fragment">   
+                                                           <li class="paragraph2"> He has lived in  <mark class="red"> (8 flats already) </mark> so he knows about "good" and "bad" choices for a flat.   </li>
+                                                           </span>   
+                                                           <span class="fragment">   
+                                                           <li class="paragraph2"> Some memories are great (e.g.,  <mark class="red">cool people he has lived with</mark>) and some are awful (the <mark class="red">no-so-cool-flatmate's cat</mark> that used to eat his dinner). </li>
+                                                           </span>   
+                                                           <span class="fragment">   
+                                                           <li class="paragraph2">Therefore, he wants to use  <mark class="red"> all </mark> his experience  to <mark class="red">predict</mark>, <mark class="red">for three candidate flats</mark>,  which ones could be a good choice. </li>
+                                                           </span>   
+                                                           <span class="fragment">   
+                                                           <li class="paragraph2"> He can pose this flat selection question as a <mark class="red">supervised classification problem</mark>. </li>
+                                                           </span>   
+                                                           
+                                                     </ul> 
+	 </div>                                     
+                                                   <aside class="notes">
+                                                       What is ML? 
+                                            	   </aside>
+                             	         </section>
+
+         
+                                         <section data-background-image="https://lab.montera34.com/airbnb/donostia/images/densidad-airbnb-donostia_2.png" data-background-size="1600px">
+                                            
+                                             <h3>Renting a shared flat in Donosti </h3>
+
+                                        <table id="customers">
+                                        <colgroup>                                         
+                                          <col style="background-color:yellow">
+                                          <col span="8" style="background-color:white">
+                                          <col span="3" style="background-color: #bfff00">
+
+                                        </colgroup>
+                                             <tr> <th>Criteria/Flat</th> <th>F1</th><th>F2</th><th>F3</th><th>F4</th> <th>F5</th><th>F6</th><th>F7</th><th>F8</th><th>C1</th><th>C2</th><th>C3</th> </tr>
+                                             <tr><td>Price </td> <td>high </td><td>low</td><td>med.</td><td>high</td><td>low</td><td>med.</td><td>med.</td><td>high</td><td>med.</td><td>high</td><td>low</td> </tr>
+                                             <tr><td>Distance </td><td>far </td> <td>far</td><td>close</td>  <td>close </td> <td>close</td><td>close</td><td>close</td><td>close</td><td>far</td><td>far</td><td>close</td> </tr>
+                                             <tr><td>Parking </td><td>no</td> <td>no</td><td>no</td>  <td>no</td> <td>no</td><td>yes</td><td>no</td><td>no</td><td>no</td><td>no</td><td>yes</td> </tr>
+                                             <tr><td>Roommates </td><td>cool </td> <td>cool</td><td>cool</td>  <td>no</td> <td>no</td><td>cool</td><td>cool</td><td>cool</td><td>cool</td><td>cool</td><td>no</td> </tr>
+                                             <tr><td>Flat owner </td><td>nice</td> <td>nice</td><td>terrible</td>  <td>nice </td> <td>terrible</td><td>terrible</td><td>terrible</td><td>?</td><td>nice</td><td>?</td><td>?</td> </tr>
+                                             <tr><td>Heating</td><td>no</td> <td>no</td><td>no</td>  <td>yes</td> <td>yes</td><td>no</td><td>yes</td><td>yes</td><td>no</td><td>no</td><td>yes</td> </tr>
+                                             <tr><td>Bus-stop</td><td> close</td> <td>close</td><td>close</td>  <td>far </td> <td>close</td><td>close</td><td>far</td><td>far</td><td>far</td><td>close</td><td>close</td> </tr>
+                                              <tr><td>Room space </td><td>med.</td> <td>large</td><td>small</td>  <td>small </td> <td>small</td><td>med.</td><td>small</td><td>small</td><td>med.</td><td>small</td><td>small</td> </tr>
+                                             <tr><td>Noisy area </td><td>no</td> <td>yes</td><td>yes</td>  <td> no</td> <td>no</td><td>yes</td><td>yes</td><td>no</td><td>no</td><td>no</td><td>no</td> </tr>
+                                             <tr><td>Mother adv</td><td>yes </td> <td>?</td><td>no</td>  <td>?</td> <td>no</td><td>yes</td><td>yes</td><td>no</td><td>yes</td><td>no</td><td>no</td> </tr>
+
+                                              <tr><td>Cat </td><td>no</td> <td>yes</td><td>no</td>  <td>no</td> <td>yes</td><td>yes</td><td>no</td><td>yes</td><td>yes</td><td>no</td><td>no</td> </tr>
+                                              <tr><td>Kitchen </td><td>small </td> <td>small</td><td>large</td>  <td>med.</td> <td>med.</td><td>small</td><td>small</td><td>med.</td><td>large</td><td>small</td><td>small</td> </tr>
+                                              <tr><td>Beach </td><td>far</td> <td>far</td><td>close</td>  <td>close </td> <td>far</td><td>far</td><td>far</td><td>far</td><td>far</td><td>far</td><td>far</td> </tr>
+                                              <tr><td>Floor </td><td>2</td> <td>7</td><td>1</td>  <td>1</td> <td>0</td><td>3</td><td>1</td><td>2</td><td>4</td><td>0</td><td>3</td> </tr>
+                                              <tr><td>Elevator </td><td>no </td> <td>yes</td><td>no</td>  <td> no</td> <td>no</td><td>no</td><td>no</td><td>no</td><td>no</td><td>yes</td><td>yes</td> </tr>
+                                              <tr><td>Bars around </td><td>yes</td> <td>yes</td><td>yes</td>  <td>yes </td> <td>no</td><td>yes</td><td>no</td><td>no</td><td>no</td><td>yes</td><td>no</td> </tr>
+ 
+                                              <tr  style="background-color: #ffb3b3"><td>Enjoy</td><td> no</td> <td>yes</td><td>no</td>  <td>no</td> <td>no</td><td>yes</td><td>yes</td><td>no</td><td>?</td><td>?</td><td>?</td> </tr>
+
+
+                                           
+                                        </table>
+                                              
+
+			 	          </section>
+                                          <section data-background-image="href=../../img/datasets/fashion-mnist-sprite.png" data-background-size="1600px" data-background-repeat="repeat">
+
+                                              <p class="paragraph2"><img src="href=../../img/datasets/fashion-mnist-classes.png"  height="420" width="500"></p>           
+
+                                          </section>
+                                          <section data-background-image="href=../../img/datasets/fashion-mnist-sprite.png">
+                                           
+  	                                            <h1><a href="https://github.com/zalandoresearch/fashion-mnist"> fashion-mnist dataset. 2017.</a></h1>
+                                          </section>
+
+
+                                          <section>
+                                                 <div class="my_container">
+                                                   <h3>Types of Machine Learning</h3>                                                   
+                                                   <h4>Predicted or supervised learning</h4>
+                                                   <ol>
+
+						          <li class="paragraph2">The goal is to <mark class="red">learn a  mapping</mark> from imputs \(x\) to ouputs \(y\), given a  <mark class="red">labeled set</mark>  of input-ouput pairs \(D = {(x^i,y^i)}_{i=1}^{N}\). \(D\) is called the  <mark class="red">training set</mark> \(N\) is the number of training examples. </li>
+
+	                                                  <span class="fragment"> 	
+						          <li class="paragraph2">Usually, each \(x^i\) corresponds to a vector of numbers called  <mark class="red">features </mark>, <mark class="red">attributes </mark>, or <mark class="red">covariates</mark>.  </li>
+	                                                  </span> 	
+
+	                                                  <span class="fragment"> 	
+						          <li class="paragraph2">It is assumed that the <mark class="red">response variable</mark> or <mark class="red">target variable</mark> \(y^i\)  is a <mark class="red">categorical</mark> or <mark class="red">nominal</mark> variable from some finite set  \(y^i \in \{1,\dots,C \}\) or that \(y^i \in \mathcal{R}\) . </li>
+	                                                  </span>
+
+	                                                  <span class="fragment"> 	
+						          <li class="paragraph2"> When \(y^i\) is categorical the problem is known as  <mark class="red">classification</mark>. When, it is real-valued, the problem is known as  <mark class="red">regression</mark>.</li>
+	                                                  </span>
+
+                                                   </ol>						           
+                          
+     
+                          		 </div>                                                         
+                                                     <p class="paragraph2">   K. P. Murphy. <a href="https://mitpress.mit.edu/books/machine-learning-0"> Machine learning. A probabilistic perspective.</a> MIT Press. 2012. </p>                                                                                                                        
+                                                   <aside class="notes">
+  						      Optimization problems involved
+                                            	   </aside>
+         			          </section>
+
+
+
+                                        <section   id="sec:ML_UnSupervised">
+                                                   <h3>Grouping similar unlabed observations</h3>     
+                                                   <h4>Clustering of neocortical interneurons</h4>
+                                                        <img src="href=../../img/ml_types/Neurons_Affinity_Paper.png"  height="400" width="1100">           
+ 
+                                                        <p class="paragraph2">R. Santana, L. McGarry, C. Bielza, P. Larrañaga, and R. Yuste. <a href="http://journal.frontiersin.org/article/10.3389/fncir.2013.00185/full">  Classification of neocortical interneurons using affinity propagation.</a> Frontiers in Neural Circuits. 2013.</p>                           
+
+                                       </section>
+                                        <section>
+                               	              <h3> Clustering of Neurocortical cells</h3>
+                                              <div class="container">
+                                                  <span class="fragment"> 
+                                                  <div class="right">   
+                                                      <ul>              
+                                                  <h4>Types of cells</h4>
+                                                     <ul>  
+
+                                                           <li class="paragraph2"> parvalbumin-positive (PV+) basket cells (BC) </li>   
+                                                           <li class="paragraph2"> PV+ chandelier cells (ChC) </li>   
+                                                           <li class="paragraph2"> somatostatin-positive (SOM+) Martinotti cells (MC) </li>   
+                                                           <li class="paragraph2"> SOM+ non-Martinotti cells (non-MC) </li>   
+
+
+
+                                                     </ul>               
+                                                   <h4>Clustering</h4>        
+                                                     <ul>  
+                                                     <p class="paragraph2"><img src="href=../../img/ml_types/affinity_clustering.jpg"  height="210" width="380"></p>                                                          
+                                                     </ul>  
+                                                                                                                                             
+
+                                                  </div>   
+
+
+                                                  </span>
+                                                 <div class="left">
+                                                   <h4>Electrophysiological features</h4>        
+                                                     <ul>  
+                            
+                                                     <p class="paragraph2"><img src="href=../../img/ml_types/Physio_Variables_Affinity_Paper.png"  height="460" width="350"></p>                                  
+                                                     </ul>  
+
+                                                  </div>  
+                                                  <p class="paragraph2">  J. R. Koza. <a href="https://link.springer.com/article/10.1007/BF00175355"> Genetic programming as a means for programming computers by natural selection.</a>Statistics and computing. Pp. 87-112. 1994. </p>                           
+                                                                                          
+                                              </div>  
+                                          </section>
+
+
+
+
+                                          <section>
+                                                 <div class="my_container">
+                                                   <h3>Types of Machine Learning</h3>                                                   
+                                                   <h4>Descriptive or unsupervised learning</h4>
+                                                   <ol>
+
+<mark class="red"></mark>
+						          <li class="paragraph2"> We are given a  set of inputs \(D = {(x^i)}_{i=1}^{N}\) and  the goal is to  find <mark class="red">interesting</mark> or <mark class="red">relevant</mark>  patterns in the data. </li>
+
+	                                                  <span class="fragment"> 	
+						          <li class="paragraph2">This is a less well-defined problem usually called <mark class="red">knowledge discovery</mark>.  </li>
+	                                                  </span> 	
+
+	                                                  <span class="fragment"> 	
+						          <li class="paragraph2">Learning is done <mark class="red">without</mark>  any <mark class="red">feedback</mark> or <mark class="red">supervision</mark> from the user. </li>
+	                                                  </span>
+
+	                                                  <span class="fragment"> 	
+						          <li class="paragraph2">The most common unsupervised learning task is <mark class="red">clustering</mark>.</li>
+	                                                  </span>
+
+                                                   </ol>						           
+                                                                                         
+     
+                          		 </div>                                                         
+                                                     <p class="paragraph2">   K. P. Murphy. <a href="https://mitpress.mit.edu/books/machine-learning-0"> Machine learning. A probabilistic perspective.</a> MIT Press. 2012. </p>                                                                                                
+
+                                                     <p class="paragraph2">S. Russell and P. Norvig.  <a href="http://aima.cs.berkeley.edu/"> Artificial Intelligence. A Modern Approach.</a> Third Edition. Pearson Press. 2010. </p>      
+                                                   
+                                                   <aside class="notes">
+  						      Optimization problems involved
+                                            	   </aside>
+         			          </section>
+
+                                           <section>
+                                                 <div class="my_container">
+                                                   <h3>Types of Machine Learning</h3>                                                   
+                                                   <h4>Unsupervised learning problems</h4>                                   
+                                                   <ol>
+<mark class="red"></mark>
+						          <li class="paragraph2"><mark class="red">Clustering</mark>: To group points in the dataset according some criterion or similarity measure.  </li>
+						          <li class="paragraph2"><mark class="red">Biclustering</mark>: Do clustering taking into consideration two different criteria. </li>
+						          <li class="paragraph2"><mark class="red">Dimensionality reduction</mark> or latent-factor discovery: Find an alternative representation of the problem in lower-dimensional space keeping as much information as possible. </li>
+						          <li class="paragraph2"><mark class="red">Outlier detection</mark>: Detect observations that deviate markedly from other members of the sample in which it occurs.</li>
+						          <li class="paragraph2">Event or  <mark class="red">change-point detection</mark>: For time series, the identification of time points at which a  behavior change occurs.  
+                                                          <li class="paragraph2">Discovering  <mark class="red">graph structure</mark>.
+
+
+                                                          </li>
+						      
+                                                   </ol>						           
+                                                   
+                          		 </div>                                                         
+                                                   
+                                                   <aside class="notes">
+  						      Optimization problems involved
+                                            	   </aside>
+         			          </section>
+
+                                          <section data-background-image="href=../../img/datasets/fashion-mnist-sprite.png" data-background-size="1600px" data-background-repeat="repeat">
+                                                    <h2> Dimensionality reduction <h2>
+                                                    <p class="paragraph2"><img src="href=../../img/datasets/embedding.gif"  height="660" width="1000"></p>           
+
+					  </section>
+
+					  
+                                      <section>
+                                           <h3>Common sense graphs in Natural Language Processing</h3>                                
+	                                   <iframe 
+                                           width="800"
+                   	                   height="550"
+                             	           frameborder="0"
+                                    	   style="border:0"
+                                           scrolling="no"
+                                  	   marginheight="0"
+                                           marginwidth="0"
+                                           src="file:///home/rsantana/Dropbox/Teaching/Neural_Network_Course/reveal.js/test/examples/animations/graph.html"               
+                                  	  > 
+                                 	  </iframe>
+
+
+                              
+                                                  <aside class="notes">
+						    The pseudocode describes the different steps of the SOM learning algorithm. 
+                                            	  </aside>
+                                       </section>
+						  
+                                       <section>
+
+                                                 <div class="my_container">
+                                                   <h3>Types of Machine Learning</h3>                                                   
+                                                   <h4>Reinforcement learning</h4>
+                                                   <ol>
+
+						          <li class="paragraph2">An <mark class="red">agent</mark>  is situated in a given <mark class="red"> environment</mark> and has to make a <mark class="red">sequence of decisions</mark>  (or actions). For each action it receives an  <mark class="red"> observation</mark>  and a <mark class="red"> reward</mark> (or punishment) from the environment. </li>
+
+	                                                  <span class="fragment"> 	
+						          <li class="paragraph2">The goal of RL techniques is to train the agent so to maximize the <mark class="red">cumulative reward</mark> to receive from the environment.</li>
+	                                                  </span> 	
+
+	                                                  <span class="fragment"> 	
+						          <li class="paragraph2">The environment is usually formalized as a partially observable <mark class="red">Markov decision process</mark> (POMDP). </li>
+	                                                  </span>
+
+	                                                  <span class="fragment"> 	
+						          <li class="paragraph2">RL is deeply rooted in <mark class="red">psychological</mark>  and <mark class="red">neuroscientific</mark>  perspectives on animal behaviour, of how agents may optimize their control of an environment .</li>
+	                                                  </span>
+
+                                                   </ol>						           
+                                                                         
+                     
+                          		 </div>                                                         
+                                                    <p class="paragraph2">  Mnih et al. <a href="https://www.nature.com/nature/journal/v518/n7540/full/nature14236.html"> Human level control through deep reinforcement learning.</a>  Nature. 518.7540. Pp. 529-533. 2015.</p>                                                                         
+                                                   <aside class="notes">
+  						      Optimization problems involved
+                                            	   </aside>
+         			      </section>
+                                      <section>
+                                         <h4>Reinforcement learning to control the Atari game </h4>
+                                         <div id="my-div">
+                                	 <iframe 
+                                           width="1150"
+                   	                   height="700"
+                             	           frameborder="0"
+                                  	   marginheight="0"
+                                           marginwidth="0"
+                                    	   id="my-iframe-atari"
+                                           scrolling="no"	 
+                                           src="https://gym.openai.com/envs/AirRaid-ram-v0"
+                                  	  > 
+                                 	  </iframe>
+                                          </div>
+                                                  <aside class="notes">
+						    The pseudocode describes the different steps of the SOM learning algorithm. 
+                                            	  </aside>
+ 				      </section>
+                                      <section>
+                                         <h3>RL for gaming</h3>
+                                	 <iframe 
+                                           width="1050"
+                   	                   height="700"
+                             	           frameborder="0"
+                                           scrolling="yes"
+                                  	   marginheight="0"
+                                           marginwidth="0"
+                                           src="https://www.nature.com/polopoly_fs/1.16979!/menu/main/topColumns/topLeftColumn/pdf/518465a.pdf"
+                                  	  > 
+                                 	  </iframe>
+                                                  <aside class="notes">
+						    The pseudocode describes the different steps of the SOM learning algorithm. 
+                                            	  </aside>
+ 				      </section>
+
+                                           <section>
+                                                 <div class="my_container">
+                                                   <h3>Types of Machine Learning</h3>                                                   
+                                                   <h4>Other RL applications</h4>                                   
+                                                   <ol>
+
+						          <li class="paragraph2"><mark class="red"></mark>Robotics.  </li>
+						          <li class="paragraph2"><mark class="red"></mark>Control (e.g., helicopter control).  </li>
+						          <li class="paragraph2"><mark class="red"></mark>Vehicle routing. </li>
+						          <li class="paragraph2"><mark class="red"></mark>Human Computer Interaction (e.g., dialogue management).  </li>
+						          <li class="paragraph2"><mark class="red"></mark>Economics (e.g., trading simulations).  </li>
+						          <li class="paragraph2"><mark class="red"></mark>NN architecture search by network transformation.  </li>
+						          <li class="paragraph2"><mark class="red"></mark>Targeted marketing. </li>
+						      
+                                                   </ol>			
+                                                   
+                          		 </div>                                                         
+                                                    <p class="paragraph2">  <a href="http://umichrl.pbworks.com/w/page/7597597/Successes%20of%20Reinforcement%20Learning">Successes of Reinforcement Learning.</a> Accessed August 2017.</p>                                                                                                             
+                                                   <aside class="notes">
+  						      Optimization problems involved
+                                            	   </aside>
+         			          </section>
+
+
+					 <section id="sec:ML_GeneticProgramming">
+                                         <h4>TPOT: A tool for ML pipeline optimization</h4>
+                                         <div id="my-div">
+                                	 <iframe 
+                                           width="1150"
+                   	                   height="700"
+                             	           frameborder="0"
+                                  	   marginheight="0"
+                                           marginwidth="0"
+                                    	   id="tpot"
+                                           scrolling="yes"	 
+                                           src="https://epistasislab.github.io/tpot/"
+                                  	  > 
+                                 	  </iframe>
+                                          </div>
+                                                  <aside class="notes">
+						    The pseudocode describes the different steps of the SOM learning algorithm. 
+                                            	  </aside>
+ 				      </section> 
+          
+                                      <section>
+                                                  <mark class="red"> </mark>
+                                                 <div class="my_container">
+                                                   <h3>Types of Machine Learning</h3>                                                   
+                                                   <h4>Genetic programming</h4>
+                                                   <ol>
+
+						          <li class="paragraph2">GP is a method to create <mark class="red"> programs</mark> that should fullfill a prespecified objective.</li>
+
+						          <li class="paragraph2"> A variety of program <mark class="red">representations</mark> can be used, e.g., trees, program grammars, etc.</li>
+
+	                                                  <span class="fragment"> 	
+						          <li class="paragraph2">It can be used for solving <mark class="red">classification and regression</mark> problems. </li>
+						          <li class="paragraph2"> A measure of the program quality (<mark class="red">fitness </mark>) is defined and the search in  the space of programs is posed as an <mark class="red"> optimization problem </mark>.</li>
+	                                                  </span>
+
+	                                                  <span class="fragment"> 	
+						          <li class="paragraph2"> <mark class="red">Genetic operators </mark> (e.g., mutation, crossover, and mutation) are used to search for the optimal program. </li>
+						          <li class="paragraph2"> GP can be considered an <mark class="red">evolutionary algorithm </mark>.</li>
+	                                                  </span>
+                                                   
+                                                   </ol>						           
+                                               
+
+                   
+     
+                          		 </div>                                                         
+                                                    <p class="paragraph2">  J. R. Koza. <a href="https://link.springer.com/article/10.1007/BF00175355"> Genetic programming as a means for programming computers by natural selection.</a>Statistics and computing. Pp. 87-112. 1994. </p>                                                               
+                                                   <aside class="notes">
+  						      Optimization problems involved
+                                            	   </aside>
+         			          </section>
+                                          <section>
+                                                   <h3>Machine learning applications</h3>                                                   
+                                                   <h4>Genetic Programming</h4>
+                                                        <img src="href=../../img/ml_types/GP_Trees.png"  height="400" width="1100">                                                        
+                                                        <p class="paragraph2">R. Santana. <a href="https://arxiv.org/pdf/1702.05624v1.pdf">  Reproducing and learning new algebraic operations on word embeddings using genetic programming.</a> arXiv e-print (arXiv:1702.05624v1). 2017.</p>                           
+
+
+                                          </section>
+                                          <section>
+                                                 <div class="my_container">
+                                                   <h3>Supervised learning</h3>                                                   
+                                                   <h4>Examples of GP  algorithms</h4>
+                                                   <ol>
+						          <li class="paragraph2">Tree-based genetic programming </li>
+						          <li class="paragraph2">Strongly typed genetic programming </li>
+ 						          <li class="paragraph2">Grammatical evolution </li>		
+                                                          <li class="paragraph2">Probabilistic Incremental Program Evolution (PIPE) </li>
+						          <li class="paragraph2">Stack-based genetic programming </li>
+                                                          <li class="paragraph2">Cartesian genetic programming  </li>
+                                                   </ol>						           
+                                                   
+                          		           </div>                                                         
+                                                   
+                                                   <aside class="notes">
+  					
+                                            	   </aside>
+        			          </section>
+                                          <section>
+                               	              <h4>Types of Machine Learning: Summary</h4>
+                                              <div class="container">
+                                                  <span class="fragment"> 
+                                                  <div class="right">   
+
+
+                                                    <h4>Reinforcement learning</h4>
+                                                     <ul>  
+       		           			           <li class="paragraph2"> Consists of learning the <mark class="red"> optimal policy </mark>  for an agent in
+ a simulated environment.</li>    
+                                                           <li class="paragraph2"> The agent observes the environment, selects and performs actions, and gets rewards in return.</li>                
+                                                           <li class="paragraph2"> The policy consists of the best strategy to perform actions in different states and maximize reward.</li>                                                             
+
+                                                     </ul>                                                 
+                                                  </div>   
+                                                  </span>
+
+                                                  <span class="fragment">
+                                                  <div class="left">
+                                                  <h4>Supervised classification</h4>
+                                                     <ul>  
+                                                           <li class="paragraph2"> A number of observations (cases) are given.</li>   
+                                                           <li class="paragraph2"> Each observation has an associated label.</li>   
+                                                           <li class="paragraph2"> The task consists in <mark class="red"> predicting the label </mark>  given the observation.</li>   
+                                                     </ul>                                                   
+                           		          </div>
+                                                  </span>                                             
+                                              </div>  
+
+                                              <div class="container">
+                                                 <span class="fragment">
+                                                 <div class="right">   
+                                                    <h4>Other methods</h4>
+                                                     <ul>  
+      		           			           <li class="paragraph2"> Genetic programming: <mark class="red"> Automatic evolution of programs </mark>. It can be used to solve supervised and unsupervised problems. </li> 
+      		           			          
+                                                     </ul> 
+                                                  </div>      
+                                                  </span>
+
+                                                 <span class="fragment">
+                                                 <div class="left">
+                                                    <h4>Unsupervised classification </h4>
+                                                     <ul>  
+                                                           <li class="paragraph2"> A number of unlabeled observations are given.</li> 
+                                                           <li class="paragraph2"> Tasks can change, e.g., <mark class="red"> clustering </mark>, dimensionality reduction, etc. </li> 
+                                                     </ul>                                                                                              
+                           		          </div>            
+                                                  </span>                                    
+                                                
+                                                                                            
+                                              </div>  
+
+                                                   <aside class="notes">
+                                                       What is ML? 
+                                            	   </aside>
+
+                            		  </section>
+
+				</section>
+
+
+
+
+				<section>    
+				
+                                          <section  id="sec:ML_Course_Objectives">
+                                             <div class="my_container">
+                                                   <h3>Course objectives</h3> 
+                                                   <h4>Objectives</h4>
+
+                                                         <ol>
+
+                                                          <span class="fragment">
+						                   <li class="paragraph2">Enable the student to <mark class="red">understand</mark>, <mark class="red">develop</mark>, and <mark class="red">implement</mark> models and algorithms capable of autonomously learning. </li>
+                                                          </span>
+                                                          <span class="fragment">
+						                   <li class="paragraph2">Present the  <mark class="red">  main paradigms </mark> of machine learning approaches and the <mark class="red">classes of problems</mark> where they can be applied.</li>
+                                                          </span>
+
+                                                          <span class="fragment">
+						                   <li class="paragraph2">Teach machine learning methods based on <mark class="red">neural networks</mark>. </li>
+                                                          </span>
+                                                          <span class="fragment">
+						                   <li class="paragraph2">Introduce the most relevant types of neural networks, explaining the <mark class="red">rationale</mark> behind their conception and <mark class="red">scope of application</mark>.</li>
+                                                          </span>
+                                                          <span class="fragment">
+						                   <li class="paragraph2">Introduce and show how to implement  <mark class="red"> deep neural networks</mark>. </li>
+                                                          </span>
+                                                          <span class="fragment">
+						                   <li class="paragraph2">Cover real-world applications of deep neural networks and  <mark class="red">hot topics</mark> in this area.</li>
+                                                          </span>
+						            
+						                                                 
+                                                            </ol>
+                          		 </div>                                                          
+                                                   
+                                                   <aside class="notes">
+  						     
+                                            	   </aside>
+        		           </section> 
+
+                               
+                                   <section  id="sec:ML_Course_Organization">
+                                             <div class="my_container">
+                                                   <h3>Course organization</h3>                                                                                                            <h4>Main modules</h4>
+
+                                                      <ol>
+						          <li class="paragraph2">Introduction to machine learning.    </li>
+						          <li class="paragraph2">Neural networks background (Biological and mathematical foundations).</li>
+						          <li class="paragraph2">Introduction to Neural Networks.</li>
+  
+						          <li class="paragraph2">Neural networks paradigms.</li>
+						          <li class="paragraph2">Deep learning with neural networks.</li>
+						          <li class="paragraph2">Real-world application of deep neural networks.
+                                                            <ul>
+                                                                <li class="paragraph2">Invited lecture by an <mark class="green"> AI expert</mark> most likely from the field of  <mark class="green">Natural Language Processing</mark> (NLP) </li>
+                                                            </ul>
+                                                          </li>
+						          <li class="paragraph2">Advanced topics in neural networks studies. </li>
+						          <li class="paragraph2">Consolidation (Oral presentations and discussion of projects). </li>
+						        
+                                                      </ol>
+                          		 </div>                                                          
+                                                   
+                                                   <aside class="notes">
+  						     
+                                            	   </aside>
+        		           </section> 
+                                 
+                                   <section>
+                                             <div class="my_container">
+                                                   <h3>Course organization</h3>                                                                                                            <h4>Resources</h4>
+                                                    <p class="paragraph2">   </p>
+                                                      <ol>
+						          <li class="paragraph2">The Machine learning and Neural Networks course has a virtual space in  <a href="https://egela1718.ehu.eus/user/index.php?id=1295">Egela</a>, where links to useful software, bibliography, and problem  repositories will be available. </li>
+						          <li class="paragraph2">After each class the slides will be available from the <mark class="red">virtual space of the course</mark>. </li>
+
+                                                          <span class="fragment">
+                                                          <li class="paragraph2">Practical classes will be based on the <a href="http://jupyter-notebook-beginner-guide.readthedocs.io/en/latest/what_is_jupyter.html">Jupyter Notebooks framework</a> with examples and exercises implemented in <mark class="red">Python</mark>.</li>
+						          <li class="paragraph2">Jupyter notebooks will also be available from the virtual class after each practical class. </li>
+                                                          </span>
+                                                          <span class="fragment">
+						          <li class="paragraph2">Students are <mark class="red"> encouraged to use the forum</mark>  of the virtual class to exchange information, and ask and answer questions about the classes. </li>
+
+						          <li class="paragraph2">Every exchange during the course (e.g., questions, emails, oral presentations, use of the forum, etc.) <mark class="red">should be in English</mark>. </li>
+                                                          </span>
+                                                          <span class="fragment">
+
+						          <li class="paragraph2">Students are advised to create an account in <a href="https://github.com/">github</a> to develop, document, and keep up to date repositories containing the course projects that require an implementation. </li>
+                                                          </span>
+
+
+                                                      </ol>
+                          		 </div>                                                          
+                                                   
+                                                   <aside class="notes">
+  						     
+                                            	   </aside>
+        		           </section> 
+
+ 
+                                   <section  id="sec:ML_Course_Evaluation">
+                                	        <h3>Course evaluation</h3>
+                                              <div class="container">
+                                                  <span class="fragment">
+
+                                                  <div class="right">
+                                                  <h4>Final evaluation</h4>
+                                                      <ul>      
+  					                  <p class="paragraph2">Attending the classes.</p>
+						          <p class="paragraph2">Finishing the course project. It will be <mark class="red">one individual project</mark> to be determined by the course instructor.</p>
+                                                         <p class="paragraph2"><mark class="red">Oral examination</mark> of the course project.</p>
+  					                  <p class="paragraph2"><mark class="red"> Written examination</mark> covering all the content taught.</p>	          
+                                                      <ul/>                                                      
+                          		          </div>
+                                                  </span>           
+                                      
+                                                  <div class="left">   
+                                                      <h4>Continuous evaluation</h4>
+                                                      <ul>      
+  					                  <p class="paragraph2">Attending the classes.</p>
+						          <p class="paragraph2">Participation in the classes.</p>
+						          <p class="paragraph2">Completing the practical activities, i.e., the notebooks of the practical classes. </p>
+						          <p class="paragraph2">Presenting the course projects selected by the student (minimum, <mark class="red">3 team projects</mark>; maximum, 6 projects, 2 of each topic). </p>
+					                  <p class="paragraph2">Two 1-hour long examination, each of which computes as one project to the evaluation.</p>
+                                                      <ul/>    
+                                                  </div>    
+                                                   
+                                              </div>  
+                                               
+ 
+                                                   <aside class="notes">
+  						     
+                                            	   </aside>
+        		         </section> 
+
+                                 <section id="sec:ML_Projects">
+                                             <div class="my_container">
+
+                                 	        <h3>Project characteristics</h3>                             		                                                                                                   
+                                                      <ul>      
+  					                  <li class="paragraph2">Each of the three projects should correspond to  <mark class="red"> a different topic </mark>. Topics are: 1) Machine learning. 2) Neural Networks. 3)Deep NNs.</li>
+						          <li class="paragraph2">An ordinary project includes:
+                                                            <ol>
+						                <li class="paragraph2">A brief description of the project <mark class="red"> written in latex</mark> (between 4 and 12 pages) with latex style files available from Egela.</li>
+						                <li class="paragraph2">The  <mark class="red">Python code </mark>   (available from github or submitted to Egela in .zip format). </li>
+						                <li class="paragraph2">A  <mark class="red">commented Jupyter notebook</mark>  showing how the code solves the problem.</li>
+						            
+                                                            </ol>                                                         
+                                                          <li class="paragraph2">Students can select a project of each topic from the available list. </li>
+                                                      
+                                                          <li class="paragraph2"> Each project will be available to a <mark class="red">maximum of only two teams</mark>.</li>
+                                                          <li class="paragraph2"> An example of project submission (latex document, pdf, and commented notebook) will be available from Egela.</li>
+						            
+                                                      <ul/>  
+                           		           </div>                                                          
+                                                   
+                                                   <aside class="notes">
+  						     
+                                            	   </aside>
+        		           </section> 
+                                   <section>
+                                              <div class="my_container">
+                                              <mark class="red"></mark>
+                                	       <h3>Project evaluation</h3>
+                                               <h4>Individual and team projects</h4>
+                                                      <ul>   
+                                                         <li class="paragraph2">Projects can be individual or presented by a team of two students. In very exceptional  cases <mark class="red">(Ask me)</mark>,  3 students.</li>     
+ 					                
+                                                          <li class="paragraph2">The same team can not present more than two projects. </li>
+
+                                                        
+				
+                                                      </ul>    
+                                                      <h4>Marks</h4>
+                                                      <ul>     
+
+						          <li class="paragraph2">Minimum of 3 (correct) projects to pass the continuous evaluation course.</li>
+
+                                                          <li class="paragraph2">Projects are assigned different difficulty levels: 1) Project of normal difficulty. 2) Medium degree of difficulty. 3) Very difficult project.</li>
+
+                                                          <li class="paragraph2">The project difficulty will be taken into account for the final mark.</li>
+
+
+  					                  <li class="paragraph2">For increasing the chance of a higher mark \( ( \geq 8)\), students are advised to include among the three selected projects, some of medium and high difficulty and/or to <mark class="red"> submit for evaluation 4 or 5 projects</mark>.</li>  
+                                                        
+				
+                                                      <ul/>                                 		       
+                           		           </div>                                                          
+                                                   
+                                                   <aside class="notes">
+  						     
+                                            	   </aside>
+        		           </section>
+				</section>
+
+
+		
+			</div>
+
+		</div>
+
+
+
+
+
+
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			Reveal.initialize({
+				history: true,
+				transition: 'linear',
+
+				math: {
+					// mathjax: 'http://cdn.mathjax.org/mathjax/latest/MathJax.js',
+					config: 'TeX-AMS_HTML-full'
+				},
+
+				dependencies: [
+                                        { src: 'lib/js/fullscreen-img.js' },
+					{ src: 'lib/js/classList.js' },
+					{ src: 'plugin/math/math.js', async: true }
+
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
+			

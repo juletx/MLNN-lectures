@@ -1,0 +1,1142 @@
+<!doctype html>
+<html lang="en">
+
+
+   
+    
+	<head>
+		<meta charset="utf-8">
+
+		<title>Machine Learning and Neural Networks</title>
+                <meta name="author" content="Roberto Santana">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<!-- <link rel="stylesheet" href="css/reveal.css">  -->
+                <link rel="stylesheet" href="css/fullscreen-img.css">
+                <link rel="stylesheet" href="css/added_css/notebook.css">
+   	        <link rel="stylesheet" href="css/reveal.css">
+                <link rel="stylesheet" href="css/theme/nncourse.css" id="theme">
+
+        <script>
+	  var link = document.createElement( 'link' );
+	  link.rel = 'stylesheet';
+	  link.type = 'text/css';
+	  link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+	  document.getElementsByTagName( 'head' )[0].appendChild( link );
+	</script>		
+                                
+
+	</head>
+
+	<body>
+
+
+		<div class="reveal">
+			<div class="slides">
+
+				<section>
+                                          <div class="my_container">
+                                        <h2>Machine Learning and Neural Networks</h2>
+					<p>Roberto Santana and Unai Garciarena<p>
+					<p>Department of Computer Science and Artificial Intelligence</p>
+                                        <p>University of the Basque Country</p>
+                          		 </div>   
+				</section>
+
+                                 <section>                             	      
+                                   <section id="sec:MATH_BG">
+                                        <div class="my_container">
+                                        <h3>Mathematical background for deep learning: Table of Contents </h3>
+                                        
+                                         <table style="width:100%"; border=solid>
+                                                  <tr>
+                                                    <td> <p class="paragraph2"> <a href="#/sec:ML_Models"> ML Models </a></p></td>
+                                                    <td> <p class="paragraph2"> <a href="#/sec:Estimators"> Estimators </a></p></td> 
+                                                    <td> <p class="paragraph2"> <a href="#/sec:MLE"> MLE </a></p></td>						    
+                                                   
+
+                                                   
+                                                  </tr>
+                                                  <tr>
+                                                      <td> <p class="paragraph2"> <a href="#/sec:Bayesian_Approach"> Bayesian approach </a></p></td>			 			                      <td> <p class="paragraph2"> <a href="#/sec:Regularization"> Regularization </a></p></td>  
+
+                                                  </tr>             
+                                                      
+                                    
+				         </table>	  
+                          	     </div>   
+
+
+				   </section>
+		             </section>
+
+
+				 
+                             <section>
+                                   <section id="sec:ML_Models">
+                                   <mark class="red"></mark>
+                                          <div class="my_container">
+                                            <h3>Data generating process </h3>
+                                            <h4>Definitions</h4>    
+					    <ul>
+  
+						          <li class="paragraph2"><mark class="red"> Data generating process</mark>: We assume this is the (true) process from which training and test datasets are generated.</li>
+						          <li class="paragraph2"><mark class="red">Data generating distribution</mark>: This is the probability distribution of the data determined by generating process: \(p_{data}\).</li>
+					   </ul>
+
+					    <span class="fragment">
+					    <h4>Example</h4> 
+                                            <ul>
+					    <li class="paragraph2">The relationship between <mark class="red">\(n\) protein expressions</mark>, \( x_1, \dots, x_n \) and a <mark class="red">diagnostic</mark> \(y \in \{0,1\}\) variable. </li>
+				            <li class="paragraph2">The <mark class="red">genetic process</mark> has its own rules that determine the relationship between the protein expressions and the diagnostic. </li>
+		                            <li class="paragraph2">This genetic process also defines <mark class="red">data distributions</mark>  \(p(x,y)\) and  \(p(y|x)\). </li>
+						      
+                                                  </span>
+                                                   
+                                                   </ul>						           
+                                                   
+                                                   </div>                                                          
+                                                   
+                                                   <aside class="notes">
+  						     
+                                            	   </aside>
+        		           </section>
+
+
+				  <section>
+                                   <mark class="red"></mark>
+                                          <div class="my_container">
+                                                   <h3>Data generating process and model families </h3>                                                                                            <ul>
+
+                                                  <span class="fragment">
+						          <li class="paragraph2"> <mark class="red">Model</mark>: Specifies which functions (<mark class="red"> model family</mark>) the learning algorithm can choose from when varying the parameters in order to approximate the data generating process. </li>
+
+						          <li class="paragraph2"><mark class="red">Model capacity</mark>:  Its capacity to fit a wide variety of functions. </li>
+                                                  </span>
+                                                  <span class="fragment">
+                                                          <li class="paragraph2"><mark class="red">Hypothesis space</mark>:  The set of functions that the learning algorithm is allowed to select as being the solution. </li>
+                                                  </span>
+                                                   
+                                                   </ul>						           
+                                                   
+                                                   </div>                                                          
+                                                   
+                                                   <aside class="notes">
+  						     
+                                            	   </aside>
+        		           </section>
+
+				   
+				  <section>
+                                           <mark class="red"></mark>
+                                          <div class="my_container">
+                                                   <h3>Data generating process and model families </h3>  
+                                                   <h4>Example: Linear models of different capacity  </h4>        
+
+                                                   <ul>
+						        <li class="paragraph2"> <mark class="red">Linear regression model</mark>:
+                                                          \[
+                                                             \hat{y} = b +  w {\bf{x}}
+							  \]  
+                                                          </li>
+						        <li class="paragraph2"> <mark class="red">Linear regression model quadratic</mark> as a function of \( {\bf{x}} \):
+                                                          \[
+                                                             \hat{y} = b + w_1 {\bf{x}} + w_2 {\bf{x}}^2
+							  \]  
+                                                          </li>
+						        <li class="paragraph2"> <mark class="red">Linear regression model, polynomial</mark> of degree \(9\):
+                                                          \[
+                                                             \hat{y} = b + \sum_{i=1}^{9}  w_i {\bf{x}}^i
+							  \]  
+                                                          </li>
+
+
+                                                   </ul>						           
+                                                     	                                                   
+                          		 </div>                                                          
+                                                     <p class="paragraph2"> I. Goodfellow and Y. Bengio and A. Courville. <a href="http://www.deeplearningbook.org/"> Deep Learning.</a>. MIT Press. 2016. </p>
+                                                   <aside class="notes">
+  						     
+                                            	   </aside>
+        		           </section> 
+                                   <section>
+                                   <mark class="red"></mark>
+                                          <div class="my_container">
+                                                   <h3>Data generating process and model families </h3>                                                                                          <ul>
+
+						          <li class="paragraph2">Situations for a <mark class="red">model family</mark> being trained: </li>
+                                                              <ol>
+						                  <li class="paragraph2"> Excluded the true data generating process.</li>
+						                  <li class="paragraph2"> Matched the true data generating process. </li>
+						                  <li class="paragraph2"> Included the generating process but also many other possible generating processes. </li>
+                                                              </ol>
+                                                   </ul>						           
+                                                   
+                                                   </div>                                                          
+                                                   
+                                                   <aside class="notes">
+  						     
+                                            	   </aside>
+        		           </section>
+	              
+			           <section data-background-color="#e6ff99">
+                                                  <h4>Find the model best suited for the data</h4>   
+                                                  
+                                                   <img src="href=../../img_2019_Lect_3/Data_Model.png"  height="480" width="120">
+						   <img src="href=../../img_2019_Lect_3/Model_1.png"  height="480" width="400">						   		                                                                   <img src="href=../../img_2019_Lect_3/Model_3.png"  height="350" width="400">  
+
+                                   </section>
+
+
+	                           <section data-background-color="#e6ff99">
+                                                  <h4>Find the model best suited for the data</h4>   
+                                                  
+                                                   <img src="href=../../img_2019_Lect_3/Data_Model.png"  height="480" width="120">
+						   <img src="href=../../img_2019_Lect_3/Model_2.png"  height="480" width="400">						   		                                                                   <img src="href=../../img_2019_Lect_3/Model_3.png"  height="350" width="400">  
+
+                                   </section>
+				   
+
+				   
+                                   <section data-background-color="#e6ff99">
+                                                  <h4>Find the model best suited for the data</h4>   
+                                                  
+                                                   <img src="href=../../img_2019_Lect_3/Data_Model.png"  height="480" width="120">
+						   <img src="href=../../img_2019_Lect_3/Model_1.png"  height="480" width="260">
+						   <img src="href=../../img_2019_Lect_3/Model_2.png"  height="480" width="260">
+						   		                                                                   <img src="href=../../img_2019_Lect_3/Model_3.png"  height="350" width="260">  
+
+                                   </section>
+
+
+				 <section data-background-color="#e6ff99">
+                                            
+                                        <h4>How likely are the models for the data? </h4>
+
+                                        <table id="customers">
+                                        <colgroup>                                         
+                                          <col style="background-color:yellow">
+                                          <col span="3" style="background-color:white">
+                                          <col span="3" style="background-color: #bfff00">
+
+                                        </colgroup>
+                                        <tr> <th>Data </th> <th>Model 1</th><th>Model 2</th><th>Model 3</th></tr>
+	                                <tr> <th> \(y x_1 x_2\) </th> <th> \(p_{M1}(y|x_1,x_2) \)</th><th> \(p_{M2}(y|x_1,x_2) \)</th><th> \(p_{M3}(y|x_1,x_2) \)</th></tr>
+                                        <tr> <th>000</th> <th>0.5</th><th>1.0</th><th>1.0</th></tr>
+					<tr> <th>101</th> <th>0.5</th><th>1.0</th><th>0.9</th></tr>
+					<tr> <th>101</th> <th>0.5</th><th>1.0</th><th>0.9</th></tr>
+					<tr> <th>110</th> <th>0.2</th><th>1.0</th><th>0.85</th></tr>
+					<tr> <th>011</th> <th>0.2</th><th>1.0</th><th>0.8</th></tr>
+					<tr> <th>000</th> <th>0.5</th><th>1.0</th><th>1.0</th></tr>
+					<tr> <th>011</th> <th>0.2</th><th>1.0</th><th>0.8</th></tr>
+					<tr> <th>110</th> <th>0.2</th><th>1.0</th><th>0.85</th></tr>
+					
+                                         </table>                                              
+
+			     </section>
+
+
+												       				       <section data-background-color="#e6ff99">
+                                            
+                                        <h4>How likely are the models for the data? </h4>
+
+                                        <table id="customers">
+                                        <colgroup>                                         
+                                          <col style="background-color:yellow">
+                                          <col span="3" style="background-color:white">
+                                          <col span="3" style="background-color: #bfff00">
+
+                                        </colgroup>
+                                        <tr> <th>Data</th> <th>Model 1</th><th>Model 2</th><th>Model 3</th></tr>
+                                        <tr> <th> \(y x_1 x_2\) </th> <th> \(p_{M1}(y|x_1,x_2) \)</th><th> \(p_{M2}(y|x_1,x_2) \)</th><th> \(p_{M3}(y|x_1,x_2) \)</th></tr>
+
+                                        <tr> <th>000</th> <th>0.5</th><th>1.0</th><th>1.0</th></tr>
+					<tr> <th>101</th> <th>0.5</th><th>1.0</th><th>0.9</th></tr>
+					<tr> <th>101</th> <th>0.5</th><th>1.0</th><th>0.9</th></tr>
+					<tr> <th>110</th> <th>0.2</th><th>1.0</th><th>0.85</th></tr>
+					<tr> <th>011</th> <th>0.2</th><th>1.0</th><th>0.8</th></tr>
+					<tr> <th>000</th> <th>0.5</th><th>1.0</th><th>1.0</th></tr>
+					<tr> <th>011</th> <th>0.2</th><th>1.0</th><th>0.8</th></tr>
+					<tr> <th>110</th> <th>0.2</th><th>1.0</th><th>0.85</th></tr>
+					<tr> <th>\(\prod_{i=1}^{8} p(y|x_1,x_2) \)</th> <th>\(0.2^4*0.5^4\)</th><th>1.0</th><th>\(0.85^2*0.8^2*0.9^2\)</th></tr>				
+                                         </table>                                              
+
+			 	          </section>
+
+									       
+
+								       
+
+								       
+
+				       <section data-background-color="#e6ff99">
+                                            
+                                        <h4>How likely are the models for the data? </h4>
+
+                                        <table id="customers">
+                                        <colgroup>                                         
+                                          <col style="background-color:yellow">
+                                          <col span="3" style="background-color:white">
+                                          <col span="3" style="background-color: #bfff00">
+
+                                        </colgroup>
+                                        <tr> <th>Data</th> <th>Model 1</th><th>Model 2</th><th>Model 3</th></tr>
+	                                <tr> <th> \(y x_1 x_2\) </th> <th> \(p_{M1}(y|x_1,x_2) \)</th><th> \(p_{M2}(y|x_1,x_2) \)</th><th> \(p_{M3}(y|x_1,x_2) \)</th></tr>
+
+                                        <tr> <th>000</th> <th>0.5</th><th>1.0</th><th>1.0</th></tr>
+					<tr> <th>101</th> <th>0.5</th><th>1.0</th><th>0.9</th></tr>
+					<tr> <th>101</th> <th>0.5</th><th>1.0</th><th>0.9</th></tr>
+					<tr> <th>110</th> <th>0.2</th><th>1.0</th><th>0.85</th></tr>
+					<tr> <th>011</th> <th>0.2</th><th>1.0</th><th>0.8</th></tr>
+					<tr> <th>000</th> <th>0.5</th><th>1.0</th><th>1.0</th></tr>
+					<tr> <th>011</th> <th>0.2</th><th>1.0</th><th>0.8</th></tr>
+					<tr> <th>110</th> <th>0.2</th><th>1.0</th><th>0.85</th></tr>
+					<tr> <th>\(\prod_{i=1}^{8} p(y|x_1,x_2) \)</th> <th>\(0.2^4*0.5^4\)</th><th>1.0</th><th>\(0.85^2*0.8^2*0.9^2\)</th></tr>
+					<tr> <th>\(log(\prod_{i=1}^{8} p(y|x_1,x_2)) \)</th> <th>\(log(0.2^4*0.5^4)\)</th><th>\(log(1.0)\)</th><th>\(\log(0.85^2*0.8^2*0.9^2 )\)</th></tr>
+					<tr> <th>\(\sum_{i=1}^{8} log(p(y|x_1,x_2)) \)</th> <th>\(4*log(0.2)+4*log(0.5)\)</th><th>\(0 \)</th><th>\(2*\log(0.85)+2*log(0.8)+2*log(0.9)\)</th></tr>
+			         
+                                         </table>                                              
+
+			 	          </section>
+
+
+				   <section data-background-color="#e6ff99">
+                                                  <h4>Find the model best suited for the data</h4>   
+                                                  
+                                                   <img src="href=../../img_2019_Lect_3/Data_Model.png"  height="480" width="120">
+						   <img src="href=../../img_2019_Lect_3/Model_A.png"  height="480" width="400">						   		                                                                   <img src="href=../../img_2019_Lect_3/Model_B.png"  height="480" width="400">  
+
+                                   </section>
+                           </section>
+
+		        <section>
+ 
+                               <section  id="sec:Estimators">
+                                   <mark class="red"></mark>
+                                          <div class="my_container">
+                                                   <h3>Estimators, Bias and Variance </h3>  
+                                                   <h4>Estimators</h4>    
+                                                   <ul>
+
+						          <li class="paragraph2"> <mark class="red">Point estimation</mark> is the attempt to provide  "the best" prediction for a quantity of interest, e.g., the parameters of a ML model. </li>
+					                  <li class="paragraph2"> A  <mark class="red">point estimator</mark> is a any function of the data  \( \hat{\theta}_m = g({\bf{x}}^1, \dots,{\bf{x}}^m) \).</li>
+					                  <li class="paragraph2"> A <mark class="red">good estimator</mark> is a function whose output is close to the true underlying \(\theta\) that generated the training data.</li>
+					                  <li class="paragraph2">We assume that the true parameter of \(\theta\) is <mark class="red">true but unknown</mark>. Therefore, \( \hat{\theta} \) is a <mark class="red"> random variable</mark>. </li>
+					                  <li class="paragraph2"><mark class="red">Function estimator (\( \hat{f}\))</mark>: When the goal is to estimate the relationship between input and target variables.</li>						          
+                                                   </ul>						           
+                                                   
+                                                   </div>                                                          
+                                                   
+                                                   <aside class="notes">
+  						     
+                                            	   </aside>
+         		       </section>
+
+			        
+				   <section data-background-color="#e6ff99">
+                                                  <h4>Estimators</h4>   
+                                                  
+
+						   <img src="href=../../img_2019_Lect_3/Bias_VS_Variance.png"  height="580" width="600">					
+                                   </section>
+
+                                   <section>
+                                   <mark class="red"></mark>
+                                          <div class="my_container">
+                                                   <h3>Estimators, Bias and Variance </h3>  
+                                                   <h4>Bias</h4>    
+                                                   <ul>
+
+					                  <li class="paragraph2">The <mark class="red">bias of an estimator</mark> is defined as:
+							    \[
+							     bias(\hat{\theta}_m) = \mathbb{E}(\hat{\theta}_m) -\theta,
+							    \]
+
+                                                         </li>
+					                  <p class="paragraph2">where the expectation is over the data (samples of the random variable).</p>
+					                  <li class="paragraph2">An estimator is said to be <mark class="red">unbiased</mark> if \( bias(\hat{\theta}_m)=0 \) .</li>
+                                                          <li class="paragraph2">An estimator is said to be <mark class="red">asymptotically unbiased</mark> if
+							    \[
+                                                               lim_{m \leftarrow infty} bias(\hat{\theta}_m)=0 				
+							    \]
+
+                                                         </li>
+ 				              
+						          
+                                                   </ul>						           
+                                                   
+                                                   </div>                                                          
+                                                   
+                                                   <aside class="notes">
+  						     
+                                            	   </aside>
+        		           </section>
+
+				   
+				   <section data-background-color="#e6ff99">
+                                                  <h4>Estimators</h4>   
+                                                  
+
+						   <img src="href=../../img_2019_Lect_3/Bias_VS_Variance.png"  height="580" width="600">					
+                                   </section>
+
+                                   <section>
+                                   <mark class="red"></mark>
+                                          <div class="my_container">
+                                                   <h3>Estimators, Bias and Variance </h3>  
+                                                   <h4>Bias</h4>    
+                                                   <ul>
+
+					                  <li class="paragraph2">We compute the bias for the <mark class="red">Bernoulli distribution with parameter \( \theta \) </mark>:
+
+							    <br>
+							    <br>
+							    <br>
+							    \[
+							     P({\bf{x}};\theta) = \theta^{\bf{x}}   (1-\theta)^{(1-{\bf{x}})}.
+							    \]
+							    
+                                                         </li>
+					                  <li class="paragraph2">Having a set of samples \( \{ x^1, \dots, x^m \} \), a common estimator for  \( \theta \) is the mean of the training samples: 
+							    \[
+							     \hat{\theta_m} = \frac{1}{m} \sum_{i=1}^{m} x^i. 							                                     \]
+
+                                                         </li>
+
+					                  <li class="paragraph2">For this estimator, we will compute  \( bias(\hat{\theta}_m) = \mathbb{E}(\hat{\theta}_m) -\theta \).</li>
+                                                           
+                                                   </ul>						           
+                                                   
+                                                   </div>                                                          
+                                                   
+                                                   <aside class="notes">
+  						     
+                                            	   </aside>
+        		           </section> 
+        		           <section> 
+                                 <mark class="red"></mark>
+                                          <div class="my_container">
+                                                   <h3>Estimators, Bias and Variance </h3>  
+                                                   <h4>Bias</h4>    
+                                                   <ul>
+
+					                  <p class="paragraph2">
+							    \[
+							       \begin{align}
+
+                                                                  bias(\hat{\theta}_m) &=& \mathbb{E}(\hat{\theta}_m) -\theta \\
+                                                                                       &=& \mathbb{E} \left [  \frac{1}{m} \sum_{i=1}^{m} x^i   \right ] - \theta \\
+                                                                                       &=&   \frac{1}{m} \sum_{i=1}^{m} \mathbb{E} [x^i] - \theta \\
+                                                                                       &=&   \frac{1}{m} \sum_{i=1}^{m} \sum_{x^i=0}^{1}  \left (x^i  \theta^{x^i}   (1-\theta)^{(1-x^i)}   \right) - \theta \\
+                                                                                       &=&   \frac{1}{m} \sum_{i=1}^{m}(\theta) - \theta \\
+                                                                                       &=&   0 
+
+
+							        \end{align}
+
+
+							    \]
+
+                                                         </p>
+					                
+
+                                                           
+                                                   </ul>						           
+                                                   
+                                                   </div>                                                          
+                                                   
+                                                   <aside class="notes">
+  						     
+                                            	   </aside>
+        		           </section> 
+                                   <section>
+                                   <mark class="red"></mark>
+                                          <div class="my_container">
+                                                   <h3>Estimators, Bias and Variance </h3>  
+                                                   <h4>Variance</h4>    
+                                                   <ul>
+
+					                  <li class="paragraph2">The <mark class="red">variance of an estimator</mark> is defined as:
+							    \[
+							     Var(\hat{\theta}_m)
+							    \]
+
+                                                         </li>
+					                  <p class="paragraph2">It provides information about how much we expect the estimator to vary as a <mark class="red">function of the data sample</mark>.</p>
+					                  
+                                                         </li>
+ 				              
+						          
+                                                   </ul>						           
+                                                   
+                                                   </div>                                                          
+                                                   
+                                                   <aside class="notes">
+  						     
+                                            	   </aside>
+        		           </section>
+
+                                   <section>
+                                   <mark class="red"></mark>
+                                          <div class="my_container">
+                                                   <h3>Estimators, Bias and Variance </h3>  
+                                                   <h4>Variance</h4>    
+                                                   <ul>
+
+					                  <li class="paragraph2">The square root of the variance is called the <mark class="red">standard error</mark>.</li>
+                                                          <li class="paragraph2">The <mark class="red">standard error of the mean</mark> is given by:
+							    \[
+                                                               SE(\hat{\mu}_m) = \sqrt{Var \left [ \frac{1}{m} \sum_{i=1}^{m} x^i   \right]} = \frac{\sigma}{\sqrt{m}}				
+
+							    \]
+
+							    where \(\sigma^2 \) is the true variance of the samples. 
+                                                         </li>
+ 				              
+						          
+                                                   </ul>						           
+                                                   
+                                                   </div>                                                          
+                                                   
+                                                   <aside class="notes">
+  						     
+                                            	   </aside>
+        		           </section>				   
+
+
+				   
+				   <section data-background-color="#e6ff99">
+                                                  <h4>Estimators</h4>   
+                                                  
+
+						   <img src="href=../../img_2019_Lect_3/Bias_VS_Variance.png"  height="580" width="600">					
+                                   </section>
+        		           <section> 
+                                 <mark class="red"></mark>
+                                          <div class="my_container">
+                                                   <h3>Estimators, Bias and Variance </h3>  
+                                                   <h4>Example: Variance of the sample mean for Benoulli distribution</h4>    
+                                                   <ul>
+
+					                  <p class="paragraph2">
+							    \[
+							       \begin{align}
+
+                                                                  Var(\hat{\theta}_m) &=&  Var \left (  \frac{1}{m} \sum_{i=1}^{m} x^i   \right ) \\
+                                                                                       &=&   \frac{1}{m^2} \sum_{i=1}^{m} Var (x^i) \\
+                                                                                       &=&   \frac{1}{m^2} \sum_{i=1}^{m} \theta (1-\theta) \\
+                                                                                       &=&   \frac{1}{m^2} m \theta (1-\theta) \\
+                                                                                       &=&    \frac{1}{m}  \theta (1-\theta) \\
+
+
+							        \end{align}
+
+
+							    \]
+
+                                                         </p>
+					                  <li class="paragraph2">The variance of this estimator decreases as a function of \(m\).</li>
+
+                                                           
+                                                   </ul>						           
+                                                   
+                                                   </div>                                                          
+                                                   
+                                                   <aside class="notes">
+  						     
+                                            	   </aside>
+        		           </section>
+
+				   
+                           </section>
+                           <section>
+                                   <section id="sec:MLE">
+                                           <mark class="red"></mark>
+                                          <div class="my_container">
+
+                                                   <h3>Maximum Likelihood Estimation (MLE)  </h3>        
+
+                                                   <ul>
+						          <li class="paragraph2">We consider a set of \(m\) samples \( \mathbb{X} = \{ {{\bf{x}}}^1, \dots, {\bf{x}}^m \} \) drawn independently from the true but unknown  <mark class="red">data generating distribution</mark> \(p_{data}({{\bf{x}}})\).   </li>
+						          <li class="paragraph2"> \( p_{model}({\bf{x}},\theta) \) is a parametric family of probability distributions over the same space indexed by \(\theta\). </li>
+						          <li class="paragraph2"> The <mark class="red">maximum likelihood estimator</mark> for \(\theta\) is defined as:
+                                                          \[
+                                                          \begin{align}
+                                                     
+                                                          \theta_{ML} &=& \underset{\theta}{\arg\max} \prod_{i=1}^{m} p_{model}(\mathbb{X},\theta)\\                                                                    
+                                                                      &=& \underset{\theta}{\arg\max} \prod_{i=1}^{m} p_{model}({\bf{x}}^i,\theta)
+                                                          \end{align}
+							  \]  
+                                                          </li>
+
+                                                   
+                                                   </ul>					           
+                                                 
+                          		 </div>                                                          
+                                                   
+                                                   <aside class="notes">
+  						     
+                                            	   </aside>
+        		           </section> 
+                                   <section>
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+                                                   <h3>Maximum Likelihood Estimation (MLE)  </h3>        
+
+                                                   <ul>
+						          <li class="paragraph2">Usually,  the logarithm is used to transform the product of probabilities to a sum of logarithms: 
+                                                           \[                                                         
+                                                     
+                                                             \theta_{ML} = \underset{\theta}{\arg\max} \sum_{i=1}^{m} log \; p_{model}({\bf{x}}^i,\theta)                                                                   
+							   \]
+                                                          </li>
+						          <li class="paragraph2">This is an <mark class="red">equivalent optimization problem</mark> that can be also expressed as an optimization as an expectation with respect to the empirical distribution \(\hat{p}_{data}\): 
+                                                           \[                                                         
+                                                     
+                                                             \theta_{ML} = \underset{\theta}{\arg\max} \; \mathbb{E}_{{\bf{x}} \thicksim \hat{p}_{data}} log \; p_{model}({\bf{x}},\theta)                                                                   
+							   \]
+                                                          </li>						          
+                                                   
+                                                   </ul>						           
+                                                                                  
+                          		 </div>                                                          
+                                                     <p class="paragraph2"> I. Goodfellow and Y. Bengio and A. Courville. <a href="http://www.deeplearningbook.org/"> Deep Learning.</a>. MIT Press. 2016. </p>	                      
+                                                   <aside class="notes">
+  						     
+                                            	   </aside>
+        		           </section> 
+                                   <section>
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+                                                   <h3>Maximum Likelihood Estimation (MLE)  </h3>        
+						   <h4>Kullback Leibler divergence interpretation</h4>
+                                                   <ul>
+						          <li class="paragraph2">The MLE can be also seen from the perspective of the  <mark class="red">Kullback-Leibler divergence</mark>  between two distributions: 
+                                                           \[                                                         
+                                                     
+                                                             D_{KL}(\hat{p}_{data}||p_{model}) =  \mathbb{E}_{{\bf{x}} \thicksim \hat{p}_{data}} \left [ log \; \hat{p}_{data}({\bf{x}})-log \; p_{model}({\bf{x}}) \right ]                                                                                    
+							   \]
+                                                          </li>
+
+                                                           <li class="paragraph2">Since \(\hat{p}_{data}({\bf{x}})\) does not depend on the model selection, we only need to minimize:
+                                                           \[                                                         
+                                                     
+                                                              - \underset{\theta}{\arg\max} \;  \mathbb{E}_{{\bf{x}} \thicksim \hat{p}_{data}} \left [log \; p_{model}({\bf{x}}) \right ]                                                                                    
+							   \]
+                                                          </li>
+
+
+						          <li class="paragraph2">Therefore, minimizing the KL divergence corresponds to <mark class="red">minimizing the cross-entropy</mark> between the distributions.</li> 
+						        					          
+                                                   
+                                                   </ul>						           
+                                                                                               
+                          		 </div>                                                          
+                                                    <p class="paragraph2"> I. Goodfellow and Y. Bengio and A. Courville. <a href="http://www.deeplearningbook.org/"> Deep Learning.</a>. MIT Press. 2016. </p>	          
+                                                   <aside class="notes">
+  						     
+                                            	   </aside>
+        		           </section> 
+                                   <section>
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+                                                   <h3>Maximum Likelihood Estimation (MLE)  </h3>        
+                                                   <h4>Conditional probability</h4>        
+
+                                                   <ul>
+						          <li class="paragraph2"> The MLE can be also applied to the estimation of the conditional probability  \(  P(y| {\bf{x}},\theta) \): 
+                                                           \[                                                         
+                                                     
+                                                             \theta_{ML} = \underset{\theta}{\arg\max} \prod P(\mathbb{Y}| \mathbb{X},\theta)                                                                   
+							   \]
+
+                                                          </li>
+						          <li class="paragraph2">If the instances are assumed to be i.i.d., then the expression can be decomposed into: 
+
+
+                                                           \[                                                         
+                                                     
+                                                             \theta_{ML} = \underset{\theta}{\arg\max} \sum_{i=1}^{m} log \; P(y^i|{\bf{x}}^i,\theta).                                                                  
+							   \]                                                          
+                                                          </li>						          
+                                                   
+                                                   </ul>						           
+                                                                                                       
+                          		 </div>                                                          
+                                                     <p class="paragraph2"> I. Goodfellow and Y. Bengio and A. Courville. <a href="http://www.deeplearningbook.org/"> Deep Learning.</a>. MIT Press. 2016. </p>	 
+                                                   <aside class="notes">
+  						     
+                                            	   </aside>
+        		           </section>
+
+				       <section data-background-color="#e6ff99">
+                                            
+                                        <h4>How likely are the models for the data? </h4>
+
+                                        <table id="customers">
+                                        <colgroup>                                         
+                                          <col style="background-color:yellow">
+                                          <col span="3" style="background-color:white">
+                                          <col span="3" style="background-color: #bfff00">
+
+                                        </colgroup>
+                                        <tr> <th>Data</th> <th>Model 1</th><th>Model 2</th><th>Model 3</th></tr>
+	                                <tr> <th> \(y x_1 x_2\) </th> <th> \(p_{M1}(y|x_1,x_2) \)</th><th> \(p_{M2}(y|x_1,x_2) \)</th><th> \(p_{M3}(y|x_1,x_2) \)</th></tr>
+
+                                        <tr> <th>000</th> <th>0.5</th><th>1.0</th><th>1.0</th></tr>
+					<tr> <th>101</th> <th>0.5</th><th>1.0</th><th>0.9</th></tr>
+					<tr> <th>101</th> <th>0.5</th><th>1.0</th><th>0.9</th></tr>
+					<tr> <th>110</th> <th>0.2</th><th>1.0</th><th>0.85</th></tr>
+					<tr> <th>011</th> <th>0.2</th><th>1.0</th><th>0.8</th></tr>
+					<tr> <th>000</th> <th>0.5</th><th>1.0</th><th>1.0</th></tr>
+					<tr> <th>011</th> <th>0.2</th><th>1.0</th><th>0.8</th></tr>
+					<tr> <th>110</th> <th>0.2</th><th>1.0</th><th>0.85</th></tr>
+					<tr> <th>\(\prod_{i=1}^{8} p(y|x_1,x_2) \)</th> <th>\(0.2^4*0.5^4\)</th><th>1.0</th><th>\(0.85^2*0.8^2*0.9^2\)</th></tr>
+					<tr> <th>\(log(\prod_{i=1}^{8} p(y|x_1,x_2)) \)</th> <th>\(log(0.2^4*0.5^4)\)</th><th>\(log(1.0)\)</th><th>\(\log(0.85^2*0.8^2*0.9^2 )\)</th></tr>
+					<tr> <th>\(\sum_{i=1}^{8} log(p(y|x_1,x_2)) \)</th> <th>\(4*log(0.2)+4*log(0.5)\)</th><th>\(0 \)</th><th>\(2*\log(0.85)+2*log(0.8)+2*log(0.9)\)</th></tr>
+			         
+                                         </table>                                              
+
+			 	          </section>
+
+
+				   <section data-background-color="#e6ff99">
+                                                  <h4>Find the model best suited for the data</h4>   
+                                                  
+                                                   <img src="href=../../img_2019_Lect_3/Data_Model.png"  height="480" width="120">
+						   <img src="href=../../img_2019_Lect_3/Model_A.png"  height="480" width="400">						   		                                                                   <img src="href=../../img_2019_Lect_3/Model_B.png"  height="480" width="400">  
+
+                                   </section>
+				   
+                                  <section>
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+                                                   <h3>Maximum Likelihood Estimation (MLE)  </h3>        
+                                                   <h4>Linear regression as an example</h4>        
+
+                                                   <ul>
+						          <li class="paragraph2">We assume that in an infinitively large training set, there might be several training examples with <mark class="red"> the same input value \( {\bf{x}} \) but different values of \(y\)</mark>.</li> 
+						          <li class="paragraph2">The goal of the learning algorithm is to <mark class="red">fit the distribution \( p(y|{\bf{x}}) \)</mark> to all of those different  \(y\) values compatible with \( {\bf{x}} \). </li> 
+						          <li class="paragraph2">We assume that \( p(y|{\bf{x}}) \)  follows a <mark class="red">Normal distribution</mark>  \( p(y|{\bf{x}})= \mathcal{N}(y;\hat{y}({\bf{x}},w), \sigma^2)\). </li> 
+
+                                                          <li class="paragraph2"> The function \(\hat{y}({\bf{x}},w) \) gives the prediction of the <mark class="red">mean of the Gaussian</mark>. </li> 
+
+                                                          <li class="paragraph2"> The variance is fixed to some constant \(\sigma^2\). </li> 
+                                                   
+                                                   </ul>						           
+                                                     	                                                   
+                          		 </div>                                                          
+                                                     <p class="paragraph2"> I. Goodfellow and Y. Bengio and A. Courville. <a href="http://www.deeplearningbook.org/"> Deep Learning.</a>. MIT Press. 2016. </p>
+                                                   <aside class="notes">
+  						     
+                                            	   </aside>
+        		           </section> 
+
+                                  <section>
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+                                                   <h3>Maximum Likelihood Estimation (MLE)  </h3>        
+                                                   <h4>Linear regression as an example</h4>        
+
+                                                   <ul>
+                                                          <li class="paragraph2"> For the Gaussian distribution: 
+                                                           \[                                                         
+                                                                                                               
+							    \begin{align}
+                                                               P(y| {\bf{x}},\theta)      &=& \mathcal{N}(y;\hat{y}({\bf{x}},w), \sigma^2) \\
+                                                                                          &=& \frac{1}{\sqrt{2\pi \sigma^2}} -e^\frac{(y-\hat{y}({\bf{x}},w))^2}{2 \sigma^2}
+							    \end{align}                                                          
+							   \]
+
+                                                          </li>
+						          <li class="paragraph2">Therefore, the conditional log-likelihood is given by:
+                                                           \[                                                          
+							    \begin{align}
+                                                               \sum_{i=1}^{m} log \; P(y^i|{\bf{x}}^i,\theta) &=& \sum_{i=1}^{m} log \; \frac{1}{\sqrt{2\pi \sigma^2}} -e^\frac{(y^i-\hat{y}({\bf{x}}^i,w))^2}{2 \sigma^2} \\
+                                                               &=& -m \, log(\sigma) - \frac{m}{2} log(2\pi) - \sum_{i=1}^{m} \frac{||\hat{y}^i-y^i||^2}{2\sigma^2}
+							    \end{align}
+                                                           \]  
+                                                          </li> 
+						       
+                                                   </ul>						           
+                                                                                                      
+                          		 </div>                                                          
+                                                     <p class="paragraph2"> I. Goodfellow and Y. Bengio and A. Courville. <a href="http://www.deeplearningbook.org/"> Deep Learning.</a>. MIT Press. 2016. </p>	  
+                                                   <aside class="notes">
+  						     
+                                            	   </aside>
+        		          </section>
+
+                                  <section>
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+                                                   <h3>Maximum Likelihood Estimation (MLE)  </h3>        
+                                                   <h4>Linear regression as an example</h4>        
+
+                                                
+						          <p class="paragraph2">Maximizing the conditional likelihood
+                                                           \[                                                          
+							   
+                                                               \sum_{i=1}^{m} log \; P(y^i|{\bf{x}}^i,\theta) = -m \, log(\sigma) - \frac{m}{2} log(2\pi) - \sum_{i=1}^{m} \frac{||\hat{y}^i-y^i||^2}{2\sigma^2}
+
+                                                           \]  
+                                                          </p> 
+                                                          <p class="paragraph2">is equivalent to minimizing the mean squared error:
+                                                           \[                                                          
+							   
+                                                               MSE_{train} = \frac{1}{m} \sum_{i=1}^{m} ||\hat{y}^i-y^i||^2
+
+                                                           \]  
+                                                          </p> 
+						       
+                                                   </ul>						           
+                                                                                                        
+                          		 </div>                                                          
+                                                     <p class="paragraph2"> I. Goodfellow and Y. Bengio and A. Courville. <a href="http://www.deeplearningbook.org/"> Deep Learning.</a>. MIT Press. 2016. </p>	
+                                                   <aside class="notes">
+  						     
+                                            	   </aside>
+        		           </section> 
+
+                                  <section>
+                                                 <mark class="red"></mark>
+                                                 <div class="my_container">
+                                                   <h3>Maximum Likelihood Estimation (MLE)  </h3>        
+                                                   <h4>Properties</h4>       
+                                                   <ul>
+
+						          <li class="paragraph2"> <mark class="red">Under appropriate conditions</mark>, the maximum likelihood estimator has the  <mark class="red">property of consistency</mark>, i.e., as the number of training examples approaches infinity, the ML estimator of a parameter converges to the true value of the parameter.  </li>
+						          <li class="paragraph2"> These conditions are:
+                                                              <ol>
+       						                    <li class="paragraph2"> The true distribution \(p_{data}\) <mark class="red">must lie within the model family</mark> \(p_{model}(.,\theta) \). Otherwise, no estimator can recover  \(p_{data}\). </li>
+                                                                   <li class="paragraph2"> The true distribution \(p_{data}\) <mark class="red">must correspond to exactly one value of \( \theta \)</mark>. Otherwise, maximum likelihood can recover the correct \(p_{data}\), but will not be able to determine which value of \( \theta \) was used by the data generating processing. </li>                                                 </ol>
+                                                         </li>						         
+                                                   </ul>		
+                                                    	
+ 				           
+                               		         </div>
+                                                    <p class="paragraph2"> I. Goodfellow and Y. Bengio and A. Courville. <a href="http://www.deeplearningbook.org/"> Deep Learning.</a>. MIT Press. 2016. </p>
+                                                   <aside class="notes">
+  						   
+                                            	   </aside>
+        			              </section>
+                                  </section>
+
+        			  <section>
+                                       <section id="sec:Bayesian_Approach">                   
+                                                 <mark class="red"></mark>
+                                              <div class="container">
+                                                 <h3>Differences between frequentist and Bayesian approaches</h3>
+                                                  <span class="fragment">
+                                                  <div class="right">
+                                                  <h4>Bayesian approach</h4>
+                                                      <ul>      
+                                                         <li class="paragraph2">  The dataset is directly observed and therefore is not random.  </li>
+                                                         <li class="paragraph2">  The true parameter  \(\theta\) is <mark class="red"> unknown</mark> or <mark class="red">uncertain</mark>  and thus is represented as a random variable. </li>
+
+
+                                                       <li class="paragraph2"> The knowledge about \(\theta\), before observing the data, is represented using a <mark class="red"> prior probability distribution  \( p(\theta)\)</mark>.   </li>	
+  					   
+                                                      <ul/>                                                      
+                          		          </div>
+                                                  </span>           
+                                      
+                                                  <div class="left">   
+                                                      <h4>Frequentist approach</h4>
+                                                      <ul>      
+
+                                                       <li class="paragraph2"> MLE follows a frequentist approach. </li>
+                                                       <li class="paragraph2"> The true parameter \(\theta\) is <mark class="red">fixed but unknown</mark>. </li>
+                                                       <li class="paragraph2"> The point estimate  \( \hat{\theta} \) is a  <mark class="red">random variable</mark>. </li>
+
+                                                       <li class="paragraph2"> It can be more convenient than Bayesian approaches when the number of training samples is large. </li>
+
+                                                      <ul/>                                                     
+                                                  </div>         
+                                                  </div>
+                                                      <p class="paragraph2"> I. Goodfellow and Y. Bengio and A. Courville. <a href="http://www.deeplearningbook.org/"> Deep Learning.</a>. MIT Press. 2016. </p>
+
+                                                   <aside class="notes">
+                                                       What is ML? 
+                                            	   </aside>
+
+                             	      </section>
+                                    <section>
+                                                 <mark class="red"></mark>
+                                                 <div class="my_container">
+                                                   <h3>Bayesian approach</h3>        
+                                                   <h4>Bayes rule</h4>       
+                                                   <ul>
+
+						          <li class="paragraph2">The way to update our belief about \(\theta\) using a set of data samples  \( \{ {\bf{x}}^1, \dots, {\bf{x}}^m \} \)  is by combining the the data likelihood  \( p({\bf{x}}^1, \dots, {\bf{x}}^m |\theta)\) with the prior via the   <mark class="red">Bayes rule</mark>: 
+                                                 <br>
+                                                 <br>
+                                                 <br>
+
+                                                  \[
+
+                                                    p(\theta| {\bf{x}}^1, \dots, {\bf{x}}^m) = \frac{ p({\bf{x}}^1, \dots, {\bf{x}}^m|\theta)p(\theta)} {p({\bf{x}}^1, \dots, {\bf{x}}^m)}
+                                         
+                                                  \]
+
+
+                                                           </li>	
+						          <li class="paragraph2">The prior has an influence by shifting  the probability mass density towards region of the parameter space that are preferred <mark class="red"> a priori</mark>. </li>	
+				                 </ul>	                                                   
+	
+ 				           
+                               		         </div>
+                                                   <p class="paragraph2"> I. Goodfellow and Y. Bengio and A. Courville. <a href="http://www.deeplearningbook.org/"> Deep Learning.</a>. MIT Press. 2016. </p>
+                                                   <aside class="notes">
+  						   
+                                            	   </aside>
+        			    </section>
+                                    <section>
+                                                 <mark class="red"></mark>
+                                                 <div class="my_container">
+                                                   <h3>Maximum A Posteriori (MAP) Estimation</h3>   
+                                                   <ul>
+
+   <li class="paragraph2"> Even using the Bayesian approach, in some scenarios is convenient to compute a  <mark class="red">point estimate</mark>. </li>	
+
+						          <li class="paragraph2">The  <mark class="red">MAP estimate</mark> chooses the point of maximal posterior probability (or probability density for continuous \( \theta \)): 
+                                                 <br>
+                                                 <br>
+                                                 <br>
+
+                                                  \[
+
+                                                     \theta_{MAP} =  \underset{\theta}{\arg\max} \;p(\theta|{\bf{x}}) = \underset{\theta}{\arg\max} \; log \, p({\bf{x}}|\theta) + log \, p(\theta)                                          
+                                                  \]
+
+
+                                                           </li>	
+						          <li class="paragraph2">The MAP estimate has the advantage of leveraging information that is brought by the prior and cannot be found in the training data. </li>	
+				         
+                                                   </ul>	
+                                                  	
+ 				           
+                               		         </div>
+                                                     <p class="paragraph2"> I. Goodfellow and Y. Bengio and A. Courville. <a href="http://www.deeplearningbook.org/"> Deep Learning.</a>. MIT Press. 2016. </p>		
+                                                   <aside class="notes">
+  						   
+                                            	   </aside>
+        			    </section>
+                           </section>
+			  <section>
+                                   <section id="sec:Regularization">
+                                           <mark class="red"></mark> 
+                                          <div class="my_container">
+                                                   <h3>Regularization</h3>      
+                                                   <h4>Important concepts</h4> 
+                                                      <ol>
+
+						          <li class="paragraph2"> <mark class="red">Generalization</mark>: The ability of a model to perform well on previously unobserved inputs.  </li>
+						          <li class="paragraph2">The <mark class="red">generalization error</mark> is defined as the expected value of the error on a new input.  </li>
+						          <li class="paragraph2">The expected error is usually estimated using a <mark class="red">test set of examples</mark>. </li>
+                                                  <span class="fragment">
+						          <li class="paragraph2"><mark class="red">Underfitting</mark>: Occurs when the model is not able to obtain a sufficiently low error value on the <mark class="red">training set</mark>.  </li>
+						          <li class="paragraph2"><mark class="red">Overfitting</mark>: Occurs when the gap between the training error and test error is too large.  </li>
+                                                  </span>
+						                                     
+                                                   </ol>						           
+                                                                             
+                          		 </div>                                                          
+                                              <p class="paragraph2"> I. Goodfellow and Y. Bengio and A. Courville. <a href="http://www.deeplearningbook.org/"> Deep Learning.</a>. MIT Press. 2016. </p>	   
+                                                   <aside class="notes">
+  						     
+                                            	   </aside>
+        		           </section>
+				   <section>
+                                   <mark class="red"></mark>
+                                          <div class="my_container">
+                                                   <h3>Data generating process and model families </h3>                                                                                          <ul>
+
+						          <li class="paragraph2">Situations for a <mark class="red">model family</mark> being trained: </li>
+                                                              <ol>
+						                  <li class="paragraph2"> Excluded the true data generating process.</li>
+						                  <li class="paragraph2"> Matched the true data generating process. </li>
+						                  <li class="paragraph2"> Included the generating process but also many other possible generating processes. </li>
+                                                              </ol>
+                                                   </ul>						           
+                                                   
+                                                   </div>                                                          
+                                                   
+                                                   <aside class="notes">
+  						     
+                                            	   </aside>
+        		           </section>
+
+				   <section data-background-color="#e6ff99">
+                                                  <h4>Capacity, underfitting, overfitting</h4>   
+                                                  
+
+						   <img src="href=../../img_2019_Lect_3/Bias_Variance_Capacity.png"  height="480" width="800">					
+                                   </section>
+
+				   
+
+                                 <section>
+                                           <mark class="red"></mark> 
+                                          <div class="my_container">
+                                                   <h3>Regularization</h3>                                                                                                                 <ol>
+
+						          <li class="paragraph2">Regularization is any modification we make to a learning algorithm that is intended to <mark class="red">reduce its generalization error</mark> but not its training error. </li>
+						          <li class="paragraph2"> Regularization of an estimator works by <mark class="red">trading increased bias for reduced variance</mark>. </li>                                  
+                                                  <span class="fragment">
+						          <li class="paragraph2">An effective regularizer is one that reduces variance significantly by not overly increasing the bias.</li>
+						          <li class="paragraph2">The goal is to achieve a model of sufficient complexity to <mark class="red">fit the training data</mark> but <mark class="red">able to generalize</mark> to unseen data. </li>                                                                    </span>                                 
+                                                   </ol>						           
+                                                                          
+                          		 </div>                                                          
+                                                    <p class="paragraph2"> I. Goodfellow and Y. Bengio and A. Courville. <a href="http://www.deeplearningbook.org/"> Deep Learning.</a>. MIT Press. 2016. </p>	                            
+                                                   <aside class="notes">
+  						     
+                                            	   </aside>
+        		           </section> 
+
+                                   <section>
+                                          <div class="my_container">
+                                           <mark class="red"></mark> 
+                                                   <h3>Regularization</h3>                                                   
+                                                   <h4>Parameter norm penalties</h4>
+                                                   <ul>
+
+						          <li class="paragraph2"><mark class="red">Parameter regularization</mark> is implemented by adding a <mark class="red">parameter norm penalty</mark>  \(\Omega(\theta)\) to the objective function \(J\). </li>       
+
+   <li class="paragraph2">The  <mark class="red">regularized objective function</mark> \(\tilde{J}\) is defined as: 
+                                                 <br>
+                                                 <br>
+                                                 <br>
+                                                  \[
+
+                                                     \tilde{J}(\theta;{\bf{X}},y)  = J(\theta;{\bf{X}},y) + \alpha \, \Omega(\theta),                                
+                                                  \]
+
+
+                                                           </li>          
+
+						          <p class="paragraph2">where \(\alpha \in [0,\infty] \) is a hyperparameter that weights the relative contribution of  \(\Omega(\theta)\) relative to  \( J(\theta;{\bf{X}},y) \).</p>                                  
+                                                   </ul>						           
+                                                                           
+                          		 </div>                                                          
+                                                    <p class="paragraph2"> I. Goodfellow and Y. Bengio and A. Courville. <a href="http://www.deeplearningbook.org/"> Deep Learning.</a>. MIT Press. 2016. </p>	                           
+                                                   <aside class="notes">
+  						     
+                                            	   </aside>
+        		           </section> 
+                                   <section>
+                                          <div class="my_container">
+                                           <mark class="red"></mark> 
+                                                   <h3>Regularization</h3>                                                   
+                                                   <h4>\(L^2\) parameter regularization</h4>
+                                                   <ul>
+
+						     <li class="paragraph2"> The \(L^2\) parameter regularization adds a regularization term of the form  <mark class="red"> \(\Omega(\theta) =\frac{1}{2} \Vert \theta \Vert_2^2 \)</mark>. </li>
+						     
+                                                     <li class="paragraph2">  \(L^2\) adds squared magnitude of coefficient as penalty term. </li> 
+                                                         <li class="paragraph2"> In neural networks, usually regularization is applied to the weights of network, i.e.,  <mark class="red">\( \theta = w \)</mark>. </li> 
+
+                                                         <li class="paragraph2"> A regularized model of this type has the form:
+
+                                                 <br>
+                                                 <br>
+                                                 <br>
+                                                  \[
+
+                                                     \tilde{J}(\theta;{\bf{X}},y)  = J(\theta;{\bf{X}},y) + \frac{\alpha}{2} w^{\top}w.                                
+                                                  \]
+
+
+                                                           </li>          
+
+						                                    
+                                                   </ul>						           
+                                                                                         
+                          		 </div>                                                          
+                                                    <p class="paragraph2"> I. Goodfellow and Y. Bengio and A. Courville. <a href="http://www.deeplearningbook.org/"> Deep Learning.</a>. MIT Press. 2016. </p>	             
+                                                   <aside class="notes">
+  						     
+                                            	   </aside>
+        		           </section> 
+                                   <section>
+                                          <div class="my_container">
+                                           <mark class="red"></mark> 
+                                                   <h3>Regularization</h3>                                                   
+                                                   <h4>\(L^1\) parameter regularization</h4>
+                                                   <ul>
+
+						          <li class="paragraph2"> The   <mark class="red"> \(L^1\) parameter regularization</mark>  adds a regularization term of the form:   
+
+                                                <br>
+                                                 <br>
+                                                 <br>
+                                                  \[
+                                                      \Omega(\theta) = \Vert \theta \Vert_1 = \sum_i |w_i|.
+                                                     
+                                                  \]
+
+                                                           </li>      
+
+                                                         
+
+                                                         <li class="paragraph2"> <mark class="red">A regularized model</mark> of this type has the form:
+
+                                                 <br>
+                                                 <br>
+                                                 <br>
+                                                  \[
+
+                                                     \tilde{J}(\theta;{\bf{X}},y)  = J(\theta;{\bf{X}},y) + \alpha \Vert \theta \Vert_1                                
+                                                  \]
+
+
+                                                           </li>          
+                                                        <li class="paragraph2">  \(L^1\) adds absolute value of magnitude of coefficient as penalty term. </li> 
+                                                        <li class="paragraph2"> \(L^1\) parameter regularization tends to produce <mark class="red">more  sparse solutions</mark>, i.e., some parameters have an optimal value of zero. 						                                    
+                                                   </ul>						           
+                                                         
+                          		 </div>                                                          
+                                                    <p class="paragraph2"> I. Goodfellow and Y. Bengio and A. Courville. <a href="http://www.deeplearningbook.org/"> Deep Learning.</a>. MIT Press. 2016. </p>	                                             
+                                                   <aside class="notes">
+  						     
+                                            	   </aside>
+        		           </section> 
+                             </section>
+
+			     
+
+
+ 
+			</div>
+		</div>
+
+
+
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			Reveal.initialize({
+				history: true,
+				transition: 'linear',
+
+				math: {
+					// mathjax: 'http://cdn.mathjax.org/mathjax/latest/MathJax.js',
+					config: 'TeX-AMS_HTML-full'
+				},
+
+				dependencies: [
+                                        { src: 'lib/js/fullscreen-img.js' },
+					{ src: 'lib/js/classList.js' },
+					{ src: 'plugin/math/math.js', async: true }
+
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
