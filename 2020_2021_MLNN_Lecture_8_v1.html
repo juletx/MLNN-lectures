@@ -1,0 +1,843 @@
+<!doctype html>
+<html lang="en">
+
+
+   
+    
+	<head>
+		<meta charset="utf-8">
+
+		<title>Machine Learning and Neural Networks</title>
+                <meta name="author" content="Roberto Santana">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<!-- <link rel="stylesheet" href="css/reveal.css">  -->
+                <link rel="stylesheet" href="css/fullscreen-img.css">
+                <link rel="stylesheet" href="css/added_css/notebook.css">
+   	        <link rel="stylesheet" href="css/reveal.css">
+                <link rel="stylesheet" href="css/theme/nncourse.css" id="theme">
+
+
+		
+        <script>
+	  var link = document.createElement( 'link' );
+	  link.rel = 'stylesheet';
+	  link.type = 'text/css';
+	  link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+	  document.getElementsByTagName( 'head' )[0].appendChild( link );
+	</script>		
+                          
+                                
+
+	</head>
+
+
+
+	
+	<body>
+
+
+		<div class="reveal">
+			<div class="slides">
+
+				<section>
+                                          <div class="my_container">
+                                        <h2>Machine Learning and Neural Networks</h2>
+					<p>Roberto Santana and Unai Garciarena<p>
+					<p>Department of Computer Science and Artificial Intelligence</p>
+                                        <p>University of the Basque Country</p>
+                          		 </div>   
+				</section>
+                                <section id="sec:NN_Intro">   
+                                            <div class="my_container">
+                                             <h3> Competitive learning: Table of Contents </h3>
+                                        
+                                              <table style="width:100%"; border=solid>
+
+
+                                                  <tr>                 
+                                                    <td> <p class="paragraph2"> <a href="#/sec:NNs_Competitive"> Competitive learning  </a></p</td>
+	                                            <td> <p class="paragraph2"> <a href="#/sec:NNs_SOM"> SOM and Kohonen NNs </a></p></td>
+                                                    
+                                                   </tr>        
+                    
+                                                 
+
+
+
+                               
+
+                                    
+				              </table>	  
+                          	          </div>   
+
+  		   	       </section> 				
+                          </section>                  
+
+                           <section> 		
+ 				      <section id="sec:NNs_Competitive">
+                                               <mark class="red"></mark>
+                                               <div class="container">     
+                                                <h3>Competitive learning</h3>    
+                                                   <div class="right">      
+                          		            <div>	 
+                                                      <h4>Objective</h4>   
+                          		            </div>	                        		 
+                                                     <ul>  
+                                                          <li class="paragraph2">The goal of of competitive learning is to <mark class="red">group the data</mark> by forming clusters.</li>
+
+                                                          <li class="paragraph2">It is expected that the <mark class="red">similarities of instances within the same group</mark>  found by the network is as great as possible.</li>
+
+                                                          <li class="paragraph2">The <mark class="red">differences between instances in different classes</mark>  is as great as possible.</li>
+
+                                                          <li class="paragraph2">Generally, no label are used in training the network (i.e., <mark class="red">unsupervised learning</mark>). </li>
+
+
+                                                  </div>                 		         
+
+                                                   <div class="left">  
+
+                                                    <div>	 
+                                                     <h4>Characteristics</h4>   
+                          		            </div>
+                                                     <ul> 
+
+                                                        <li class="paragraph2">A layer of neurons that are <mark class="red">identical</mark> except that their <mark class="red">weights are different</mark>. </li>
+
+                                                        <li class="paragraph2"><mark class="red"> Neurons compete</mark> amongst themselves <mark class="red"></mark> to be activated. </li>
+                                                        <li class="paragraph2"> Only one neuron is activated at each time (<mark class="red">winner-takes-all neuron</mark>). </li>
+                                                         <li class="paragraph2">The <mark class="red">learning mechanism</mark> strengths the mapping between certain neurons and particular inputs. </li> 
+      
+                                                         <li class="paragraph2"> They are used for <mark class="red">data mining</mark>, <mark class="red">data visualization</mark>, <mark class="red">dimensionality reduction</mark> and <mark class="red">exploratory data analysis</mark>. </li>
+                           
+                                                  </ul> 
+                             
+                                                     </ul>    
+
+                          		    
+                                                   </div>  
+                                                     
+                                             </div>  
+                                          
+                                      
+                                                  <aside class="notes">
+                                            	  </aside>
+                              
+        		             </section>   
+
+
+                                     <section>
+                                               <mark class="red"></mark>
+                                               <div class="container">     
+                                                   <h3>Competitive learning</h3>      
+                                                  <div class="right">      
+
+                          		            <div>	 
+                                                     <h4>Characteristics</h4>   
+                          		            </div>
+                                                     <ul> 
+                                                        <li class="paragraph2"> The learning rule is a variant of <mark class="red">Hebbian learning</mark>  (with weight decay).  </li>
+                                                        <li class="paragraph2"> A <mark class="red">potential problem</mark> is that some neurons may continue to gain the competition while other neurons are never selected. </li>
+                                                   
+                                                  </ul> 
+
+
+                                                   </div>                 		         
+
+                                                   <div class="left">  
+                          		            <div>	 
+                                                      <h4>Typical learning</h4>   
+                          		            </div>	                        		 
+                                                     <ul>  
+                                                        <li class="paragraph2"> The <mark class="red">output</mark> of all neurons is computed as 
+							  <br>
+							  <br>
+							  \[
+							    y_i = \sum_{j} w_{i,j} x_j, \forall \; i
+
+                                                          \]
+
+
+                                                        </li>
+                                                        <p class="paragraph2">and the <mark class="red">winner neuron</mark>  is computed as the one whose prediction is the best.  </p>
+                                                       <li class="paragraph2"> Then, the <mark class="red">weights</mark> for the winning neuron \(i\) <mark class="red">are updated</mark> as:
+							 \[
+							    \Delta w_{i,j} = \eta (x_j - w_{i,j})
+
+                                                          \]
+
+
+                                                        </li>
+
+
+                                                  </ul>    
+
+                          		    
+                                                </div>  
+                                                     
+                                             </div>  
+                                          
+                                      
+                                                  <aside class="notes">
+                                            	  </aside>
+                              
+        		             </section>   
+
+
+                                     <section  id="sec:NNs_SOM">     					
+                                               <mark class="red"></mark>
+                                               <div class="container">     
+                                                   <h3>Self Organizing Map (SOM)</h3>
+                                                    <h4>Cortical sensory homunculus</h4>
+                                         
+                                                  <div class="right">
+
+                                                      <ul>      
+                                                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/1421_Sensory_Homunculus.jpg/800px-1421_Sensory_Homunculus.jpg"  height="340" width="500">           
+					                
+                                                      </ul>                                               
+                                                 
+                          		          </div>                                      
+                                                  <div class="left">   
+
+                                                  
+                                                      <ul>      
+                                                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Front_of_Sensory_Homunculus.gif"  height="380" width="500">           
+					                
+                                                      </ul>      
+   
+                                                      
+                                                  </div>    
+                                                   
+                                               </div>
+					                                                                <p class="paragraph2"> By OpenStax College - Anatomy &amp; Physiology, Connexions Web site. <a rel="nofollow" class="external free" href="http://cnx.org/content/col11496/1.6/">http://cnx.org/content/col11496/1.6/</a>, Jun 19, 2013., <a href="http://creativecommons.org/licenses/by/3.0" title="Creative Commons Attribution 3.0">CC BY 3.0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=30148008">Link</a>  </p>
+                                                   <p class="paragraph2"> By Mpj29 (Own work) [<a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>], <a href="https://commons.wikimedia.org/wiki/File%3AFront_of_Sensory_Homunculus.gif">via Wikimedia Commons</a>  </p>                                      
+                                                  <aside class="notes">
+						    SOM is one of the simplest models but it can be very useful for visualization and dimensionality reduction.
+                                            	  </aside>                                         
+                                      </section> 
+
+
+				      <section>        
+                                               <mark class="red"></mark>
+                                               <div class="container">     
+                                                   <h3>Self Organizing Map (SOM)</h3>
+                                        
+                                                  <div class="right">
+
+                                                      <ul>      
+                                                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/1421_Sensory_Homunculus.jpg/800px-1421_Sensory_Homunculus.jpg"  height="380" width="500">           
+					                
+                                                      </ul>                                                                                               
+                                                        
+                          		          </div>                                      
+                                                  <div class="left">   
+                         		            <div>
+                                                        <h4>Cortical maps</h4>  
+                          		            </div>	                        		 
+                                                     <ul>  
+                                                        <li class="paragraph2">In the cortex, <mark class="red">neurons</mark>  that process information about sensor and motor commands of  a <mark class="red">common</mark> anatomical region of the body  <mark class="red">share  a similar location</mark>.  </li>
+                                                        <li class="paragraph2"> The <mark class="red">extensions of the brain regions</mark> dedicated to process sensory information is <mark class="red">different according to the  part of the body</mark>.   </li>
+
+
+                                                        <li class="paragraph2"> For example,  a higher proportion of neurons is devoted to process data from the hands.  </li>
+                                                   
+                                                       
+                                                     </ul> 
+                                             
+                                                      
+                                                  </div>    
+                                                   
+                                               </div>
+					        <p class="paragraph2"> By OpenStax College - Anatomy &amp; Physiology, Connexions Web site. <a rel="nofollow" class="external free" href="http://cnx.org/content/col11496/1.6/">http://cnx.org/content/col11496/1.6/</a>, Jun 19, 2013., <a href="http://creativecommons.org/licenses/by/3.0" title="Creative Commons Attribution 3.0">CC BY 3.0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=30148008">Link</a>  </p>
+                                                  <aside class="notes">
+						    SOM is one of the simplest models but it can be very useful for visualization and dimensionality reduction.
+                                            	  </aside>
+                                          
+                                                 
+        		             </section> 
+
+				      <section>        
+                                               <mark class="red"></mark>
+                                               <div class="container">
+                                                   <h3>Neural Networks</h3>           
+                                                   <h4>Self Organizing Map (SOM)</h4>                                          
+                                                  <div class="right">
+                                                  <h4>Network architecture</h4>
+                                                      <ul>      
+                                                        <img src="href=../../img/NNZoo/kn.png"  height="300" width="500">           
+					                
+                                                      </ul>                                               
+                                                    
+       
+                          		          </div>                                      
+                                                  <div class="left">   
+                                                      <h4>Characteristics</h4>
+                                                      <ul>      
+
+
+						        <li class="paragraph2">Mainly applied for <mark class="red">clustering</mark>  and  <mark class="red">dimensionality reduction</mark> of high-dimensional data.  </li>
+	 				                  <li class="paragraph2">Also used as a visualization tool. </li>
+						          <li class="paragraph2">In the reduced space, it retains the <mark class="red">topological similarity</mark>  of data points. </li>                                                 
+						          <li class="paragraph2">In most applications, a <mark class="red">2-dimensional lattice-like</mark> , representation is learned. </li>
+						          <li class="paragraph2">The network <mark class="red">self-organizes</mark> depending on the input data. </li>
+
+                                                      </ul>    
+                                                  </div>
+						  					       <p class="paragraph2">T.  Kohonen. <a href="http://ieeexplore.ieee.org/document/58325/">The self-organizing map. </a> Proceedings of the IEEE, 78(9):1464--1480. 1990.  </p>    
+                                                   
+                                               </div>
+  
+                                                  <aside class="notes">
+						    SOM is one of the simplest models but it can be very useful for visualization and dimensionality reduction.
+                                            	  </aside>
+                                          
+                                                 
+        		             </section> 
+
+
+                                    <section>
+                                               <mark class="red"></mark>
+                                               <div class="container">     
+                                                  <h3>Self Organizing Map (SOM)</h3>     
+  
+                                                  <div class="right">      
+
+                          		                             		 
+                                                     <ul>  
+   
+                                                        <img src="http://matias-ck.com/mlz/_images/scheme2.png"  height="380" width="500">    
+
+
+                                                    
+                                                     </ul>         
+                                                      <p class="paragraph2"> Figure. <a href="http://matias-ck.com/mlz/somz.html">SOMz: Self Organizing Maps and random atlas.</a> </p>                                                
+                                                   </div>                 		         
+
+                                                   <div class="left">  
+
+                                                     <div>
+						    <h4>Topographic maps</h4>  
+                          		            </div>	                        		 
+                                                     <ul>  
+ 
+                                                        <li class="paragraph2"> A <mark class="red">feature map</mark> uses the topological (physical) organization of the neurons to <mark class="red">model features of the input space</mark>. </li> 
+                                                        <li class="paragraph2"> It is expected that if <mark class="red">two inputs are close in the feature space</mark>, then the two neurons that respond (fire) to these inputs will be  <mark class="red">close in the layout of the neural network</mark>.   </li>
+                                                        <li class="paragraph2"> Similarly, if two neurons that are <mark class="red">close in the neural network</mark>, fire to two different inputs, then these inputs are <mark class="red">close in the feature space</mark>.  </li>                                                       
+                                                     </ul>                   
+                                                   </div>                                                       
+                                             </div>  
+                                          
+                                      
+                                                  <aside class="notes">
+                                            	  </aside>
+                              
+        		             </section>   
+
+				    <section>
+                                          <div class="my_container">
+                                                  <h3>SOM simulation 3D</h3>
+
+						     <ul>
+						       <iframe width="560" height="415" src="https://www.youtube.com/embed/RqAa8Uu9zbQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+						            
+				
+                                                    </ul>  
+                                	                                                       
+                                               
+                                              
+                          		  </div>
+
+                                                   
+                                                   <aside class="notes">
+  						      There are important differents among animals. However, for most of more complex biological forms the the nervous system has a similar structure.  
+                                            	   </aside>
+                          	
+
+			          </section>
+
+				  <section>
+                                          <div class="my_container">
+                                                  <h3>SOM simulation 2D</h3>
+
+						  <ul>
+
+						    <iframe width="560" height="415" src="https://www.youtube.com/embed/UO9flv76aQE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+					            
+				
+                                                    </ul>  
+                                	                                                       
+                                               
+                                              
+                          		  </div>
+
+                                                   
+                                                   <aside class="notes">
+  						      There are important differents among animals. However, for most of more complex biological forms the the nervous system has a similar structure.  
+                                            	   </aside>
+                          	
+
+			          </section>
+
+
+				  				  <section>
+                                          <div class="my_container">
+                                                  <h3>SOM simulation 2D TSP</h3>
+
+						  <ul>
+
+					            <iframe width="560" height="415" src="https://www.youtube.com/embed/8tnxgfE6glI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+				
+                                                    </ul>  
+                                	                                                       
+                                               
+                                              
+                          		  </div>
+
+                                                   
+                                                   <aside class="notes">
+  						      There are important differents among animals. However, for most of more complex biological forms the the nervous system has a similar structure.  
+                                            	   </aside>
+                          	
+
+			          </section>
+
+                                    <section>
+                                               <mark class="red"></mark>
+                                               <div class="container">     
+                                                  <h3>Kohonen network</h3>     
+  
+                                                  <div class="right">      
+
+                          		                             		 
+                                                     <ul>  
+   
+                                                        <img src="http://matias-ck.com/mlz/_images/scheme2.png"  height="380" width="500">    
+
+
+                                                    
+                                                     </ul>         
+                                                                          
+                                                   </div>                 		         
+
+                                                   <div class="left">  
+                          		            <div>
+                                                        <h4>Characteristics</h4>  
+                          		            </div>	                        		 
+                                                     <ul>  
+                                                        <li class="paragraph2"> It is a particular <mark class="red">type of SOM</mark>. </li> 
+
+                                                         <li class="paragraph2"> One <mark class="red">input layer</mark> and a <mark class="red">computational layer of neurons</mark>. </li> 
+                                                        <li class="paragraph2"> Neurons are arranged in <mark class="red">rows and columns</mark>. </li> 
+
+                                                        <li class="paragraph2"> All neurons in the computational layer are <mark class="red">connected to all input nodes</mark. </li>                                                       
+                                                     </ul>    
+
+                                                   </div>  
+                                             </div>  
+                                          
+                                      
+                                                  <aside class="notes">
+                                            	  </aside>
+                            
+         		             </section>   
+
+
+								  
+			          <section>
+                                               <mark class="red"></mark>
+                                               <div class="container">     
+                                                  <h3>Kohonen Networks</h3>     
+  
+                                                  <div class="right">      
+                          		             <div>
+						        <h4>Initialization and competition</h4>  
+                          		            </div>
+
+                                                    <ul>
+						        
+                                                        <li class="paragraph2"> The synaptic weight vector of each neuron has the  <mark class="red">same dimension </mark>  as the input space: \( w_j = (w_{j,1},w_{j,2},\dots,w_{j,n}) \). </li> 
+
+                                                         <li class="paragraph2">  \( i(x) \) is the neuron that <mark class="red">best matches</mark> the input vector \(x\). </li> 
+                                                        <li class="paragraph2"> The particular neuron that satisfies this condition is called the  <mark class="red">best matching</mark> or <mark class="red">winning neuron</mark>. </li>
+
+							<li class="paragraph2"> The <mark class="red">winning neuron</mark> is determined using a discriminant function that, for all \(j\) computes the distance between \(w_j\) and the input \(x\). </li>
+
+                                                                                  
+                                                     </ul>    
+                                                   
+                                                   </div>                 		         
+
+                                                   <div class="left">  
+                                                     <div>
+						      <h4>Main steps of the learning algorithm</h4>  
+                          		            </div>	                        		 
+                                                     <ol>  
+ 
+                                                        <li class="paragraph2"><mark class="red">Initialization</mark></li> 
+                                                        <li class="paragraph2"><mark class="red">Competition</mark></li> 
+                                                         <li class="paragraph2"><mark class="red">Cooperation</mark></li> 
+                                                        <li class="paragraph2"><mark class="red">Adaptation</mark></li> 
+                                                                                                    
+                                                     </ol>
+						     
+
+                                                   </div>  
+                                                     
+                                             </div>  
+                                          
+                                      
+                                                  <aside class="notes">
+                                            	  </aside>
+                              
+        		          </section>
+			          <section>
+                                              <mark class="red"></mark>
+                                               <div class="container">     
+                                                  <h3>Kohonen Networks</h3>     
+  
+                                                  <div class="right">      
+                          		             <div>
+						        <h4>Cooperation</h4>  
+                          		            </div>
+
+                                                    <ul>
+						        
+                                                        <li class="paragraph2"> <mark class="red">Lateral interaction </mark>: A network that is firing tends to excite the neurons in its immediate neighborhood more than those farther away. </li> 
+
+                                                         <li class="paragraph2">  A <mark class="red">topological neighborhood</mark> \(h_{j,i}\)  centered  around the winning neuron \(i\) and encopassing  excited neuron \(j\) is defined. </li> 
+                                                        <li class="paragraph2"> The   <mark class="red">lateral distance</mark>  between \(i\) and \(j\) is \(d_{j,i}\). </li>
+
+							<li class="paragraph2"> Then  \(h_{j,i}\) is a function of the lateral distance. </li>
+
+                                                                                  
+                                                     </ul>    
+                                                   
+                                                   </div>                 		         
+
+                                                   <div class="left">  
+                                                     <div>
+						      <h4>Main steps of the learning algorithm</h4>  
+                          		            </div>	                        		 
+                                                     <ol>  
+ 
+                                                        <li class="paragraph2"><mark class="red">Initialization</mark></li> 
+                                                        <li class="paragraph2"><mark class="red">Competition</mark></li> 
+                                                         <li class="paragraph2"><mark class="red">Cooperation</mark></li> 
+                                                        <li class="paragraph2"><mark class="red">Adaptation</mark></li> 
+                                                                                                    
+                                                     </ol>
+						     
+
+                                                   </div>  
+                                                     
+                                             </div>  
+                                          
+                                      
+                                                  <aside class="notes">
+                                            	  </aside>
+                              
+        		             </section>   
+
+
+
+                                     <section>
+                                               <mark class="red"></mark>
+                                               <div class="container">     
+                                                 <h3>Kohonen Networks</h3>   
+            
+                                                  <div class="right">      
+
+                          		            <div>	 
+                                                     <h4>Cooperation and adaptation</h4>   
+                          		            </div>
+                                                     <ul> 
+                                                        <li class="paragraph2">A <mark class="red">topological neighborhood</mark> that  decays with the lateral distance \( S_{i,j} \) is defined in the grid of neurons as:
+							  \[
+							    h_{j,i(x)} = e^{\frac{-d^2_{j,i(x)}}{2\sigma^2}}
+							  \]
+                                                        </li>               
+							<p class="paragraph2">where \( \sigma \) is the size of the neighborhood. </p>                                    
+                                                   
+                                                     </ul> 
+
+                                                     <ul> 
+                                                        <li class="paragraph2">Neighbors to the winning neuron have their <mark class="red">weights updated</mark> as:
+
+							  \[
+                                                            \Delta w_{j} = \eta(t) \cdot  h_{j,i(x)} \cdot (x - w_{j})
+							  \]
+
+
+                                                        </li>
+                                                        <p class="paragraph2">where the <mark class="red">learning rate</mark> \(\eta\)  depends on <mark class="red">time</mark> .    </p>
+                                           
+                                                   
+                                                     </ul> 
+
+
+                                                   </div>                 		         
+
+                                                   <div class="left">  
+                          		            <div>	 
+                                                     <h4>Initialization</h4>   
+                          		            </div>
+                                                     <ul> 
+                                                        <li class="paragraph2">All weights \(w_{j}\) are <mark class="red">randomly initialized</mark>. </li>                                          
+                                                     </ul> 
+                          		            <div>	 
+                                                      <h4>Competition</h4>   
+                          		            </div>	                        		 
+                                                     <ul>  
+                                                        <li class="paragraph2">For a given input \( x \), the winning neuron \(i(x)\) is computed
+                                                        <p class="paragraph2">  
+                                                        \[ 
+							  i(x)  =  \min_j  \left ( x -w_{j} \right )^2
+                                                        \] 
+                                                        </p>
+                                                        <li class="paragraph2"> <mark class="red">Other discriminant functions</mark> could be used.  </li>
+                                                       
+                                                     </ul>    
+
+                          		    
+                                                   </div>  
+                                                     
+                                             </div>  
+                                          
+                                      
+                                                  <aside class="notes">
+                                            	  </aside>
+                              
+        		             </section>   
+
+
+				      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>   
+                                                  <h3>Kohonen Networks</h3>   
+                                                  <h4>Limitations</h4> 
+                                             
+                                                   <ol>
+                                                          <li class="paragraph2"> A <mark class="red">representative set of sufficient instances</mark> is needed in order to develop meaningful clusters. </li>
+                                                          <li class="paragraph2">It <mark class="red">requires several parameters</mark>  (e.g., \( \sigma_0, \tau_{sigma}, \eta_{0}, \tau_{\eta}) \) and can be <mark class="red">sensitive to the choice of these parameters</mark>. </li>
+
+                                                          <li class="paragraph2"> Clusters will often be split into smaller clusters, creating <mark class="red">different regions containing similar neurons</mark>. </li>
+
+
+                                                          <li class="paragraph2">  The algorithm <mark class="red">assumes a low dimensional non-linear Euclidean manifold</mark>  in the data space on which the data lies.  </li>
+                                        
+						  
+                                                    </ol>     						           
+                          		 </div>                                                 
+                                                  <aside class="notes">
+                                                                                                  
+                                           	  </aside>
+ 				      </section> 
+
+                                      <section  id="sec:NN_Quantization">
+                                          <div class="my_container">                
+						  <h3> Vector Quantization</h3>                               
+                                                   <ul>
+                                                    <img src="href=../../imgl9/Image_Quantization.png"  height="420" width="1200">   
+                                                   </ul>                
+          
+                          		 </div>   
+                                            
+                                                      <p class="paragraph2">C. Karri and U. Jena. <a href="https://ac.els-cdn.com/S2215098615001664/1-s2.0-S2215098615001664-main.pdf?_tid=961b9a40-b2c3-11e7-b6f7-00000aab0f27&acdnat=1508194056_13603fea5445cf0136daecb9d0b378fa">Fast vector quantization using a bat algorithm for image compression.</a>Engineering Science and Technology, an International Journal. Vol. 19. No. 2. Pp.  769-781. 2016.</p>                               
+
+             
+                                                  <aside class="notes">
+                                            	  </aside>
+ 				      </section>
+
+
+                                      <section>
+                                          <div class="my_container">                
+						  <h3> Vector Quantization with competitive learning NNs</h3>                               
+                                                   <ul>
+                                                    <img src="href=../../imgl9/VectorQuantization_CodeBooks.png"  height="420" width="1200">   
+                                                   </ul>                
+          
+                          		 </div>   
+                                            
+                                                      <p class="paragraph2">H. C. Howard et al. <a href="http://ieeexplore.ieee.org/abstract/document/707586/">Competitive learning algorithms and neurocomputer architecture.</a>IEEE Transactions on Computers. Vol. 47. No. 8. Pp. 847-858. 1998.</p>                               
+
+                                                  <aside class="notes">
+                                            	  </aside>
+ 				      </section>
+
+
+				      <section>        
+                                               <mark class="red"></mark>
+                                               <div class="container">     
+						  <h3>Learning Vector Quantization</h3>    
+                                        
+                                                  <div class="right">
+
+                                                      <ul>      
+                                                        <img src="http://www.neural-forecasting.com/lvq_neural_nets-Dateien/image002.jpg"  height="420" width="500">           
+					                
+                                                      </ul> 
+
+                                                       <p class="paragraph2"> Figure. <a href="http://www.neural-forecasting.com/lvq_neural_nets.htm"> Forecasting with artificial neural networks.</a> </p>                                              
+                                                 
+                          		          </div>                                      
+                                                  <div class="left">   
+                          		            <div>
+						      <h4>Characteristics</h4>  
+                          		            </div>
+                                                     <ul>  
+                                                        <li class="paragraph2"> Codebook vectors represent <mark class="red"> class regions</mark>.</li> 
+
+                                                       <li class="paragraph2"> Each codebook vector is <mark class="red"> defined by the weights </mark> between one neuron and all the inputs.</li> 
+
+                                                         <li class="paragraph2">Each <mark class="red">prototype represents a region</mark>  labelled with a class. </li> 
+
+                                                         <li class="paragraph2">Prototypes are localized in the centre of a class or decision region (<mark class="red">"Voronoi cell"</mark>) in the input space. </li> 
+
+
+                                                         <li class="paragraph2">The regions are <mark class="red">separated by the hyperplanes</mark> between the prototypes.</li>                                 
+    
+                                                         <li class="paragraph2">A class can be represented by an <mark class="red">arbitrary number of prototypes</mark>. One prototype can only represent a <mark class="red">single class</mark>.</li> 
+
+
+
+                                                      </ul>                                                      
+                                                      
+                                                      
+                                                  </div>    
+                                                   
+                                              </div>  
+                                                  <aside class="notes">
+						  </aside>
+                                          
+                                                 
+        		             </section> 
+                                    <section>
+                                               <mark class="red"></mark>
+                                               <div class="container">     
+                                                  <h3>Competitive learning algorithms</h3>     
+  
+                                                  <div class="right">      
+
+                          		            <div>
+						      <h4>LVQ variants and developments</h4>  
+                          		            </div>	                        		 
+                                                     <ul>  
+ 
+                                                        <li class="paragraph2">Different <mark class="red">variants of LVQ</mark>  algorithms have been proposed.</li> 
+                                                        <li class="paragraph2">They mainly differ in the <mark class="red">learning rules</mark>  used.</li> 
+                                                        <li class="paragraph2">LVQ1, LVQ2.1 and LVQ3 proposed by Kohonen used <mark class="red">heuristic learning rules</mark>.</li> 
+                                                        <li class="paragraph2">Other extensions use <mark class="red">Margin Maximization</mark>  and <mark class="red">Likelihood-ratio maximization</mark>. </li> 
+
+
+                                                     </ul>         
+
+                                                                                                      
+                                                   </div>                 		         
+
+                                                   <div class="left">  
+                          		            <div>
+                                                        <h4>LVQ Learning</h4>  
+                          		            </div>	                        		 
+                                                     <ul>  
+                                                        <li class="paragraph2">Learning consists of <mark class="red">modifying the weights</mark>  in accordance with adapting rules. </li> 
+                                                        <li class="paragraph2">Given an input,  the <mark class="red">winner neuron</mark> is moved <mark class="red">closer</mark> if it correctly classifies the input or moved in the <mark class="red">oppossite direction</mark>  otherwise.</li> 
+
+                                                        <li class="paragraph2">The magnitudes of these weight adjustments are controlled by a <mark class="red">learning rate </mark> which can be lowered over time in order to get finer movements in a later learning phase.</li> 
+
+                                                        <li class="paragraph2">The <mark class="red">class boundaries are adjusted</mark> during the learning proces correspond to the class of the prototype.</li> 
+                                                        <li class="paragraph2">The classification is <mark class="red">optimal </mark> if all inputs fall within a  cell with the right class.</li> 
+
+
+                                                     </ul>    
+
+                                                   </div>  
+                                                     
+                                             </div>  
+                                           <p class="paragraph2"> D. Nova and P. A. Estevez. <a href="https://link.springer.com/article/10.1007/s00521-013-1535-3"> A review of learning vector quantization classifiers.</a> Neural Computing and Applications 25.3-4. Pp. 511-524. 2014.</p> 
+                                      
+                                                  <aside class="notes">
+                                            	  </aside>
+                              
+        		             </section> 
+
+                                     <section>
+                                               <mark class="red"></mark>
+                                               <div class="container">     
+                                                  <h3>Competitive learning algorithms for quantization (Summary)</h3>     
+  
+                                                  <div class="right">      
+
+                          		            <div>
+						      <h4>Learning Vector Quantization</h4>  
+                          		            </div>	                        		 
+                                                     <ul>  
+ 
+                                                        <li class="paragraph2"><mark class="red"> Supervised</mark> learning algorithm.</li> 
+                                                        <li class="paragraph2"> Prototypes will serve to define  <mark class="red">class regions</mark>.</li> 
+                                                        <li class="paragraph2">The goal is to minimize  the <mark class="red"> number of misclassifications</mark>.</li> 
+                                                        <li class="paragraph2">The computational cost depends on the <mark class="red">number of prototypes</mark>.</li> 
+                                                        <li class="paragraph2">They can be used for <mark class="red">multi-class</mark> problems.</li> 
+ 
+                                                     </ul>                                                         
+                                                   </div>                 		         
+
+                                                   <div class="left">  
+                          		            <div>
+                                                        <h4>Vector Quantization</h4>  
+                          		            </div>	                        		 
+                                                     <ul>  
+ 
+                                                        <li class="paragraph2"><mark class="red">Unsupervised</mark> learning algorithm.</li> 
+                                                        <li class="paragraph2">The goal is <mark class="red">learning</mark> prototypes (<mark class="red">codevectors</mark>) that minimize the reconstruction error.</li> 
+                                                        <li class="paragraph2">Very related to <mark class="red">self-organizing maps</mark>.</li> 
+                                                        <li class="paragraph2">It is used for <mark class="red">clustering</mark>, <mark class="red">data compression</mark>, and <mark class="red">visualization.</mark></li> 
+ 
+                                                     </ul>    
+
+                                                   </div>  
+                                                     
+                                             </div>  
+                                          
+                                      
+                                                  <aside class="notes">
+                                            	  </aside>
+                              
+        		             </section>
+
+			       </section>	     
+
+
+		      
+			</div>
+		</div>
+
+
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			Reveal.initialize({
+   	                        history: true,
+				transition: 'linear',
+
+				math: {
+					// mathjax: 'http://cdn.mathjax.org/mathjax/latest/MathJax.js',
+					config: 'TeX-AMS_HTML-full'
+				},
+
+				dependencies: [
+                                        { src: 'lib/js/fullscreen-img.js' },
+					{ src: 'lib/js/classList.js' },
+					{ src: 'plugin/math/math.js', async: true }
+
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
