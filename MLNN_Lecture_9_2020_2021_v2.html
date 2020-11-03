@@ -1,0 +1,1099 @@
+<!doctype html>
+<html lang="en">
+
+
+   
+    
+	<head>
+		<meta charset="utf-8">
+
+		<title>Machine Learning and Neural Networks</title>
+                <meta name="author" content="Roberto Santana">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<!-- <link rel="stylesheet" href="css/reveal.css">  -->
+                <link rel="stylesheet" href="css/fullscreen-img.css">
+                <link rel="stylesheet" href="css/added_css/notebook.css">
+   	        <link rel="stylesheet" href="css/reveal.css">
+                <link rel="stylesheet" href="css/theme/nncourse.css" id="theme">
+
+
+
+        <script>
+	  var link = document.createElement( 'link' );
+	  link.rel = 'stylesheet';
+	  link.type = 'text/css';
+	  link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+	  document.getElementsByTagName( 'head' )[0].appendChild( link );
+	</script>		
+                          
+
+	</head>
+
+	<body>
+
+
+		<div class="reveal">
+			<div class="slides">
+
+				<section>
+                                          <div class="my_container">
+                                        <h2>Machine Learning and Neural Networks</h2>
+					<p>Roberto Santana and Unai Garciarena<p>
+					<p>Department of Computer Science and Artificial Intelligence</p>
+                                        <p>University of the Basque Country</p>
+                          		 </div>   
+				</section>
+                                <section id="sec:NN_Intro">   
+                                            <div class="my_container">
+                                             <h3>Neural Network Paradigms: Table of Contents </h3>
+                                        
+                                              <table style="width:100%"; border=solid>
+
+
+                                                  <tr>
+
+
+
+                                                     <td><p class="paragraph2"> <a href="#/sec:NNs_MLP">Multilayer perceptron </a></p></td>
+
+
+                                                     <td><p class="paragraph2"> <a href="#/sec:NNs_Types_and_Properties">MLP properties </a></p></td>
+
+                                                     <td><p class="paragraph2"> <a href="#/sec:NNs_Backpropagation"> Backpropagation </a></p></td>
+
+						      <td><p class="paragraph2"> <a href="#/sec:Gradient"> Gradient optimizers </a></p></td>                      
+                        
+
+                                                  </tr>
+
+						          
+
+                                                                                       
+				              </table>	  
+                          	          </div>   
+
+  		   	             </section> 
+                          </section>                  
+
+
+
+        	              <section> 
+				      <section  id="sec:NNs_MLP">        
+                                               <mark class="red"></mark>
+                                               <div class="container">     
+                                                   <h3>Multilayer perceptron</h3>    
+
+                                                  <div class="right">
+                                                  <h4>Network architecture</h4>
+                                                      <ul>      
+                                                        <img src="href=../../imgl9/multilayer.png"  height="300" width="500">           
+					                
+                                                      </ul>                                               
+                                                      <p class="paragraph2"> Figure. <a href="http://www.asimovinstitute.org/neural-network-zoo/"> Neural network zoo.</a> </p>
+       
+                          		          </div>                                      
+                                                  <div class="left">   
+                                                      <h4>Characteristics</h4>
+                                                      <ul>   
+
+						          <li class="paragraph2">Provide a general framework for representing  <mark class="red">non-linear functional mappings</mark> between a set of input variables and a set of output variables. </li>
+   
+
+						          <li class="paragraph2">Mainly used for <mark class="red">supervised</mark> ML. It extends the representation capabilities of the <mark class="red">perceptron</mark>. </li>
+						          <li class="paragraph2">Contrary to the perceptron, it includes one or more <mark class="red">hidden layers</mark>. </li>                   
+						          <li class="paragraph2">Different <mark class="red">activation functions</mark> can added to the network. </li>      
+						         
+                              
+						
+                                                      </ul>    
+                                                  </div>    
+                                                   
+                                              </div>  
+                                                    <p class="paragraph2"> C. M. Bishop.  <a href="http://cs.du.edu/~mitchell/mario_books/Neural_Networks_for_Pattern_Recognition_-_Christopher_Bishop.pdf">Neural Networks for Pattern Recognition.</a>  Oxford University Press. 2005.</p>
+                                                <p class="paragraph2">R. Rojas.<a href="https://page.mi.fu-berlin.de/rojas/neural/"> Neural networks: a systematic introduction.</a>   Springer Science & Business Media. Chapter 7. 2013.</p>
+                                                  <aside class="notes">
+					
+                                            	  </aside>
+                                          
+                                                 
+        		             </section> 
+
+                                        <section>
+                                	      <h3>Perceptron</h3>
+                                          <mark class="red"></mark>     
+                                              <div class="container">
+                                                  <span class="fragment"> 
+                                                  <div class="right">   
+                                                            
+                                                  <h4>Learning</h4>
+                                                     <ul>  
+
+                                                           <li class="paragraph2"> <mark class="red">Non-linear activation units</mark> are introduced.</li>
+
+                                                           <li class="paragraph2"> Weights are updated as:
+
+                                                              <br> 
+                                                              \[
+
+                                                                 w_i(t+1) = w_i(t) + \left (d_j -y_j(t) \right) x_{j,i},
+                                                                \]
+  
+                                                           </li>
+                                                           <p class="paragraph2"> where \( d_j \) is the desired output </p>
+                                                     </ul>        
+                                                  </div>   
+
+
+                                                  </span>
+                                                 <div class="left">
+                                                   <h4>Modern perceptron</h4>        
+                                                     <ul>  
+                            
+                                                     <p class="paragraph2"><img src="href=../../imgl6/Modern_Perceptron.png"  height="300" width="480"></p>                                  
+                                                     </ul>  
+
+                                                  </div>  
+                                                  <p class="paragraph2">H. Wang, B. Raj, and E. P. Xing. <a href="https://arxiv.org/abs/1702.07800">On the Origin of Deep Learning.</a>   arXiv preprint arXiv:1702.07800. 2017.</p>                                                       
+                                                                                          
+                                              </div>  
+                                          </section>
+
+                                      <section>
+                                          <div class="my_container">
+                                          <mark class="red"></mark> 
+                                                   <h3>Multi-Layer perceptron</h3>                                              
+                                                   <h4>Properties</h4>
+                                                   <ol>
+
+						          <li class="paragraph2"><mark class="red">Perceptron</mark>: Single neuron. </li>
+						          <li class="paragraph2"><mark class="red">One-layer neural network</mark>: Putting perceptrons side by side. </li>
+						          <li class="paragraph2"><mark class="red">Multi-layer neural network (MLP)</mark>: Stacking one one-layer NN upon the other.  </li>                    
+						          <li class="paragraph2"><mark class="red">Universal approximation property</mark>: An MLP can represent any function.  </li>
+                                  						           
+                                                   </ol>            
+
+                          		 </div>                                                          
+                                         <p class="paragraph2">K. Kawaguchi. <a href="http://digitalcommons.utep.edu/dissertations/AAIEP05411/">A multithreaded software model for backpropagation neural network applications.</a> Ph. D. Thesis. 2000.</p>       
+                                                   <aside class="notes">
+  						       To pass from the perceptron to a neural network is a relatively simple process. 
+                                                       First, we create one layer putting side by side perceptrons.
+                                                       Then we stack layers in a different dimesion. 
+                                                       The universal approximation property is perhaps one of the most mentioned properties of neural networks. 
+                                                       However, this property is in reality more complex to analyze, so it can be divided in three different properties. 
+                                            	   </aside>
+ 				      </section>
+
+
+                                      <section>
+                                          <mark class="red"></mark> 
+                                          <div class="my_container">      
+                                                   <h3>Multi-Layer perceptron</h3>                                        
+                                                   <ul>
+                                                    <img src="href=../../imgl9/MLP_Networks_Parameters.png"  height="260" width="800">   
+                                                   </ul>                
+                                                   <h4>Network function</h4>
+                                                   <ul>                                  
+						         <p class="paragraph2">
+							   \[
+						   	       \begin{align}
+							           h({\bf{x}})  =& g \left ( w_1 h_1({\bf{x}}) +  w_2 h_2({\bf{x}}) + c \right ) \\
+
+							                        =& g \left ( w_1 g(\theta_1 x_1 + \theta_2 x_2 + b_1) +  w_2 g(\theta_3 x_1 + \theta_4 x_2 + b_2) + c \right )
+
+
+ 						   	       \end{align}                                              
+							   \]
+                                                          </p>
+						  
+                                   						           
+                                                   </ul>            
+                          		 </div>   
+                                            
+                                                      <p class="paragraph2"> Q. V. Le. <a href="http://ai.stanford.edu/~quocle/tutorial1.pdf"> A Tutorial on Deep Learning. Part 1: Nonlinear Classifiers and The Backpropagation Algorithm.</a> 2015.</p>                                             
+                                                  <aside class="notes">
+                                            	  </aside>
+ 				      </section>
+
+                                      <section  id="sec:NNs_Types_and_Properties">
+                                          <div class="my_container">           
+                                                   <h3>Multi-Layer perceptron</h3>                                   
+                                                   <ul>
+                                                    <img src="href=../../imgl9/Layers_Capabilities.png"  height="500" width="1200">   
+                                                   </ul>                
+          
+                          		 </div>   
+                                            
+                                                      <p class="paragraph2">A. K. Jain, J. Mao, and K. M. Mohiuddin.   Figure. <a href="http://metalab.uniten.edu.my/~abdrahim/mitm613/Jain1996_ANN%20-%20A%20Tutorial.pdf"> Artificial neural networks: A tutorial.</a> Computer. Vol. 29 No. 3. Pp. 31-44. 1996.  </p>                               
+             
+                                                  <aside class="notes">
+                                            	  </aside>
+ 				      </section>
+
+                                      <section>
+                                          <div class="my_container">
+                                                   <h3>Multi-Layer perceptron</h3>                                              
+                                                   <h4>Properties</h4>
+                                                   <ol>
+
+						          <li class="paragraph2"> <mark class="red">Boolean approximation</mark>: An MLP of one hidden layer can represent any boolean function exactly. </li>
+						          <li class="paragraph2"> <mark class="red">Continuous approximation</mark>: An MLP of one hidden layer can approximate any bounded continuous function with arbitrary accuracy. </li>
+						          <li class="paragraph2"> <mark class="red">Arbitrary approximation</mark>: An MLP of two hidden layers can approximate any function with arbitrary accuracy. </li>                                                      						           
+                                   						           
+                                                   </ol>            
+                          		 </div>   
+                                          <p class="paragraph2"> N. J. Guliyev and V. E. Ismailov <a href="https://arxiv.org/abs/1601.00013">A single hidden layer feedforward network with only one neuron in the hidden layer can approximate any univariate function.</a> 2016.</p>
+
+					  
+                                                  <aside class="notes">
+            
+                                                       We will not explain or prove any of the properties but it is important to take them into account to evaluate the power of NNs. 
+                                                       Basically, we see that as the complexity of the networks is increased they are able to represent more general function classes. 
+                                            	  </aside>
+ 				      </section>
+                             </section>  
+
+        	              <section> 
+				      <section  id="sec:NNs_Backpropagation">       
+                                         
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+                                                   <h3>A simple model:</h3>        
+                                                   <h4>\(y = w x \)</h4>        
+
+                                                   <ul>
+						     <li class="paragraph2">We have a regression problem and want to learn a model. </li>
+						     <li class="paragraph2">This means finding the optimal parameter \(w\).</li>
+						     <li class="paragraph2"> We use the squared error as loss function. </li>
+						                                                      
+                                                   </ul>						           
+                                                       	                                                   
+                          		 </div>                                                          
+                                                   
+                                                   <aside class="notes">
+  						     
+                                            	   </aside>
+        		              </section>
+
+
+				      				       <section>
+                                            
+                                        <h3>Evaluating the quality of a model </h3>
+
+                                        <table id="customers_big">
+                                          <colgroup>
+
+
+					  <col style="background-color:yellow">
+                                          <col span="3" style="background-color:white">
+                                          <col span="3" style="background-color: #bfff00">
+                                          
+                                          
+
+                                          </colgroup>
+					    <tr> <th>Input </th> <th>True Model</th><th>Output</th><th>Abs. Error</th><th>Square Error</th>  </tr>
+                                             <tr> <th>x </th> <th>M(x)=2x</th><th>g(x)</th><th>|g(x)-M(x)|</th><th>(g(x)-M(x))^2</th>  </tr>
+                                        <tr><th>0 </th> <th>0 </th><th>0 </th><th>0</th><th>0</th></tr>
+		                        <tr><th>1 </th> <th>2 </th><th>3 </th><th>1</th><th>1</th></tr>
+                                        <tr><th>2 </th> <th>4 </th><th>6</th><th>2</th><th>4</th></tr>
+		                        <tr><th>3 </th> <th>6 </th><th>9</th><th>3</th><th>9</th></tr>
+                                        <tr><th>4 </th> <th>8 </th><th>12</th><th>4</th><th>16</th></tr>
+		                        <tr><th>5 </th> <th>10</th><th>15</th><th>5</th><th>25 </th></tr>
+		                        <tr><th>All</th><th>  </th><th>  </th><th>15</th><th>55 </th></tr>
+                                            
+
+                                         </table>
+                                              
+
+			 	       </section>
+
+
+				       	
+       				       <section>
+                                            
+                                        <h3>Evaluating the quality of a model </h3>
+
+				
+                                        <table id="customers_big">
+                                        <colgroup>                                         
+                                          
+                                          <col span="8" style="background-color:white">
+                                          <col span="3" style="background-color: #bfff00">
+
+                                        </colgroup>
+                                             <tr> <th>Input(x) </th> <th>True Model</th><th>W=3</th><th>SE (W=3)</th><th>SE (W=3.02)</th><th>SE (W=2.98)</th>  </tr>
+                                        <tr><th>0 </th> <th>0 </th><th>0 </th><th>0</th><th>0</th><th>0</th></tr>
+		                        <tr><th>1 </th> <th>2 </th><th>3 </th><th>1</th><th>1.04</th><th>0.96</th></tr>
+                                        <tr><th>2 </th> <th>4 </th><th>6</th><th>4</th><th>4.16</th><th>3.84</th></tr>
+		                        <tr><th>3 </th> <th>6 </th><th>9</th><th>9</th><th>9.36</th><th>8.64</th></tr>
+                                        <tr><th>4 </th> <th>8 </th><th>12</th><th>16</th><th>16.64</th><th>15.36</th></tr>
+		                        <tr><th>5 </th> <th>10</th><th>15</th><th>25</th><th>26.01 </th><th>24.01</th></tr>
+		                        <tr><th>All</th><th>  </th><th>  </th><th>55</th><th>57.22 </th><th>52.82</th></tr>
+                                            
+
+                                         </table>
+                                              
+
+			 	      </section>
+
+				       
+				   <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>   
+   
+                                                   <h4>Error function</h4> 
+                                             
+                                                   <ol>
+						            <img src="href=../../img_2019_Lect_6/Error_function.png"  height="500" width="800">
+			
+                                                    </ol>     						           
+                          		 </div>      
+
+                                                  <aside class="notes">
+                                                                                                  
+                                           	  </aside>
+ 				   </section>
+
+
+				   <section>                                                
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+                                                   <h3>Derivative</h3>        
+                                                   <ul>
+						     <li class="paragraph2">Because the error function is continuous, a small change in \(w\) can only result in a small change in \(e\). </li>
+
+					
+						     <li class="paragraph2">This could be expressed as:
+
+						       <br>
+                                                       <br>
+                                                       \[
+                                                         f(w + \epsilon_w) = e + \epsilon_e
+
+						       \]
+
+
+						     </li>
+						     <li class="paragraph2">Because the function is smooth,  when \(\epsilon_e\) is small enough:
+						       
+						       <br>
+                                                       <br>
+
+						        \[
+                                                         f(w + \epsilon_w) = e + a * \epsilon_w
+						       \]
+
+						     </li>
+						     <li class="paragraph2">The previous linear approximation is valid, only in the \(\epsilon\)-neighborhood of \(w\), i.e, if we are close enough to \(w\). </li>
+						     <li class="paragraph2"> The <mark class="red">slope</mark> of this linear approximation is called the <mark class="red">derivative</mark>. </li>
+					     
+                                                   </ul>					           
+                                                       	                                                   
+                          		 </div>                                                          
+                                                   
+                                                   <aside class="notes">
+  						     
+                                            	   </aside>
+        			   </section>
+
+
+				     <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>   
+   
+                                                   <h4>Derivative</h4> 
+                                             
+                                                   <ol>
+						            <img src="href=../../img_2019_Lect_6/Graph_of_sliding_derivative_line.gif"  height="500" width="800">
+			
+                                                    </ol>     						           
+                          		 </div>      
+
+                                                  <aside class="notes">
+                                                                                                  
+                                           	  </aside>
+ 				   </section>
+
+
+
+				   <section>                                                
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+                                                   <h3>Derivative</h3>        
+                                                   <ul>
+						   
+						     
+						     <li class="paragraph2"> A <mark class="red">positive slope</mark> means the function increases as we increase \(w\). </li>
+
+						     <li class="paragraph2">  Similarly, a <mark class="red">negative slope</mark> negative slope means the function increases when we decrease \(w\). </li>
+
+
+						    <li class="paragraph2"> If the derivative is zero, there is a  <mark class="red">local optimum</mark>.  </li>
+					      
+
+
+						     <li class="paragraph2">Therefore, a good strategy to find the optimum is to move \(x\) in the <mark class="red">oppossite direction</mark> to the sign of its derivative at the current point. </li>
+
+					
+						     <li class="paragraph2">This is what <mark class="red">gradient descent</mark>, a popular optimization algorithm, uses to implement its update rule as:
+						       <br>
+                                                       <br>
+                                                       \[
+                                                         w = w - \mu f'(w) 
+						       \]
+
+where \( \mu \) is a learning rate parameter. 
+						     </li>						  
+						     
+                                                   </ul>						           
+                                                       	                                                   
+                          		 </div>                                                          
+                                                   
+                                                   <aside class="notes">
+  						     
+                                            	   </aside>
+        		           </section>
+
+				 
+  				   <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>   
+   
+                                                   <h4>Gradient descent</h4> 
+                                             
+                                                   <ol>
+						            <img src="href=../../img_2019_Lect_6/gradient_descent.gif"  height="500" width="800">
+			
+                                                    </ol>     						           
+                          		 </div>      
+
+                                                  <aside class="notes">
+                                                                                                  
+                                           	  </aside>
+ 					</section>
+
+								   
+                                   <section>
+                                   <mark class="red"></mark>
+                                          <div class="my_container">
+                                                   <h3>Gradient</h3>                                                   
+                                                   <h4>Definition and interpretation</h4>
+		 
+                                              <p class="paragraph2"> The gradient of a function \( J(\theta_1,\dots,\theta_d) \) is a vector-value function defined as: 
+							    <br>
+							    <br>
+							    <br>
+							    
+                                                \[
+                                                    \nabla J(\theta_1,\dots,\theta_d) = < \frac{\partial J}{\partial \theta_1}(\theta_1,\dots,\theta_d), \dots,\frac{\partial J}{\partial \theta_d}(\theta_1,\dots,\theta_d)>
+                                                \] 
+                                              </p>         
+                          		 
+                                              <ol>
+
+						   <li class="paragraph2">The gradient of a multi-variable function has <mark class="red">a component for each direction</mark>. </li>
+						   <li class="paragraph2">The gradient points in the  <mark class="red">direction of greatest increase</mark>. </li>
+                                                   
+                                               </ol>						           
+                                                    
+                                                   
+                          		 </div>                                                          
+                                                   
+                                                   <aside class="notes">
+  						     
+                                            	   </aside>
+        		           </section> 
+                                  
+                                   <section>
+                                   <mark class="red"></mark>
+                                          <div class="my_container">
+                                                   <h3>Gradient descent</h3>                                                   
+                                                   <h4>Finding the optimum of the loss function</h4>
+
+						          <p class="paragraph2">  <mark class="red">Gradient descent</mark>: A local minimization method based on updating the parameters of a function \( J(\theta_1,\dots,\theta_d) \) in the opposite direction to its gradient.  </p>
+
+						          <p class="paragraph2"> A parameter \( \mu \) is used to indicate the <mark class="red">learning rate of the algorithm</mark> (the size of the step taken to reach to local optimum)    </p>						         
+					
+                                                                                         
+                          		 </div>                                                          
+                                                    <p class="paragraph2">S. Ruder.<a href="https://arxiv.org/abs/1609.04747"> An overview of gradient descent optimization algorithms.</a> arXiv preprint arXiv:1609.04747. 2016.</p>                                                          
+                                                   <aside class="notes">
+  						     
+                                            	   </aside>
+        		           </section> 
+                     
+                                   <section>
+                                                <div class="container">
+                                                <h3>Multi-Layer perceptron</h3> 
+                             		        <h4>What about the weights of hidden layers?</h4>                                                                                                     
+                                                <div class="right">
+                             		        <h4>Network function</h4>
+                                                   <ul>                                  
+						         <p class="paragraph2">
+							   \[
+						   	       \begin{align}
+							           h({\bf{x}})  =& g \left ( w_1 h_1({\bf{x}}) +  w_2 h_2({\bf{x}}) + c \right ) \\
+
+							   =&  g(w_1 g(\theta_1 x_1 + \theta_2 x_2 + b_1) \\  
+
+							   +&    w_2 g(\theta_3 x_1 + \theta_4 x_2 + b_2) + c) 
+
+ 						   	       \end{align}                                              
+							   \]
+                                                          </p>
+						  
+                                   						           
+                                                   </ul>
+
+
+						   <h4>What is needed?</h4>
+                                                   <ul>                                  
+						      <ol>
+
+						   <li class="paragraph2">We need a way to update the weights of the hidden layers (gradient descent?). </li>
+						   <li class="paragraph2">For that we would need how to compute the gradient of the NN error with respect to each weight</mark>. </li>
+                                                   
+                                               </ol>	  						  
+                                   						           
+                                                   </ul>   
+  
+               
+                                                 </div>            
+
+                                                <div class="left">     
+                             		        <h4>MLP</h4> 
+                                                   <ul>
+                                                    <img src="href=../../imgl9/MLP_Networks_Parameters.png"  height="250" width="3500">   
+                                                   </ul>                
+                                                  
+						 </div>    
+                               
+                                                 </div>                           
+
+                                                <p class="paragraph2"> Q. V. Le.  <a href="ai.stanford.edu/~quocle/tutorial1.pdf">A Tutorial on Deep Learning. Part 1. Nonlinear classifiers and the backpropagation algorithm. </a>2015.</p>                                                                                                    
+                                               
+                                                   <aside class="notes">
+                                                 
+                                            	   </aside>
+        			       </section>
+		                       <section>                                                
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+                                                   <h3>Derivative of a composite function</h3>        
+                                                   <ul>
+						    <li class="paragraph2">Since our network function is a a composite function, we need to compute its derivative applying the chain rule.</li>
+						 
+					
+						     <li class="paragraph2"><mark class="red">Chain rule</mark>:
+
+						       <br>
+                                                       <br>
+                                                       \[
+                                                         h'(x)= \frac{d}{dx}[g(f(x))] = g'(f(x)) f'(x)
+
+						       \]
+
+						     </li>					     
+									     
+                                                   </ul>					           
+                                                       	                                                   
+                          		 </div>                                                          
+                                                   
+                                                   <aside class="notes">
+  						     
+                                            	   </aside>
+        			   </section>
+
+		                  <section>       
+                                         
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+                                                   <h3>Backpropagation</h3>        
+                                                   <h4>Characteristics</h4>        
+
+                                                   <ul>
+						     <li class="paragraph2"><mark class="red">Backpropagation</mark> provides a computationally efficient method for evaluating the partial derivatives of all the weights of the neural network with respect to the output.</li>
+						     <li class="paragraph2">Gradients are computed by first estimating the error in each layer of the network.</li>
+						     <li class="paragraph2">Gradients are then used by the optimization algorithms (i.e., variants of gradient descent) to <mark class="red">update the weights incrementally</mark>.</li>
+						     <li class="paragraph2">Backpropagation reuses the errors of the outer (closer to the output) layers to compute the errors of the inner layers in <mark class="red">a more efficient way</mark>.</li>
+						     
+                                                   
+                                                   </ul>						           
+                                                       	                                                   
+                          		 </div>                                                          
+                                                   
+                                                   <aside class="notes">
+  						     
+                                            	   </aside>
+        		          </section>
+
+
+				  <section>       
+                                         
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+                                                   <h3>Backpropagation</h3>        
+                                                   <h4>Steps</h4>        
+
+                                                   <ol>
+						     <li class="paragraph2"><mark class="red">Feed-forward computation</mark>: The network is used for processing the inputs and the error between predictions and target values is computed.</li>
+						     <li class="paragraph2"><mark class="red">Backpropagation of the error</mark>: The error is backpropagated through the network. For every weight, the partial derivatives are computed.</li> 
+						     <li class="paragraph2"><mark class="red">Weight updates</mark>: The partial derivatives are used to update the weights.</li> 
+                                                   
+                                                   </ol>						           
+                                                       	                                                   
+                          		 </div>                                                          
+                                                   
+                                                   <aside class="notes">
+  						     
+                                            	   </aside>
+        		              </section>
+
+
+                                    <section>
+                                          <div class="my_container">          
+        
+                             		           <h3>MLP Backpropagation</h3>                            
+                                                   <ul>
+                                                    <img src="href=../../imgl9/BackPropagation_Simpler.png"  height="500" width="800">   
+                                                   </ul>                
+          
+                          		 </div>   
+                                            
+                                                      <p class="paragraph2">A. K. Jain, J. Mao, and K. M. Mohiuddin.   Figure. <a href="http://metalab.uniten.edu.my/~abdrahim/mitm613/Jain1996_ANN%20-%20A%20Tutorial.pdf"> Artificial neural networks: A tutorial.</a> Computer. Vol. 29 No. 3. Pp. 31-44. 1996.  </p>                               
+             
+                                                  <aside class="notes">
+                                            	  </aside>
+ 				      </section>
+
+
+                                       <section>
+                                                <div class="container">
+                                                <h3>Multi-Layer perceptron</h3> 
+                             		        <h4>Backpropagation</h4>                                                  
+                                                   
+                                                <div class="right">
+                             		        <h4>Recursive computation</h4>         
+                                                   <ol>              
+
+						     <li class="paragraph2"> Perform a  <mark class="red">feedforward pass</mark>  to compute \( h^1, h^2, h^3, \dots, h^L \).</li>
+
+						     <li class="paragraph2"> For the output layer <mark class="red">compute</mark>:
+                                                              \[   
+                                                                  \delta_1^L = 2(h^L-y) g' \left( \sum_{j=1}^{S_{L-1}} \theta_{1j}^{L-1}h_j^{L-1}+b_1^{L-1} \right)
+                                                              \]
+
+
+                                                         </li>
+
+						     <li class="paragraph2"> Perform a  <mark class="red">backward pass</mark> for   \( l = L-1, L-2, \dots, 2. \; \; \) For each neuron \(i\) in layer \(l\), <mark class="red">compute</mark>:
+  \[   
+                                                                  \delta_i^L =  \left( \sum_{j=1}^{S_{l+1}} \theta_{ji}^{l}
+\delta_j^{l+1} \right)  g' \left( \sum_{j=1}^{S_{l-1}} \theta_{ij}^{l-1}h_j^{l-1}+b_i^{l-1} \right)
+                                                              \]
+
+                                                         </li>
+
+
+						     <li class="paragraph2"> The desired  <mark class="red">partial derivatives</mark>  can be computed as \( \Delta \theta_{ij}^{l} = h_j^{l} \delta_i^{l+1} \) and \( \Delta b_i^{l} = \delta_i^{l+1} \).</li>
+   
+                                                      </ol>                    
+               
+                                                 </div>            
+
+                                                <div class="left">     
+                             		        <h4>Notation</h4> 
+                                                   <ul> 
+                                                         <p class="paragraph2"> \( h(x) \): decision function  </p>   
+                                                         <p class="paragraph2"> \( g \): activation function  </p>                  
+                                                         <p class="paragraph2"> \(  \theta^l_{ij} \): weight at layer \(l\)-th between input \(j\)-th and neuron \(i\)-th in layer \((l+1)\)-th </p>  
+                                                         <p class="paragraph2"> \( b_i \): bias  of neuron \( i \)  </p>    
+                                                         <p class="paragraph2"> \( s_l \): number of neurons in the layer </p>       
+
+                                                     <ul/>      
+						 </div>        
+
+
+                                                 </div>                           
+                                                                                                 
+                                               
+                                                   <aside class="notes">
+                                                 
+                                            	   </aside>
+        			      </section>
+
+                           </section> 
+
+                            <section>
+                                     <section   id="sec:Gradient">
+                                      <mark class="red"></mark>
+                                          <div class="my_container">
+                                                   <h3>Optimization methods for deep neural networks</h3>                                                   
+                                                   <h4>Finding the optimum of the loss function</h4>
+
+						          <p class="paragraph2">  <mark class="red">Optimization</mark> is involved in several aspects of machine learning algorithms.  </p>
+
+						          <p class="paragraph2"> Of all the optimization problems involved in deep learning, the most difficult is  <mark class="red">neural network training</mark>.</p>						         
+						   <p class="paragraph2"> Optimization is also relevant to the <mark class="red">efficiency</mark> of the DNN learning algorithm.</p>
+
+			                           <p class="paragraph2"> We focus on the optimization problem of finding the parameters \( \Theta \) of a neural network that significantly reduce a (possibly regularized) loss function  \( J(\Theta) \).</p>
+						   
+                                                                                            
+                          		 </div>                                                          
+                                                   <p class="paragraph2"> I. Goodfellow and Y. Bengio and A. Courville. <a href="http://www.deeplearningbook.org/"> Deep Learning. Chapter 8. Optimization for Training Deep Models.</a> MIT Press. 2016. </p>                                            
+                                                   <aside class="notes">
+  						     
+                                            	   </aside>
+        		                </section> 
+
+
+                                     <section  id="sec:GradientDescent">
+                                         <mark class="red"></mark>
+                                          <div class="my_container">
+                                                   <h3>Gradient descent</h3>                                                   
+                                                   <h4>Finding the optimum of the loss function</h4>
+
+						          <p class="paragraph2"> Gradient descent algorithms can be grouped in <mark class="red">three classes</mark> according to the way the gradient is used for the updates: </p>
+    
+                                                   <ol>
+						          <li class="paragraph2">Batch gradient descent.</li>
+						          <li class="paragraph2">Stochastic gradient descent (SGD).</li>
+						          <li class="paragraph2">Mini-batch gradient descent.</li>                                                 
+                                                   </ol>
+					
+                                                                                               
+                          		 </div>                                                          
+                                                   
+                                         <p class="paragraph2">S. Ruder.<a href="https://arxiv.org/abs/1609.04747"> An overview of gradient descent optimization algorithms.</a> arXiv preprint arXiv:1609.04747. 2016.</p>
+                                         <aside class="notes">
+  						     
+                                            	   </aside>
+        		           </section> 
+                                   <section>
+                                          <div class="my_container">
+                                                   <h3>Gradient descent variants</h3>                                                   
+                                                   <h4>Batch gradient descent</h4>
+
+						   <p class="paragraph2"> To perform <mark class="red">one parameter update</mark>, computes the gradient of \(J\) <mark class="red">using all the points</mark> the dataset as: 
+							    <br>
+							    <br>
+							    <br>
+							    
+                                                    <mark class="red">
+                                                    \[
+                                                        \theta = \theta - \epsilon  \nabla_{\theta} J(\theta)
+                                                     \] 
+                                                    </mark>
+                                                   </p>
+
+                                                   <ol>
+					                <li class="paragraph2"> Guaranteed to converge to the global minimum for convex functions and to local minimum for non-convex functions. </li>			        
+                                                  
+						        <li class="paragraph2"> Not very efficient since for performing a single update the gradients of the whole dataset are evaluated. </li>
+                                                   <ol/>
+					                                                                                            
+                          		 </div>                                                          
+                                                   
+                                                   <aside class="notes">
+  						     
+                                            	   </aside>
+        		           </section> 
+                                   <section>
+                                          <div class="my_container">
+                                                   <h3>Gradient descent variants </h3>                                                   
+                                                   <h4>Stochastic gradient descent (SGD)</h4>
+
+						   <p class="paragraph2"> <mark class="red">A parameter update</mark>  is performed  <mark class="red">for each point</mark> \(x^i\) and label \(y^i\) as:                                      
+
+							    <br>
+							    <br>
+							    <br>
+							    
+                                                     <mark class="red">
+                                                    \[
+                                                        \theta = \theta - \epsilon  \nabla_{\theta} J(\theta;x^i,y^i)
+                                                     \] 
+                                                    </mark>
+                                                   </p>
+
+                                                   <ol>
+					                <li class="paragraph2"> Usually much faster than batch gradient descent. </li>				        
+					  	        <li class="paragraph2"> Can be used to learn online.</li>
+
+						        <li class="paragraph2"> Convergence to local minimum is not guaranteed.</li>
+                                                   <ol/>
+					                                                                                            
+                          		 </div>                                                          
+                                                   
+                                                   <aside class="notes">
+  						     
+                                            	   </aside>
+        		           </section> 
+                                   <section>
+                                          <div class="my_container">
+                                                   <h3>Gradient descent variants</h3>                                                                                               <h4>Mini-batch gradient descent</h4>
+
+						   <p class="paragraph2"> <mark class="red">A parameter update</mark> is performed <mark class="red">for each mini-batch</mark>  of \(n\) points \( (x^i,\dots,x^{i+n})\) and labels \((y^i,\dots,y^{i+n})\) as:
+							    <br>
+							    <br>
+							    <br>
+							    
+
+                                                     <mark class="red">
+                                                    \[
+                                                        \theta = \theta - \epsilon  \nabla_{\theta} J(\theta; (x^i,\dots,x^{i+n}),(y^i,\dots,y^{i+n}))
+                                                     \] 
+                                                    </mark>
+                                                   </p>
+                                                   <ol>
+					                 <li class="paragraph2"> Combines characteristics of batch gradient descent and SGD. </li>				        
+						         <li class="paragraph2"> Can make use of highly optimized matrix optimizations.</li>
+
+						         <li class="paragraph2"> Nevertheless, it does not guarantee a good convergence.</li>
+						         <li class="paragraph2"> Very sensitive to the learning rate \( \epsilon \).</li>
+
+						         <li class="paragraph2"> It can be trapped in local optima, particularly saddle points.</li>
+                                                   <ol/>
+
+					                                                                                            
+                          		 </div>                                                          
+                                                   
+                                                   <aside class="notes">
+  						     
+                                            	   </aside>
+        		           </section>
+
+
+				   <section>
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+   					    <h4>(Mini-batch) stochastic gradient descent</h4>
+                                            <ol>
+					        <img src="href=../../img_2019_Lect_6/SGD_Algorithm.png"  height="425" width="1000">           
+
+<br>
+                                                    </ol>     		
+                          		  </div>
+                                                   <p class="paragraph2"> I. Goodfellow and Y. Bengio and A. Courville. <a href="http://www.deeplearningbook.org/"> Deep Learning. Chapter 8. Optimization for Training Deep Models.</a> MIT Press. 2016. </p>      
+					  
+                                                  <aside class="notes">
+                                           	  </aside>
+ 		                 </section>
+
+
+
+				   
+			           <section>
+                                          <div class="my_container">        
+	                                    <h3>Advanced gradient descent methods</h3>
+					    <h4>Momentum</h4>
+                                                      <ul>  
+                                                           <li class="paragraph2"> A fraction <mark class="red"> \( \alpha \)  </mark>of the update vector of the past time step is added to the current vector as: 
+							    <br>
+							    <br>
+							    <br>
+							    
+                                                           <mark class="red">
+                                                             \[
+                                                                v_t = \alpha v_{t-1} -  \epsilon  \nabla_{\theta} J(\theta) \\
+                                                                \theta = \theta + v_t
+                                                             \] 
+                                                           </mark>
+
+                                                          </li>
+
+      		           			           <li class="paragraph2"> Helps accelerate SGD in the relevant directions and dampens oscillations.</li>
+
+							   
+      		           			           <li class="paragraph2"> The larger \(\alpha \) is relative to  \(\epsilon\), the more previous gradientes affect the current direction.</li>
+      		           		         
+      		           	                                                           
+                                                     </ul> 
+                          		 </div>                                                          
+                                                   
+                                                   <aside class="notes">
+  						     
+                                            	   </aside>
+        		           </section> 
+
+			   	   <section>
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+   					    <h4>Momentum</h4>
+                                            <ol>
+					        <img src="href=../../img_2019_Lect_6/SGD_with_Momentum_Algorithm.png"  height="425" width="1000">           
+
+<br>
+                                                    </ol>     		
+                          		  </div>
+                                                   <p class="paragraph2"> I. Goodfellow and Y. Bengio and A. Courville. <a href="http://www.deeplearningbook.org/"> Deep Learning. Chapter 8. Optimization for Training Deep Models.</a> MIT Press. 2016. </p>      
+					  
+                                                  <aside class="notes">
+                                           	  </aside>
+ 		                 </section>
+
+				   <section>
+                                          <div class="my_container">        
+	                                    <h3>Advanced gradient descent methods</h3>
+                                                  <h4>Nesterov accelerated gradient (NAG)</h4>
+                                                      <ul>  
+
+      		           			           <li class="paragraph2"> Computes an approximate prediction of the parameters in order to calculate the gradient w.r.t. the approximate future position of the parameters.</li>
+                                                           <li class="paragraph2"> The updates are defined as: 
+							    <br>
+							    <br>
+							    <br>
+							    
+                                                           <mark class="red">
+                                                             \[
+                                                                v_t = \alpha v_{t-1} -  \epsilon  \nabla_{\theta} J(\theta + \alpha v_{t-1}) \\
+                                                                \theta = \theta + v_t
+                                                             \] 
+                                                           </mark>
+
+                                                          </li>
+                                                     </ul>                                                          
+                          		 </div>                                                          
+                                                   
+                                                   <aside class="notes">
+  						     
+                                            	   </aside>
+        		           </section>
+
+
+				   <section>
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+                                            <h4>Nesterov accelerated gradient (NAG)</h4>					    
+                                            <ol>
+					        <img src="href=../../img_2019_Lect_6/SGD_with_Nesterov_Algorithm.png"  height="425" width="1000">           
+
+<br>
+                                                    </ol>     		
+                          		  </div>
+                                                   <p class="paragraph2"> I. Goodfellow and Y. Bengio and A. Courville. <a href="http://www.deeplearningbook.org/"> Deep Learning. Chapter 8. Optimization for Training Deep Models.</a> MIT Press. 2016. </p>      
+					  
+                                                  <aside class="notes">
+                                           	  </aside>
+ 		                 </section>
+
+  
+                                   <section>
+                                             <h3>Gradient descent variants</h3>     
+                                             <h4>Other advanced gradient descent methods</h4>
+                                              <div class="container">
+                                                  <span class="fragment">
+                                                  <div class="right">
+                                                  <h4>Adagrad</h4>
+                                                  <h4>Adadelta</h4>
+                                                  <h4>RMSprop</h4>
+                                                  <h4>Adam</h4>       
+                                                  <h4>AdaMax</h4>
+                                                  <h4>Nadam</h4>                                              
+
+                           		          </div>
+                                                  </span>
+                                                 
+                                                  <div class="left">   
+                                                  <h4>Characteristics</h4>
+                                                      <ul>  
+                                                          <li class="paragraph2"> Adapt the learning rate of parameters (similar to annealing schedules). </li>
+                                                          <li class="paragraph2"> Can use a different learning rate for each parameter. </li>      	
+                                                          <li class="paragraph2"> Some restrict the window of accumulated past gradients to some fixed size \( w \). </li>
+                                                          <li class="paragraph2"> Some keep exponentially decaying average of past gradients.  </li>   	           		         
+      		           	                                                           
+                                                     </ul> 
+
+                                                  </div>    
+                                                   
+                                              </div>  
+                                                   <aside class="notes">
+                                                       What is ML? 
+                                            	   </aside>
+
+                              	   </section>
+
+
+
+				   <section>
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+                                            <h4>Adagrad</h4>					    
+                                            <ol>
+					        <img src="href=../../img_2019_Lect_6/Adagrad_Algorithm.png"  height="425" width="1000">           
+
+<br>
+                                                    </ol>     		
+                          		  </div>
+                                                   <p class="paragraph2"> I. Goodfellow and Y. Bengio and A. Courville. <a href="http://www.deeplearningbook.org/"> Deep Learning. Chapter 8. Optimization for Training Deep Models.</a> MIT Press. 2016. </p>      
+					  
+                                                  <aside class="notes">
+                                           	  </aside>
+ 			                 </section>
+
+                                          <section>
+                                                    <h2> Gradient optimization methods <h2>                                                                                
+                                                      <p class="paragraph2">
+                                                         <img src="http://cs231n.github.io/assets/nn3/opt1.gif"  height="400" width="400">
+                                                         <img src="http://cs231n.github.io/assets/nn3/opt2.gif"  height="400" width="400">
+                                                      </p>           
+
+                                                    <p class="paragraph2">Images credit: <a href="https://twitter.com/alecrad">  Alec Radford.</a></p>	      
+                                          </section>
+
+
+					  
+                                          <section>
+                                                    <h2> Gradient optimization methods <h2>                                                                                
+                                                      <p class="paragraph2">
+    <img src="http://2.bp.blogspot.com/-q6l20Vs4P_w/VPmIC7sEhnI/AAAAAAAACC4/g3UOUX2r_yA/s1600/s25RsOr%2B-%2BImgur.gif"  height="500" width="900">
+                                                      
+                                                      </p>           
+
+                                                    <p class="paragraph2">Images credit: <a href="https://twitter.com/alecrad">  Alec Radford.</a></p>	      
+                                                   <aside class="notes">  						   
+                                                        <img src="https://i.imgur.com/NKsFHJb.gif"  height="400" width="400">
+                                            	   </aside>
+ 
+                                          </section>
+
+                            </section>
+
+
+
+
+
+
+			</div>
+		</div>
+
+
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			Reveal.initialize({
+
+                             
+   	                        history: true,
+				transition: 'linear',
+
+				math: {
+					// mathjax: 'http://cdn.mathjax.org/mathjax/latest/MathJax.js',
+					config: 'TeX-AMS_HTML-full'
+				},
+
+				dependencies: [
+                                        { src: 'lib/js/fullscreen-img.js' },
+					{ src: 'lib/js/classList.js' },
+					{ src: 'plugin/math/math.js', async: true }
+
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
