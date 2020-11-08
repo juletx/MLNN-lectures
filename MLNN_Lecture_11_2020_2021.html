@@ -1,0 +1,1788 @@
+<!doctype html>
+<html lang="en">
+
+
+   
+    
+	<head>
+		<meta charset="utf-8">
+
+		<title>Machine Learning and Neural Networks</title>
+                <meta name="author" content="Roberto Santana">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<!-- <link rel="stylesheet" href="css/reveal.css">  -->
+                <link rel="stylesheet" href="css/fullscreen-img.css">
+                <link rel="stylesheet" href="css/added_css/notebook.css">
+   	        <link rel="stylesheet" href="css/reveal.css">
+                <link rel="stylesheet" href="css/theme/nncourse.css" id="theme">
+                                
+
+	</head>
+
+	<body>
+
+
+		<div class="reveal">
+			<div class="slides">
+
+				<section>
+                                          <div class="my_container">
+                                        <h2>Machine Learning and Neural Networks</h2>
+					<p>Roberto Santana and Unai Garciarena<p>
+					<p>Department of Computer Science and Artificial Intelligence</p>
+                                        <p>University of the Basque Country</p>
+                          		 </div>   
+				</section>
+                                <section id="sec:NN_Intro">   
+                                            <div class="my_container">
+                                             <h3>Deep Neural Networks: Table of Contents </h3>
+                                        
+                                              <table style="width:100%"; border=solid>
+
+                                                  <tr>
+
+                                                     <td><p class="paragraph2"> <a href="#/sec:DNNs_Introduction"> Introduction </a></p></td>
+
+
+                                                      <td> <p class="paragraph2"> <a href="#/sec:DNNs_Activation_Functions"> Activation functions  </a></p></td>
+
+                                        
+                                                      <td> <p class="paragraph2"> <a href="#/sec:DNNs_CNNs"> CNNs </a></p></td>
+
+                                 
+
+                                                      <td><p class="paragraph2"> <a href="#/sec:DNNs_CNN_Convs"> Convolutions</a></p></td>        
+                        
+
+                                                  </tr>
+
+                                                   <tr>
+                                 
+                                                      <td><p class="paragraph2"> <a href="#/sec:DNNs_CNN_ConvLayer"> Convolutional layer </a></p></td>
+
+                                                      <td><p class="paragraph2"> <a href="#/sec:DNNs_CNN_Pooling"> Pooling layer</a></p></td>
+
+						      
+
+                                                      <td> <p class="paragraph2"> <a href="#/sec:DNNs_CNN_Fully"> Fully Connected layer </a></p></td>
+
+                                                
+                                                      <td><p class="paragraph2"> <a href="#/sec:DNNs_CNN_Pooling">Other operations </a></p></td>
+
+                                                  </tr>   
+
+                                                  <tr>
+
+
+						      <td><p class="paragraph2"> <a href="#/sec:DNNs_Applications"> Applications </a></p></td>
+                                                      <td><p class="paragraph2"> <a href="#/sec:DNNs_CNN_Archit"> CNN architectures.</a></p></td>
+
+                        
+
+                                                  </tr>
+
+
+						              
+                                                  <tr>
+
+                               
+    
+                        
+
+                                                  </tr> 
+
+
+						                     
+
+					      </table>	  
+                          	          </div>   
+
+  		   	       </section> 				
+                          </section>
+
+
+                          <section>
+
+			        <section  id="sec:ML_Course_Objectives">
+                                             <div class="my_container">
+                                                   <h3>Course objectives</h3> 
+                                                   <h4>Objectives</h4>
+
+                                                         <ol>
+
+                                                          <span class="fragment">
+						                   <li class="paragraph2">Enable the student to <mark class="red">understand</mark>, <mark class="red">develop</mark>, and <mark class="red">implement</mark> models and algorithms capable of autonomously learning. </li>
+                                                          </span>
+                                                          <span class="fragment">
+						                   <li class="paragraph2">Present the  <mark class="red">  main paradigms </mark> of machine learning approaches and the <mark class="red">classes of problems</mark> where they can be applied.</li>
+                                                          </span>
+
+                                                          <span class="fragment">
+						                   <li class="paragraph2">Teach machine learning methods based on <mark class="red">neural networks</mark>. </li>
+                                                          </span>
+                                                          <span class="fragment">
+						                   <li class="paragraph2">Introduce the most relevant types of neural networks, explaining the <mark class="red">rationale</mark> behind their conception and <mark class="red">scope of application</mark>.</li>
+                                                          </span>
+                                                          <span class="fragment">
+						                   <li class="paragraph2">Introduce and show how to implement  <mark class="red"> deep neural networks</mark>. </li>
+                                                          </span>
+                                                          <span class="fragment">
+						                   <li class="paragraph2">Cover real-world applications of deep neural networks and  <mark class="red">hot topics</mark> in this area.</li>
+                                                          </span>
+						            
+						                                                 
+                                                            </ol>
+                          		 </div>                                                          
+                                                   
+                                                   <aside class="notes">
+  						     
+                                            	   </aside>
+        		        </section>
+
+			
+
+ 			       <section>                                             
+ 				         <div class="my_container">
+                                                   <h3>Deep neural networks</h3>                                                   
+
+						   <h4>Characteristics</h4>
+                                                   <ol>
+						          <li class="paragraph2">Are composed of <mark class="red">multiple processing layers</mark>  to learn representations of data with multiple levels of abstraction.</li>
+                                        
+						          <li class="paragraph2">Once the architecture has been defined, they require <mark class="red">very little engineering by hand</mark>.</li>
+                                        
+						          <li class="paragraph2">Exploit the property that many natural signals are <mark class="red">compositional hierarchies</mark>, in which higher-level features are obtained by composing lower-level ones.</li>
+                                        
+                                                          <li class="paragraph2">Good features <mark class="red">can be learned automatically</mark>  using a general-purpose learning procedure.</li>
+                                        
+						          <li class="paragraph2">They heavily depend on <mark class="red"> local optimization methods</mark> to tune their parameters.</li>
+                                        
+			                
+                                                      </ol> 
+		
+ 
+                          		 </div>   
+                                                        
+                                                  
+                                                  <aside class="notes">
+                                                                      
+                                           	  </aside>
+ 				       </section>
+
+
+				        <section>                                             
+ 				         <div class="my_container">
+                                                   <h3>Deep neural networks</h3>                                                   
+                                                   <h4>Goals</h4>
+                                                   <ol>
+						       <li class="paragraph2">Automatically discover problem representations of different complexity from the lowest level features to highest level concepts. </li>
+						          <li class="paragraph2">Being able to scale to very large problems.</li>
+					
+						          <li class="paragraph2">Allow multi-task solving by re-using modular components of the network.</li>
+						          <li class="paragraph2">Be robust to different transformations of the original training data. </li>
+						      
+
+                                                    </ol>     		
+ 
+                          		 </div>   
+                                                        
+                                                  
+                                                  <aside class="notes">
+                                                                      
+                                           	  </aside>
+ 				    </section>
+                                                            
+
+                                    <section   id="sec:NNs_Types_and_Properties">
+                                                <mark class="red"></mark>
+                                               <div class="container">
+                                                   <h3>Deep Neural Networks</h3>                                          
+                                                  <div class="right">
+                                                  <h4>Deep network architecture</h4>
+
+                                                      <ul>      
+						          <li class="paragraph2">Composed of multiple levels of non-linear operations </li>
+						          <li class="paragraph2">As a model they integrate the steps of feature selection and feature understanding.</li>
+						          <li class="paragraph2">Can learn decomposable representations of complex patterns into simpler patterns.</li>
+
+						          <li class="paragraph2">They are organized as hierarchical features, from simpler patterns in the initial layers to more complex patterns in subsequent layers. </li>
+                                                      <ul/>                                             
+
+                         		          </div>
+                                                  <div class="left">   
+                                                      <h4>Shallow neural networks</h4>
+                                                      <ul>      
+						          <li class="paragraph2">A shallow network has less number of hidden layers. </li>
+						          <li class="paragraph2">The number of parameters required to fit a function should be in general higher.</li>
+						          <li class="paragraph2">They are usually very homogeneous in terms of the activation functions they use.</li>
+		
+			                
+                                                      </ul>    
+                                                    
+                                                  </div>    
+                                                   
+                                              </div>               
+                                                      <p class="paragraph2"> R. Salakhutdinov. <a href="http://www.annualreviews.org/doi/abs/10.1146/annurev-statistics-010814-020120">Learning deep generative models.</a> Annual Review of Statistics and Its Application. Vol. 2. Pp. 361-385. 2015.</p>         
+
+                                                <aside class="notes">
+                                           	  </aside>
+ 				      </section>
+
+				      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>   
+                                                   <h3>Deep Neural Networks</h3>       
+                                                   <h4>Shallow and Deep Neural Networks</h4> 
+                                             
+                                                   <ol>
+
+                                                        <img src="href=../../imgl10/Learning_DBN_Salakhutdinov.png"  height="350" width="1200">           
+
+                                       
+						  
+                                                    </ol>     						           
+                          		 </div>                
+                                                  <p class="paragraph2"> R. Salakhutdinov. <a href="http://www.annualreviews.org/doi/abs/10.1146/annurev-statistics-010814-020120">Learning deep generative models.</a> Annual Review of Statistics and Its Application. Vol. 2. Pp. 361-385. 2015.</p>                                    
+                                                  <aside class="notes">
+                                                                                                  
+                                           	  </aside>
+ 				      </section> 
+                                     <section>
+                                                <mark class="red"></mark>
+                                               <div class="container">
+                                                   <h3>Deep Neural Networks</h3>         
+                                    
+                                                  <div class="right">
+                                                  <h4>Multiple layers</h4>
+                                                      <ul>      
+                                                        <img src="https://www.cs.toronto.edu/~frossard/post/vgg16/vgg16.png"  height="400" width="500">           
+					                
+                                                      <ul/>                                             
+                                                      <p class="paragraph2"> <a href="https://www.cs.toronto.edu/~frossard/post/vgg16/">VGG in TensorFlow.</a> 2016.</p>         
+
+                         		          </div>
+                                                  <div class="left">   
+                                                 <h4>Components</h4>
+                                                      <ol>      
+						          <li class="paragraph2"><mark class="red">Structure: </mark>Characterized by a combination of:
+							    <ul>      
+						                 <li class="paragraph2"> Layers.</li>
+						                 <li class="paragraph2"> Activation functions.</li>
+
+						                  <li class="paragraph2"> Loss functions. </li>
+							    </ul>    
+							  </li>
+
+		                                          <li class="paragraph2"><mark class="red">Layers</mark>:  Neurons organization. Fully connected, recurrent, dropouts, convolutional and pooling. </li>
+						          <li class="paragraph2"><mark class="red">Activation functions</mark>: Whether and how the neuron is activated.
+							    <ul>      
+						                  <li class="paragraph2"> Sigmoid, ReLU, ELU, Leaky ELU, etc. </li>
+							    </ul>    
+							  </li>
+
+						          <li class="paragraph2"><mark class="red">Loss functions</mark>: Specifies how to evaluate the quality of NN model. Mean square error, cross-entropy loss, etc.  </li>
+
+                                                      <ol/>                                             
+
+                                                                                                   
+                                                  </div>                                                       
+                                              </div>               
+                                                <aside class="notes">
+                                           	  </aside>
+ 				      </section>
+				      <section id="sec:DNNs_Activation_Functions">
+                                                <mark class="red"></mark>
+                                               <div class="container">
+                                                   <h3>Activation Functions</h3>         
+                                    
+                                                  <div class="right">                                                
+                                                      <ul>      
+                                                        <img src="href=../../imgl10/Sigmoid.png"  height="340" width="500">           
+					                
+                                                      <ul/>                                             
+                                                        
+
+                         		          </div>
+                                                  <div class="left">   
+                                                   <h4>Sigmoid linear unit</h4>
+                                                   <ul>
+
+						          <li class="paragraph2">One of the most widely used activation functions today. </li>
+						          <li class="paragraph2"> \(   f(x) =  \frac{1}{1+e^{-x}} \)</li>
+						          <li class="paragraph2"> It is nonlinear in nature. </li>
+						          <li class="paragraph2">  The output of the activation function is always going to be in range \((0,1) \). </li>
+
+
+						          <li class="paragraph2">It has the problem of the <mark class="red">vanishing gradients</mark>. </li>
+
+
+                                                   </ul>                                                        
+                                                  </div>                                                       
+                                              </div>               
+                                                <aside class="notes">
+                                           	  </aside>
+ 				   </section>
+                                    <section>
+                                                <mark class="red"></mark>
+                                               <div class="container">
+                                                   <h3>Activation Functions</h3>         
+                                    
+                                                  <div class="right">                                                
+                                                      <ul>      
+                                                        <img src="href=../../imgl10/tanh.png"  height="340" width="500">           
+					                
+                                                      <ul/>                                             
+                                                  
+                         		          </div>
+                                                  <div class="left">   
+                                                   <h4>tanh</h4>
+                                                   <ul>
+
+						          <li class="paragraph2"> \(   f(x) =  \frac{2}{1-e^{-2x}} \)</li>
+						          <li class="paragraph2">It is similar to the sigmoid function.</li>
+						          <li class="paragraph2">Squashes numbers to range [-1,1]. </li>
+						          <li class="paragraph2">It is zero centered.</li>
+						          <li class="paragraph2">It destroys information about the gradient when it is saturated.</li>
+
+						          <li class="paragraph2">The gradient is stronger for tanh than sigmoid (derivatives are steeper).</li>
+
+
+
+                                                   </ul>                                                        
+                                                  </div>                                                       
+                                              </div>               
+                                                <aside class="notes">
+                                           	  </aside>
+ 				     </section>
+                                     <section>
+                                                <mark class="red"></mark>
+                                               <div class="container">
+                                                   <h3>Activation Functions</h3>         
+                                    
+                                                  <div class="right">                                                
+                                                      <ul>      
+                                                        <img src="href=../../imgl10/relu.png"  height="340" width="500">           
+					                
+                                                      <ul/>                                             
+                                                    
+                         		          </div>
+                                                  <div class="left">   
+                                                   <h4>Rectifier linear unit (ReLU)</h4>
+                                                   <ul>
+						          <li class="paragraph2">\(f(x) = max(0,x) \)</li>
+						          <li class="paragraph2">More biologically plausible.</li>
+						          <li class="paragraph2"> It is nonlinear in nature. </li>
+						          <li class="paragraph2"> Converges much faster than other functions, e.g., sigmoid and tanh.</li>
+						          <li class="paragraph2">Computationally efficient</li>
+						          <li class="paragraph2">The gradient can get toward zero.</li>
+                                                   </ul>                                                        
+                                                  </div>                                                       
+                                              </div>               
+                                                <aside class="notes">
+                                           	  </aside>
+ 				    </section>   
+
+ 
+ 				      <section id="sec:DNNs_Types">
+                                          <div class="my_container">
+                                                   <h3>Deep neural networks</h3>                                                   
+                                                   <h4>Types of DNNs</h4>
+                                                   <ol>
+						          <li class="paragraph2"> Convolutional Neural Networks (CNN). </li>
+						          <li class="paragraph2"> Recurrent Neural Networks (RNNs) and LSTM. </li> 
+						          <li class="paragraph2"> AutoEncoders (AEs). </li>   
+						          <li class="paragraph2"> Generative Adversarial Networks (GAN). </li>
+							  <li class="paragraph2"> Deep Belief Nets (DBNs).  </li>
+						          <li class="paragraph2"> Deep Boltzmann Machines (DBMs).  </li>
+
+  						  
+                                                    </ol>     						           
+                                                    <p class="paragraph2">H. Wang, B. Raj, and E. P. Xing.<a href="https://arxiv.org/abs/1702.07800">On the Origin of Deep Learning.</a> arXiv preprint arXiv:1702.07800. 2017.</p>        
+                          		 </div>   
+                                      
+                                                  <aside class="notes">
+                                                     There are a number of classes of DNNs. These are among the best known.                     
+                                           	  </aside>
+ 				 </section>
+       		           </section>
+
+                          <section>
+                                <section  id="sec:DNNs_CNNs"> 
+                                                <mark class="red"></mark>
+                                               <div class="container">
+                                                   <h3>Convolutional Neural Networks</h3>         
+
+                                    
+                                                  <div class="right">
+                                                  <h4>Network architecture</h4>
+                                                      <ul>      
+                                                        <img src="href=../../img/NNZoo/cnn.png"  height="350" width="500">           
+					                
+                                                      <ul/>                                                      
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Characteristics</h4>
+                                                      <ul>      
+						          <li class="paragraph2">Used for image classification.</li>
+						          <li class="paragraph2">Based on the idea of convolutions.</li>
+						          <li class="paragraph2">Can use as input multi-channel inputs (e.g. images in the three color channels).</li>
+						          <li class="paragraph2">In most of the layers the neurons are not fully connected.</li>
+						          <li class="paragraph2">Require a large dataset for training.</li>		
+						          <li class="paragraph2">There is a high variety of architectures.</li>					        
+			                
+                                                      <ul/>    
+
+                                                  </div>    
+                                                   
+                                              </div>               
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				     </section>
+
+ 				      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                   <h3>Convolutional Neural Networks</h3>    
+
+                                                   <ol>
+					                                                                      
+                                                        <img src="https://adeshpande3.github.io/assets/Cover.png"  height="350" width="1200">     
+   					  
+                                                    </ol>  
+
+						   </br>
+
+                                                   <ul>
+
+
+						          <li class="paragraph2"> The convolutional network contains <mark class="red">convolutional</mark> layers, <mark class="red">maxpooling</mark> layers, and <mark class="red">fully connected</mark> layers.</li>
+
+
+						          <li class="paragraph2"> The final output of the network is the <mark class="red">classification of the image</mark>.</li>
+                                                    
+  
+                                                    </ul>     						           
+                                                    
+                          		 </div>   
+                                                  <p class="paragraph2"> Figure:  A. Deshpande <a href="https://adeshpande3.github.io/adeshpande3.github.io/A-Beginner's-Guide-To-Understanding-Convolutional-Neural-Networks/">A Beginner's Guide To Understanding Convolutional Neural Networks. </a></p>                                         
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 				      </section>
+                                      <section  id="sec:DNNs_CNN_Convs"> 
+                                                <mark class="red"></mark>
+                                               <div class="container">   
+                                                   <h3>Convolutions</h3>
+                                                  <div class="right">
+                                                  <h4>Filter</h4>
+                                                  <ul>
+ 						        <img src="href=../../img_2019_Lect_8/filters/vertical_filter.png"  height="350" width="500">      
+					                
+                                                      <ul/>                                                      
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Original image</h4>
+                                                                                            
+						      <ul>
+					 		<img src="href=../../img_2019_Lect_8/filters/image_no_filter.png"  height="350" width="500">
+							        
+                                                      <ul/>     
+            
+                                                  </div>    
+                                                   
+                                              </div>    
+                                               
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				      </section>
+
+				      <section> 
+                                                <mark class="red"></mark>
+                                               <div class="container">   
+                                                   <h3>Convolutions</h3>
+                                                  <div class="right">
+                                                  <h4>Convolved image</h4>
+                                                  <ul>
+ 						        <img src="href=../../img_2019_Lect_8/filters/image_vertical_filter.png"  height="350" width="500">      
+					                
+                                                      <ul/>                                                      
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Original image</h4>
+                                                                                            
+						      <ul>
+					 		<img src="href=../../img_2019_Lect_8/filters/image_no_filter.png"  height="350" width="500">
+							        
+                                                      <ul/>     
+            
+                                                  </div>    
+                                                   
+                                              </div>    
+                                               
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				      </section>
+
+
+				      	<section> 
+                                                <mark class="red"></mark>
+                                               <div class="container">   
+                                                   <h3>Convolutions</h3>
+                                                  <div class="right">
+                                                  <h4>Filter</h4>
+                                                  <ul>
+ 						        <img src="href=../../img_2019_Lect_8/filters/cross_filter.png"  height="350" width="500">      
+					                
+                                                      <ul/>                                                      
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Original image</h4>
+                                                                                            
+						      <ul>
+					 		<img src="href=../../img_2019_Lect_8/filters/image_no_filter.png"  height="350" width="500">
+							        
+                                                      <ul/>     
+            
+                                                  </div>    
+                                                   
+                                              </div>    
+                                               
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				      </section>
+
+
+				      <section> 
+                                                <mark class="red"></mark>
+                                               <div class="container">   
+                                                   <h3>Convolutions</h3>
+                                                  <div class="right">
+                                                  <h4>Convolved image</h4>
+                                                  <ul>
+ 						        <img src="href=../../img_2019_Lect_8/filters/image_cross_filter.png"  height="350" width="500">      
+					                
+                                                      <ul/>                                                      
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Original image</h4>
+                                                                                            
+						      <ul>
+					 		<img src="href=../../img_2019_Lect_8/filters/image_no_filter.png"  height="350" width="500">
+							        
+                                                      <ul/>     
+            
+                                                  </div>    
+                                                   
+                                              </div>    
+                                               
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				      </section>
+
+
+                                      <section> 
+                                                <mark class="red"></mark>
+                                               <div class="container">   
+                                                   <h3>Convolutions</h3>
+                                                  <div class="right">
+                                                  <h4>Filter for horizontal lines</h4>
+                                                  <ul>
+						        <img src="href=../../imgl12/horizontal_filter.png"  height="350" width="500">           
+					                
+                                                  <ul/>                                                      
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Characteristics</h4>
+                                                      <ul>      
+						          <li class="paragraph2">A <mark class="red"> Filter</mark>, also known as kernel or mask,  is a matrix that is used to modify another reference larger matrix (usually representing an image). </li> 
+
+						          <li class="paragraph2">The filter is <mark class="red">passed over the image</mark> spatially, computing dot products and this operation is called a <mark class="red">convolution</mark>.</li>
+
+						          <li class="paragraph2">The convolution is performed over <mark class="red">all spatial locations</mark>.</li>
+
+						          <li class="paragraph2">Different filters can produce different effects in the images and therefore they are usually applied for <mark class="red">shaperning</mark>  or <mark class="red">blurring</mark> the original image.</li>			        
+			                              <ul/>                                                     
+
+            
+                                                  </div>    
+                                                   
+                                              </div>               
+                                                
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				      </section>
+
+                                      <section> 
+                                                <mark class="red"></mark>
+                                               <div class="container">   
+                                                   <h3>Convolutions</h3>
+                                                  <div class="right">
+                                                  <h4>Filter for vertical lines</h4>
+                                                      <ul>      
+                                                        <img src="href=../../imgl12/vertical_filter.png"  height="350" width="500">           
+					                
+                                                      <ul/>                                                      
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Convolution formula</h4>
+                                                      <ul>      
+						          <p class="paragraph2">
+							    \[
+
+							      v = \left |  \frac{\sum_{i=1}^{q}\sum_{j=1}^{q}
+                                                              f_{i,j}d_{i,j}}{F}   \right |
+
+							    \]
+                          
+                                                         </p>
+
+						          <li class="paragraph2"> \( f_{i,j} \)  is the <mark class="red">coefficient</mark> of a convolution kernel at position \(i,j\) (relative to the kernel).</li>
+						          <li class="paragraph2"> \( d_{i,j} \)  is the <mark class="red">data value of the pixel</mark> that corresponds to \(f_{i,j} \).</li>
+
+						          <li class="paragraph2"> \( q \)  is the <mark class="red">dimension of the kernel</mark>.</li>
+
+						          <li class="paragraph2"> \( F \)  is the  <mark class="red">sum of the coefficients</mark>  of the kernel, or 1 if the sum of coefficients is 0.</li>
+
+						          <li class="paragraph2"> \( V \)  is the output <mark class="red">pixel value</mark> (an integer).</li>
+
+						         			        
+			                              <ul/>                                                     
+
+            
+                                                  </div>    
+                                                   
+                                              </div>               
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				      </section>
+
+
+
+
+                                        <section>
+                                         <h3>Convolutions</h3>
+                                             <img src="https://cdn-images-1.medium.com/max/600/1*ZCjPUFrB6eHPRi4eyP6aaA.gif"  height="450" width="1200">                            
+                                          <aside class="notes">
+
+                                          </aside>
+  					 <p class="paragraph2">Figure: <a href="https://hackernoon.com/supervised-deep-learning-in-image-classification-for-noobs-part-1-9f831b6d430d"> Deep Learning for Noobs. Accessed Nov. 2017.</a> </p>	           			   
+ 				        </section>
+
+
+
+                                        <section>
+                                         <h3>Convolutions</h3>
+                                             <img src="https://adeshpande3.github.io/assets/FirstLayers.png"  height="350" width="800">                                                                 
+                                            <p class="paragraph2"> M. D. Zeiler and R. Fergus <a href="https://arxiv.org/pdf/1311.2901.pdf"> Visualizing and Understanding Convolutional Networks. </a> In European conference on computer vision. Pp. 818-833. Springer, Cham. 2014. </p>   
+               
+                                          <aside class="notes">
+
+                                          </aside>
+  					 	           			   
+ 				        </section>
+
+			    </section>
+ 			    <section>
+ 				      <section id="sec:DNNs_CNN_ConvLayer">
+                                                <mark class="red"></mark>
+                                               <div class="container"> 
+                                                   <h3>Convolutional layer</h3>    
+
+                                                  <div class="right">
+                                                  <h4>Concepts</h4>
+                                                      <ul>   
+						          <li class="paragraph2"><mark class="red"> Filter</mark>: It is a small image the size of the receptive field that store the weights. It is also called <mark class="red">kernel</mark>.</li>	   
+						          <li class="paragraph2"><mark class="red">Stride</mark>: It is the amount by which the filter shifts is the layer. Used to control the overlap between the receptive fields.</li>	
+						          <li class="paragraph2"><mark class="red">Padding</mark>: Additional columns or rows added to the layer to preserve as much information about the original layer as possible.</li>	
+
+						          <li class="paragraph2">Commonly applied <mark class="red">zero padding</mark>  pads the input volume with zeros around the border.</li>	
+	       
+			                              <ul/>       
+     
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Characteristics</h4>
+                                                      <ul>      
+						          <li class="paragraph2"> Neurons in this layer are <mark class="red">only connected to a small region of units</mark> in the previous layer (inputs or previous layer neurons).</li>
+						          <li class="paragraph2"><mark class="red">Receptive field</mark>: The region in the input space that a particular neuron of a convolutional layer is looking at (i.e., process information from.)</li>	
+						          <li class="paragraph2"> A receptive field of a feature can be fully described by its <mark class="red"> center location</mark> and its <mark class="red">size</mark>.</li>
+				       
+			                              <ul/>                                                     
+
+                                                  </div>    
+                                                   
+                                              </div>               
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				      </section>
+
+
+ 				      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                   <h3>Convolutional layer: Strides and Padding </h3>    
+
+
+
+                                                   <ol>
+					                <img src="href=../../img_2019_Lect_8/filters/Convolution_Padding_Stride2.png"  height="180" width="1400">                                                       
+
+   					  
+                                                   </ol>  
+
+
+						   </br>
+
+
+                                                   <ol>
+					                                                                      
+					                <img src="href=../../img_2019_Lect_8/filters/Convolution_No_Padding_Stride1.png"  height="220" width="1400">                                                        
+   					  
+                                                    </ol>  
+
+   						           
+                                                    
+                          		 </div>   
+                                                  <p class="paragraph2"> V. Dumoulin and F. Visin. <a href="https://arxiv.org/pdf/1603.07285v1.pdf"> A guide to convolution arithmetic for deep learning. </a> arXiv preprint arXiv:1603.07285. 2016.</p>                                         
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 				      </section>
+
+
+                                        <section> 
+                                                <mark class="red"></mark>
+                                               <div class="container">   
+                                                  <h3>Convolutional layer</h3>   
+                                                  <div class="right">
+
+                                                  <h4>Characteristics</h4>
+ <ul>   
+						          <li class="paragraph2">Local receptive fields.</li>	 
+						          <li class="paragraph2">Share weights.</li>
+							  <li class="paragraph2">Each input modality forms a different channel.</li>	 
+						          <li class="paragraph2">The type of padding.</li>
+			                              <ul/>     
+                                               
+ 
+                                                                                                    
+                          		          </div>
+                                                  <div class="left">
+   
+                                                  <h4>Hyperparameters of a convolutional layer</h4>
+                                                      <ul>   
+						          <li class="paragraph2">Size of the filters.</li>	 
+						          <li class="paragraph2">Number of filters (controls the depth of the output volume).</li>
+							  <li class="paragraph2">The stride.</li>	 
+						          <li class="paragraph2">The type of padding.</li>
+			                              <ul/>     
+           
+                                                  </div>    
+                                                   
+                                              </div>               
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				      </section>
+
+
+     				     <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                   <h3>LeNet: A simple convolutional network </h3>    
+
+
+
+                                                   <ol>
+					                <img src="href=../../imgl10/LeNet.png"  height="380" width="1400">                                                       
+                                                   </ol>  
+
+
+
+                          		 </div>   
+                                                  <p class="paragraph2"> Y. LeCun et al. <a href="http://vision.stanford.edu/cs598_spring07/papers/Lecun98.pdf"> Gradient-based learning applied to document recognition. </a> Proceedings of the IEEE 86.11. Pp. 2278-2324.  1998.</p>                                         
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 				      </section>
+
+                                        <section> 
+                                                <mark class="red"></mark>
+                                               <div class="container">   
+                                                  <h3>Convolutional layer</h3>   
+                                                  <div class="right">
+
+                                                  <h4>Convolution arithmetics</h4>
+
+
+						  </br>
+
+						    <ul>      
+						          <p class="paragraph2">
+							    \[
+
+							      o  = \left \lfloor  \frac{i+p-k}{s}   \right \rfloor + 1
+
+							    \]
+                          
+                                                         </p>
+
+							  </br>
+							  </br>
+
+						          <li class="paragraph2"> \( o \):   <mark class="red">size of the (square) output image</mark>.</li>
+
+						          <li class="paragraph2"> \( i \):  <mark class="red">size of the (square) input image</mark>.</li>
+						          <li class="paragraph2"> \( p \):  <mark class="red">number of padded pixels</mark>.</li>
+
+						          <li class="paragraph2"> \( s \):  <mark class="red">stride</mark>.</li>				    
+
+						         			        
+			                              <ul/>                                                    
+ 
+                                                                                                    
+                          		          </div>
+                                                  <div class="left">
+   
+                                                  <h4>Concepts</h4>
+                                                      <ul>   
+						          <li class="paragraph2"><mark class="red"> Filter</mark>: It is a small image the size of the receptive field that store the weights. It is also called <mark class="red">kernel</mark>.</li>	   
+						          <li class="paragraph2"><mark class="red">Stride</mark>: It is the amount by which the filter shifts is the layer. Used to control the overlap between the receptive fields.</li>	
+						          <li class="paragraph2"><mark class="red">Padding</mark>: Additional columns or rows added to the layer to preserve as much information about the original layer as possible.</li>	
+
+						          <li class="paragraph2">Commonly applied <mark class="red">zero padding</mark>  pads the input volume with zeros around the border.</li>	
+	       
+			                              <ul/>     
+           
+                                                  </div>    
+                                                   
+                                              </div>               
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				      </section>
+
+
+
+
+
+
+ 				      <section id="sec:DNNs_CNN_Pooling">
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                   <h3>Convolutional Neural Networks: Pooling layer</h3>    
+
+                                                   <ol>
+					                                                                      
+                                                        <img src="https://adeshpande3.github.io/assets/Cover.png"  height="350" width="1200">     
+   					  
+                                                    </ol>  
+
+						   </br>
+
+                                                   <ul>
+
+
+						          <li class="paragraph2"> The convolutional network contains <mark class="red">convolutional</mark> layers, <mark class="red">maxpooling</mark> layers, and <mark class="red">fully connected</mark> layers.</li>
+
+
+						          <li class="paragraph2"> The final output of the network is the <mark class="red">classification of the image</mark>.</li>
+                                                    
+  
+                                                    </ul>     						           
+                                                    
+                          		 </div>   
+                                                  <p class="paragraph2"> Figure:  A. Deshpande <a href="https://adeshpande3.github.io/adeshpande3.github.io/A-Beginner's-Guide-To-Understanding-Convolutional-Neural-Networks/">A Beginner's Guide To Understanding Convolutional Neural Networks. </a></p>                                         
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 				      </section>
+                                      <section  id="sec:DNNs_Pooling"> 
+                                                <mark class="red"></mark>
+                                               <div class="container">     
+                                                  <h3>Pooling</h3>
+                                                  <div class="right">
+                                                  <h4>Max pooling</h4>
+                                                      <ul>      
+                                                        <img src="https://cdn-images-1.medium.com/max/800/1*TUiAh2gWmzdumZKFYa4Vbw.png"  height="350" width="500">           
+					                
+                                                      <ul/>       
+                                                     <p class="paragraph2">Figure: <a href="https://hackernoon.com/supervised-deep-learning-in-image-classification-for-noobs-part-1-9f831b6d430d"> Deep Learning for Noobs. Accessed Nov. 2017.</a> </p>	       
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Characteristics</h4>
+                                                      <ul>      
+
+
+						          <li class="paragraph2">  The goal of the pooling layer is to <mark class="red">subsample</mark> (i.e. shrink) the input image in order to reduce the <mark class="red">computational load</mark>, the <mark class="red">memory usage</mark>, and the <mark class="red">number of parameters</mark>.</li>
+
+						          <li class="paragraph2"> As in the convolutional layer, each neuron is connected to a <mark class="red">limited number of neurons</mark> in the previous layer.</li>	
+
+						          <li class="paragraph2"> However, in the pooling layer <mark class="red"> there are not weights</mark>.</li>	
+
+						          <li class="paragraph2"> The pooling layer computes <mark class="red">one single statistic</mark>  from a set of neurons from the previous layer.</li>
+
+						          <li class="paragraph2"> Usually, the  max-value of a set of  adjacent neurons is computed and the operation is known as <mark class="red">max-pooling</mark>.</li>
+
+			                              <ul/>                                                     
+
+
+                                                  </div>    
+                                                   
+                                              </div>               
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				      </section>
+                                      <section> 
+                                                <mark class="red"></mark>
+                                               <div class="container">     
+                                                  <h3>Pooling</h3>
+                                                  <div class="right">
+                                                  <h4>Max pooling</h4>
+                                                      <ul>      
+                                                        <img src="https://cdn-images-1.medium.com/max/800/1*TUiAh2gWmzdumZKFYa4Vbw.png"  height="350" width="500">           
+					                
+                                                      <ul/>       
+                                                     <p class="paragraph2">Figure: <a href="https://hackernoon.com/supervised-deep-learning-in-image-classification-for-noobs-part-1-9f831b6d430d"> Deep Learning for Noobs. Accessed Nov. 2017.</a> </p>	       
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Characteristics</h4>
+                                                      <ul>      
+
+						          <li class="paragraph2"> The output of the max-pooling neurons are <mark class="red">invariant to small shifts</mark> in the inputs.</li>
+						          <li class="paragraph2"> This property is known as <mark class="red">translational invariance</mark>.</li>				        
+
+
+						          <li class="paragraph2"> In general, the pooling channel works on every input channel independently. Therefore <mark class="red">the output deph is the same as the input depth</mark>.</li>
+
+
+						          <li class="paragraph2"> The <mark class="red">size</mark> of the receptive field, the <mark class="red">stride</mark>, and the <mark class="red">padding type</mark> are also parameters of the pooling layer.</li>				       
+			                              <ul/>                                                     
+
+                                                  </div>    
+                                                   
+                                              </div>               
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				      </section>
+
+
+ 			    </section>
+ 			    <section>
+ 				      <section id="sec:DNNs_CNN_Fully">
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                   <h3>Convolutional Neural Networks: Fully connected layers</h3>    
+
+                                                   <ol>
+					                                                                      
+                                                        <img src="https://adeshpande3.github.io/assets/Cover.png"  height="350" width="1200">     
+   					  
+                                                    </ol>  
+
+						   </br>
+
+                                                   <ul>
+
+
+						          <li class="paragraph2"> The convolutional network contains <mark class="red">convolutional</mark> layers, <mark class="red">maxpooling</mark> layers, and <mark class="red">fully connected</mark> layers.</li>
+
+
+						          <li class="paragraph2"> The final output of the network is the <mark class="red">classification of the image</mark>.</li>
+                                                    
+  
+                                                    </ul>     						           
+                                                    
+                          		 </div>   
+                                                  <p class="paragraph2"> Figure:  A. Deshpande <a href="https://adeshpande3.github.io/adeshpande3.github.io/A-Beginner's-Guide-To-Understanding-Convolutional-Neural-Networks/">A Beginner's Guide To Understanding Convolutional Neural Networks. </a></p>                                         
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 				      </section>
+
+                                      <section> 
+                                                <mark class="red"></mark>
+                                               <div class="container">
+                                                   <h3>Fully connected layers</h3>         
+
+                                    
+                                                  <div class="right">
+                                                  <h4>Network architecture</h4>
+                                                      <ul>      
+                                                        <img src="href=../../imgl12/Fully_Connected.png"  height="350" width="500">           
+					                
+                                                      <ul/>                                                      
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Characteristics</h4>
+                                                      <ul>      
+						          <li class="paragraph2">The last components of a CNN are a feedforward NN composed of a <mark class="red">few fully connected layers (+ReLUs)</mark>. </li>
+						          <li class="paragraph2">The final layer ouputs the prediction. Usually, a <mark class="red">softmax layer</mark>  that outputs the probabilities for each class.</li>
+						          <li class="paragraph2">The number of classes can be huge, e.g.  <mark class="red">1000 classes</mark>.</li>
+						     					        
+			                
+                                                      <ul/>    
+                        
+                                                  </div>    
+                                                   
+                                              </div>               
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				      </section>
+
+ 				      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+
+                                                   <h3>Interpreting network architectures: LeNet-5</h3>   
+                                                            <table id="customers">
+                                                              <colgroup>                                         
+                                                                 <col style="background-color:yellow">
+                                                                 <col span="8" style="background-color:white">
+                                                                 <col span="3" style="background-color: #bfff00">
+
+                                                                 </colgroup>
+                                                                    <tr> <th>Layer</th> <th>Type </th> <th>Maps </th> <th>Size</th> <th>Kernel size </th> <th>Stride</th><th>Activation </th> </tr>
+                                                                    <tr><td>Out</td> <td>Fully Connected </td> <td>-</td> <td>10</td> <td>-</td> <td>-</td> <td>RBF</td>  </tr>
+                                                                    <tr><td>F6</td> <td>Fully Connected </td> <td>-</td> <td>84</td> <td>-</td> <td>-</td> <td>tanh</td>  </tr>
+                                                                    <tr><td>C5 </td><td>Convolution </td> <td>120</td> <td>1x1</td> <td>5x5</td> <td>1 </td> <td>tanh</td>  </tr>
+                                                                    <tr><td>S4 </td> <td>Avg. Pooling </td> <td>16 </td> <td>5x5 </td> <td>2x2 </td> <td>2 </td><td>tanh </td>  </tr>
+                                                                    <tr><td>C3 </td><td>Convolution </td> <td>16</td> <td>10x10</td> <td>5x5</td> <td>1 </td> <td>tanh</td>  </tr>
+                                                                    <tr><td>S2 </td> <td>Avg. Pooling </td> <td>6 </td> <td>14x14 </td> <td>2x2 </td> <td>2 </td><td>tanh </td>  </tr>
+                                                                    <tr><td>C1 </td><td>Convolution </td> <td>6</td> <td>28x28</td> <td>5x5</td> <td>1 </td> <td>tanh</td>  </tr>
+                                                                    <tr><td>In </td><td>Input </td> <td>1</td> <td>32x32</td> <td>-</td> <td>- </td> <td>-</td>  </tr>
+                                                              
+                                                                 
+                                                           </table>
+
+
+						   </br>                                                 				           
+                                                    
+                          		 </div>   
+                                                     <p class="paragraph2">  Y. LeCun, L. Bottou, Y. Bengio, and P. Haffner. <a href="http://yann.lecun.com/exdb/lenet/">Gradient-based learning applied to document recognition.</a> Proceedings of the IEEE. 1998.</p>         
+
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 				      </section>			      
+
+
+                                   <section> 
+                                                <mark class="red"></mark>
+                                               <div class="container">
+                                                   <h3>Data augmentation methods</h3>         
+
+                                                  <div class="right">
+                                                  <h4>Methods</h4>
+                                                      <ul>      
+						          <li class="paragraph2"><mark class="red">Image translations</mark>: e.g. random shift sampled uniformly between -4 and 4 pixels in the x and y direction.</li>			
+ 							  <li class="paragraph2"><mark class="red">Flipping</mark>: The image is flipped with a probability of 0.5.</li>
+					         	  <li class="paragraph2"><mark class="red">Scaling</mark>: random rescaling with a scale factor.</li>
+ 					    
+                                                          <li class="paragraph2"><mark class="red">Rotation</mark>: Random rotation with an angle sampled uniformly between 0 and 360.</li>
+					                  <li class="paragraph2"><mark class="red">Brightness adjustment</mark>: The colour of the image is adjusted. </li>
+						          <li class="paragraph2"><mark class="red">Horizontal reflections</mark> and <mark class="red">patch extractions</mark></li>		
+                                                      <ul/>    
+
+
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Goal</h4>
+                                                      <ul>      
+						          <li class="paragraph2">Approaches that modify the training data in ways that <mark class="red"> change the input representation while keeping the label the same</mark>.</li>	
+						          <li class="paragraph2">It is an easy way to increase the size of the training data.</li>				        
+						          <li class="paragraph2">Augmentation can be seen as a way  of <mark class="red">adding prior knowledge</mark>.</li>					        
+						          <li class="paragraph2">It can also be seen as a way to decrease the generalization error (i.e, as a regularization technique).</li>			        
+			        
+
+			                
+                                                      <ul/>    
+        
+                                                  </div>    
+                                                   
+                                              </div>               
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				      </section> 			   
+ 				      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                   <h3>Dropout</h3>    
+
+                                                   <ol>
+					                                         
+                                                        <img src="href=../../imgl12/Dropout_Networks.png"  height="400" width="1200">          
+
+                                                    </ol>  
+
+						   </br>
+
+                                                   <ul>
+
+
+						          <li class="paragraph2">  <mark class="red">Dropout</mark>: At every training step, every neuron (including input neurons but excluding output neurons) has a <mark class="red">probability \(p\)</mark> of being entirely ignored during the training step.</li>
+
+ 
+                                                    </ul>     						           
+                                                    
+                          		 </div>   
+
+                                                  <p class="paragraph2">  N. Srivastava et al.<a href="https://www.cs.toronto.edu/~hinton/absps/JMLRdropout.pdf"> Dropout: a simple way to prevent neural networks from overfitting.</a>Journal of machine learning research. Vol. 15 No. 1. Pp. 1929--1958. 2014.</p>                                         
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 				      </section>
+
+                                      <section> 
+                                                <mark class="red"></mark>
+                                               <div class="container">
+                                                   <h3>Dropout</h3>         
+
+                                    
+                                                  <div class="right">
+                                                  <h4>Applications</h4>
+                                                      <ul>      
+						          <li class="paragraph2">It generally produces an important accuracy boost to the the CNNs.</li>
+						          <li class="paragraph2">It can be applied to other classes of DNNs.</li>
+						          <li class="paragraph2">It is considered a regularization method since neurons end up being less sensitive to slight changes in the inputs.</li>
+						         			        
+			                
+                                                      <ul/>    
+
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Characteristics</h4>
+                                                      <ul>      
+						          <li class="paragraph2">The parameter  \(p\) is called the <mark class="red">dropout rate and it is typically set to \(50\% \)</mark>.</li>
+
+						          <li class="paragraph2">After training, neurons don't get dropped anymore.</li>
+						          <li class="paragraph2">Neurons trained with dropout cannot co-adapt with their neighboring neurons. <mark class="red">They have to rely on themselves</mark>.</li>	
+						          <li class="paragraph2">They also cannot rely excessively on just a few input neurons. They must <mark class="red">pay attention to each of their input neurons</mark>.</li>
+				        
+			                
+                                                      <ul/>    
+                        
+                                                  </div>    
+                                                   
+                                              </div>        
+                                                     <p class="paragraph2">  A. Geron. <a href=" http://shop.oreilly.com/product/0636920052289.do"> Hands-On Machine Learning with Scikit-Learn and TensorFlow. Concepts, Tools, and Techniques to Build Intelligent Systems. </a>  O'Reilly.  2017.</p>         
+       
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				      </section>
+
+
+                                    <section> 
+                                                <mark class="red"></mark>
+                                               <div class="container">
+                                                   <h3>Using pretrained networks</h3>         
+
+                                    
+                                                  <div class="right">
+                                                  <h4>Applications</h4>
+                                                      <ul>      
+						          <li class="paragraph2">It helps to learn faster.</li>
+						          <li class="paragraph2">It is particularly useful when there commonalities between the problem domains. </li>
+						          <li class="paragraph2">Highly accurate models could be used for fine tuning, e.g. ResNet, VGG, etc.</li>
+						         			        
+			                
+                                                      <ul/>    
+
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Characteristics</h4>
+                                                      <ul>      
+						          <li class="paragraph2">The first layers of a convolutional neural net ( <mark class="red">convolutional base</mark>) contain information reusable across problems since they detect patterns like lines and edges.</li>
+
+						          <li class="paragraph2">Replace the classification layer with a new layer randomly initialized.</li>
+
+							  
+						          <li class="paragraph2">Finetune the last layers using the specific data of the problem.</li>
+			                
+                                                      <ul/>    
+                        
+                                                  </div>    
+                                                   
+                                              </div>        
+                                                     <p class="paragraph2">  A. Geron. <a href=" http://shop.oreilly.com/product/0636920052289.do"> Hands-On Machine Learning with Scikit-Learn and TensorFlow. Concepts, Tools, and Techniques to Build Intelligent Systems. </a>  O'Reilly.  2017.</p>         
+       
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				      </section>				      
+
+ 			    </section>
+
+
+
+
+
+ 			    <section>
+
+ 				      <section id="sec:DNNs_CNN_Archit">
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                   <h3>CNN Architectures</h3>    
+
+                                                   <ol>
+
+                                                        <img src="href=../../imgl12/MNIST_Error_Improvement.png"  height="420" width="1200">     
+   					  
+                                                    </ol>  
+
+						   </br>                                                 				           
+                                                    
+                          		 </div>   
+                                                  <p class="paragraph2">P. Eckersley and Y. Nasser. <a href="https://www.eff.org/ai/metrics">AI Progress Measurement. </a> Measuring the Progress of AI Research. Accessed 2017.</p>                                        
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 				      </section>
+
+
+				     <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                   <h3>CNN Architectures</h3>    
+
+                                                   <ol>
+					                                                                       						        <img src="href=../../img_2019_Lect_8/filters/Networks_Evolution.png"  height="420" width="1200">      
+					               
+   					  
+                                                    </ol>  
+
+						   </br>                                                 				           
+                                                    
+                          		 </div>   
+                                                  <p class="paragraph2">A. Canziani, A. Paszke, E. Culurciello. <a href="https://www.eff.org/ai/metrics">An Analysis of Deep Neural Network Models for Practical Applications. </a> arXiv:1605.07678v4. 2017.</p>                                        
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 				      </section>
+
+
+                                   <section> 
+                                                <mark class="red"></mark>
+                                               <div class="container">
+                                                   <h3>CNN architectures</h3>         
+
+
+                                <div class="right">
+                                                  <h4>From 2014</h4>
+                                                      <ul>      
+
+
+						          <li class="paragraph2"><mark class="red">(2014) VGGNet</mark>: Uses only 3x3 convolutional layers stacked on top of each other in increasing depth.</li>
+						          <li class="paragraph2"><mark class="red">(2014) GoogLeNet</mark>: Includes  an Inception Module that reduces number of parameters in the network .</li>
+						          <li class="paragraph2"><mark class="red">(2015) ResNets</mark>: Residual Net. Winner of ILSVRC 2015.</li>
+
+						          <li class="paragraph2"><mark class="red">(2016) DenseNet</mark>: Densely Connected Convolutional Network has each layer directly connected to every other layer in a feed-forward fashion.</li>
+
+
+
+						          
+                                                      <ul/>    
+
+
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Until 2014</h4>
+                                                      <ul>      
+						          <li class="paragraph2"><mark class="red">(1990) LeNet</mark>: Originally designed for handwritten and machine-printed character recognition. It served as an inspiration for further developments to CNNs.</li>  
+						          <li class="paragraph2"><mark class="red">(2012) AlexNet</mark>: Formed by 5 convolutional layers, max-pooling layers, dropout layers, and 3 fully connected layers. Winner of  of ILSVRC 2012.</li>		
+						          <li class="paragraph2"><mark class="red">(2013) ZFNet</mark>: Similar to AlexNet with a more sensible choice of its hyperparameters. Winner of  of ILSVRC 2012.</li>  
+				                
+                                                      <ul/>    
+                                                     
+                                                  </div>    
+                                                   
+                                              </div>               
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				      </section>
+
+
+	                              <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                   <h3>Inception module</h3>    
+
+                                                   <ol>
+					                                                                      
+                                                        <img src="https://cdn-images-1.medium.com/max/1040/1*so5wnKorn72pUtAOhVvz2w.png"  height="320" width="1200">     
+   					  
+                                                    </ol>  
+
+						   </br>
+
+                                                   <ul>
+
+
+						          <li class="paragraph2">It does the parallel applications of different filters.</li>
+
+  
+                                                    </ul>     						           
+                                                    
+                          		 </div>   
+                                                  <p class="paragraph2"> Figure:  A. Deshpande <a href="https://adeshpande3.github.io/adeshpande3.github.io/A-Beginner's-Guide-To-Understanding-Convolutional-Neural-Networks/">A Beginner's Guide To Understanding Convolutional Neural Networks. </a></p>                                         
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 				      </section>
+
+
+	                              <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+
+                                                   <h5>Inception module</h5>    
+                                                
+                                                   <ol>
+					                                                                      
+                                                        <img src="https://i.stack.imgur.com/d7obJ.png"  height="520" width="800">     
+   					  
+                                                    </ol>  
+				           
+                                                    
+                          		 </div>   
+
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 				      </section>
+
+				      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                   <h3>AlexNet</h3>     
+
+                                                   <ol>
+					                                                                      
+                                                        <img src="http://fromdata.org/wp-content/uploads/2015/10/CNN_Fixed3-1024x618.png"  height="305" width="1200">     
+   					     					  
+                                                    </ol>  
+
+
+                                                   <ul>
+
+						          <li class="paragraph2"> It won the <mark class="red">ImageNet Large-Scale Visual Recognition Challenge </mark> (ILSVRC) in 2012 with a 15.4% top-5 error (next competitor was 26.2%).</li>
+                                            
+                                                      </ul>     						           
+                                                    
+                          		 </div>   
+                                                  <p class="paragraph2"> A. Krizhevsky, I. Sutskever and G. E. Hinton. <a href="http://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks"> Imagenet classification with deep convolutional neural networks. </a> In Advances in Neural Information Processing Systems. Pp. 1097-1105. 2012. </p>   
+                                      
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 				      </section> 
+
+				      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                   <h3>AlexNet</h3>     
+
+                                                   <ol>
+					                                                                      
+                                                        <img src="http://fromdata.org/wp-content/uploads/2015/10/CNN_Fixed3-1024x618.png"  height="305" width="1200">     
+   					     					  
+                                                    </ol>  
+
+
+                                                   <ul>
+
+
+						          <li class="paragraph2">  5 convolutional layers, max-pooling layers, dropout layers, and 3 fully connected layers.</li>
+						          <li class="paragraph2"> Used the ReLU activation function, dropout layers, <mark class="red">data augmentation techniques</mark>, and <mark class="red">Stochastic gradient descent</mark> to optimize the parameters.</li>
+                                                  
+                                                      </ul>     						           
+                                                    
+                          		 </div>   
+                                                  <p class="paragraph2"> A. Krizhevsky, I. Sutskever and G. E. Hinton. <a href="http://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks"> Imagenet classification with deep convolutional neural networks. </a> In Advances in Neural Information Processing Systems. Pp. 1097-1105. 2012. </p>   
+                                      
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 				      </section>  
+
+ 				      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+
+                                                   <h3>Interpreting network architectures: AlexNet</h3>   
+                                                            <table id="customers">
+                                                              <colgroup>                                         
+                                                                 <col style="background-color:yellow">
+                                                                 <col span="8" style="background-color:white">
+                                                                 <col span="3" style="background-color: #bfff00">
+
+                                                                 </colgroup>
+                                                                    <tr> <th>Layer</th> <th>Type </th> <th>Maps </th> <th>Size</th> <th>Kernel size </th> <th>Stride</th><th>Padding</th><th>Activation </th> </tr>
+                                                                    <tr><td>Out</td> <td>Fully Connected </td> <td>-</td> <td>1000</td> <td>-</td><td>-</td> <td>-</td> <td>Softmax</td>  </tr>
+                                                                    <tr><td>F9</td> <td>Fully Connected </td> <td>-</td> <td>4096</td> <td>-</td><td>-</td> <td>-</td> <td>ReLu</td>  </tr>
+                                                                    <tr><td>F8</td> <td>Fully Connected </td> <td>-</td> <td>4096</td> <td>-</td><td>-</td> <td>-</td> <td>ReLu</td>  </tr>
+                                              
+                                                                    <tr><td>C7 </td><td>Convolution </td> <td>256</td> <td>13x13</td> <td>3x3</td> <td>1</td><td>SAME</td> <td>ReLU</td>  </tr>
+                                                                    <tr><td>C6 </td><td>Convolution </td> <td>384</td> <td>13x13</td> <td>3x3</td> <td>1</td><td>?</td> <td>ReLU</td>  </tr>
+                                                                    <tr><td>C5 </td><td>Convolution </td> <td>384</td> <td>13x13</td> <td>3x3</td> <td>1</td><td>SAME</td> <td>ReLU</td>  </tr>
+
+                                                                    <tr><td>S4 </td> <td>Max. Pooling </td> <td>256 </td> <td>13x13 </td> <td>3x3 </td> <td>2 </td><td>VALID </td><td>- </td>  </tr>
+                                                                    <tr><td>C3 </td><td>Convolution </td> <td>256</td> <td>?</td> <td>5x5</td> <td>1</td><td>SAME</td> <td>ReLU</td>  </tr>
+                                                                    <tr><td>S2 </td> <td>Max. Pooling </td> <td>96 </td> <td>27x27 </td> <td>3x3 </td> <td>2 </td><td>VALID </td><td>- </td>  </tr>
+
+                                                                    <tr><td>C1 </td><td>Convolution </td> <td>96</td> <td>?</td> <td>11x11</td> <td>4</td><td>SAME</td> <td>ReLU</td>  </tr>
+
+
+                                                                    <tr><td>In </td><td>Input </td> <td>3(RGB)</td> <td>224x224</td> <td>-</td><td>-</td> <td>- </td> <td>-</td>  </tr>
+                                                              
+                                                                 
+                                                           </table>
+
+
+						   </br>                                                 				           
+                                                    
+                          		 </div>   
+                                                 <p class="paragraph2"> A. Krizhevsky, I. Sutskever and G. E. Hinton. <a href="http://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks"> Imagenet classification with deep convolutional neural networks. </a> In Advances in Neural Information Processing Systems. Pp. 1097-1105. 2012. </p>   
+       
+
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 				      </section>
+                       	      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                   <h3>U-net for image segmentation</h3>     
+
+                                                   <ol>					                                                                                                                          
+						     <img src="href=../../img_2019_Lect_8/filters/U_Net.png"  height="310" width="1250">
+   					     					  
+                                                    </ol>  
+
+
+                                                   <ul>
+
+						          <li class="paragraph2"> U-net  is a CNN for  segmentation of images.</li>
+
+						          <li class="paragraph2"> It has two components. A contracting path and an expansive path.</li>
+						        
+                                                      </ul>     						           
+                                                    
+                          		 </div>   
+                                                  <p class="paragraph2"> A. Krizhevsky, I. Sutskever and G. E. Hinton. <a href="http://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks"> Imagenet classification with deep convolutional neural networks. </a> In Advances in Neural Information Processing Systems. Pp. 1097-1105. 2012. </p>   
+                                      
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 				      </section>  
+
+                       	      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                   <h3>U-net for image segmentation</h3>     
+
+                                                   <ol>					                                                                                                                          
+						     <img src="href=../../img_2019_Lect_8/filters/U_Net.png"  height="300" width="1250">
+   					     					  
+                                                    </ol>  
+
+
+                                                   <ul>
+
+						      
+						          <li class="paragraph2"> In the <mark class="red">contracting path</mark>   convolution blocks are followed by a maxpool blocks.</li>
+
+							  <li class="paragraph2">In the <mark class="red"> expansive path </mark>, the higher resolution features from  <mark class="red">contracting path</mark>  are concatenated with the upsampled features.</li>
+                                                  
+                                                      </ul>     						           
+                                                    
+                          		 </div>   
+                                                  <p class="paragraph2"> A. Krizhevsky, I. Sutskever and G. E. Hinton. <a href="http://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks"> Imagenet classification with deep convolutional neural networks. </a> In Advances in Neural Information Processing Systems. Pp. 1097-1105. 2012. </p>   
+                                      
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 				      </section>  
+
+                                      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                   <h3>CNN Architectures</h3>    
+
+                                                   <ol>
+					                                                                      
+                                                        <img src="href=../../imgl12/ImageNet_Recognition.png"  height="500" width="1200">     
+   					  
+                                                    </ol>  
+
+						   </br>                                                 				           
+                                                    
+                          		 </div>   
+                                                  <p class="paragraph2">P. Eckersley and Y. Nasser. <a href="https://www.eff.org/ai/metrics">AI Progress Measurement. </a> Measuring the Progress of AI Research. Accessed 2017.</p>                                        
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 				      </section>
+ 			
+
+ 			  </section>
+
+ 			  <section>
+		                   <section id="sec:DNNs_Applications">
+                                          <div class="container">
+                                                   <h3>Deep neural networks</h3>          
+ 
+                                                  <span class="fragment">
+
+                                                  <div class="right">
+                                                  <h4>Applications</h4>
+                                                   <ol>
+						          <li class="paragraph2">Predicting the activity of potential drug molecules.</li>
+						          <li class="paragraph2">Analyzing particle accerator data.</li>					
+						          <li class="paragraph2">Reconstructing brain circuits.</li>
+						          <li class="paragraph2">Predicting the effects of mutations in non-coding DNA on gene expression and disease.</li>						     
+  			
+   	
+  						  
+                                                    </ol>   
+                                                                                              
+                          		          </div>
+                                                  </span>           
+                                      
+                                                  <div class="left">   
+
+                                                   <h4>DNNs applications</h4>
+                                                   <ol>
+						          <li class="paragraph2"> Object detection, speech recognition, and machine translation.</li>
+						          <li class="paragraph2"> Generate artistic images with different styles.</li>
+						          <li class="paragraph2"> Clustering patterns of gene expressions .</li>     
+						          <li class="paragraph2"> Sentiment analysis fusioning different modalities.</li>
+  			
+   	
+  						  
+                                                    <ol/>   
+                                                       
+                                                  </div>    
+                                                  
+                                              </div>  
+
+                                                  <p class="paragraph2">H. Wang, B. Raj, and E. P. Xing. <a href="https://arxiv.org/abs/1702.07800">On the Origin of Deep Learning.</a>   arXiv preprint arXiv:1702.07800. 2017.</p>                                                                                       
+
+                                                  <p class="paragraph2"> Y. LeCun, Y. Bengio, and G. Hinton. <a href="https://arxiv.org/abs/1702.07800"> Deep learning.</a> Nature 521.7553 (2015): 436-444. 2015.</p>  
+
+
+                                                  <aside class="notes">
+                                                     The application of deep neural networks are multiple.
+                                                     These are only some few examples.                                     
+                                           	  </aside>
+ 				      </section>
+
+
+                                        <section data-background-image="href=../../imgl10/Object_Recognition_and_Sample.png">
+                                           
+  	                                            <h1><a href="http://modelnet.cs.princeton.edu/"> Modelnet Dataset. </a></h1>
+
+                                                    <h3>Object recognition and generating random shapes with consistent structure.</h3>           
+
+                                                    <p class="paragraph2">Wu et al. <a href="http://3dshapenets.cs.princeton.edu/">3d shapenets: A deep representation for volumetric shapes.</a>Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. Pp. 1912-1920. 2015.</p>           
+
+                                       </section>
+
+
+                                        <section data-background-image="href=../../imgl10/Deep_Drug_Discovery.png">
+                  
+                                                    <h3>Deep-learning models for Drug Discovery</h3>           
+
+                                                    <p class="paragraph2">H. Altae-Tran, B. Ramsundar, A. S. Pappu, and V. Pande <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5408335/">Low data drug discovery with one-shot learning.</a>ACS central science. Vol. 3. No. 4. 283.  2017.</p>           
+
+                                       </section>
+ 
+
+
+                                        <section data-background-image="href=../../imgl10/Deep_Cancer_Detection_1.png" data-background-size="1400px">
+                  
+                                                    <h3>Cancer nodule detectors from lung scans with a 3D convolutional NN</h3>           
+
+                                                    <p class="paragraph2">J. de Wit and D. Hammack <a href="http://juliandewit.github.io/kaggle-ndsb2017/">2nd place solution for the 2017 national datascience bowl.</a> Kaggle Competition. 2017.</p>           
+
+                                       </section>
+
+
+                                       <section data-background-image="href=../../imgl10/Deep_Cancer_Detection_2.png" data-background-size="1400px">
+                  
+                                                    <h3>Cancer nodule detectors from lung scans with a 3D convolutional NN</h3>           
+
+                                                    <p class="paragraph2">J. de Wit and D. Hammack <a href="http://juliandewit.github.io/kaggle-ndsb2017/">2nd place solution for the 2017 national datascience bowl.</a> Kaggle Competition. 2017.</p>           
+
+                                       </section>
+
+		                     <section>
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+                                           
+					    <h3>Scene understanding</h3>					    
+                                            <ol>
+      					        <img src="href=../../img_2019_Lect_8/adv_methods/Scene_Understanding.png"  height="320" width="1500">           
+
+                                                <br>
+                                                <li class="paragraph2">  An algorithm needs to report the top 1 most likely scene categories for each image.</li>
+
+						<li class="paragraph2">  Millions of images for training.  10000 images for test.</li>
+
+						<li class="paragraph2">  Ten categories were used for the challenge. </li>
+					         
+                                           </ol>     		
+                                     
+                          		  </div>
+
+				          <p class="paragraph2"> F. Yu. <a   href="http://lsun.cs.princeton.edu/2016/">Large-scale Scene Understanding Challenge.</a> 2016.</p>       	
+					  
+
+                                                  <aside class="notes">                  
+                                           	  </aside>
+ 				     </section>
+				     
+
+    		                     <section>
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+                                            
+					    <h3>Scene understanding</h3>					    
+                                            <ol>
+      					        <img src="href=../../img_2019_Lect_8/adv_methods/Scene_Understanding_Dataset.png"  height="320" width="1500">           
+                                                <br>
+                                                <li class="paragraph2">  The best two teams accuracies over 0.90. </li>
+                                                <li class="paragraph2">  The best four teams in the contest used Deep Learning Neural Networks. </li>
+                                                
+					         
+                                             </ol>     		
+                                     
+                          		  </div>
+					          <p class="paragraph2"> F. Yu. <a   href="http://lsun.cs.princeton.edu/2016/">Large-scale Scene Understanding Challenge.</a> 2016.</p>       
+
+                                                  <aside class="notes">                  
+                                           	  </aside>
+ 				     </section>
+
+	     				     
+ 			            <section>
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+                                           
+					    <h3>Saliency Prediction</h3>					    
+                                            <ol>
+      					        <img src="href=../../img_2019_Lect_8/adv_methods/Saliency_Prediction.png"  height="320" width="1500">           
+                                                <br>
+                                                <li class="paragraph2">  An algorithm needs to predict where humans look in a scene.</li>
+                                                <li class="paragraph2">  Datasets provided: iSUN (eye tracking based) and SALICON (mouse tracking based). </li>
+						<li class="paragraph2"> 10,000 training images and 5,000 validation images with saliency annotations</li>
+   
+                                            </ol>     		
+                                     
+                          		  </div>
+
+ 				            <p class="paragraph2"> M. Jiang, S. Huang, J. Duan, and Q. Zhao. <a   href="https://www.cv-foundation.org/openaccess/content_cvpr_2015/html/Jiang_SALICON_Saliency_in_2015_CVPR_paper.html">Salicon: Saliency in context.</a>In Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. Pp. 1072-1080.  2015.</p>       
+					    
+                                                  <aside class="notes">                  
+                                           	  </aside>
+ 			         </section>
+			      
+				 <section>
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+                                           
+					    <h3>Semantic Segmentation</h3>					    
+                                            <ol>
+      					        <img src="href=../../img_2019_Lect_8/adv_methods/Image_Segmentation_Challenge.png"  height="320" width="1500">           
+                                                <br>
+                                                <li class="paragraph2">  Object detection from images.</li>
+                                                <li class="paragraph2">  More than 200,000 images and 80 object categories. </li>
+                                                <li class="paragraph2">  Hierarchical and cascade approaches implementing a pipeline of ML methods.</li>
+					         
+                                            </ol>     		
+                                     
+                          		  </div>
+
+					  
+					          <p class="paragraph2"> Tsung-Yi Lin et al. <a  href="https://places-coco2017.github.io/">Joint Workshop of the COCO and Places Challenges at ICCV 2017.</a></p>       
+
+                                                  <aside class="notes">                  
+                                           	  </aside>
+ 				    </section>
+
+
+				      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>   
+   
+                                                   <h4>Neural Artistic Transfer</h4> 
+                                             
+                                                   <ol>
+
+                                                        <img src="href=../../imgl10/Deep_Artistic_Stype.png"  height="950" width="850">           
+
+                                       
+						  
+                                                    </ol>     						           
+                          		 </div>      
+
+
+        
+                                                  <p class="paragraph2">L. A. Gatys, A. S. Ecker, and M. Bethge. <a href="https://arxiv.org/abs/1508.06576">A Neural Algorithm of Artistic Style.</a> arXiv preprint arXiv:1508.06576. 2015.</p>                                    
+                                                  <aside class="notes">
+                                                                                                  
+                                           	  </aside>
+ 				      </section>                                            	
+ 				</section> 
+
+ 				      
+
+
+			</div>
+		</div>
+
+
+
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			Reveal.initialize({
+                            	history: true,
+				transition: 'linear',
+
+
+				math: {
+					// mathjax: 'http://cdn.mathjax.org/mathjax/latest/MathJax.js',
+					config: 'TeX-AMS_HTML-full'
+				},
+
+				dependencies: [
+                                        { src: 'lib/js/fullscreen-img.js' },
+					{ src: 'lib/js/classList.js' },
+					{ src: 'plugin/math/math.js', async: true }
+
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
