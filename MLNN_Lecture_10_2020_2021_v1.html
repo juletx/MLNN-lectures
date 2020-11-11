@@ -1,0 +1,844 @@
+<!doctype html>
+<html lang="en">
+
+
+   
+    
+	<head>
+		<meta charset="utf-8">
+
+		<title>Machine Learning and Neural Networks</title>
+                <meta name="author" content="Roberto Santana and Unai Garciarena">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<!-- <link rel="stylesheet" href="css/reveal.css">  -->
+                <link rel="stylesheet" href="css/fullscreen-img.css">
+                <link rel="stylesheet" href="css/added_css/notebook.css">
+   	        <link rel="stylesheet" href="css/reveal.css">
+                <link rel="stylesheet" href="css/theme/nncourse.css" id="theme">
+
+
+
+        <script>
+	  var link = document.createElement( 'link' );
+	  link.rel = 'stylesheet';
+	  link.type = 'text/css';
+	  link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+	  document.getElementsByTagName( 'head' )[0].appendChild( link );
+	</script>		
+                          
+
+	</head>
+
+	<body>
+
+
+		<div class="reveal">
+			<div class="slides">
+
+				<section>
+                                          <div class="my_container">
+                                        <h2>Machine Learning and Neural Networks</h2>
+					<p>Roberto Santana and Unai Garciarena<p>
+					<p>Department of Computer Science and Artificial Intelligence</p>
+                                        <p>University of the Basque Country</p>
+                          		 </div>   
+				</section>
+                                <section id="sec:NN_Intro">   
+                                            <div class="my_container">
+                                             <h3>Neural Network Paradigms: Table of Contents </h3>
+                                        
+                                              <table style="width:100%"; border=solid>
+
+
+						 <tr>
+
+                                                      <td> <p class="paragraph2"> <a href="#/sec:DNNs_NE"> Neuroevolution </a></p></td>
+
+                                                      <td><p class="paragraph2"> <a href="#/sec:DNNs_EAs"> Evolutionary Algorithms </a></p></td>
+
+                                                      <td> <p class="paragraph2"> <a href="#/sec:DNNs_Weight_Opt"> Weight optimization </a></p></td>
+
+                                                      <td> <p class="paragraph2"> <a href="#/sec:DNNs_NEAT"> NEAT</a></p></td>       
+                        
+                                                 </tr>
+						 
+
+                                                  <tr>                 
+                                                     <td> <p class="paragraph2"> <a href="#/sec:NNs_Spiking"> Spiking networks </a></p></td>         
+                                                     <td> <p class="paragraph2"> <a href="#/sec:NNs_Neuron_Models"> Neuron modeling  </a></p></td>
+
+                                                     <td> <p class="paragraph2"> <a href="#/sec:NNs_Neural_Code">Neural code </a></p> </td>
+
+                                                      <td> <p class="paragraph2"> <a href="#/sec:NNs_SNNs_Topologies"> SNN topologies  </a></p></td>
+     
+                                                  </tr>
+
+						                                                                                         
+				              </table>	  
+                          	          </div>   
+
+  		   	             </section> 
+                          </section>                  
+
+
+
+
+			   <section>
+
+				      <section id="sec:DNNs_NE">
+                                                <mark class="red"></mark>
+                                                <div class="container">
+                                                  <h3>Neuroevolution</h3>                                                  
+                                                  <div class="right">
+
+                                                   <ol>
+					                                                                      
+                                                        <img src="http://fromdata.org/wp-content/uploads/2015/10/CNN_Fixed3-1024x618.png"  height="520" width="1200">     
+   					     					  
+                                                    </ol>  
+                                               
+                          		          </div>
+                                                  <div class="left">
+						      <h4>Neural architecture search (NAS)</h4>                                                      
+                                                      <ul>      
+						          <li class="paragraph2">A problem with NNs is how to set <mark class="red">the architecture and parameters</mark>.</li>
+						          <li class="paragraph2">It is usually based <mark class="red">the user's experience </mark> or on <mark class="red">trial and error</mark>.</li>
+						          <li class="paragraph2">Automatically setting architecture and parameters is <mark class="red">notoriously difficult</mark>.</li>
+						          <li class="paragraph2">This is a <mark class="red">very challenging problem</mark>  and <mark class="red">active research topic</mark>.</li>
+                                                      </ul>                         
+
+
+                                                      <h4>NAS approaches</h4>
+                                                      <ul>      
+						          <li class="paragraph2">Reinforcement learning</li>
+						          <li class="paragraph2">Heuristic optimization algorithms</li>
+						          <li class="paragraph2"><mark class="red">Neuroevolution</mark></li>			         
+                                                      <ul/>   
+                                                  </div>    
+                                                   
+                                              </div>              
+                                                     
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				      </section>  
+				      <section id="sec:DNNs_NE">
+                                                <mark class="red"></mark>
+                                                <div class="container">
+                                                  <h3>Neuroevolution</h3>                                                  
+                                                  <div class="right">
+                                                  <h4>Evolving Neural Networks</h4>
+                                                      <ul>      
+                                                        <img src="href=../../img_2019_Lect_7/Neuroevol_SANE.png"  height="380" width="500">           
+					                
+                                                      <ul/>                                                      
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Characteristics</h4>
+                                                      <ul>      
+						          <li class="paragraph2"><mark class="red">Neuroevolution</mark> investigates methods for <mark class="red">automatic selection</mark>  of neural network architectures and parameters.</li>
+						          <li class="paragraph2">The neural architecture search is transformed into an <mark class="red">optimization problem</mark>.</li>
+						          <li class="paragraph2"><mark class="red">Evolutionary algorithms</mark> are used to find the solution of the optimization problem.</li>
+						          <li class="paragraph2">It is a <mark class="red">very flexible approach</mark> that requires minimal human intervention.</li>
+						          <li class="paragraph2">However, the methods may require a <mark class="red">large number of evaluations</mark>.</li>
+
+                                                      <ul/>                         
+                                                  </div>    
+                                                   
+                                              </div>              
+                                                      <p class="paragraph2"> D. Floreano, P. Duerr, and C. Mattiussi <a  href="https://link.springer.com/article/10.1007/s12065-007-0002-4"> Neuroevolution: from architectures to learning </a> Evolutionary Intelligence. No. 1. Pp. 47-62. 2008.</p>    
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				      </section>  
+
+                                        <section>
+                                            
+                                                   <h3>Neuroevolution: parameter search</h3>                                                                                             <iframe  data-autoplay width="800" height="550"
+                                                           src="https://www.youtube.com/embed/8V2sX9BhAW8">
+                                                        </iframe>
+                                                 
+                                                  <aside class="notes">
+						 
+                                            	  </aside>
+ 				      </section>
+				      <section id="sec:DNNs_EAs">
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                  <h3>Evolutionary Algorithms</h3>     
+
+                                                   <ol>
+					                                                                      
+                                                        <img src="href=../../img_2019_Lect_7/Evolutionary_Algorithm.png"  height="320" width="1200">     
+   					  
+                                                    </ol>  
+
+						   </br>
+
+                                                   <ul>
+
+
+						          <li class="paragraph2"> Evolutionary algorithms. <mark class="red"></mark> </li>
+  
+                                                    </ul>     						           
+                                                    
+                          		 </div>   
+
+                                                      <p class="paragraph2"> K. O. Stanley and R. Miikkulainen <a  href="https://www.cs.cmu.edu/afs/cs/project/jair/pub/volume21/stanley04a-html/jairhtml.html"> Competitive Coevolution through Evolutionary Complexification.</a> Journal of Artificial Intelligence Research. Vol. 21. Pp. 63-100. 2004.</p>   
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 				      </section>
+
+				      <section>
+                                                <mark class="red"></mark>
+                                                <div class="container">
+                                                  <h3>Evolutionary Algorithms</h3>                                                  
+                                                  <div class="right">
+                                                  <h4>EAs</h4>
+                                                      <ul>      
+						          <li class="paragraph2">Simple Genetic Algorithms (SGA)</mark></li>
+						          <li class="paragraph2">GAs with heuristic genetic operators</mark></li>
+						          <li class="paragraph2">Genetic Programming</mark></li>
+						          <li class="paragraph2">Estimation of Distribution Algorithms</mark></li>
+						          <li class="paragraph2">Evolutionary Strategies</mark></li>
+						          <li class="paragraph2"><mark class="red"></mark>CMAEs</li>
+						          <li class="paragraph2"><mark class="red"></mark>Multi-objective EA with decomposition (MOEAD)</li>
+						          <li class="paragraph2">Competent GAs</mark></li>
+						          <li class="paragraph2">Optimal Mixing EAs</mark></li>
+
+						        
+
+                                                      <ul/>   
+
+
+                                                     
+                          		          </div>
+                                                  <div class="left">   
+
+                                                      <h4>Characteristics</h4>
+                                                      <ul>      
+						          <li class="paragraph2">Each solution is represented using an <mark class="red">individual</mark> or  <mark class="red">chromosome</mark>.</li>
+						          <li class="paragraph2">A <mark class="red">population of solutions</mark> is generated.</li>
+
+						          <li class="paragraph2">Solutions are evaluated according to a <mark class="red">fitness function</mark> .</li>
+
+						          <li class="paragraph2">The solutions with the <mark class="red">best fitness values</mark> are selected.</li>	
+						          <li class="paragraph2">New solutions are generated by applying <mark class="red">crossover</mark> and <mark class="red">mutation</mark> operators on the selected solutions.</li>
+						          <li class="paragraph2">The <mark class="red">population</mark> of individuals is  <mark class="red">evolved</mark> for a  number of <mark class="red">generations</mark> until a given <mark class="red">stop criterion</mark> is satisfied.</li>						                 
+							  <ul/>  
+                     
+                                                  </div>    
+                                                   
+                                              </div>              
+                                                      <p class="paragraph2"> A. E. Eiben and J. E. Smith. <a  href="https://link.springer.com/book/10.1007/978-3-662-44874-8"> Introduction to Evolutionary Computing</a>. Heidelberg: Springer. 2003.</p>    
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				      </section>  
+
+				      <section id="sec:DNNs_Weight_Opt">
+                                                <mark class="red"></mark>
+                                                <div class="container">
+                                                  <h3>NN optimization</h3>                                                  
+                                                  <div class="right">
+                                                  <h4>Algorithms</h4>
+                                                      <ul>      
+						          <li class="paragraph2">Neuro-evolution of augmenting topologies (<mark class="red">NEAT</mark>).</li>
+						          <li class="paragraph2"><mark class="red">HyperNEAT</mark>.</li>
+						          <li class="paragraph2">Spectrum-diverse Unified Neuroevolution Architecture (SUNA) <mark class="red"></mark>.</li>
+						          <li class="paragraph2">EPNet<mark class="red"></mark>.</li>	
+
+                                                          <li class="paragraph2"><mark class="red">Many others</mark>.</li>	
+					                 <ul/>  
+
+                                                     
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>How to do it?</h4>
+                                                      <ol>      
+						          <li class="paragraph2"> Select a <mark class="red"> representation</mark> that encodes the NN in an appropriate way.</li>
+						          <li class="paragraph2">Design the <mark class="red">crossover</mark> operator in such a way that combines components of the two (parent) neural networks.</li>
+						          <li class="paragraph2">Design a <mark class="red">mutation</mark> operator that introduces potentially <mark class="red">innovative variations</mark> in the generated solutions.</li>
+						          <li class="paragraph2">Use a fitness function that estimates the <mark class="red">quality of the NN</mark>.</li>
+						          <li class="paragraph2">Decide on the <mark class="red">rest of the EA components</mark>.</li>
+						        
+
+                                                      <ol/>                         
+                                                  </div>    
+                                                   
+                                              </div>              
+
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				      </section>  
+
+
+
+				      <section id="sec:DNNs_NEAT">
+                                                <mark class="red"></mark>
+                                                <div class="container">
+                                                  <h3>Neuro-evolution of augmenting topologies (NEAT)</h3>                                                  
+                                                  <div class="right">
+                                                  <h4>Unbounded length genome</h4>
+                                                      <ul>      
+                                                        <img src="href=../../img_2019_Lect_7/NEAT_genome.png"  height="400" width="500">           
+					                
+                                                      <ul/>                                                      
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Characteristics</h4>
+                                                      <ul>      
+						          <li class="paragraph2">NEAT is a  <mark class="red">neuroevolutionary algorithm</mark>.</li>
+						          <li class="paragraph2">Combines the search for <mark class="red">appropriate network weights</mark> with the <mark class="red">complexification</mark> of the network structure.</li>
+
+							  <li class="paragraph2">To avoid the creation of over-complex NNs, NEAT starts from a <mark class="red">minimal structure</mark> and add nodes and connections <mark class="red">incrementally</mark>.</li>
+							  
+						          <li class="paragraph2">To avoid newly introduced NN structural changes to disappear from the population prematuraturely, it <mark class="red">separates chromosomes in niches</mark>.</li>
+						         
+									        
+
+                                                      <ul/>                         
+                                                  </div>    
+                                                   
+                                              </div>              
+                                                      <p class="paragraph2"> D. Floreano, P. Duerr, and C. Mattiussi <a  href="https://link.springer.com/article/10.1007/s12065-007-0002-4"> Neuroevolution: from architectures to learning </a> Evolutionary Intelligence. No. 1. Pp. 47-62. 2008.</p>    
+                                                      <p class="paragraph2"> K. O. Stanley and R. Miikkulainen <a  href="https://www.cs.cmu.edu/afs/cs/project/jair/pub/volume21/stanley04a-html/jairhtml.html"> Competitive Coevolution through Evolutionary Complexification.</a> Journal of Artificial Intelligence Research. Vol. 21. Pp. 63-100. 2004.</p>   
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				      </section>  
+
+ 				      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                  <h4>NEAT representation </h4>     
+
+                                                   <ol>
+					                                                                      
+                                                        <img src="href=../../img_2019_Lect_7/NEAT_Representation.png"  height="320" width="1200">     
+   					  
+                                                    </ol>  
+
+						   </br>
+
+                                                   <ul>
+
+
+						          <li class="paragraph2"> In the NN representation the  <mark class="red">nodes</mark> and the  <mark class="red">connections</mark> are independently represented. Genome length is <mark class="red">unbounded</mark> </li>
+						          <li class="paragraph2"> Connections contain the  <mark class="red">weights</mark>, whether it is disabled or not, and a time label (<mark class="red">innovation</mark>) to indicate when it was introduced.</li>
+  
+                                                    </ul>     						           
+                                                    
+                          		 </div>   
+
+                                                      <p class="paragraph2"> K. O. Stanley and R. Miikkulainen <a  href="https://www.cs.cmu.edu/afs/cs/project/jair/pub/volume21/stanley04a-html/jairhtml.html"> Competitive Coevolution through Evolutionary Complexification.</a> Journal of Artificial Intelligence Research. Vol. 21. Pp. 63-100. 2004.</p>   
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 				      </section>
+
+ 				      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                  <h4>NEAT mutation </h4>  
+
+                                                   <ol>
+					                                                                      
+                                                        <img src="href=../../img_2019_Lect_7/NEAT_mutation.png"  height="350" width="1000">     
+   					  
+                                                    </ol>  
+
+						   </br>
+
+                                                   <ul>
+
+
+						          <li class="paragraph2"> Mutation can change both,  <mark class="red">mutation weights</mark> and <mark class="red">network structures</mark>. The second can be done by <mark class="red">adding connections</mark> or by <mark class="red">adding nodes</mark>. </li>
+						          <li class="paragraph2"> Whenever a new gene appears a <mark class="red">global innnovation number is increased and assigned to that gene</mark>. </li>
+                                                    </ul>     						           
+                                                    
+                          		 </div>   
+
+                                                      <p class="paragraph2"> K. O. Stanley and R. Miikkulainen <a  href="https://www.cs.cmu.edu/afs/cs/project/jair/pub/volume21/stanley04a-html/jairhtml.html"> Competitive Coevolution through Evolutionary Complexification.</a> Journal of Artificial Intelligence Research. Vol. 21. Pp. 63-100. 2004.</p>   
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 				      </section>
+
+ 				      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                  <h4>NEAT crossover </h4>  
+
+                                                   <ol>
+					                                                                      
+                                                        <img src="href=../../img_2019_Lect_7/NEAT_crossover.png"  height="420" width="1000">     
+   					  
+                                                    </ol>  
+
+						   </br>
+
+                                                   <ul>
+
+
+						          <li class="paragraph2"> The genes of the two parents are matched according to their <mark class="red">innovation numbers</mark>. Genes that do not match are either  <mark class="red">disjoint</mark> or <mark class="red">excess</mark>.  Each type of gene is <mark class="red">randomly exchanged</mark> according to different rules.  </li>
+  
+                                                    </ul>     						           
+                                                    
+                          		 </div>   
+
+                                                      <p class="paragraph2"> K. O. Stanley and R. Miikkulainen <a  href="https://www.cs.cmu.edu/afs/cs/project/jair/pub/volume21/stanley04a-html/jairhtml.html"> Competitive Coevolution through Evolutionary Complexification.</a> Journal of Artificial Intelligence Research. Vol. 21. Pp. 63-100. 2004.</p>   
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 				      </section>
+
+
+                                       <section>
+                                            
+                                                   <h3>Neuroevolution: NEAT application </h3>                                                                                             <iframe  data-autoplay width="800" height="550"
+
+                                                           src="https://www.youtube.com/embed/tmltm0ZHkHw">
+                                                        </iframe>
+                                                 
+                                                  <aside class="notes">
+						 
+                                            	  </aside>
+ 				      </section>
+                        
+                          </section>
+        	    
+                	  <section>
+				      <section  id="sec:NNs_Spiking">        
+                                               <mark class="red"></mark>
+                                               <div class="container">       
+                                                   <h3>Spiking Neural Networks</h3>                                          
+                                                  <div class="right">
+                                                  <h4>Neural network in the brain</h4>
+                                                      <ul>      
+                                                        <img src="https://chickswithcrossbows.files.wordpress.com/2012/01/neuronas_ramon_y_cajal.jpg"  height="400" width="500">           
+					                
+                                                      </ul>                                               
+                                                     
+       
+                          		          </div>                                      
+                                                  <div class="left">   
+                                                      <h4>Characteristics</h4>
+                                                      <ul>      
+
+						          <li class="paragraph2">SNNs are formed by neuron models that communicate by <mark class="red">sequences of spikes</mark>.</li>
+
+						          <li class="paragraph2"> The spiking dynamics of the neurons are described by <mark class="red">differential equations</mark></li>
+
+
+						          <li class="paragraph2">Neurons are connected by  <mark class="red">artificial sypnases</mark>.</li>
+
+						          <li class="paragraph2">They are powerful tools for analysis of elementary processes in the brain.</li>
+						          <li class="paragraph2">Used for fast <mark class="red">signal-processing</mark>, <mark class="red">event detection</mark>, <mark class="red">classification</mark>, <mark class="red">speech recognition</mark>, or <mark class="red">motor control</mark>.</li>
+						          <li class="paragraph2">Computationally <mark class="red">more powerful than perceptrons</mark>  and sigmoidal gates.</li>
+
+                                                      </ul>    
+                                                     
+						  </div>
+						 
+                                                    <p class="paragraph2">F. Ponulak and A. Kasinski <a href="https://www.infona.pl/resource/bwmeta1.element.agro-5be23866-c1b7-49a2-b1f0-38313d42386c"> Introduction to spiking neural networks: Information processing, learning and applications. </a> Acta neurobiologiae experimentalis 4.71. 2011.</p>     
+                                              </div>  
+                                                  <aside class="notes">
+					
+                                            	  </aside>                                         
+                                                 
+        		             </section> 
+
+				      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>   
+                                                   <h3>Spiking Neural Networks</h3>  
+                                                    <h4>Neuronal behavior</h4>
+
+                                                   <ol>
+                                                       <img src="href=../../imgl9/Dendrites_Soma_Axon.png"  height="420" width="1000">  
+					  
+                                                    </ol>     						           
+                          		 </div>                         
+                                                      <p class="paragraph2">Figure: J. Vreeken <a href="http://zbc.uz.zgora.pl/Content/7127/7kasin.pdf"> Spiking neural networks: an introduction. </a> Research Report UU-CS-2003-008. Utrecht University Technical. 2002.</p>    
+                                                                         
+                                                  <aside class="notes">
+                                                                                                  
+                                           	  </aside>
+ 				      </section> 
+
+				      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>   
+                                                
+                                                    <h3>Spiking neuron model</h3>
+
+                                                   <ol>
+                                                       <img src="href=../../imgl9/Spiking_Neuron_Paugam_et_al.png"  height="400" width="1000">  
+					  
+                                                    </ol>     						           
+                          		 </div>       
+                                                      <p class="paragraph2">H. Paugam-Moisy,  S. Bohte. <a href="https://homepages.cwi.nl/~sbohte/publication/paugam_moisy_bohte_SNNChapter.pdf">Computing with spiking neuron networks.</a> Handbook of natural computing. Pp. 335-376. 2012.</p>                     
+                                                                         
+                                                  <aside class="notes">
+                                                                                                  
+                                           	  </aside>
+ 				      </section> 
+
+				      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>   
+                                                   <h3>Spiking Neural Networks</h3>  
+                                                    <h4>Spiking neuron model</h4>
+
+
+                                                   <ol>
+                                                       <img src="href=../../imgl9/IF_Model_Paugam_et_al.png"  height="340" width="1000">  
+					  
+                                                    </ol>     						           
+                          		 </div>       
+                                                      <p class="paragraph2">H. Paugam-Moisy,  S. Bohte. <a href="https://homepages.cwi.nl/~sbohte/publication/paugam_moisy_bohte_SNNChapter.pdf">Computing with spiking neuron networks.</a> Handbook of natural computing. Pp. 335-376. 2012.</p>                     
+                                                                         
+                                                  <aside class="notes">
+                                                                                                  
+                                           	  </aside>
+ 				      </section> 
+
+                                      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>   
+                                                   <h3>Spiking Neural Networks</h3>  
+                                                    <h4>Spiking neuron model</h4>
+
+
+                                                   <ol>
+                                                       <img src="href=../../imgl9/LIF_Neuron_Integration.png"  height="340" width="1000">  
+					  
+                                                    </ol>     						           
+                          		  </div>
+					                                                        <p class="paragraph2">H. Paugam-Moisy,  S. Bohte. <a href="https://homepages.cwi.nl/~sbohte/publication/paugam_moisy_bohte_SNNChapter.pdf">Computing with spiking neuron networks.</a> Handbook of natural computing. Pp. 335-376. 2012.</p>                     
+                                                  <aside class="notes">
+                                                                                                  
+                                           	  </aside>
+ 				      </section>
+
+
+				       <section id="sec:SNN">        
+                                               <mark class="red"></mark>
+                                               <div class="container">     
+                                                    <h3>Spikes and information processing</h3>
+
+                                                  <div class="right">
+
+                                                      <ul>      
+                                                        <img src="href=../../imgl9/SNN_Mod.png"  height="450" width="500">          	                
+                                                      </ul>           
+
+                                                                                        
+                          		          </div>                                      
+                                                  <div class="left">                                                     
+                           		            <div>
+						      <h4>SNNs</h4>
+                          		               </div>        
+                                                      <ul>      
+
+						        <li class="paragraph2">The presence and <mark class="red">timing</mark> of individual neurons is considered as the means of comunication and <mark class="red">neural computation </mark>.</li>
+							<li class="paragraph2">It has \(n\) input neurons whose firing times are determined through some <mark class="red">external mechanism</mark></li>
+							<li class="paragraph2"> Different types of <mark class="red">neuron models</mark> and information processing strategies can be used.</li>
+							<li class="paragraph2">  <mark class="red">Learning</mark> is usually harder than in MLP perceptrons and other non-spiking neural models.</li>
+							
+
+                                                      </ul>    
+                                               
+                                                      
+                                                  </div>    
+                                                   
+                                               </div>
+					       					                                                        <p class="paragraph2">H. Paugam-Moisy,  S. Bohte. <a href="https://homepages.cwi.nl/~sbohte/publication/paugam_moisy_bohte_SNNChapter.pdf">Computing with spiking neuron networks.</a> Handbook of natural computing. Pp. 335-376. 2012.</p>                     
+
+                                                  <aside class="notes">
+                                            	  </aside>
+      		             </section> 
+
+
+				      <section id="sec:NNs_Neural_Code">        
+                                               <mark class="red"></mark>
+                                               <div class="container">     
+                                                    <h3>Spikes and information processing</h3>
+
+                                                  <div class="right">
+
+                                                      <ul>      
+                                                        <img src="href=../../imgl9/Spikes_Short.png"  height="450" width="500">          	                
+                                                      </ul>           
+
+                                                                                        
+                          		          </div>                                      
+                                                  <div class="left">                                                     
+                           		              <div>                                                     
+                                                        <h4>Neural code</h4>
+                          		               </div>        
+                                                      <ul>      
+
+						          <li class="paragraph2"><mark class="red">The problem of neural code</mark>: How is information encoded in the neural signal?</li>
+						          <li class="paragraph2">Two (not necessarily contradictory) explanations:
+
+                                                            <ol>      
+						              <li class="paragraph2"><mark class="red">Spike rate code</mark>: Neural information is encoded in the firing rate (number of spikes in a given time period).</li>
+  						              <li class="paragraph2"><mark class="red">Spike timing code</mark>: Neural information encoded in the precise timing of spikes.</li>
+                                                            </ol> 
+                                                          </li>    
+
+						          
+
+						          <li class="paragraph2"> Spiking neural networks can be designed to exploit different ways of coding information in the neuron spikes.</li>
+
+
+                                                      </ul>    
+                                               
+                                                      
+                                                  </div>    
+                                                   
+                                               </div>
+					       <p class="paragraph2">H. Paugam-Moisy,  S. Bohte. <a href="https://homepages.cwi.nl/~sbohte/publication/paugam_moisy_bohte_SNNChapter.pdf">Computing with spiking neuron networks.</a> Handbook of natural computing. Pp. 335-376. 2012.</p>                     
+
+
+                                                  <aside class="notes">
+                                            	  </aside>
+      		             </section> 
+
+
+				      <section>        
+                                               <mark class="red"></mark>
+                                               <div class="container">     
+                                                    <h3>Information Processing SNNs</h3>   
+                                                  <div class="right">
+                           		             <div>                                                     
+                                                     <h4>Rank-order coding (ROC)</h4>
+                          		             </div>         
+                                                      <ul>      
+						          <li class="paragraph2">Information is encoded by the <mark class="red">order of the spikes</mark> of a neural population.</li>
+						          <li class="paragraph2">The ROC model assumes that each neuron emits only a single spike during a presentation of the stimulus (image).</li>
+
+                                                          <img src="href=../../imgl9/Information_Proc_ROC.png"  height="220" width="400"> 
+
+
+
+
+                                                      </ul>    
+                                                                                       
+                          		          </div>                                      
+                                                  <div class="left">                                                     
+                           		             <div>                                                     
+                                                     <h4>First spike</h4>
+                          		             </div>    	     
+                                                      <ul>      
+						          <li class="paragraph2">The information is <mark class="red"> encoded in the latency</mark> between the beginning of the stimulus and the time of the first spike.</li>
+						          <li class="paragraph2">Enables ultrafast information processing.</li>
+                                                          <img src="href=../../imgl9/Information_Proc_FirstSpike.png"  height="240" width="400"> 
+                                                      </ul>                                                     
+                                                      
+                                                  </div>    
+                                                   
+                                               </div>
+					       <p class="paragraph2">H. Paugam-Moisy,  S. Bohte. <a href="https://homepages.cwi.nl/~sbohte/publication/paugam_moisy_bohte_SNNChapter.pdf">Computing with spiking neuron networks.</a> Handbook of natural computing. Pp. 335-376. 2012.</p>                     
+                                                  <aside class="notes">
+                                            	  </aside>
+      		                     </section> 
+
+
+				      <section>        
+                                               <mark class="red"></mark>
+                                               <div class="container">     
+                                                    <h3>Information Processing SNNs</h3>   
+                                                  <div class="right">
+                           		             <div>                                                     
+                                                     <h4>Coding by synchrony</h4>
+                          		             </div>         
+                                                      <ul>      
+						          <li class="paragraph2">It is based on the assumption that <mark class="red">neurons</mark> that encode different bits of information on the same object <mark class="red">fire synchronously</mark>.</li>
+						          <li class="paragraph2">Networks from reciprocally coupled spiking neurons can undergo very rapid transitions from uncorrelated to synchronized states.</li>
+
+                                                          <img src="href=../../imgl9/Information_Proc_Synchrony.png"  height="220" width="400"> 
+
+
+
+
+                                                      </ul>    
+                                                                                       
+                          		          </div>                                      
+                                                  <div class="left">                                                     
+                           		             <div>                                                     
+                                                     <h4>Latency code</h4>
+                          		             </div>         
+                                                      <ul>      
+						          <li class="paragraph2">Information is in the <mark class="red">exact timing of a set of spikes</mark> relative to each other.</li>
+
+                                                          <li class="paragraph2">Precise relative spike timing is one of the critical parameters that control  many forms of synaptic plasticity</li>
+						          <li class="paragraph2">Very efficient in terms of information capacity.</li>
+                                                          <img src="href=../../imgl9/Information_Proc_Latency.png"  height="210" width="400"> 
+                                                      </ul>                                                     
+                                                      
+                                                  </div>    
+                                                   
+                                              </div>  
+                                                    
+                                                  <aside class="notes">
+                                            	  </aside>
+      		                     </section> 
+
+
+				      <section id="sec:NNs_SNNs_Topologies">        
+                                               <mark class="red"></mark>
+                                               <div class="container">     
+                                                    <h3>Spiking Neural Networks Topologies</h3>   
+                                                  <div class="right">
+                           		             <div>                                                     
+                                                     <h4>Recurrent networks</h4>
+                          		             </div>      
+                                                      <ul>      
+
+						          <li class="paragraph2">Individual neurons or population of neurons interact through <mark class="red">reciprocal (feedback) connections</mark>.</li>
+						          <li class="paragraph2">Are characterized by <mark class="red">richer dynamics</mark>  and potentially <mark class="red">higher computationally capabilities</mark> than feedforward networks.</li>
+						          <li class="paragraph2"> More difficult to <mark class="red"> control and train</mark>.</li>
+
+							  <li class="paragraph2">  <mark class="red"> Hybrid networks</mark>: some populations may be strictly feedforward, while other have recurrent topologies.</li>
+
+                                                      </ul>    
+                          		             
+                                                       
+                                                                                       
+                          		          </div>                                      
+                                                  <div class="left"> 
+                          		             <div>                                                     
+                                                     <h4>Feedforward networks</h4>
+                          		             </div> 
+                                                      <ul>      
+
+						          <li class="paragraph2">  The <mark class="red">data-flow</mark> from input to output units is <mark class="red">strictly one-directional</mark>.</li>
+						          <li class="paragraph2">  The data processing can extend over <mark class="red">multiple layers of neurons</mark>.</li>
+						          <li class="paragraph2">  <mark class="red">No feedback connections</mark> are present.</li>
+						          <li class="paragraph2">  Ussually applied to <mark class="red">model low-level sensory systems</mark> (e.g. vision, olfaction, tactile sensing).</li>
+
+
+                                                      </ul>    
+   
+                                                      
+                                                  </div>    
+   
+                                                   
+                                              </div>  
+                                                      <p class="paragraph2">F. Ponulak and A. Kasinski. <a href="https://www.infona.pl/resource/bwmeta1.element.agro-5be23866-c1b7-49a2-b1f0-38313d42386c"> Introduction to spiking neural networks: Information processing, learning and applications. </a> Acta neurobiologiae experimentalis. 4, 71. 2011.</p>
+                                                  <aside class="notes">
+                                            	  </aside>
+      		                      </section>
+
+				      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>   
+                                                    <h3>Spiking Neural Networks Topologies</h3>   
+
+
+                                                   <ol>
+                                                       <img src="https://www.zurich.ibm.com/images/st/neuromorphic/Reservoir1.png"  height="250" width="1000">  
+					  
+                                                    </ol>  
+
+                          		             <div>                                                     
+                                                     <h4>Reservoir computing</h4>
+                          		             </div>    	
+
+                                                      <ul>      
+						          <li class="paragraph2">It consists of a fixed recurrent structure (<mark class="red">a reservoir</mark>) and a set of output neurons called <mark class="red"></mark>readouts. The <mark class="red"> connectivity structure</mark> within the reservoir is usually <mark class="red">random and fixed</mark>. Readouts receive <mark class="red">only feedforward connections</mark>  from the reservoir.</li>
+                                                     </ul>    
+
+
+					           
+                          		 </div>                            
+                                                      <p class="paragraph2">Figure.  <a href="https://www.zurich.ibm.com/st/neuromorphic/architecture.html">Neuromorphic devices & systems.</a> IBM Research. Zurich.</p>                     
+                                                  <aside class="notes">
+                                                                                                  
+                                           	  </aside>
+ 				      </section> 
+
+				      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>   
+                                                    <h3>Spiking Neural Networks Topologies: Synfire  chains</h3>   
+
+                                                      <ul>      
+
+						          <li class="paragraph2">A multi-layered architecture (<mark class="red">a chain</mark>) in which spiking activity can propagate as a <mark class="red">synchronous wave of neuronal firing</mark>  from one layer (subpopulation) to the next ones.</li>
+						          <li class="paragraph2"> Particular subpopulations may contain <mark class="red">recurrent connections</mark>. Considered as a possible mechanism of the relationship between two <mark class="red">delayed events</mark>.</li>
+                                                      </ul>                                                    
+
+                                                   <ol>
+                                                       <img src="https://www.frontiersin.org/files/Articles/1685/fncom-04-00154-HTML/image_m/fncom-04-00154-g001.jpg"  height="220" width="1000">  
+					  
+                                                    </ol>     	
+                                          
+                          		 </div>    
+                                                      <p class="paragraph2">Figure.  S. Schrader, M. Diesmann, and A. Morrison. <a href="https://www.frontiersin.org/articles/10.3389/fncom.2010.00154/full"> A compositionality machine realized by a hierarchic architecture of synfire chains. </a>Frontiers in Computational Neuroscience 4. 154. 2011.</p>
+                                                  <aside class="notes">
+                                                                                                  
+                                           	  </aside>
+ 				      </section>
+
+				      
+                                      <section>
+                                          <div class="my_container">           
+                                                   <h4>An NN Taxonomy</h4>                                   
+                                                   <ul>
+                                                    <img src="href=../../imgl9/NN_Taxonomy.png"  height="450" width="1200">   
+                                                   </ul>                
+          
+                          		 </div>   
+                                            
+                                                      <p class="paragraph2">A. K. Jain, J. Mao, and K. M. Mohiuddin.   Figure. <a href="http://metalab.uniten.edu.my/~abdrahim/mitm613/Jain1996_ANN%20-%20A%20Tutorial.pdf"> Artificial neural networks: A tutorial.</a> Computer. Vol. 29 No. 3. Pp. 31-44. 1996.  </p>                               
+             
+                                                  <aside class="notes">
+                                            	  </aside>
+ 				      </section>
+
+         		  </section>
+
+      	
+ 		
+			      
+
+			</div>
+		</div>
+
+
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			Reveal.initialize({
+
+                             
+   	                        history: true,
+				transition: 'linear',
+
+				math: {
+					// mathjax: 'http://cdn.mathjax.org/mathjax/latest/MathJax.js',
+					config: 'TeX-AMS_HTML-full'
+				},
+
+				dependencies: [
+                                        { src: 'lib/js/fullscreen-img.js' },
+					{ src: 'lib/js/classList.js' },
+					{ src: 'plugin/math/math.js', async: true }
+
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
