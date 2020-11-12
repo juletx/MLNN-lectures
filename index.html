@@ -1,50 +1,73 @@
-<!doctype html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
 
-		<title>reveal.js</title>
+    <title>MLNN Lectures</title>
+    <meta name="author" content="Roberto Santana" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
 
-		<link rel="stylesheet" href="dist/reset.css">
-		<link rel="stylesheet" href="dist/reveal.css">
-		<link rel="stylesheet" href="dist/theme/black.css" id="theme">
+    <link rel="stylesheet" href="css/fullscreen-img.css" />
+    <link rel="stylesheet" href="css/added_css/notebook.css" />
+    <link rel="stylesheet" href="css/reveal.css" />
+    <link rel="stylesheet" href="css/theme/nncourse.css" id="theme" />
+  </head>
 
-		<!-- Theme used for syntax highlighted code -->
-		<link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-        <section><a href="2020_2021_MLNN_Lecture_1_b.html">2020_2021_MLNN_Lecture_1</a></section>
-        <section><a href="2020_2021_MLNN_Lecture_2c.html">2020_2021_MLNN_Lecture_2</a></section>
-        <section><a href="2020_2021_MLNN_Lecture_3b.html">2020_2021_MLNN_Lecture_3</a></section>
-        <section><a href="2020_2021_MLNN_Lab_2.html">2020_2021_MLNN_Lab_2</a></section>
-        <section><a href="2020_2021_MLNN_Lecture_5a.html">2020_2021_MLNN_Lecture_5</a></section>
-        <section><a href="2020_2021_MLNN_Lecture_6.html">2020_2021_MLNN_Lecture_6</a></section>
-        <section><a href="2020_2021_MLNN_Lecture_7_v2.html">2020_2021_MLNN_Lecture_7</a></section>
-        <section><a href="2020_2021_MLNN_Lecture_8_v1.html">2020_2021_MLNN_Lecture_8</a></section>
-        <section><a href="MLNN_Lecture_9_2020_2021_v2.html">2020_2021_MLNN_Lecture_9</a></section>
-        <section><a href="MLNN_Lecture_10_2019_2020_v3.html">2019_2020_MLNN_Lecture_10</a></section>
-        <section><a href="MLNN_Lecture_10_2020_2021_v1.html">2020_2021_MLNN_Lecture_10</a></section>
-        <section><a href="MLNN_Lecture_11_2020_2021.html">2020_2021_MLNN_Lecture_11</a></section>
-			</div>
-		</div>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+				<section>
+					<h2>Machine Learning and Neural Networks</h2>
+					<table>
+						<tbody>
+							<tr>
+								<td><h4><a href="2020_2021_MLNN_Lecture_1_b.html">2020_2021_MLNN_Lecture_1</a></h4></td>
+								<td><h4><a href="2020_2021_MLNN_Lecture_2c.html">2020_2021_MLNN_Lecture_2</a></h4></td>
+								<td><h4><a href="2020_2021_MLNN_Lecture_3b.html">2020_2021_MLNN_Lecture_3</a></h4></td>
+							</tr>
+							<tr>
+								<td><h4><a href="2020_2021_MLNN_Lab_2.html">2020_2021_MLNN_Lab_2</a></h4></td>
+								<td><h4><a href="2020_2021_MLNN_Lecture_5a.html">2020_2021_MLNN_Lecture_5</a></h4></td>
+								<td><h4><a href="2020_2021_MLNN_Lecture_6.html">2020_2021_MLNN_Lecture_6</a></h4></td>
+							</tr>
+							<tr>
+								<td><h4><a href="2020_2021_MLNN_Lecture_7_v2.html">2020_2021_MLNN_Lecture_7</a></h4></td>
+								<td><h4><a href="2020_2021_MLNN_Lecture_8_v1.html">2020_2021_MLNN_Lecture_8</a></h4></td>
+								<td><h4><a href="MLNN_Lecture_9_2020_2021_v2.html">2020_2021_MLNN_Lecture_9</a></h4></td>
+							</tr>
+							<tr>
+								<td><h4><a href="MLNN_Lecture_10_2019_2020_v3.html">2019_2020_MLNN_Lecture_10</a></h4></td>
+								<td><h4><a href="MLNN_Lecture_10_2020_2021_v1.html">2020_2021_MLNN_Lecture_10</a></h4></td>
+								<td><h4><a href="MLNN_Lecture_11_2020_2021.html">2020_2021_MLNN_Lecture_11</a></h4></td>
+							</tr>
+						</tbody>
+					</table>
+        </section>
+      </div>
+    </div>
 
-		<script src="dist/reveal.js"></script>
-		<script src="plugin/notes/notes.js"></script>
-		<script src="plugin/markdown/markdown.js"></script>
-		<script src="plugin/highlight/highlight.js"></script>
-		<script>
-			// More info about initialization & config:
-			// - https://revealjs.com/initialization/
-			// - https://revealjs.com/config/
-			Reveal.initialize({
-				hash: true,
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
 
-				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
-			});
-		</script>
-	</body>
+    <script>
+      Reveal.initialize({
+        history: true,
+        transition: "linear",
+
+        math: {
+          // mathjax: 'http://cdn.mathjax.org/mathjax/latest/MathJax.js',
+          config: "TeX-AMS_HTML-full",
+        },
+
+        dependencies: [
+          { src: "lib/js/fullscreen-img.js" },
+          { src: "lib/js/classList.js" },
+          { src: "plugin/math/math.js", async: true },
+        ],
+      });
+    </script>
+  </body>
 </html>
