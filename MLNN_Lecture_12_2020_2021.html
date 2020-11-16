@@ -1,0 +1,1810 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Machine Learning and Neural Networks</title>
+                <meta name="author" content="Roberto Santana">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<!-- <link rel="stylesheet" href="css/reveal.css">  -->
+                <link rel="stylesheet" href="css/fullscreen-img.css">
+                <link rel="stylesheet" href="css/added_css/notebook.css">
+   	        <link rel="stylesheet" href="css/reveal.css">
+                <link rel="stylesheet" href="css/theme/nncourse.css" id="theme">
+
+		<style>
+		  .float-img {
+		       float: left;
+		       margin-right: 4em;
+  		       margin-top: 5px;
+		       margin-bottom: 5px;
+		       border: solid black 1px;
+		       padding: 2px;
+		  }
+		</style>
+
+		
+        <script>
+	var link = document.createElement( 'link' );
+	link.rel = 'stylesheet';
+	link.type = 'text/css';
+	link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+	document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>   
+   
+    
+
+	<body>
+
+
+		<div class="reveal">
+			<div class="slides">
+
+				<section>
+                                          <div class="my_container">
+                                        <h2>Machine Learning  and Neural Networks</h2>
+					<p>Roberto Santana and Unai Garciarena<p>
+					<p><mark class="red">roberto.santana@ehu.es</mark><p>
+					<p>Department of Computer Science and Artificial Intelligence</p>
+                                        <p>University of the Basque Country</p>
+                          		 </div>   
+				</section>
+                                <section id="sec:NN_Intro">   
+                                            <div class="my_container">
+                                             <h3>Recurrent Neural Networks: Table of Contents </h3>
+                                        
+                                              <table style="width:100%"; border=solid>
+
+                                                  <tr>                                                  
+
+                                                      <td> <p class="paragraph2"> <a href="#/sec:DNNs_Sequences"> Sequence prediction </a></p></td>
+
+
+						      <td> <p class="paragraph2"> <a href="#/sec:RNNs"> RNNs </a></p></td>
+
+						      
+						       <td> <p class="paragraph2"> <a href="#/sec:RNN_Variants"> Variants of RNN </a></p></td>
+
+					      	      <td> <p class="paragraph2"> <a href="#/sec:BPTT"> BPTT </a></p></td>
+
+
+						      
+						     
+
+						        </tr>
+
+						  <tr>
+
+						    <td> <p class="paragraph2"> <a href="#/sec:DNNs_RNNs"> Deep RNNs </a></p></td>
+						    
+                                                      <td> <p class="paragraph2"> <a href="#/sec:LT_DEP"> Long term dependencies</a></p></td>                                                
+
+                                                     <td> <p class="paragraph2"> <a href="#/sec:DNNs_LSTMs"> LSTM Networks</a></p></td>
+						     
+						      <td> <p class="paragraph2"> <a href="#/sec:DNNs_GRUs"> GRUs</a></p></td>    
+                                              
+      
+
+						      
+                                                  </tr>
+
+
+			                          <tr>
+
+	
+
+                                                      <td> <p class="paragraph2"> <a href="#/sec:RNNs_NLP"> Language processing</a></p></td>
+                                                      
+                                                     
+                                                  </tr>
+
+						  
+                                                                                         
+				              </table>	  
+                          	          </div>   
+
+  		   	            </section> 				
+                          </section>
+
+
+                           <section>
+                                    <section id="sec:RNNs">
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+
+                                                   <ul>
+
+                                                     <img src="href=../../img_2018_Lect_8/Conv_One_To_One.png"  height="400" width="1050">           
+						     <br>
+                                                        <li class="paragraph2"> Convolutional networks we have seen receive a  <mark class="red"> single input</mark> (e.g., each image) and produce a <mark class="red">single output</mark>.</li>
+        			                     
+                                                    </ul>  
+                          		 </div>   
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 				      </section>
+
+				      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                   <h3>Recurrent Neural Networks</h3>         
+                                                   <ul>
+
+                                                     <img src="href=../../img_2018_Lect_8/RNN_Weather_Prediction.png"  height="400" width="1050">           
+						     <br>
+                                                        <li class="paragraph2"> For some problems, sequential information is available,i.e.,  <mark class="red">several inputs</mark> from which a single output has to be produced <mark class="red">a single output</mark> (e.g., weather forecast).</li>
+                                                        <li class="paragraph2">Problem:  <mark class="red">Weather forecast</mark>.</li>
+        			                     
+                                                    </ul>  
+                          		 </div>   
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 				      </section>
+
+			      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                   <h3>Recurrent Neural Networks</h3>         
+                                                   <ul>
+
+                                                     <img src="http://thegreatrecession.info/blog/wp-content/uploads/1929-stock-market-crashes-to-1932.jpg"  height="400" width="1050">           
+						     <br>
+                                                       
+                                                        <li class="paragraph2">Problem:  <mark class="red">Time series prediction</mark>.</li>
+        			                     
+                                                    </ul>  
+                          		 </div>   
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 				      </section>
+
+
+
+
+				      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                   <h3>Recurrent Neural Networks</h3>         
+                                                   <ul>
+
+                                                     <img src="href=../../img_2018_Lect_8/RNN_Irish_Tune_Prediction.png"  height="350" width="1050">           
+						     <br>
+                                                        <li class="paragraph2"> In other problems, <mark class="red"> a single input</mark> is avalaible and <mark class="red">an output that is itself a sequence</mark> is needed.</li>
+                                                        <li class="paragraph2">Problem:  <mark class="red">Music generation according to genre</mark>.</li>                                                     
+
+        			                     
+                                                    </ul>  
+                          		 </div>   
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 				      </section>
+
+				      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                   <h3>Recurrent Neural Networks</h3>         
+                                                   <ul>
+
+                                                     <img src="href=../../img_2018_Lect_8/RNN_One_To_One.png"  height="400" width="1050">           
+						     <br>
+                                                        <li class="paragraph2"> RNNs can also receive a  <mark class="red"> single input</mark> (e.g., each image) and produce a <mark class="red">single output</mark>.</li>
+        			                     
+                                                    </ul>  
+                          		 </div>   
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 				      </section>
+
+
+				      
+
+				      	<section>
+                                                <mark class="red"></mark>
+                                                <div class="container">                                                
+                                                   <h3>Recurrent Neural Networks</h3>
+
+                                                  <div class="right">
+                                                  <h4>Network architecture</h4>
+                                                      <ul>      
+                                                        <img src="href=../../img/NNZoo/rnn.png"  height="350" width="500">           
+					                
+                                                      <ul/>                                                      
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Characteristics</h4>
+                                                      <ul>      
+						        <li class="paragraph2">RNNs are a family of NNs for <mark class="red">processing sequential data</mark>.</li>
+
+						        <li class="paragraph2">An internal state that serves as a memory of what the network has seen in the past.</li>
+
+						       
+
+							  <li class="paragraph2">An RNN shares the same weights accross several time steps .</li>
+
+
+							<li class="paragraph2">Regardless  of the sequence length, the learned model has the same input size.</li>
+                                                        <li class="paragraph2">It is possible to use the same transition function \(f\) with the same parameters at ever time \(t\).</li>
+
+                                                      <ul/>          
+                
+                                                                 
+                                                  </div>    
+                                                   
+                                              </div>               
+                                                      <p class="paragraph2"> I. Goodfellow and Y. Bengio and A. Courville. <a href="http://www.deeplearningbook.org/"> Deep Learning. Chapter 10. Sequence Modeling: Recurrent and Recursive Nets.</a> MIT Press. 2016. </p>  
+                                                     <p class="paragraph2">  A. Geron. <a href=" http://shop.oreilly.com/product/0636920052289.do"> Hands-On Machine Learning with Scikit-Learn and TensorFlow. Concepts, Tools, and Techniques to Build Intelligent Systems. </a>  O'Reilly.  2017.</p>         
+                                                      <p class="paragraph2"> A. Graves. <a href="https://link.springer.com/content/pdf/10.1007/978-3-642-24797-2.pdf">  Supervised sequence labelling with recurrent neural networks. Vol. 385. </a> Heidelberg: Springer. 2012.</p>  
+
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				      </section>  
+
+
+				      <section>
+                                                <mark class="red"></mark>
+                                                <div class="container">                                                
+                                                   <h3>Recurrent Neural Networks</h3>
+
+                                                  <div class="right">
+                                                  <h4>Network architecture</h4>
+                                                      <ul>      
+                                                        <img src="href=../../img/NNZoo/rnn.png"  height="350" width="500">           
+					                
+                                                      <ul/>                                                      
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Applications</h4>
+                                                      <ul>
+
+					                  <li class="paragraph2"> They allow to implement very flexible  architecture designs. </li>
+					                  <li class="paragraph2">Can process<mark class="red"> sequences of variable length</mark>.</li>		
+						         
+						          <li class="paragraph2">Stock market price predictions</li>
+
+
+							  <li class="paragraph2">Speech recognition</mark></li>
+
+							   <li class="paragraph2">Predicting  trajectories </li>
+			       
+
+                                                      <ul/>          
+                
+                                                                 
+                                                  </div>    
+                                                   
+                                              </div>               
+                                                      <p class="paragraph2"> I. Goodfellow and Y. Bengio and A. Courville. <a href="http://www.deeplearningbook.org/"> Deep Learning. Chapter 10. Sequence Modeling: Recurrent and Recursive Nets.</a> MIT Press. 2016. </p>  
+                                                     <p class="paragraph2">  A. Geron. <a href=" http://shop.oreilly.com/product/0636920052289.do"> Hands-On Machine Learning with Scikit-Learn and TensorFlow. Concepts, Tools, and Techniques to Build Intelligent Systems. </a>  O'Reilly.  2017.</p>         
+                                                      <p class="paragraph2"> A. Graves. <a href="https://link.springer.com/content/pdf/10.1007/978-3-642-24797-2.pdf">  Supervised sequence labelling with recurrent neural networks. Vol. 385. </a> Heidelberg: Springer. 2012.</p>  
+
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				      </section>
+
+
+
+				      <section>
+                                                <mark class="red"></mark>
+                                                <div class="container">                                                
+                                                   <h3>Recurrent Neural Networks</h3>
+
+                                                  <div class="right">
+                                                  <h4>Structure</h4>
+                                                      
+                                                      <ul>      
+                                                        <img src="href=../../img_2018_Lect_8/Simple_Cell_A.png"  height="350" width="250">           
+					                
+                                                      <ul/>                                                         
+                
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Simple recurrent neuron</h4>
+                                                      <ul>      
+
+						          <li class="paragraph2">A recurrent neural network looks similar to a feedforward network except <mark class="red">it also has connections pointing backwards</mark>.</li>
+						          <li class="paragraph2">A <mark class="red">simple recurrent neuron</mark> has the following components:
+
+                                                            <ol>     
+							      
+						                 <li class="paragraph2">An <mark class="red">input</mark>.</li>
+						                 <li class="paragraph2">A <mark class="red">single neuron </mark>that processes the output.</li>
+						                 <li class="paragraph2">One <mark class="red">output connection</mark>.</li>
+						                 <li class="paragraph2">One connection that <mark class="red">sends the output back to the neuron</mark>.</li>
+                                                            </ol>     
+                                                          </li>
+
+                                                      <ul/>          
+                
+                                                                 
+                                                  </div>    
+                                                   
+                                              </div>               
+                                                     <p class="paragraph2">  A. Geron. <a href=" http://shop.oreilly.com/product/0636920052289.do"> Hands-On Machine Learning with Scikit-Learn and TensorFlow. Concepts, Tools, and Techniques to Build Intelligent Systems. </a>  O'Reilly.  2017.</p>         
+
+
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				      </section>  
+
+	                              <section>
+                                                <mark class="red"></mark>
+                                                <div class="container">  
+                                                   <h3>Simple Recurrent Neurons</h3>                                            
+                                                  <div class="right">
+                                                  <h4>Memory cells</h4>
+                                                      
+                                                  <ul>
+						       <img src="href=../../img_2018_Lect_8/Simple_Cell_A.png"  height="350" width="250">           
+                                                   
+					                
+                                                      <ul/>                                                         
+                
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Recurrent neuron as memory cell</h4>
+
+                                                      <ul>      
+                                                       					 
+                                                        <li class="paragraph2">  A part of a neural network that preserves some state accross time steps is called a <mark class="red">memory cell</mark>.</li>
+						       <li class="paragraph2">   The  <mark class="red"> hidden state </mark> serves as a kind of lossy summary of the task-relevant aspects of the past sequence of inputs up to the current state.</li>
+        						 <li class="paragraph2"> A single recurrent neuron, or a layer of recurrent neurons, is a <mark class="red">basic cell</mark>  or simply a <mark class="red">cell</mark>. </li>
+        					
+					                
+                                                      <ul/> 
+
+                                                                 
+                                                  </div>    
+                                                   
+                                              </div>               
+                                                     <p class="paragraph2">  A. Geron. <a href=" http://shop.oreilly.com/product/0636920052289.do"> Hands-On Machine Learning with Scikit-Learn and TensorFlow. Concepts, Tools, and Techniques to Build Intelligent Systems. </a>  O'Reilly.  2017.</p>         
+
+
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 		                      </section>
+
+                                         <section>
+                                                <mark class="red"></mark>
+                                                <div class="container">  
+                                                   <h3>Recurrent Neural Networks</h3>                                            
+                                                  <div class="right">
+                                                  <h4>Unrolling the neuron through time</h4>
+                                                      
+                                                      <ul>      
+                                                        <img src="href=../../img_2018_Lect_8/RNN_Many_To_One.png"  height="350" width="480">           
+					                 <li class="paragraph2">The <mark class="red">state of a (hidden) cell</mark> at time \(t\) is represented as \( {\bf{s}}_t \). </li>
+        					
+                                                      <ul/>                                                         
+                
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Simple recurrent neuron</h4>
+
+                                                      <ul> 
+     
+                                                         <img style="margin:0px auto;display:block" src="href=../../img_2018_Lect_8/Simple_Cell_A.png"  height="350" width="250">           						 
+                                                        <li class="paragraph2">It is possible <mark class="red"> "unroll" </mark> the recurrent neuron to represent the input and output at every time \(t\).</li>
+        						 <li class="paragraph2">  <mark class="red">It is always the same neuron!!! </mark> Only the representation changes. </li>
+					                
+                                                      <ul/> 
+
+                                                                 
+                                                  </div>    
+                                                   
+                                              </div>               
+                                                     <p class="paragraph2">  A. Geron. <a href=" http://shop.oreilly.com/product/0636920052289.do"> Hands-On Machine Learning with Scikit-Learn and TensorFlow. Concepts, Tools, and Techniques to Build Intelligent Systems. </a>  O'Reilly.  2017.</p>         
+
+
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 					 </section>
+
+				      
+				    <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                               <h4>Recurrent Neuron Computation</h4>
+					          <ul>      
+                                                        <img src="href=../../img_2018_Lect_8/RNN_Many_To_One.png"  height="300" width="1480">           
+					                
+                                                  <ul/> 
+                                                  <ol>
+
+					                     <br>
+							     <h4>
+
+
+							    \[
+							        {\bf{s}}_{(t)} = f_W \left ( {\bf{s}}_{(t-1)},  {\bf{x}}_{(t)}  \right)
+
+							    \]
+							  
+							   	          						        
+					                    <li class="paragraph2"> \(  {\bf{x}}_{(t)}\): Input.</li>
+
+							    <li class="paragraph2"> \( {\bf{s}}_{(t-1)},  {\bf{s}}_{(t)}\): States
+							      at times \(t-1 \) and \( t \). </li>
+
+                                                             <li class="paragraph2">  \( f_W \): Current state of the neuron depends on the previous state and the input through a <mark class="red">function parameterized by  \( W \) </mark>.</li>
+                                                    
+		
+						   </h4>
+                                                    </ol>                 
+                          		 </div>  
+					</section>
+					 <section>
+                                                <mark class="red"></mark>
+                                                <div class="container">  
+                                                   <h3>Simple Recurrent Neurons</h3>                                            
+                                                  <div class="right">
+                                                    <h4>Memory cells</h4>
+ <ul>      
+                                                       	
+        					
+        						 <li class="paragraph2">The <mark class="red">cell output</mark>  is also a function of the current inputs and the previous state. </li>
+
+					    <li class="paragraph2">For simple cells <mark class="red">the output is equal to cell's state</mark>. </li>
+        						 <li class="paragraph2">For more complex cells <mark class="red">the output of the cell and the cell's state</mark> do not coincide. </li>
+
+					                
+                                                      <ul/> 
+						     
+                                                      
+                                                  
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Recurrent neuron as memory cell</h4>
+
+						      <ol>
+
+					                     <br>
+							     <h4>
+
+
+							    \[
+							        {\bf{s}}_{(t)} = f_W \left ( {\bf{s}}_{(t-1)},  {\bf{x}}_{(t)}  \right)
+
+							    \]
+							  
+							   	          						        
+					                    <li class="paragraph2"> \(  {\bf{x}}_{(t)}\): Input.</li>
+
+							    <li class="paragraph2"> \( {\bf{s}}_{(t-1)},  {\bf{s}}_{(t)}\): States
+							      at times \(t-1 \) and \( t \). </li>
+
+                                                             <li class="paragraph2">  \( f_W \): Current state of the neuron depends on the previous state and the input through a <mark class="red">function parameterized by  \( W \) </mark>.</li>
+                                                    
+		
+						   </h4>
+                                                    </ol>  
+                                                     
+
+                                                                 
+                                                  </div>    
+                                                   
+                                              </div>               
+                                                     <p class="paragraph2">  A. Geron. <a href=" http://shop.oreilly.com/product/0636920052289.do"> Hands-On Machine Learning with Scikit-Learn and TensorFlow. Concepts, Tools, and Techniques to Build Intelligent Systems. </a>  O'Reilly.  2017.</p>         
+
+
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 		                      </section>
+
+
+									
+
+                                         <section>
+                                              <div class="my_container">
+                                               <mark class="red"></mark>
+                                                  <h3>Recurrent Neuron Computation</h3>
+                                                   <ol>
+					                     <br>
+							     <h4>
+
+
+							    \[
+							    {\bf{s}}_{(t)} = \phi \left (  W_{s,s} \, {\bf{s}}_{(t-1)}
+							    +  W_{x,s} \, {\bf{x}}_{(t)} \right)
+
+
+							    \]
+
+							    <br>
+
+							    \[
+							        {\bf{y}}_{(t)} = {\bf{s}}_{(t)}  W_{s,y} 
+
+							    \]
+	          						        
+					                    <li class="paragraph2"> \(  {\bf{x}}_{(t)}\): Input.</li>
+
+							    <li class="paragraph2"> \( {\bf{s}}_{(t-1)},  {\bf{s}}_{(t)}\): States
+							      at times \(t-1 \) and \( t \).</li>
+
+                                                             <li class="paragraph2">  \({\bf{W}}_{s,s}\),\({\bf{W}}_{x,s}\), \({\bf{w}}_{s,y}\): Weights for the state, the input, and the output, respectively.</li>
+
+                                                              <li class="paragraph2">\(\phi() \): Activation function</mark>.</li>
+
+		
+						   </h4>
+                                                    </ol>  
+             
+                          		 </div>  
+
+                                       </section>
+
+
+                                         <section>
+                                              <div class="my_container">
+                                               <mark class="red"></mark>
+                                                  <h3>Recurrent Neuron Computation</h3>
+                                                   <ol>
+					                     <br>
+							     <h4>
+
+
+							    \[
+							    {\bf{s}}_{(t)} = \phi \left (  W_{s,s} \, {\bf{s}}_{(t-1)}
+							    +  W_{x,s} \, {\bf{x}}_{(t)} \right)
+
+
+							    \]
+
+							    <br>
+
+							    \[
+							        {\bf{y}}_{(t)} = {\bf{s}}_{(t)}  W_{s,y} 
+
+							    \]
+	          						        
+					                    
+                                                             <li class="paragraph2">  \({\bf{W}}_{s,s}\),\({\bf{W}}_{x,s}\), \({\bf{w}}_{s,y}\) are <mark class="red">shared along all time steps</mark> .</li>
+
+                                                              <li class="paragraph2"> Some simple RNN cells do not use \( W_{s,y} \) and assume that <mark class="red"> \( {\bf{y}}_{(t)} = {\bf{s}}_{(t)} \) </mark></li>
+
+		
+						   </h4>
+                                                   </ol>  
+                                     		 </div>  
+
+ 				      </section>  
+
+
+					 	                                <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                   <h3>RNN problem</h3>         
+                                                   <ul>
+
+                                                     <img src="href=../../img_2018_Lect_8/RNN_Step_1_m.png"  height="350" width="850">           
+						     <br>
+                                                        <li class="paragraph2"> \(t=1: \; \; \;  {\bf{s}}_{(t)} = \phi \left (  W_{s,s} \, {\bf{s}}_{(t-1)}
+							    +  W_{x,s} \, {\bf{x}}_{(t)} \right)  \) .</li>
+        			                     
+                                                    </ul>  
+                          		   </div>   
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 				</section>
+
+ 				   <section>
+					<div class="my_container">
+                                               <mark class="red"></mark>
+                                                   <h3>RNN problem</h3>         
+                                                   <ul>
+
+                                                     <img src="href=../../img_2018_Lect_8/RNN_Step_2_m.png"  height="350" width="850">           
+						     <br>
+                                                        <li class="paragraph2"> \(t=2: \; \; \;  {\bf{s}}_{(t)} = \phi \left (  W_{s,s} \, {\bf{s}}_{(t-1)}
+							    +  W_{x,s} \, {\bf{x}}_{(t)} \right)  \) .</li>
+        			                     
+                                                    </ul>  
+                          		   </div>   
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 				   </section>
+
+
+
+				        <section>
+					   <div class="my_container">
+                                               <mark class="red"></mark>
+                                                   <h3>RNN problem</h3>         
+                                                   <ul>
+
+                                                     <img src="href=../../img_2018_Lect_8/RNN_Step_3_m.png"  height="350" width="850">           
+						     <br>
+                                                        <li class="paragraph2"> \(t=3: \; \; \;  {\bf{s}}_{(t)} = \phi \left (  W_{s,s} \, {\bf{s}}_{(t-1)}
+							    +  W_{x,s} \, {\bf{x}}_{(t)} \right)  \) .</li>
+        			                     
+                                                    </ul>  
+                          		   </div>   
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 					</section>
+
+
+					<section>
+					   <div class="my_container">
+                                               <mark class="red"></mark>
+                                                   <h3>RNN problem</h3>         
+                                                   <ul>
+
+                                                     <img src="href=../../img_2018_Lect_8/RNN_State_Value.png"  height="450" width="850">           
+						     <br>
+
+						          
+					              
+                                                    </ul>  
+                          		   </div>   
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 					</section>
+
+ 			</section>          
+
+		        <section>
+				       <section id="sec:BPTT">
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                   <h3>Back propagation through time</h3>         
+                                                   <ul>
+
+                                                     <img src="href=../../img_2018_Lect_8/RNN_Many_To_One.png"  height="350" width="850">           
+						     <br>
+						        <li class="paragraph2">First, the RNN is <mark class="red">unrolled through time</mark>.</li>
+                                                           <li class="paragraph2">Regular backpropagation can be applied. This strategy is called <mark class="red">backpropagation through time (BPTT)</mark>.</li>                                                        					 
+                                                   </ul>
+                          		   </div>   
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 					</section>
+									
+                                        <section>
+                                                <mark class="red"></mark>
+                                                <div class="container">  
+                                                   <h3>Back propagation through time</h3>                                            
+                                                  <div class="right">
+                                                    <ul>
+						       <img src="href=../../img_2018_Lect_8/RNN_One_To_One.png"  height="335" width="550">           
+                                                        
+                                                      <ul/>                                                         
+                
+                          		          </div>
+                                                  <div class="left">   
+                                                       <h4>BPTT</h4>
+                                                      <ul>                
+                                                        <li class="paragraph2"> A  <mark class="red">forward pass through the unrolled network</mark>.</li>                                                            
+                                                        <li class="paragraph2"> The output sequence is evaluated using a  <mark class="red">cost function </mark> \(L \left ({\bf{Y}}_{(t_{min})},{\bf{Y}}_{(t_{min}+1)},\dots,{\bf{Y}}_{(t_{max})}   \right) \),  where \(t_{min}\) and  \(t_{max}\) are the first and last ouput time steps.</li>        					
+                                                        <li class="paragraph2">The  <mark class="red">gradients of the loss function</mark> are propagated backward through the unrolled network.</li>							
+
+                                                        <li class="paragraph2">The <mark class="red">model parameters are updated</mark> using the gradients.</li>
+
+							<li class="paragraph2">Loss functions depend on the   <mark class="red">different RNN architectures</mark>.</li>   
+                                                      </ul> 
+
+                                                                 
+                                                  </div>    
+                                                   
+                                              </div>               
+                                                
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				       </section>
+			</section>
+			<section>
+					<section id="sec:RNN_Variants">
+					   <div class="my_container">
+                                               <mark class="red"></mark>
+                                                   <h3>RNN Variants</h3>         
+                                                   <ul>
+                                                   
+                                                        <li class="paragraph2">Produce an output at each time step and have <mark class="red">recurrent connections between hidden units</mark>.</li>
+
+							<li class="paragraph2">Produce an output at each time step and have recurrent connections only from the <mark class="red">output at one time step to the hidden units</mark>  at the next time step.</li>
+
+							<li class="paragraph2">Recurrent connections between hidden units, that read an entire sequence and then <mark class="red">produce a single output</mark>.</li>
+
+							 
+                                                    </ul>  
+                          		   </div>   
+						          
+					            
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 					</section>
+                                        <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                   <h3>One input to one output</h3>         
+                                                   <ul>
+
+                                                     <img src="href=../../img_2018_Lect_8/RNN_One_To_One.png"  height="350" width="850">           
+						     <br>
+                                                        <li class="paragraph2"> Example of application: Next character prediction.</li>
+        			                     
+                                                    </ul>  
+                          		   </div>   
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 					</section>
+
+
+					  <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                   <h3>Recurrent connections between hidden neurons</h3>         
+                                                   <ul>
+
+                                                     <img src="href=../../img_2019_Lect_9/RNN_Types_103.png"  height="350" width="850">           
+						     <br>
+                                                       
+        			                     
+                                                    </ul>  
+                          		   </div>   
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 					  </section>
+
+
+					
+                                        <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                               <h3>Connection between hidden neurons</h3>				       
+					       \begin{align}
+						          
+						        {\bf{a}}^{(t)} &= {\bf{b}} + {\bf{W}}{\bf{h}}^{(t-1)} + {\bf{U}}{\bf{x}}^{(t)}  \\
+                                                        {\bf{h}}^{(t)} &= tanh({\bf{a}}^{(t)})   \\
+						        {\bf{o}}^{(t)} &= {\bf{c}} +  {\bf{V}}{\bf{h}}^{(t)}  \\
+						  \hat{{\bf{y}}}^{(t)} &= softmax ({\bf{o}}^{(t)})
+					       \end{align}
+					        
+                          		 </div>   
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 				        </section>
+
+
+					<section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                               <h3>Connection between  hidden neurons</h3>
+					       <h4>Loss function</h4>
+					       
+					       \begin{align}
+						          
+						        & \mathcal{L} (\{ {\bf{x}}^{(1)},\dots,{\bf{x}}^{(\tau)}\},\{{\bf{y}}^{(1)},\dots,{\bf{y}}^{(\tau)} \}  \\
+                                                        =& \sum_t \mathcal{L}^{(t)}  \\
+					                =&  \sum_t \log p_{rnn} \left( {\bf{y}}^{(t)} \mid \{{\bf{x}}^{(1)},\dots,{\bf{x}}^{(\tau)} \} \right)
+					       
+					       \end{align}
+					        
+                          		 </div>   
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 				        </section>
+
+					 <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                   <h3>Connection from output to hidden neurons</h3>         
+                                                   <ul>
+
+                                                     <img src="href=../../img_2019_Lect_9/RNN_Types_104.png"  height="350" width="850">           
+						     <br>
+                                                       
+        			                     
+                                                    </ul>  
+                          		   </div>   
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 					</section>
+				  
+					  <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                   <h3>Many inputs to only one output</h3>         
+                                                   <ul>
+
+                                                     <img src="href=../../img_2019_Lect_9/RNN_Types_105.png"  height="350" width="850">           
+						     <br>
+                                                       
+        			                     
+                                                    </ul>  
+                          		   </div>   
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 					</section>
+										  
+			                <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                   <h3>Many inputs to only one output</h3>         
+                                                   <ul>
+
+                                                     <img src="href=../../img_2018_Lect_8/RNN_Many_To_One.png"  height="350" width="850">           
+						     <br>
+                                                        <li class="paragraph2"> Example of application: <mark class="red">Time Series Classification</mark>.</li>
+        			                     
+                                                    </ul>  
+                          		   </div>   
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 					</section>
+                            
+
+
+				    	<section>
+                                                <mark class="red"></mark>
+                                                <div class="container">  
+                                                   <h3>Recurrent Layers</h3>                                            
+                                                  <div class="right">                
+                                                      <h4>Characteristics</h4>
+
+                                                      <ul>                                                    					              
+							<li class="paragraph2"> A  <mark class="red">layer of recurrent functions</mark> is formed by joining \(n_{neurons} \;\) recurrent neurons.</li>                                                        
+						
+							 <li class="paragraph2"> The neurons that <mark class="red">multiply the input features by the weight matrix</mark>, as usual, and apply the activation function afterwards.</li>
+                                                  
+                                                        <li class="paragraph2"> All neurons in the layer will receive as input the original input \(x_t\) plus the concatenation of the <mark class="red">outputs of the neurons in the previous layer</mark>.  </li> 
+
+      					
+                                                      <ul/> 
+
+                                                
+                          		          </div>
+                                                  <div class="left">   
+
+						    <h4>Recurrent Layer</h4>
+                                                      
+                                                      <ul>      
+                                                        <img src="href=../../img_2018_Lect_8/RNN_Layer.png"  height="350" width="450">           
+					                
+                                                      <ul/>                                                         
+                                                                 
+                                                  </div>    
+                                                   
+                                              </div>               
+                                                
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				      </section>  
+
+				      <section>
+                                                <mark class="red"></mark>
+                                                <div class="container">  
+                                                   <h3>Recurrent layers</h3>                                            
+                                                  <div class="right">                
+                                                      <h4>Output recurrent layer</h4>
+
+                                                      <ul>     
+							<li class="paragraph2">
+							  <font size="4">
+							  \[ 
+							     \begin{align}
+							        {\bf{S}}_{(t)} &= \phi \left( {\bf{X}}_{(t)} \cdot {\bf{W}}_{(x,s)} +  {\bf{S}}_{(t-1)} \cdot {\bf{W}}_{(s,s)} + {\bf{b}}_s \right)
+
+
+							     \end{align}
+							  \]
+							  </font>
+
+                                                        </li>                                                      					              
+							<li class="paragraph2"> \( {\bf{S}}_{(t)} \): is an \( m \times n_{neurons} \; \) matrix where \(m\) is the size of the minibatch and \(n_{neurons} \; \) is the number of neurons in the layer.</li>
+                                                        <li class="paragraph2">\( {\bf{X}}_{(t)} \): is an \( m \times n_{inputs} \) matrix where \(n_{inputs}\) is the number of input features. </li>       
+                                                       <li class="paragraph2">\( {\bf{W}}_{(x,t)} \): is an \(n_{inputs} \times  n_{neurons} \; \) with the weights for the input features for the current time step. </li>     
+                                                       <li class="paragraph2">\( {\bf{W}}_{(s,s)} \): is an \(n_{neurons} \times  n_{neurons} \; \) with the connection weights between the neurons in the previous and current time steps. </li>                                                     					        
+   					
+                                                      <ul/> 
+
+                                                
+                          		          </div>
+                                                  <div class="left">   
+
+						    <h4>Recurrent Layer</h4>
+                                                      
+                                                      <ul>      
+                                                        <img src="href=../../img_2018_Lect_8/RNN_Layer.png"  height="390" width="450">           
+					                
+                                                      <ul/>                                                         
+                                                                 
+                                                  </div>    
+                                                   
+                                              </div>               
+                                                     <p class="paragraph2">  A. Geron. <a href=" http://shop.oreilly.com/product/0636920052289.do"> Hands-On Machine Learning with Scikit-Learn and TensorFlow. Concepts, Tools, and Techniques to Build Intelligent Systems. </a>  O'Reilly.  2017.</p>         
+
+
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				      </section>  
+ 		   	         <section>
+                                                <mark class="red"></mark>
+                                                <div class="container">  
+                                                   <h3>Deep RNNs</h3>                                            
+                                                  <div class="right">
+                                                  <h4>Variants</h4>
+                                                      
+                                                      <ul>      
+                                                        <img src="href=../../img_2018_Lect_8/Deep_RNN_Output.png"  height="420" width="150">           
+                                                        <img src="href=../../img_2018_Lect_8/Deep_RNN_ML_Output.png"  height="420" width="250">           
+					                
+                                                      <ul/>                                                         
+                
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Deep learning with RNNs</h4>
+
+                                                      <ul>      
+                                                       					 
+                                                        <li class="paragraph2">A recurrent neural network <mark class="red">can be made deep</mark> in many ways.</li>
+
+							<li class="paragraph2"> <mark class="red">Adding depthness</mark> from the input to the hidden state.</li>
+
+							<li class="paragraph2"> From the previous hidden state to the next  hidden state.</li>
+
+							<li class="paragraph2"> From the hidden state to the output.</li>
+
+							<li class="paragraph2"> Depthness can <mark class="red">increase the capacity</mark> of the model needed in these different parts.</li>
+
+                      
+                                                      </ul> 
+
+                                                                 
+                                                  </div>    
+                                                   
+                                              </div>      
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				 </section>
+
+				  <section>
+                                                <mark class="red"></mark>
+                                                <div class="container">  
+                                                   <h3>Deep RNNs</h3>                                            
+                                                  <div class="right">
+                                                  <h4>Variants</h4>
+                                                      
+                                                  <ul>
+				
+                                                        <img src="href=../../img_2018_Lect_8/Deep_RNN_Output.png"  height="420" width="150">           
+                                                        <img src="href=../../img_2018_Lect_8/Deep_RNN_ML_Output.png"  height="420" width="250">           
+					                
+                                                      <ul/>                                                         
+                
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Deep learning with RNNs</h4>
+
+                                                      <ul>      
+                                                       					 
+                                                      
+                                                        <li class="paragraph2">The <mark class="red">hidden recurrent state can be broken down into groups</mark> organized hierarchically.</li>                                                        					
+					                         
+                                                        <li class="paragraph2"> Deeper computation (e.g., an MLP) can be introduced in the  <mark class="red">input-to-hidden</mark>,  <mark class="red">hidden-to-hidden</mark>, and  <mark class="red">hidden-to-ouput</mark> parts.</li>                                                            
+                                                     
+                                                      
+                                                        <li class="paragraph2"><mark class="red">Significant benefit</mark> can be obtained from decomposing the state of an RNN into multiple ways.</li>                           
+ 
+                                                        <li class="paragraph2">Adding depth <mark class="red">may hurt learning</mark> by making optimization difficult.</li>                           
+
+                      
+                                                      </ul> 
+
+                                                                 
+                                                  </div>    
+                                                   
+                                              </div>               
+                                                       
+
+
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				  </section>
+
+
+				  <section>
+                                                <mark class="red"></mark>
+                                                <div class="container">  
+                                                   <h3>RNNs with context information</h3>                                            
+                                                  <div class="right">
+                                                  <h4>Context at each step</h4>
+                                                      
+                                                      <ul>      
+                                                        <img src="href=../../img_2019_Lect_9/Context_RNN.png"  height="420" width="400">           
+                                                        
+                                                      <ul/>                                                         
+                
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Ways of adding context</h4>
+
+                                                      <ul>      
+                                                       					 
+                                                        <li class="paragraph2">A single vector \(x\) can be used as <mark class="red">input context</mark> to condition sequence prediction.</li>
+
+							<li class="paragraph2">Can be added as an <mark class="red">extra input </mark> at <mark class="red">each time step</mark> or;</li>
+
+							<li class="paragraph2"> As the <mark class="red">initial state</mark> \(h^{(0)}\).</li>
+
+							<li class="paragraph2"> Or be used as <mark class="red">both</mark> of these previous possibilities.</li>
+
+							<li class="paragraph2">Context is used for tasks such as <mark class="red">image captioning</mark>.</li>
+                      
+                                                      </ul> 
+
+                                                                 
+                                                  </div>    
+                                                   
+                                              </div>      
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				  </section>
+
+
+				   <section>
+                                                <mark class="red"></mark>
+                                                <div class="container">  
+                                                   <h3>Encoder-Decoder</h3>                                            
+                                                  <div class="right">
+                                                  <h4>Encoder-decoder network</h4>
+                                                      
+                                                  <ul>
+						        <img src="href=../../img_2019_Lect_9/Enc_Dec_Imag.png"  height="420" width="400">                                                                  
+                              
+					                
+                                                      <ul/>                                                         
+                
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Characteristics</h4>
+
+                                                      <ul>      
+
+						      <li class="paragraph2">Similar to the sequence model.</li>
+
+						      <li class="paragraph2">It has an initial encoding stage with <mark class="red">no output signal to predict</mark>.</li>
+
+				                      <li class="paragraph2">In the encoding stage, the input sequence is consumed <mark class="red">to produce a hidden state</mark>.</li>
+						      
+				                      <li class="paragraph2">It the decoding stage, an output signal is produced, one timestep at a time, <mark class="red">conditioned on the hidden state</mark> from the encoding stage .</li>
+				  
+                                                      </ul> 
+
+                                                                 
+                                                  </div>    
+                                                   
+                                              </div>      
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				   </section>
+
+				   					<section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                   <h3>RNNs. Sequence to sequence (encoder-decoder) models</h3>         
+                                                   <ul>
+
+                                                     <img src="href=../../img_2018_Lect_8/Seq_LSTM.png"  height="300" width="850">
+						     <br>
+                                                        <li class="paragraph2"> Example of application: Text transcription.</li>
+        			                     
+                                                    </ul>  
+                          		   </div>   
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 				       </section>
+
+				   <section>
+                                                <mark class="red"></mark>
+                                                <div class="container">  
+                                                   <h3>Bidirectional RNN</h3>                                            
+                                                  <div class="right">
+                                                  <h4>Bidirectional network</h4>
+                                                      
+                                                  <ul>
+						        <img src="href=../../img_2019_Lect_9/Bidirectional_RNN.png"  height="420" width="400">                                                                  
+                              
+					                
+                                                      <ul/>                                                         
+                
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Characteristics</h4>
+
+                                                      <ul>
+
+							 <li class="paragraph2">Two layers of hidden nodes are connected to input and output.</li>
+							<li class="paragraph2">The first has recurrent <mark class="red">connections from the last time</mark>.</li>
+							<li class="paragraph2">The second has recurrent <mark class="red">connections from the future</mark>. </li>
+							 <li class="paragraph2">It requires a fixed point in the future and the past.</li>
+							 
+                                                       		
+                                                      </ul> 
+
+                                                                 
+                                                  </div>    
+                                                   
+                                              </div>      
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				 </section>
+
+
+
+
+				  
+		      </section>  	
+
+		      <section>  
+				   <section id="sec:LT_DEP">
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                               <h3>Long term dependencies</h3>
+					       <h4>The challenge</h4>
+                                                   <ul>
+
+                                                  
+						     <li class="paragraph2">Gradients propagated over many stages tend to either  <mark class="red">vanish</mark> or (rarely) to  <mark class="red">explode</mark>.</li>
+
+					
+						     <li class="paragraph2"> Exponentially smaller weights are given to  <mark class="red">long-term interactions</mark> compared to short-term ones.</li>
+
+						     <li class="paragraph2"> It does not mean that  <mark class="red">long-term interactions</mark> are impossible to learn but it may take a long time.</li>
+
+						       <li class="paragraph2">The signal about long-term dependencies will <mark class="red">tend to be hidden</mark> by smallest fluctuationss aringing from short-term dependencies.</li>
+				
+        			                     
+                                                    </ul>  
+                          		 </div>   
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 				   </section>
+
+				   <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                               <h3>Long term dependencies</h3>
+					       <h4>Particular characteristics</h4>
+                                                   <ul>
+
+                                                  
+						     <li class="paragraph2"> A simplified <mark class="red">recurrence relationship</mark> in RNNs:
+						       \[
+						         {\bf{h}}^{(t)} = {\bf{W}}^{\top}{\bf{h}}^{(t-1)}
+						       \]
+
+
+						     </li>
+
+					
+						     <li class="paragraph2">It essencially describes the power method
+						       
+						       \[
+						         {\bf{h}}^{(t)} = ({\bf{W}}^t)^{\top} {\bf{h}}^{(0)}
+						       \]
+
+						     </li>
+
+						     <li class="paragraph2">which can be further simplified if W admits an eigendecomposition:
+						       						       
+						       \[
+						         {\bf{h}}^{(t)} = {\bf{Q}}^{\top} {\bf{\Lambda}}^t {\bf{Q}}  {\bf{h}}^{(0)}
+						       \]
+						     </li>
+
+						     	     <li class="paragraph2">When raised to the power of $t$ eigenvalues with magnitude less than one will  <mark class="red">decay to zero</mark> and eigenvalues of \(  {\bf{\Lambda}}\)  with magnitude greater than one to <mark class="red">explode</mark>.</li>
+				
+        			                     
+                                                    </ul>  
+                          		 </div>   
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 				   </section>
+
+				   <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                               <h3>Long term dependencies</h3>
+
+					       	<h4>Goal</h4>
+                                                   <ul>
+						     <li class="paragraph2"> <mark class="red">Goal</mark>: Design a model that operates at multiple time scales. Some parts of the model operate at fine-grained time scales and can handle small details, while other parts operate at coarse time scales.</li>	
+                                                   </ul>
+						   
+					       <h4>The alternative solutions</h4>
+                                                   <ul>
+
+						     <li class="paragraph2"> <mark class="red">Adding skip connections through time</mark>: Add direct connections from variables in the distant past to variables in the present.</li>
+						     <li class="paragraph2"> <mark class="red">Leaky units</mark>: A hidden unit with a linear self-connection with a weight near one on these connection. </li>
+						     <li class="paragraph2"> <mark class="red">Removing connections</mark>:Actively removing length-one connections and replacing them with longer connections.</li>
+						     <li class="paragraph2"> <mark class="red">Gated RNNs</mark>:Creating paths through time that have derivatives that neither vanish nor explode.</li>
+						   
+				
+        			                     
+                                                    </ul>  
+                          		 </div>   
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 				   </section>
+
+
+				   
+		      </section>  							      
+
+		      <section>  
+			             
+				      <section id="sec:DNNs_LSTMs">
+                                                <mark class="red"></mark>
+                                                <div class="container">
+                                                  <h3>Long Short Term Memory Networks (LSTMs)</h3>
+                                                  <div class="right">
+                                                  <h4>Network architecture</h4>
+                                                      <ul>      
+                                                        <img src="href=../../img/NNZoo/lstm.png"  height="340" width="500">           
+					                
+                                                      <ul/>                                                      
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Characteristics</h4>
+                                                      <ul>      
+						          <li class="paragraph2">It addresses the limitations of simple recurrent cells to represent <mark class="red">long term dependencies in the data</mark>.</li>
+						          <li class="paragraph2">It can be used as a simple cell.</li>
+
+							  <li class="paragraph2">The key idea is that the network can learn <mark class="red">what to store</mark> in the long-term state, <mark class="red">what to throw away</mark>, and  <mark class="red">what to read</mark> from it.</li>
+						          <li class="paragraph2">Training will <mark class="red">converge faster</mark> for LSTMs.</li>
+
+							  <li class="paragraph2"><mark class="red">Several LSTM variants</mark> have been proposed.</li>
+
+
+                                                      <ul/>          
+                
+                                                  </div>    
+                                                   
+                                              </div>     
+
+                                                     <p class="paragraph2"> S. Hochreiter and J. Schmidhuber. <a href="http://www.mitpressjournals.org/doi/abs/10.1162/neco.1997.9.8.1735">Long short-term memory. </a> Neural computation. Vol. 9. No. 8. Pp. 1735-1780. 1997.</p>  
+                                                     <p class="paragraph2">  A. Geron. <a href=" http://shop.oreilly.com/product/0636920052289.do"> Hands-On Machine Learning with Scikit-Learn and TensorFlow. Concepts, Tools, and Techniques to Build Intelligent Systems. </a>  O'Reilly.  2017.</p>         
+    
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				      </section>
+
+	
+				      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                  <h4>LSTMs</h4>
+                                                   <ul>
+
+                                                     <img src="https://chunml.github.io/images/projects/creating-text-generator-using-recurrent-neural-network/LSTM.png"  height="350" width="1050">           
+						     <br>
+
+						     <li class="paragraph2">Two (vector) representations of the cell state: The  <mark class="red">short term state </mark> \( {\bf{h}}_{(t)} \) and the  <mark class="red">long term state</mark> \( {\bf{C}}_{(t)} \) </li>
+
+					
+						       <li class="paragraph2"> \( \sigma \) is the sigmoid function that operates as a <mark class="red">gate</mark>.</li>
+
+						       <li class="paragraph2">   \( \otimes \) means <mark class="red"> dot product</mark>.</li>
+				
+					
+					                                                                    
+        			                     
+                                                    </ul>  
+                          		 </div>   
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 				      </section>
+
+
+
+
+				      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                  <h3>LSTMs</h3>
+                                                   <ul>
+
+                                                     <img src="https://chunml.github.io/images/projects/creating-text-generator-using-recurrent-neural-network/LSTM.png"  height="350" width="1050">           
+						     <br>
+					              <li class="paragraph2">The cell receives the short-term and long-term states from the  <mark class="red">previous time \((t-1)\)</mark> and the input from the <mark class="red"> current time \(t\)</mark>.</li>
+						          <li class="paragraph2">Within the cell, <mark class="red">transformations to the vectors</mark> are made using <mark class="red">gates</mark> that represent vector computations.</li>
+                                                       
+        			                     
+                                                    </ul>  
+                          		 </div>   
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 				      </section>
+
+
+
+				      
+				      				      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                  <h3>LSTMs</h3>
+                                                   <ul>
+
+                                                     <img src="https://chunml.github.io/images/projects/creating-text-generator-using-recurrent-neural-network/LSTM.png"  height="350" width="1050">           
+						     <br>
+ <li class="paragraph2">The objective of applying these vector operations is  to <mark class="red">remove or add information to the cell state</mark>.</li>
+						     <li class="paragraph2">Gates use the <mark class="red">sigmoid function</mark>  that ouputs a number between zero and one, meaning  <mark class="red">how much of each component </mark> should be let through.</li>						        
+					                                                                   
+        			                     
+                                                    </ul>  
+                          		 </div>   
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 				      </section>
+				     
+
+				      <section>
+                                                <mark class="red"></mark>
+                                                <div class="container">                                        
+                                                  <h3>LSTMs</h3>
+
+                                                  <div class="right">
+                                                  <h4>Network architecture</h4>
+                                                      <ul>      
+                                                        <img src="https://chunml.github.io/images/projects/creating-text-generator-using-recurrent-neural-network/LSTM.png"  height="340" width="800">           
+					                
+                                                      <ul/>                                                      
+                          		          </div>
+                                                  <div class="left">   
+                                                    <h4>Components</h4>						    
+                                                      <ol>      
+						          <li class="paragraph2">The <mark class="red">forget gate \(f_{(t)} \) </mark> processes  \( {\bf{h}}_{(t-1)} \) and \( {\bf{x}}_{(t)} \) to decide, from each variable,  which information will be "forgotten" or "used" by the cell:
+							    <br>
+							    <br>
+							    \[
+
+							       f_t = \sigma \left ( {\bf{W}}_{f} [{\bf{h}}_{(t-1)}, {\bf{x}}_{(t)}] + b_f \right ) 
+
+							    \]							    
+							  </li>
+
+
+                                                      <ol/>                          
+
+         
+                                                  </div>    
+                                                   
+                                              </div>         
+                                                     <p class="paragraph2">Figure. By Trun Tran. <a  href="https://chunml.github.io/ChunML.github.io/project/Creating-Text-Generator-Using-Recurrent-Neural-Network/">Creating A Text Generator Using Recurrent Neural Network.</a> Accessed 2017.</p>    
+                                                     <p class="paragraph2">C. Olah. <a  href="http://colah.github.io/posts/2015-08-Understanding-LSTMs/">Understanding LSTM Networks.</a> Accessed 2017.</p>   
+      
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				      </section>
+
+
+
+				      
+				      <section>
+                                                <mark class="red"></mark>
+                                                <div class="container">                                        
+                                                  <h3>LSTMs</h3>
+
+                                                  <div class="right">
+                                                  <h4>Network architecture</h4>
+                                                      <ul>      
+                                                        <img src="https://chunml.github.io/images/projects/creating-text-generator-using-recurrent-neural-network/LSTM.png"  height="340" width="800">           
+					                
+                                                      <ul/>                                                      
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Components</h4>
+                                                      <ol start="2">  
+
+
+							 <li class="paragraph2">The <mark class="red"> long term state candidate </mark>, \( {\bf{\tilde{C}}}_{(t)} \), is created by applying a tanh operator to the concatenation of the short term state and the input.:
+							    <br>
+							    <br>
+
+							    \[
+
+							    \begin{align}
+						
+							       {\bf{\tilde{C}}}_{(t)} &= tahn \left ( {\bf{W}}_{C} [{\bf{h}}_{(t-1)}, {\bf{x}}_{(t)}] + b_C \right ) 
+							    \end{align}
+
+							    \]	
+
+
+
+							 </li>
+							 
+						          <li class="paragraph2">The <mark class="red">input  gate \(i_{(t)} \) </mark> decides which values from  \( {\bf{h}}_{(t-1)} \) and \( {\bf{x}}_{(t)} \) will be used to update \( {\bf{C}}_{(t)} \):
+							    <br>
+							    <br>
+
+							    \[
+
+							    \begin{align}
+
+							       i_t &= \sigma \left ( {\bf{W}}_{i} [{\bf{h}}_{(t-1)}, {\bf{x}}_{(t)}] + b_i \right ) \\
+							   
+							    \end{align}
+
+							    \]	
+
+
+
+							  </li>
+
+                                                      <ol/>                          
+
+         
+                                                  </div>    
+                                                   
+                                              </div>         
+                                                   
+      
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				      </section>  
+
+
+
+				      	<section>
+                                                <mark class="red"></mark>
+                                                <div class="container">                                        
+                                                  <h3>LSTMs</h3>
+
+                                                  <div class="right">
+                                                  <h4>Network architecture</h4>
+                                                      <ul>      
+                                                        <img src="https://chunml.github.io/images/projects/creating-text-generator-using-recurrent-neural-network/LSTM.png"  height="340" width="800">           
+					                
+                                                      <ul/>                                                      
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Components</h4>
+                                                      <ol start="4">
+
+							  
+						          <li class="paragraph2"> The <mark class="red"> long term state value</mark> \( {\bf{C}}_{(t)} \) is created as the sum of two terms. The product between the input gate and the  long term state candidate, \( {\bf{\tilde{C}}}_{(t)} \); and  the product between the forget gate and the previous short term state: 
+
+							    <br>
+							    <br>
+							    \[
+
+							       {\bf{C}}_{(t)} = i_t \cdot {\bf{\tilde{C}}}_{(t-1)} + f_t \cdot  {\bf{C}}_{(t-1)}
+
+							    \]							    
+							  </li>
+							  						          
+
+                                                      <ol/>                          
+
+         
+                                                  </div>    
+                                                   
+                                              </div>         
+                                              
+      
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				      </section>  
+
+				      <section>
+                                                <mark class="red"></mark>
+                                                <div class="container">                                        
+                                                  <h3>LSTMs</h3>
+
+                                                  <div class="right">
+                                                  <h4>Network architecture</h4>
+                                                      <ul>      
+                                                        <img src="https://chunml.github.io/images/projects/creating-text-generator-using-recurrent-neural-network/LSTM.png"  height="340" width="800">           
+					                
+                                                      <ul/>                                                      
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Components</h4>
+                                                      <ol start="5">      
+						          
+						          <li class="paragraph2"> The <mark class="red">output gate \(i_{(t)} \)  </mark> controls which parts of the short-term state should be read and output (both to \( {\bf{y}}_{(t)} \) )  and \( {\bf{h}}_{(t)} \):
+							    <br>
+							    <br>
+
+							    \[
+
+							    \begin{align}
+
+							       o_t &= \sigma \left ( {\bf{W}}_{o} [{\bf{h}}_{(t-1)}, {\bf{x}}_{(t)}] + b_o \right ) \\
+							     
+							    \end{align}
+
+							    \]	
+							  </li>
+
+
+							  						          
+						          <li class="paragraph2"> The <mark class="red">short-term state  </mark> is the product between the output gate and a tanh operation on the long-term state:
+							    <br>
+							    <br>
+
+							    \[
+
+							    \begin{align}
+
+							       {\bf{h}}_{(t)} &= o_t \cdot tahn({\bf{C}}_{(t)}) 
+							    \end{align}
+
+							    \]	
+							  </li>
+
+
+                                                      <ol/>                          
+
+         
+                                                  </div>    
+                                                   
+                                              </div>         
+                                                 
+      
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				      </section>
+
+
+
+
+				      <section>
+                                                <mark class="red"></mark>
+                                                <div class="container">                                        
+                                                  <h3>LSTMs: Summary </h3>
+
+                                                  <div class="right">
+						    
+                                                        <ol start="4">      
+						  	  <li class="paragraph2"> The <mark class="red"> long term state value</mark> \( {\bf{C}}_{(t)} \) is created as the sum of two terms. The product between the input gate and the  long term state candidate, \( {\bf{\tilde{C}}}_{(t)} \); and  the product between the forget gate and the previous short term state: 
+
+							    <br>
+							    <br>
+							    \[
+
+							       {\bf{C}}_{(t)} = i_t \cdot {\bf{\tilde{C}}}_{(t-1)} + f_t \cdot  {\bf{C}}_{(t-1)}
+
+							    \]							    
+							  </li>
+							
+						          <li class="paragraph2"> The <mark class="red">output gate \(i_{(t)} \)  </mark> controls which parts of the short-term state should be read and output (both to \( {\bf{y}}_{(t)} \) )  and \( {\bf{h}}_{(t)} \):
+							    <br>
+							    <br>
+
+							    \[
+
+							    \begin{align}
+
+							       o_t &= \sigma \left ( {\bf{W}}_{o} [{\bf{h}}_{(t-1)}, {\bf{x}}_{(t)}] + b_o \right ) \\
+							     
+							    \end{align}
+
+							    \]	
+							  </li>
+
+
+							  						          
+						          <li class="paragraph2"> The <mark class="red">short-term state  </mark> is the product between the output gate and a tanh operation on the long-term state:
+							    <br>
+							    <br>
+
+							    \[
+
+							    \begin{align}
+
+							       {\bf{h}}_{(t)} &= o_t \cdot tahn({\bf{C}}_{(t)}) 
+							    \end{align}
+
+							    \]	
+							  </li>
+
+                                                      <ol/>                          
+			    
+                          		          </div>
+                                                  <div class="left">   
+                                                       <ol start="1">  
+
+							  <li class="paragraph2">The <mark class="red">forget gate \(f_{(t)} \) </mark> processes  \( {\bf{h}}_{(t-1)} \) and \( {\bf{x}}_{(t)} \) to decide, from each variable,  which information will be "forgotten" or "used" by the cell:
+							    <br>
+							    <br>
+							    \[
+
+							       f_t = \sigma \left ( {\bf{W}}_{f} [{\bf{h}}_{(t-1)}, {\bf{x}}_{(t)}] + b_f \right ) 
+
+							    \]							    
+							  </li>
+
+							 <li class="paragraph2">The <mark class="red"> long term state candidate </mark>, \( {\bf{\tilde{C}}}_{(t)} \), is created by applying a tanh operator to the concatenation of the short term state and the input:
+							    <br>
+							    <br>
+
+							    \[
+
+							    \begin{align}
+						
+							       {\bf{\tilde{C}}}_{(t)} &= tahn \left ( {\bf{W}}_{C} [{\bf{h}}_{(t-1)}, {\bf{x}}_{(t)}] + b_C \right ) 
+							    \end{align}
+
+							    \]	
+
+
+
+							 </li>
+							 
+						          <li class="paragraph2">The <mark class="red">input  gate \(i_{(t)} \) </mark> decides which values from  \( {\bf{h}}_{(t-1)} \) and \( {\bf{x}}_{(t)} \) will be used to update \( {\bf{C}}_{(t)} \):
+							    <br>
+							    <br>
+
+							    \[
+
+							    \begin{align}
+
+							       i_t &= \sigma \left ( {\bf{W}}_{i} [{\bf{h}}_{(t-1)}, {\bf{x}}_{(t)}] + b_i \right ) \\
+							   
+							    \end{align}
+
+							    \]	
+
+
+
+							  </li>
+
+                                                      <ol/>
+         
+                                                  </div>    
+                                                   
+                                              </div>         
+                                                 
+      
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				      </section> 
+                    </section>
+
+
+
+		      <section>  
+   	
+				      <section id="sec:DNNs_GRUs">
+                                                <mark class="red"></mark>
+                                                <div class="container">                                                                                                    <h3>Gated Recurrent Units (GRUs)</h3>
+
+                                                  <div class="right">
+                                                  <h4>Network architecture</h4>
+                                                      <ul>      
+                                                        <img src="href=../../img/NNZoo/gru.png"  height="350" width="500">           
+					                
+                                                      <ul/>                                                      
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Characteristics</h4>
+                                                      <ul>      
+						          <li class="paragraph2">GRU is a <mark class="red">simplified version of LSTM</mark> with a similar performance.</li>
+						          <li class="paragraph2">Both state vectors <mark class="red">are merged into a single output vector  \( {\bf{h}}_{(t)} \)</mark> .</li>
+						          <li class="paragraph2">A single <mark class="red"> update gate controller</mark> \(z\) controls both the  <mark class="red">forget state </mark> and the <mark class="red">input state</mark>.</li>
+
+						          <li class="paragraph2">If the update gate controller outputs a 1, the input gate is open and the forget gate is closed. If it outputs 0, the opposite happens.  <mark class="red"></mark></li>
+						          <li class="paragraph2">  <mark class="red">There is not output gate;</mark> the full state vector is output at every time step.</li>
+                                                      <ul/>        
+                
+
+       
+                                                  </div>    
+                                                   
+                                              </div>             
+
+
+                                                     <p class="paragraph2"> K. Cho et al. <a href="https://arxiv.org/pdf/1406.1078.pdf"> Learning phrase representations using RNN encoder-decoder for statistical machine translation. </a> ArXiv preprint arXiv:1406.1078. 2014.</p>  
+                                                     <p class="paragraph2">  A. Geron. <a href=" http://shop.oreilly.com/product/0636920052289.do"> Hands-On Machine Learning with Scikit-Learn and TensorFlow. Concepts, Tools, and Techniques to Build Intelligent Systems. </a>  O'Reilly.  2017.</p>  
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				      </section>     	
+
+
+				      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                  <h3>Gated Recurrent Units (GRUs)</h3>
+                                                   <ol>
+					                      
+                                               
+                                                        <img src="http://colah.github.io/posts/2015-08-Understanding-LSTMs/img/LSTM3-var-GRU.png"  height="350" width="1600">     
+
+                                                    </ol>  
+
+
+                                                   <ul>				           
+                                                    
+                          		 </div>   
+                                                     <p class="paragraph2">C. Olah. <a  href="http://colah.github.io/posts/2015-08-Understanding-LSTMs/">Understanding LSTM Networks.</a> Accessed 2017.</p>   
+
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 				      </section>
+ 		      </section>
+
+
+			</div>
+		</div>
+
+
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			Reveal.initialize({
+                              
+   	                        history: true,
+				transition: 'linear',
+
+				math: {
+					// mathjax: 'http://cdn.mathjax.org/mathjax/latest/MathJax.js',
+					config: 'TeX-AMS_HTML-full'
+				},
+
+				dependencies: [
+                                        { src: 'lib/js/fullscreen-img.js' },
+					{ src: 'lib/js/classList.js' },
+					{ src: 'plugin/math/math.js', async: true }
+
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
