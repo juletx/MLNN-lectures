@@ -1,0 +1,1521 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Machine Learning and Neural Networks</title>
+                <meta name="author" content="Roberto Santana">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<!-- <link rel="stylesheet" href="css/reveal.css">  -->
+                <link rel="stylesheet" href="css/fullscreen-img.css">
+                <link rel="stylesheet" href="css/added_css/notebook.css">
+   	        <link rel="stylesheet" href="css/reveal.css">
+                <link rel="stylesheet" href="css/theme/nncourse.css" id="theme">
+
+		<style>
+		  .float-img {
+		       float: left;
+		       margin-right: 4em;
+  		       margin-top: 5px;
+		       margin-bottom: 5px;
+		       border: solid black 1px;
+		       padding: 2px;
+		  }
+		</style>
+
+		
+        <script>
+	var link = document.createElement( 'link' );
+	link.rel = 'stylesheet';
+	link.type = 'text/css';
+	link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+	document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>   
+   
+   
+	</head> 
+
+	<body>
+
+
+		<div class="reveal">
+			<div class="slides">
+
+				<section>
+                                          <div class="my_container">
+                                        <h2>Machine Learning and Neural Networks</h2>
+					<p>Roberto Santana and Unai Garciarena<p>
+					<p>Department of Computer Science and Artificial Intelligence</p>
+                                        <p>University of the Basque Country</p>
+                          		 </div>   
+				</section>
+                                <section id="sec:NN_Intro">   
+                                            <div class="my_container">
+                                             <h3>Deep Neural Networks: Table of Contents </h3>
+                                       
+                                              <table style="width:100%"; border=solid>
+                                                  <tr>                                                    
+						    <td><p class="paragraph2"> <a href="#/sec:DNNs_AEs"> Autoencoders (AEs) </a></p></td>
+						    <td><p class="paragraph2"> <a href="#/sec:DNNs_Under_Over_AEs"> Under and Over-complete AEs </a></p></td>
+
+						     <td> <p class="paragraph2"> <a href="#/sec:DNNs_SAEs"> Sparse  Autoencoders </a></p></td>				       
+                                                     <td> <p class="paragraph2"> <a href="#/sec:DNNs_DAEs"> Denoising Autoencoders </a></p></td>				                                                         
+                                                         
+
+                                                  </tr>
+
+
+						  <tr>
+
+                                                    <td> <p class="paragraph2"> <a href="#/sec:DNNs_Gen_Modeling"> Generative models</a></p></td>
+
+						    <td><p class="paragraph2"> <a href="#/sec:GANs"> GANs </a></p></td>
+                                                   
+
+						     <td><p class="paragraph2"> <a href="#/sec:DNNs_VAEs"> Variational Autoencoders </a></p></td>
+
+						    
+						                                                              
+
+                                                  </tr>     
+
+                                                                                                                                                           
+				              </table>	  
+                          	          </div>   
+
+  		   	       </section> 				
+                           </section>
+  
+ 			<section>
+                                    <section  id="sec:DNNs_AEs"> 
+                                                <mark class="red"></mark>
+                                               <div class="container">
+                                                   <h3>Autoencoders</h3>      
+                                                  <div class="right">
+                                                  <h4>Network architecture</h4>
+                                                      <ul>      
+                                                        <img src="href=../../img/NNZoo/ae.png"  height="350" width="500">           
+					                
+                                                      <ul/>                 
+                                                      <p class="paragraph2"> Figure credit. <a href="http://www.asimovinstitute.org/neural-network-zoo/"> Neural network zoo.</a> </p>                                   
+       
+
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Characteristics</h4>
+                                                      <ul>      
+
+						          <li class="paragraph2"> Used for <mark class="red">unsupervised machine learning</mark>.</li>
+						          <li class="paragraph2">The goal of an autoencoder is recovering the input data by <mark class="red">learning an internal representation</mark> of the input.</li>
+						          <li class="paragraph2">It is comprised of <mark class="red">input layer</mark>, one or more <mark class="red">hidden layers</mark>, and one <mark class="red">output layer</mark>.</li>
+						          <li class="paragraph2">Consists of two parts, an  <mark class="red">encoder function</mark> \( {\bf{h}}=f({\bf{x}}) \) and a  <mark class="red">decoder</mark> that produces a reconstruction \( {\bf{r}}=g({\bf{h}}) \).</li>				
+			        
+        			                
+                                                      <ul/>                                         
+                                                  </div>    
+                                                   
+                                              </div>           
+                                                      <p class="paragraph2"> I. Goodfellow and Y. Bengio and A. Courville. <a href="http://www.deeplearningbook.org/"> Deep Learning. Chapter 14. Autoencoders.</a> MIT Press. 2016. </p>                                                            
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				    </section>
+
+				    <section> 
+                                                <mark class="red"></mark>
+                                               <div class="container">
+                                                   <h3>Autoencoders</h3>      
+                                                  <div class="right">
+                                                  <h4>Network architecture</h4>
+                                                      <ul>      
+                                                        <img src="href=../../img/NNZoo/ae.png"  height="350" width="500">           
+					                
+                                                      <ul/>                 
+                                                      <p class="paragraph2"> Figure credit. <a href="http://www.asimovinstitute.org/neural-network-zoo/"> Neural network zoo.</a> </p>                                   
+       
+
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Characteristics</h4>
+                                                      <ul>      
+
+						          <li class="paragraph2">  The model is <mark class="red">forced to prioritize</mark> which aspects of the input should be copied.</li>
+						          <li class="paragraph2">  It often learns <mark class="red">useful properties of the data</mark>.</li>
+						          <li class="paragraph2"> Traditionally, autoencoders were used for  <mark class="red">dimensionality reduction</mark> or <mark class="red">feature learning</mark></li>
+							  
+						          <li class="paragraph2"> Strong connections between autoencoders and <mark class="red">latent models</mark>.</li>
+
+							   <li class="paragraph2"> Autoencoders can be trained using the same techniques used for <mark class="red">feedforward neural networks</mark>.</li>
+			        
+        			                
+                                                      <ul/>                                         
+                                                  </div>    
+                                                   
+                                              </div>           
+                                                      <p class="paragraph2"> I. Goodfellow and Y. Bengio and A. Courville. <a href="http://www.deeplearningbook.org/"> Deep Learning. Chapter 14. Autoencoders.</a> MIT Press. 2016. </p>                                                            
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				    </section>
+
+
+				    
+
+				     <section>
+                                          <mark class="red"></mark>
+                                          <div class="my_container">                                            
+					    <h4>Autoencoders</h4>   
+                                            <ul>
+
+					      					                                               <img src="href=../../imgl14/autoencoder_cat.jpeg"  height="200" width="1000">           
+					      
+					       <br>
+					       <li class="paragraph2">Autoencoders can be learned in  <mark class="red"> different architectures</mark> (e.g., convolutional networks).</li>
+
+					         <li class="paragraph2">For example, convolutional autoencoders are trained to learn filters able to extract features that can be used to  <mark class="red">reconstruct</mark> the input image.</li>
+
+					       <li class="paragraph2">The learned representation can be used to <mark class="red">pretrain a deeper unsupervised network</mark> or <mark class="red">a supervised network</mark>.</li>	        					                                                     
+                                                    </ul>     		
+                          		  </div>
+					  
+                                                  <aside class="notes">
+                                           	  </aside>
+ 			      </section>
+
+                                  <section  id="sec:DNNs_Under_Over_AEs"> 				    
+                                               <mark class="red"></mark>
+                                               <div class="container">
+                                                   <h3>Undercomplete and overcomplete autoencoders</h3>      
+                                    
+                                                  <div class="right">
+                                                  <h4>Network architecture</h4>
+                                                      <ul>      
+                                                        <img src="href=../../img/NNZoo/ae.png"  height="350" width="500">           
+					                
+                                                      <ul/>                 
+                                                      <p class="paragraph2"> Figure credit. <a href="http://www.asimovinstitute.org/neural-network-zoo/"> Neural network zoo.</a> </p>                                   
+       
+
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Characteristics</h4>
+                                                      <ul>      
+						          <li class="paragraph2">One way to obtain  <mark class="red">useful features</mark> from the autoencoder is to constrain the encoder \({\bf{h}}\)  to have smaller dimension than \({\bf{x}}\).</li>
+						          <li class="paragraph2">An autoencoder whose hidden code dimension is less than the input dimension is called <mark class="red">undercomplete</mark>.</li>
+
+						          <li class="paragraph2">When the hidden dimension is greater than the input dimension it is called <mark class="red">overcomplete</mark>.</li>
+
+                                                      <ul/>                                         
+                                                  </div>    
+                                                   
+                                              </div>           
+                                                      <p class="paragraph2"> I. Goodfellow and Y. Bengio and A. Courville. <a href="http://www.deeplearningbook.org/"> Deep Learning. Chapter 14. Autoencoders.</a> MIT Press. 2016. </p>  
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				    </section>
+
+
+                                    <section> 
+                                               <mark class="red"></mark>
+                                               <div class="container">
+                                                   <h3>Undercomplete and overcomplete autoencoders</h3>      
+                                    
+                                                  <div class="right">
+                                                  <h4>Network architecture</h4>
+                                                      <ul>      
+                                                         <img src="href=../../img/NNZoo/sae.png"  height="350" width="500">
+					                
+                                                      <ul/>                 
+                                                      <p class="paragraph2"> Figure credit. <a href="http://www.asimovinstitute.org/neural-network-zoo/"> Neural network zoo.</a> </p>                                   
+       
+
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Characteristics</h4>
+                                                      <ul>      
+						          <li class="paragraph2">Undercomplete representation forces the autoencoder to capture the <mark class="red">most salient features</mark> of the training data.</li>
+						          <li class="paragraph2"> The <mark class="red">learning process</mark> tries to minimize a <mark class="red">loss function</mark> \( L({\bf{x}},g(f({\bf{x}})))\) where \(L\) is a loss function penalizing \(g(f({\bf{x}}))\) from being dissimilar from \({\bf{x}}\).</li>
+				                          <li class="paragraph2">One example of the loss functions used is the  <mark class="red">mean squared error</mark>.</li>
+						          <li class="paragraph2">The capacity of the encoding and decoding functions, whether <mark class="red">linear</mark> or <mark class="red">nonlinear</mark> will influence the quality of the reconstruction.</li>
+
+							   						  
+							  
+        			                
+                                                      <ul/>                                         
+                                                  </div>    
+                                                   
+                                              </div>           
+                                                      <p class="paragraph2"> I. Goodfellow and Y. Bengio and A. Courville. <a href="http://www.deeplearningbook.org/"> Deep Learning. Chapter 14. Autoencoders.</a> MIT Press. 2016. </p>  
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				      </section>
+
+
+                                      <section  id="sec:DNNs_RAEs"> 
+                                                <mark class="red"></mark>
+                                               <div class="container">
+                                                   <h3>Regularized autoencoders</h3>      
+                                    
+                                                  <div class="right">
+						    <h4>Variants of regularized autoencoders</h4>
+                                                      <ul>
+							 
+						        <li class="paragraph2">  <mark class="red">Sparse autoencoder (SAE)</mark>:  An autoencoder whose training criterion involves a <mark class="red">sparsity penalty</mark>. </li>
+
+						        <li class="paragraph2">  <mark class="red">Denoising autoencoder (DAE)</mark>:Noise is added to the input  \( {\bf{x}} \) to create a noisy or corrupted version  \( \tilde{{\bf{x}}} \). The goal of the denoising autoencoder is to learn to recover  \( {\bf{x}} \) from \( \tilde{{\bf{x}}} \). </li>
+
+						        <li class="paragraph2">  <mark class="red">Contractive autoencoder (CAE)</mark>: An explicit regularizer is  introduced to encourage the derivatives of the encoding function \(f({\bf{x}})\) to be as small as possible.</li>
+							
+
+			                              <ul/>                      
+						    
+                                                    
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Characteristics</h4>
+                                                      <ul>
+							 
+						        <li class="paragraph2"> Try to <mark class="red">adjust the capacity</mark>  of the encoder and decoder based on the complexity of the data to be modeled.</li>
+
+							
+						        <li class="paragraph2">Use a loss function that encourages the model <mark class="red">to have other properties</mark> (e.g., sparsity) besides the ability to copy its input to its output.</li>
+							
+						          <li class="paragraph2"> A regularized autoencoder can be <mark class="red">nonlinear and overcomplete</mark> but still learn something useful about the data distribution. </li>
+
+			                              <ul/>                                                     
+
+                                                  </div>    
+                                                   
+                                               </div>
+					       	     <p class="paragraph2"> I. Goodfellow and Y. Bengio and A. Courville. <a href="http://www.deeplearningbook.org/"> Deep Learning. Chapter 14. Autoencoders.</a> MIT Press. 2016. </p> 
+                                                    
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				      </section>
+
+                                      
+				      
+				    
+                                   <section  id="sec:DNNs_SAEs"> 
+                                                <mark class="red"></mark>
+                                               <div class="container">
+                                                   <h3>Sparse autoencoders</h3>      
+                                    
+                                                  <div class="right">
+                                                  <h4>Network architecture</h4>
+                                                      <ul>      
+                                                        <img src="href=../../img/NNZoo/sae.png"  height="350" width="500">           
+					                
+                                                      <ul/>          
+                                                      <p class="paragraph2"> Figure credit. <a href="http://www.asimovinstitute.org/neural-network-zoo/"> Neural network zoo.</a> </p>                                            
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Characteristics</h4>
+                                                      <ul>      
+						          <li class="paragraph2">A sparse autoencoder uses a training criterion that includes a <mark class="red">sparsity penalty \( \Omega({\bf{h}}) \) on the code layer \({\bf{h}}\)</mark>.</li>
+						          <li class="paragraph2">It can be seen as a particular class of  <mark class="red">regularized autoencoder</mark>.</li>
+						          <li class="paragraph2">A  <mark class="red">loss function with a sparsity penalty</mark>: \( L({\bf{x}}, g(f({\bf{x}}))) + \Omega({\bf{h}}) \).</li>
+						          <li class="paragraph2"> <mark class="red"></mark>Sparse autoencoders are typically used to learn features to be used for another ML task.</li>
+
+			                              <ul/>                                                     
+
+                                                  </div>    
+                                                   
+                                               </div>
+                                                     <p class="paragraph2">  M. Ranzato, C. Poultney, S. Chorpra and Y. LeCun <a href="http://papers.nips.cc/paper/3112-efficient-learning-of-sparse-representations-with-an-energy-based-model.pdf"> Efficient learning of sparse representations with an energy-based model. </a> In Advances in neural information processing systems (pp. 1137-1144. 2007.</p>              
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				      </section>
+
+
+ 				      
+                                  <section  id="sec:DNNs_DAEs"> 
+                                                <mark class="red"></mark>
+                                               <div class="container">    
+                                                  <h3>Denoising autoencoders</h3>                                         
+                                                  <div class="right">
+                                                  <h4>Network architecture</h4>
+                                                      <ul>      
+                                                        <img src="href=../../img/NNZoo/dae.png"  height="315" width="500">           
+					                
+                                                      <ul/>                           
+                                                      <p class="paragraph2"> Figure credit. <a href="http://www.asimovinstitute.org/neural-network-zoo/"> Neural network zoo.</a> </p>                           
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Characteristics</h4>
+                                                      <ul>      
+						        <li class="paragraph2">In principle, the goal of the denoising autoencoder is to reconstruct an input that has been <mark class="red">corrupted by some sort of noise</mark>.</li>
+
+	                                                <li class="paragraph2">Othe previous works have proposed to use multi-layer perceptrons for denoising data.</li>
+
+							<li class="paragraph2">	However, the denoising autoencoder is intended not merely to learn to denoise its input but to <mark class="red"> learn a good internal representation</mark> as a side eﬀect of learning to denoise.</li>				
+							
+						         
+                                                      <ul/>                                              
+                                                  </div>    
+                                                   
+                                              </div>               
+                                                     <p class="paragraph2"> P. Vincent, H. Larochelle, Y. Bengio, and P. A. Manzagol. <a  href="https://link.springer.com/article/10.1007/BF00332918"> Extracting and composing robust features with denoising autoencoders. </a> Proceedings of the 25th international conference on Machine learning. Pp. 1096-1103. ACM. 2008.</p>              
+
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				  </section>
+
+				  <section> 
+                                                <mark class="red"></mark>
+                                               <div class="container">    
+                                                  <h3>Denoising autoencoders</h3>                                         
+                                                  <div class="right">
+                                                  <h4>Network architecture</h4>
+                                                      <ul>      
+                                                        <img src="href=../../img/NNZoo/dae.png"  height="315" width="500">           
+					                
+                                                      <ul/>                           
+                                                      <p class="paragraph2"> Figure credit. <a href="http://www.asimovinstitute.org/neural-network-zoo/"> Neural network zoo.</a> </p>                           
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Characteristics</h4>
+                                                      <ul>
+
+							 <li class="paragraph2">It minimizes the <mark class="red">loss function</mark>  \( L({\bf{x}},g(f({\bf{\tilde{x}}})))\) where \( {\bf{\tilde{x}}} \) is a copy of \({\bf{x}}\) corrupted by some noise.</li>
+
+							 <li class="paragraph2">DAEs can be seen as multi-layer perceptrons <mark class="red">trained to denoise</mark>.</li>
+						         
+						          <li class="paragraph2">The suitable good internal representation emerges as a byproduct of <mark class="red">minimizing the reconstruction error</mark>.</li>
+
+						          <li class="paragraph2">The same  <mark class="red">loss functions</mark> and  <mark class="red">output unit types</mark> that can be used for traditional feedforward networks are also used for denoising autoencoders.</li>
+                                                      <ul/>                                              
+                                                  </div>    
+                                                   
+                                              </div>               
+                                                     <p class="paragraph2"> P. Vincent, H. Larochelle, Y. Bengio, and P. A. Manzagol. <a  href="https://link.springer.com/article/10.1007/BF00332918"> Extracting and composing robust features with denoising autoencoders. </a> Proceedings of the 25th international conference on Machine learning. Pp. 1096-1103. ACM. 2008.</p>              
+
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				      </section>
+
+
+
+ 				      <section>
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+                                                   <h3>Denoising autoencoders</h3> 
+                                                   <h4>Learning algorithm</h4>
+                                                   <ol>
+						          <li class="paragraph2">Sample a <mark class="red">training example</mark> \( {\bf{x}} \) from the training data.</li>
+						          <li class="paragraph2">Sample a <mark class="red">corrupted version</mark> \( {\bf{\tilde{x}}} \) from \( C({\bf{\tilde{x}}}|x= {\bf{x}}) \), where \(C() \) represents a given corruption process.</li>
+						          <li class="paragraph2">Use  \(({\bf{x}},{\bf{\tilde{x}}}) \)  as a training example for estimating the autoencoder distribution \( p_{reconstruct}({\bf{x}}|{\bf{\tilde{x}}}) =  p_{decoder}({\bf{x}}|x= {\bf{h}}) \) with  \( {\bf{h}} \)  the output of encoder \( f({\bf{\tilde{x}}}) \) and  \(p_{decoder}\) typically defined by a decoder \( g({\bf{h}}) \).</li>
+                                                    </ol>     		
+                                              
+                          		 </div>   
+                                      
+                                                      <p class="paragraph2"> I. Goodfellow and Y. Bengio and A. Courville. <a href="http://www.deeplearningbook.org/"> Deep Learning. Chapter 14. Autoencoders.</a> MIT Press. 2016. </p>  
+                                                  <aside class="notes">
+                                                     There are a number of classes of DNNs. These are among the best known.                     
+                                           	  </aside>
+ 				      </section>
+
+                                      <section  id="sec:CONS_DAEs"> 
+                                               <mark class="red"></mark>
+                                               <div class="container">    
+                                                  <h3>Contractive autoencoders</h3>                                         
+                                                  <div class="right">						    
+						      <h4>Penalty on derivative</h4>
+                                                      <ul>      
+						        <li class="paragraph2"> As in sparse autoencoders a <mark class="red">regularization penalty</mark> is used:
+							  \[
+							  \begin{equation}
+							     L({\bf{x}},g(f({\bf{x}}))) + \Omega({\bf{h}},{\bf{x}}) 
+							   \end{equation}
+							  \]
+							</li>
+
+	                                                <li class="paragraph2">But with a different choice of \(\Omega\):
+
+							  \begin{equation}
+							      \Omega({\bf{h}},{\bf{x}}) = \lambda \sum_{i} ||\nabla_{{\bf{x}}} h_i||^2
+							  \end{equation}
+							</li>						
+						         
+                                                      <ul/>                                            
+                                                  </div>    
+
+					      
+					       
+                                                  <div class="left">   
+                                                      <h4>Characteristics</h4>
+                                                      <ul>      
+						        <li class="paragraph2"> The model is forced to learn a function that does not change much when  \({\bf{x}}\) <mark class="red">changes slightly</mark>.</li>
+
+	                                                <li class="paragraph2">It has theoretical connections to denoising autoencoders.</li>
+
+							<li class="paragraph2">The CAE is contractive only locally, i.e., all perturbations of a training point \({\bf{x}}\) are mapped near to \(f({\bf{x}}) \).</li>										
+						         
+                                                      <ul/>                                              
+                                                  </div>    
+                                                   
+                                              </div>             
+
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				  </section>
+
+
+				      
+  	                </section>
+			<section>
+				      <section  id="sec:DNNs_Generative">
+                                                <mark class="red"></mark>
+                                                <div class="container">                                          
+                                                   <h3>Generative Modeling with DNNs</h3>
+
+
+                                                  <div class="right">
+                                                  <h4>Network generated faces</h4>
+                                                      <ul>      
+                                                        <img src="href=../../imgl14/Generated_Faces.png"  height="350" width="500">
+
+		
+                                                      <ul/>                                                      
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Generative modeling</h4>
+                                                      <ul>      
+						        <li class="paragraph2">Generative modeling deals with <mark class="red"> models of distributions</mark> \( p({\bf{x}}) \), defined over datapoints   \({\bf{x}} \) in some  <mark class="red"> high-dimensional space</mark>  \( \mathcal{x}\). </li>
+							
+						          <li class="paragraph2"> Since, learning the exact distribution is usually impossible, the goal is then to learn an approximate distribution as accurate as posssible according some <mark class="red">metric</mark>.</li>
+						          <li class="paragraph2">For an image, the \( {\bf{x}} \)  values which look like real images should be given a <mark class="red"> high probability</mark>, whereas images that look like random noise should get <mark class="red">low probability</mark>.</li>
+
+                                                      <ul/>    
+                                                  </div>    
+                                                   
+                                              </div>               
+                                                      <p class="paragraph2"> I. Goodfellow and Y. Bengio and A. Courville. <a href="http://www.deeplearningbook.org/"> Deep Learning. Chapter 20. Deep Generative Models.</a> MIT Press. 2016. </p>  
+                                                      <p class="paragraph2"> I. J. Goodfellow et al. <a  href="https://papers.nips.cc/paper/5423-generative-adversarial-nets.pdf"> Generative Adversarial Nets.</a> arXiv:1406.2661. 2014.</p>        
+                                                   
+
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+
+ 				      </section>  
+
+
+				      <section>
+                                                <mark class="red"></mark>
+                                                <div class="container">                                          
+                                                   <h3>Generative Modeling with DNNs</h3>
+
+                                                  <div class="right">
+                                                  <h4>Network generated faces</h4>
+                                                      <ul>      
+                                                        <img src="href=../../imgl14/Generated_Faces.png"  height="350" width="500">           
+					                
+                                                      <ul/>                                                      
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Generative modeling</h4>
+                                                      <ul>      						         
+						          <li class="paragraph2">Instead of computing the probabilities, usually the goal is to <mark class="red">produce more examples</mark>  that are like those already in a database, but <mark class="red">not exactly the same</mark>.</li>
+						          <li class="paragraph2">More formally, let us suppose we have a dataset of examples \( {\bf{x}} \)   distributed according to some <mark class="red">unknown distribution</mark> \( p_{gt}({\bf{x}}) \). </li>
+
+						          <li class="paragraph2">The goal is <mark class="red">to learn a model</mark>   \( p({\bf{x}}) \) which we can sample from, such that  \( p({\bf{x}}) \) is <mark class="red">as similar as possible</mark> to  \( p_{gt}({\bf{x}}) \). </li>
+						          <li class="paragraph2">Training this type of model has been a long-standing problem in the machine learning community.</li>			         
+                                                      <ul/>    
+                                                  </div>   
+                                                   
+                                              </div>               
+  
+                                                      <p class="paragraph2"> C. Doersch.  <a href="https://arxiv.org/pdf/1606.05908.pdf">Tutorial on Variational Autoencoders.</a> arxiv.org/pdf/1606.05908.pdf. 2016.</p>
+
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+
+ 				      </section>  
+
+				      <section>
+                                                <mark class="red"></mark>
+                                                <div class="container">                                          
+                                                   <h3>Generative Modeling with DNNs</h3>
+
+                                                  <div class="right">
+                                                  <h4>Methods based on DNNs</h4>
+                                                  <ul>
+
+						    	   <li class="paragraph2"> Recent work have made tremendous progress in training <mark class="red">neural networks as powerful function approximators</mark> through backpropagation.</li>
+
+						    	   <li class="paragraph2"><mark class="red">Generative Adversarial Networks (GANs)</mark></li>   
+						          <li class="paragraph2"><mark class="red">Variational AutoEncoders (VAEs)</mark></li>   
+  
+						          <li class="paragraph2"> Boltzmann machines and RBMs<mark class="red"></mark></li>
+						          <li class="paragraph2"> Deep Belief Networks<mark class="red"></mark></li>
+                                                  
+                                                      <ul/>                                                      
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Problems with traditional methods</h4>
+                                                      <ol>      	
+			         
+						          <li class="paragraph2">They (e.g., graphical models) might require <mark class="red">strong assumptions about the structure</mark> in the data.</li>
+						          <li class="paragraph2">They might <mark class="red">make severe approximations</mark>, leading to <mark class="red">suboptimal models</mark>.</li>
+						          <li class="paragraph2">They might rely on <mark class="red">computationally
+expensive inference procedures </mark>  like Markov Chain Monte Carlo.</li>
+						        		         
+                                                      <ol/>    
+                                                  </div>   
+                                                   
+                                              </div>                 
+                                                      <p class="paragraph2"> C. Doersch.  <a href="https://arxiv.org/pdf/1606.05908.pdf">Tutorial on Variational Autoencoders.</a> arxiv.org/pdf/1606.05908.pdf. 2016.</p>
+
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+
+ 				      </section>  
+			         
+ 			      </section>
+
+ 			<section>
+                               <section>
+                                                <mark class="red"></mark>
+                                                <div class="container">                                          
+                                                   <h3>Generative Adversarial Networks (GANs)</h3>
+
+
+                                                  <div class="right">
+                                                  <h4>Network architecture</h4>
+                                                      <ul>      
+                                                        <img src="href=../../img/NNZoo/gan.png"  height="350" width="500">           
+					                
+                                                      <ul/>                                                      
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Characteristics</h4>
+                                                      <ul>
+
+		  					<li class="paragraph2">One of the most extensively applied <mark class="red">generative models</mark>.</li>
+							 <li class="paragraph2">It can be defined for <mark class="red">different types</mark> of neural networks. What is common is the principle used and the model components.</li>
+						          <li class="paragraph2">The model contains <mark class="red">two sub-networks</mark>,  one <mark class="red">generator</mark> \(G \) and one <mark class="red">discriminator</mark> \(D \).</li>
+						      
+                                                      <ul/>    
+                                                  </div>    
+                                                   
+                                              </div>               
+                                                     <p class="paragraph2"> I. J. Goodfellow et al. <a  href="https://papers.nips.cc/paper/5423-generative-adversarial-nets.pdf"> Generative Adversarial Nets.</a> arXiv:1406.2661. 2014.</p>         
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+
+ 				      </section>  
+			  
+				    <section>
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+                                            <h3>Generators: GANs</h3>					    
+                                            
+						      <h4>Characteristics</h4>
+                                                      <ul>      
+						          <li class="paragraph2">The model contains <mark class="red">two sub-networks</mark>,  one <mark class="red">generator</mark> \(G \) and one <mark class="red">discriminator</mark> \(D \).</li>
+						          <li class="paragraph2"> The goal of the <mark class="red">generator</mark>  is to generate ouputs that look as similar as possible to solutions from the <mark class="red">input space</mark>.</li>
+						          <li class="paragraph2"> The goal of the <mark class="red">discriminator</mark>  is to learn to discriminate between ouputs generated by \(G \) and true solutions from the <mark class="red"> input space</mark>.</li>
+						          <li class="paragraph2">The objective of GANs is to learn realistic   <mark class="red">generative models</mark> of high-dimensional data.</li>
+                                                      <ul/>    
+                                                    		
+                          		 </div>   
+                                                  <aside class="notes">
+                                           	  </aside>
+ 				    </section>				     
+
+			          <section>
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+                                            <h3>Generators: GANs</h3>					    
+                                            <ol>
+					        <img src="href=../../imgl14/Schematic_GAN.png"  height="350" width="1500">           
+
+                                                    </ol>     		
+                          		 </div>   
+                                                  <aside class="notes">
+                                           	  </aside>
+ 		                </section>
+
+				  
+				      
+
+				  <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                   <h3>Generative Adversarial Networks (GANs)</h3>
+
+                                                   <ol>
+					                                                                      
+                                                        <img src="https://raw.githubusercontent.com/StevOK/DataMining-Kundert/master/0_Mwpzq1rqmc-2LJsx_.jpg"  height="350" width="1000">        					  
+                                                    </ol>  
+
+						   </br>
+
+                                                   <ul>
+
+                                                    </ul>     						           
+                                                    
+                          		 </div>   
+
+                                                      <p class="paragraph2">S. Kundert.<a  href="https://github.com/rugbyprof/5443-Data-Mining/wiki/Generative-Adversarial-Networks">Image Credit. Generative Adversarial Networks.</a> 2017.</p>   
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 				      </section>
+
+				      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                   <h4>Generative Adversarial Networks (GANs)</h4>
+
+                                                   <ol>
+					                                                                      
+                                                        <img src="href=../../imgl14/Simple_GAN_Example.png"  height="300" width="1000">     
+   					  
+                                                    </ol>  
+
+						   </br>
+                                                   <ul>
+
+
+						          <li class="paragraph2"> Generative adversarial nets are trained by simultaneously updating the discriminative distribution (D, blue, dashed line) so that it discriminates between samples from the data generating distribution (black, dotted line) \( p_{\bf{x}} \) from those of the generative distribution \( p_g(G) \).  </li>
+  
+                                                    </ul>       						           
+                                                    
+                          		 </div>   
+                                                  <p class="paragraph2"> I. J. Goodfellow et al. <a  href="https://papers.nips.cc/paper/5423-generative-adversarial-nets.pdf"> Generative Adversarial Nets.</a> arXiv:1406.2661. 2014.</p>       
+
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 				      </section>
+
+
+
+                                      <section>
+                                             <mark class="red"></mark>
+                                             <div class="my_container">
+                                                   <h3>Generative Adversarial Networks (GANs)</h3>
+
+                                                        <ul>
+						          <li class="paragraph2">One of the goals is <mark class="red">to learn the generator's distribution</mark>   \( p_g \) over data \( {\bf{x}}\). </li>
+						          <li class="paragraph2"> To do this a <mark class="red">prior on input noise variables</mark>  \(p_z ({\bf{z}})\) is defined </li>
+						          <li class="paragraph2"> A mapping to data space  \({\bf{\tilde{x}}} =  G({\bf{z}}, \theta_g)\)  is also defined where \( G \) is a differentiable function represented by a  <mark class="red">multilayer perceptron</mark>  with parameters \( \theta_g \). </p>				        
+                                                        </ul>						           
+                                                   
+                                               
+                 		 </div>                                                          
+                                                   
+                                                  <p class="paragraph2"> I. J. Goodfellow et al. <a  href="https://papers.nips.cc/paper/5423-generative-adversarial-nets.pdf"> Generative Adversarial Nets.</a> arXiv:1406.2661. 2014.</p>  
+                                                   <aside class="notes">
+  						      Adversarial examples show one of the current limitations of Neural Networks
+                                            	   </aside>
+                                     </section>
+                                      <section>
+                                             <mark class="red"></mark>
+                                             <div class="my_container">
+                                                   <h3>Generative Adversarial Networks (GANs)</h3>
+
+                                                        <ul>						        
+
+						          <li class="paragraph2"> A <mark class="red">second multi-layer perceptron </mark> \(D({\bf{x}}, \theta_d)\)  is also defined.</li>
+						          <li class="paragraph2">  \(D({\bf{x}}, \theta_d)\)  outputs a scalar and represents the probability that \( {\bf{x}} \) from the data rather than  \( p_g \) .</li>
+						          <li class="paragraph2">  \(D \)  and \(G \) play the following two-player minimax game with value function  \(V(D,G) \):
+							   <br> 
+							   <br>
+							   
+							   <br> 
+							   <br>
+							   \[
+
+							      \min_G \max_D \; V(D,G) = \mathbb{E}_{{\bf{x}} \sim p_{data}({\bf{x}})} \left [ \log(D({\bf{x}})) \right ] +   \mathbb{E}_{{\bf{z}} \sim p_{\bf{z}}({\bf{z}})} \left[ \log(1-D(G({\bf{z}})) \right]
+							   \]
+                                                          </li> 						        
+                                                   </ul>						           
+                                                   
+                                               
+                 		 </div>                                                          
+                                                   
+                                                  <p class="paragraph2"> I. J. Goodfellow et al. <a  href="https://papers.nips.cc/paper/5423-generative-adversarial-nets.pdf"> Generative Adversarial Nets.</a> arXiv:1406.2661. 2014.</p>  
+                                                   <aside class="notes">
+  						      Adversarial examples show one of the current limitations of Neural Networks
+                                            	   </aside>
+        			      </section>
+
+			      
+
+
+                                      <section>
+                                             <mark class="red"></mark>
+                                             <div class="my_container">
+                                                   <h3>Generative Adversarial Networks (GANs)</h3>
+
+                                                        <ul>
+						          <li class="paragraph2">One of the goals is <mark class="red">to learn the generator's distribution</mark>   \( p_g \) over data \( {\bf{x}}\). </li>
+						          <li class="paragraph2"> To do this a <mark class="red">prior on input noise variables</mark>  \(p_z ({\bf{z}})\) is defined </li>
+						          <li class="paragraph2"> A mapping to data space  \({\bf{\tilde{x}}} = G({\bf{z}}, \theta_g)\)  is also defined where \( G \) is a differentiable function represented by a  <mark class="red">multilayer perceptron</mark>  with parameters \( \theta_g \). </p>
+
+						          <li class="paragraph2"> A <mark class="red">second multi-layer perceptron </mark> \(D({\bf{x}}, \theta_d)\)  is also defined.</li>
+						          <li class="paragraph2">  \(D({\bf{x}}, \theta_d)\)  outputs a scalar and represents the probability that \( {\bf{x}} \) from the data rather than  \( p_g \) .</li>
+						          <li class="paragraph2">  \(D \)  and \(G \) play the following two-player minimax game with value function  \(V(D,G) \):
+
+							   <br> 
+							   <br>
+							   \[
+
+							      \min_G \max_D V(D,G) = \mathbb{E}_{{\bf{x}} \sim p_{data}({\bf{x}})} [log(D({\bf{x}}))] +   \mathbb{E}_{{\bf{z}} \sim p_{\bf{z}}({\bf{z}})} [log(1-D(G({\bf{z}}))]
+							   \]
+                                                          </li> 						        
+                                                   </ul>						           
+                                                   
+                                               
+                 		 </div>                                                          
+                                                   
+                                                  <p class="paragraph2"> I. J. Goodfellow et al. <a  href="https://papers.nips.cc/paper/5423-generative-adversarial-nets.pdf"> Generative Adversarial Nets.</a> arXiv:1406.2661. 2014.</p>  
+                                                   <aside class="notes">
+  						      Adversarial examples show one of the current limitations of Neural Networks
+                                            	   </aside>
+                                     </section>
+
+  <section>
+                                             <mark class="red"></mark>
+                                             <div class="my_container">
+                                                   <h3>Generative Adversarial Networks (GANs)</h3>
+
+                                                        <ul>						        
+
+						          <li class="paragraph2"> The training criterion for the discriminator \(D\), given any generator \(G\) is to  <mark class="red"> maximize the quantity </mark> \( V(G,D) \):
+							   <br> 
+							   <br>
+							   
+							   <br> 
+							   <br>
+
+							   \[
+							    \begin{align}
+							   V(D,G) =& \int_{\bf{x}}  p_{data}({\bf{x}})  \log(D({\bf{x}})) dx  +   \int_{{\bf{z}}} p_{\bf{z}}({\bf{z}})  \log(1-D(G({\bf{z}})) dz \\
+							    =& \int_{\bf{x}}  p_{data}({\bf{x}})  \log(D({\bf{x}}))   +  p_g({\bf{x}}) \log(1-D({\bf{x}})) dx 
+							    \end{align}		   
+							   \]
+							   
+							   
+                                                          </li> 						        
+                                                   </ul>						           
+                                                   
+                                               
+                 		 </div>                                                          
+                                                   
+                                                  <p class="paragraph2"> I. J. Goodfellow et al. <a  href="https://papers.nips.cc/paper/5423-generative-adversarial-nets.pdf"> Generative Adversarial Nets.</a> arXiv:1406.2661. 2014.</p>  
+                                                   <aside class="notes">
+  						      Adversarial examples show one of the current limitations of Neural Networks
+                                            	   </aside>
+        			      </section>
+
+
+				      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                   <h4>Generative Adversarial Networks (GANs)</h4>
+
+                                                   <ol>
+					                                                                      
+                                                        <img src="href=../../imgl14/GAN_Learning_Algorithm.png"  height="400" width="1000">     
+   					  
+                                                    </ol>  
+
+						   </br>
+   						           
+                                                    
+                          		 </div>   
+                                                  <p class="paragraph2"> I. J. Goodfellow et al. <a  href="https://papers.nips.cc/paper/5423-generative-adversarial-nets.pdf"> Generative Adversarial Nets.</a> arXiv:1406.2661. 2014.</p>       
+
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 				      </section>
+
+
+				      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                   <h4>Generative Adversarial Networks (GANs)</h4>
+
+                                                   <ol>
+					                                                                      
+                                                        <img src="href=../../imgl14/Sampling_From_GAN_Models.png"  height="400" width="1000">     
+   					  
+                                                    </ol>  
+
+						   </br>
+   						           
+                                                    
+                          		 </div>   
+                                                  <p class="paragraph2"> I. J. Goodfellow et al. <a  href="https://papers.nips.cc/paper/5423-generative-adversarial-nets.pdf"> Generative Adversarial Nets.</a> arXiv:1406.2661. 2014.</p>       
+
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 				      </section>
+
+
+				      <section>
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+                                                 <h3>Generative Adversarial Networks (GANs)</h3>
+                                                 <div class="right">
+                                                  <h4>Problems</h4>
+                                                      <ol>      
+						          <li class="paragraph2">There is <mark class="red">no explicit representation</mark> of  \(p_g({\bf{x}})\). </li>
+						          <li class="paragraph2"> \(D\)  <mark class="red">must be synchronized</mark>  well with \( G \) during training (in particular, \(G\) must not be trained too much without updating \(D \) ). </li>
+						          <li class="paragraph2"> \(G\) can collapse  too many values of \( {\bf{z}} \) to the same value of \( {\bf{x}} \). <mark class="red"></mark> </li>
+						         					         
+                                                      <ol/>           
+
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Advantages</h4>
+                                                      <ul>      
+						          <li class="paragraph2"> Markov chains are  not needed. </li>
+						          <li class="paragraph2"> Only backpropagation is used to obtain gradients. <mark class="red"></mark> </li>
+						          <li class="paragraph2"> <mark class="red">No inference</mark>  is needed during learning.  </li>
+
+                                                          <li class="paragraph2"> A <mark class="red">wide variety of functions</mark> can be incorporated into the model. </li>							         
+                                                      <ul/>                         
+                                                  </div>    
+ 
+                          		 </div>   
+                                      
+                                                  <aside class="notes">
+              
+                                           	  </aside>
+ 			   	     </section>
+				      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                   <h4>Generative Adversarial Networks (GANs)</h4>
+
+                                                   <ol>
+					                                                                      
+                                                        <img src="https://cdn-images-1.medium.com/max/1600/1*LdJRKq1YZ6Xqy1atqNuEkQ.png"  height="300" width="1000">     
+   					  
+                                                    </ol>  
+
+						   </br>
+
+                                                   <ul>
+
+						          <li class="paragraph2">Example of the use of GAN: <mark class="red">make artwork for 8-bit video games!</mark>. </li>
+                                                    </ul>     						           
+                                                    
+                          		 </div>   
+
+                                                      <p class="paragraph2">A. Geitgey.<a  href="https://medium.com/@ageitgey/abusing-generative-adversarial-networks-to-make-8-bit-pixel-art-e45d9b96cee7"> Machine Learning is Fun Part 7: Abusing Generative Adversarial Networks to Make 8-bit Pixel Art.</a> 2017.</p>   
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 				      </section>
+
+				      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                   <h4>Generative Adversarial Networks (GANs)</h4>
+
+                                                   <ol>
+					                                                                      
+                                                        <img src="https://cdn-images-1.medium.com/max/1600/1*v16YJ0XpGUvEQKFufnW2PQ.png"  height="300" width="1000">     
+   					  
+                                                    </ol>  
+
+						   </br>
+
+                                                   <ul>
+
+						          <li class="paragraph2">Important question:<mark class="red"> Which is the input space?</mark> </li>
+                                                    </ul>     						           
+                                                    
+                          		 </div>   
+
+                                                      <p class="paragraph2">A. Geitgey.<a  href="https://medium.com/@ageitgey/abusing-generative-adversarial-networks-to-make-8-bit-pixel-art-e45d9b96cee7"> Machine Learning is Fun Part 7: Abusing Generative Adversarial Networks to Make 8-bit Pixel Art.</a> 2017.</p>   
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 				      </section>
+				      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                   <h4>Generative Adversarial Networks (GANs)</h4>
+
+                                                   <ol>
+					                                                                      
+                                                        <img src="https://cdn-images-1.medium.com/max/1600/1*JqQmAvoCQlqBPdx8AYkyGw.png"  height="300" width="1000">     
+   					  
+                                                    </ol>  
+
+						   </br>
+
+                                                   <ul>
+						          <li class="paragraph2">Important question:<mark class="red"> Get some data!</mark> </li>
+                                                    </ul>     						           
+                                                    
+                          		 </div>   
+
+                                                      <p class="paragraph2">A. Geitgey.<a  href="https://medium.com/@ageitgey/abusing-generative-adversarial-networks-to-make-8-bit-pixel-art-e45d9b96cee7"> Machine Learning is Fun Part 7: Abusing Generative Adversarial Networks to Make 8-bit Pixel Art.</a> 2017.</p>   
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 				      </section>
+
+
+				      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                   <h4>Generative Adversarial Networks (GANs)</h4>
+
+                                                   <ol>
+					                                                                      
+                                                        <img src="https://cdn-images-1.medium.com/max/1600/1*zBFbVjBPHBqnwZfuCnYclg.gif"  height="300" width="1000">     
+   					  
+                                                    </ol>  
+
+						   </br>
+
+                                                   <ul>
+
+						          <li class="paragraph2"><mark class="red">Learn the GAN</mark>. </li>
+                                                    </ul>     						           
+                                                    
+                          		 </div>   
+
+                                                      <p class="paragraph2">A. Geitgey.<a  href="https://medium.com/@ageitgey/abusing-generative-adversarial-networks-to-make-8-bit-pixel-art-e45d9b96cee7"> Machine Learning is Fun Part 7: Abusing Generative Adversarial Networks to Make 8-bit Pixel Art.</a> 2017.</p>   
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 				      </section>
+
+
+				      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                   <h4>Generative Adversarial Networks (GANs)</h4>
+
+                                                   <ol>
+					                                                                      
+                                                        <img src="https://cdn-images-1.medium.com/max/1600/1*xL2g8ikXiSNseYb8ZWh9dg.png"  height="300" width="1000">     
+   					  
+                                                    </ol>  
+
+						   </br>
+
+                                                   <ul>
+
+						          <li class="paragraph2"><mark class="red">Last step</mark>: Use the tiles generated by the GAN to create a new game. </li>
+                                                    </ul>     						           
+                                                    
+                          		 </div>   
+
+                                                      <p class="paragraph2">A. Geitgey.<a  href="https://medium.com/@ageitgey/abusing-generative-adversarial-networks-to-make-8-bit-pixel-art-e45d9b96cee7"> Machine Learning is Fun Part 7: Abusing Generative Adversarial Networks to Make 8-bit Pixel Art.</a> 2017.</p>   
+                                                  <aside class="notes">
+
+                                           	  </aside>
+ 				      </section>
+
+				      
+                                      <section>
+                                                   <h4>Generative modeling</h4>                                            
+                                                        <iframe  data-autoplay width="800" height="420"
+                                                           src="https://www.youtube.com/embed/JRBscukr7ew">
+                                                        </iframe>
+                                                 
+                                                  <aside class="notes">
+						 
+                                            	  </aside>
+ 				      </section>
+
+				       <section>
+                                         <mark class="red"></mark>
+                                         <div class="my_container">
+					    <h4>Generators: GANs</h4>                                            
+                                            <ol>
+					        <img src="href=../../imgl14/Hard_PSs.png"  height="250" width="1000">           
+
+<br>
+                                                <li class="paragraph2">GAN Application: <mark class="red">Approximating Pareto sets</mark> in multi-objective problems. </li>
+                                                <li class="paragraph2">The shapes of the Pareto fronts are usually intricate. </li>
+                                                <li class="paragraph2">We want to <mark class="red">approximate these shapes using GANs</mark>.</li>
+                                               
+                                                    </ol>     		
+                          		 </div>
+
+					  <p class="paragraph2"> U. Garciarena, R. Santana, A. Mendiburu. <a href="https://dl.acm.org/citation.cfm?id=3205550"> Evolved GANs for generating Pareto set approximations.</a> Proceedings of the Genetic and Evolutionary Computation Conference. Pp 434-441. Kyoto. Japan. 2018. </p>
+                                                  <aside class="notes">
+                                           	  </aside>
+ 			      </section>
+
+ 		              <section>
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+                                            <h>Generators: GANs</h4>
+                                            <ol>
+					        <img src="href=../../imgl14/PSets_GAN.png"  height="250" width="1100">           
+<br>
+                                                <li class="paragraph2">GANs are able to learn the approximations for bi-objective functions.</li>
+                                                <li class="paragraph2">We can simultaneously search for architectures and evaluate their accuracy to approximate the Pareto sets.  </li>
+                                                <li class="paragraph2">Other potential applications are possible in optimization.</li>
+                                              
+                                                    </ol>     		
+                          		  </div>
+					    <p class="paragraph2"> U. Garciarena, R. Santana, A. Mendiburu. <a href="https://dl.acm.org/citation.cfm?id=3205550"> Evolved GANs for generating Pareto set approximations.</a> Proceedings of the Genetic and Evolutionary Computation Conference. Pp 434-441. Kyoto. Japan. 2018. </p>
+                                                  <aside class="notes">
+                                           	  </aside>
+ 			      </section>
+
+
+ 		            </section>
+
+		             <section>  
+                                     <section  id="sec:DNNs_VAEs"> 
+                                                <mark class="red"></mark>
+                                               <div class="container">
+                                                   <h3>Variational autoencoders</h3>      
+                                    
+                                                  <div class="right">
+                                                  <h4>Network architecture</h4>
+                                                      <ul>      
+                                                        <img src="href=../../img/NNZoo/vae.png"  height="350" width="500">           
+					                
+                                                      <ul/>                    
+                                                      <p class="paragraph2"> Figure credit. <a href="http://www.asimovinstitute.org/neural-network-zoo/"> Neural network zoo.</a> </p>                                  
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Characteristics</h4>
+                                                      <ul>      
+
+
+						          <li class="paragraph2">As traditional autoencoders they can be split into two components: an  <mark class="red">encoder</mark> and a <mark class="red">decoder</mark>.</li>
+						          <li class="paragraph2">They are <mark class="red">probabilistic autoencoders</mark> since their outputs are partly determined by chance (as oppossed to DAEs which use randomness only during training).</li>
+
+
+						          <li class="paragraph2">They can generate new instances that look like if they were sampled from the training set (<mark class="red">generative autoencoders</mark>).</li>
+
+						          <li class="paragraph2"><mark class="red">Similar to RBMs</mark>, but they are <mark class="red">easier to train</mark> and the  <mark class="red">sampling process is much faster</mark>.</li>
+
+			                
+                                                      <ul/>    
+                                                  
+                                                  </div>    
+                                                   
+                                              </div>   
+                                                     <p class="paragraph2">  A. Geron. <a href=" http://shop.oreilly.com/product/0636920052289.do"> Hands-On Machine Learning with Scikit-Learn and TensorFlow. Concepts, Tools, and Techniques to Build Intelligent Systems. </a>  O'Reilly.  2017.</p>                          
+                                                     <p class="paragraph2">  D. P. Kingma and M. Welling. <a href="https://arxiv.org/abs/1312.6114"> Auto-encoding variational Bayes. </a>  arXiv preprint arXiv:1312.6114.  2013. </p>              
+
+
+
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				         </section>
+
+
+                                        <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>
+                                                  <h4>Learning latent distributions</h4>  
+
+
+                                                   <ol>
+					                                                                      
+                                                        <img src="href=../../imgl14/Noisy_Twos.png"  height="280" width="1000">     
+   					  
+                                                    </ol>  
+
+						   </br>
+
+                                                   <ul>
+
+
+						          <li class="paragraph2">  <mark class="red">Learning a distribution</mark> of images that belong to the same class can be difficult.  </li>
+						          <li class="paragraph2">  In the example above, the second image (b) is a corrupted version of the first image (a). The third image (c) is identical but it <mark class="red">has been shifted two pixels</mark>.  </li>
+						          <li class="paragraph2">  Thinking of a way to detect this type of similarity given a wide range of transformations is difficult.  </li>
+  
+                                                    </ul>     						           
+                                                    
+                          		 </div>   
+                                                      <p class="paragraph2"> C. Doersch.  <a href="https://arxiv.org/pdf/1606.05908.pdf">Tutorial on Variational Autoencoders.</a> arxiv.org/pdf/1606.05908.pdf. 2016.</p>  
+ 
+
+                                           	  <aside>
+                                           	  </aside>
+
+ 				      </section>
+
+
+                                       <section> 
+                                                <mark class="red"></mark>
+                                               <div class="container">
+                                                   <h3>Variational autoencoders</h3>      
+                                    
+                                                  <div class="right">
+
+                                                    <ol>
+						       <img src="href=../../imgl14/Noisy_Twos.png"  height="350" width="700">
+                                                         
+                                                    </ol>     		
+						    
+                             
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Latent representation</h4>
+                                                      <ul>      
+
+						          <li class="paragraph2">In some highly complex input domains (e.g., image analysis), assuming a <mark class="red">latent representation</mark> can help to model the problem.</li>
+						          <li class="paragraph2"><mark class="red">Latent space</mark>: We assume that the distribution over the observed variables  \({\bf{z}} \;\) is the consequence of a distribution over some set of hidden variables \({\bf{z}} \sim p({\bf{z}}) \).</li>
+						          <li class="paragraph2">Inference is the process of disentangling these rich real-world dependencies into  <mark class="red">simplified latent dependencies</mark>, by predicting \(p({\bf{z}}|{\bf{x}})\).</li>		
+ 
+                                                      <ul/>    
+                                                  
+                                                  </div>    
+                                                   
+                                              </div>   
+                                                    <p class="paragraph2"> C. Doersch.  <a href="https://arxiv.org/pdf/1606.05908.pdf">Tutorial on Variational Autoencoders.</a> arxiv.org/pdf/1606.05908.pdf. 2016.</p>         
+                                                                                   
+                                          	  </aside>
+                                     </section>
+                                      <section> 
+                                                <mark class="red"></mark>
+                                               <div class="container">
+                                                   <h3>Variational autoencoders</h3>      
+                                    
+                                                  <div class="right">
+
+                                                    <ol>
+                                                        <img src="http://fastforwardlabs.github.io/blog-images/miriam/imgs_code/vae.4.png"  height="450" width="700"> 
+						         
+                                                    </ol>     		
+						    
+                             
+                          		          </div>
+                                                  <div class="left">
+						    <h4>Latent representation in VAE</h4>
+                                                      <ul>      
+
+						          <li class="paragraph2"> <mark class="red">Latent variable</mark>  \( {\bf{z}} \) is distributed as a <mark class="red">multivariate normal</mark>  with mean \( \mu \) and diagonal covariance values \( \sigma^2 \).</li>
+						          <li class="paragraph2"> The parameters of the distribution are  <mark class="red"> directly parameterized by the encoder</mark>:  \( \mathcal{N}(\mu,\sigma^2\, I) \).</li>
+
+							   <li class="paragraph2">The encoder produces a  <mark class="red">mean coding \( \mu \)</mark> and a <mark class="red">standard deviation \( \sigma \)</mark></li>
+						        
+                                                       					                
+                                                      <ul/>                                                      
+                                                  </div>                                                       
+                                              </div>   
+                                                      <p class="paragraph2"> M. Shiffman.  <a href="http://blog.fastforwardlabs.com/2016/08/22/under-the-hood-of-the-variational-autoencoder-in.html">Under the Hood of the Variational Autoencoder (in Prose and Code).</a>  2016.</p>  
+                                                      <p class="paragraph2"> C. Doersch.  <a href="https://arxiv.org/pdf/1606.05908.pdf">Tutorial on Variational Autoencoders.</a> arxiv.org/pdf/1606.05908.pdf. 2016.</p>         
+                                                                                   
+                                          	  </aside>
+                                     </section>
+
+
+
+                                     <section> 
+                                                <mark class="red"></mark>
+                                               <div class="container">
+                                                   <h3>Variational autoencoders</h3>      
+                                    
+                                                  <div class="right">
+
+                                                    <ol>
+						        <img src="href=../../imgl14/VAE_Normal_Model.png"  height="425" width="500">           						         
+                                                    </ol>     		
+						    
+                             
+                          		          </div>
+                                                  <div class="left">
+						    <h4>Latent representation in VAE</h4>
+                                                      <ul>     
+   
+						          <li class="paragraph2">In the  <mark class="red">decoder phase</mark>,  a sampled  \( {\bf{z}} \) is passed to the decoder/generative network.</li>
+
+							  <li class="paragraph2"> The decoder uses the learned conditional distribution over input space to reconstruct an input according to   \(\tilde{\bf{x}} \sim  p_{\theta}({\bf{x}}|{\bf{z}})\).</li>
+
+							  
+						          <li class="paragraph2">The actual coding is sampled from the <mark class="red">Gaussian distribution</mark> with the learned parameters.</li>
+
+							  
+						          <li class="paragraph2"> The key idea behind the variational autoencoder is to attempt to sample values of \({\bf{z}}\)  that  <mark class="red">are likely to have produced \({\bf{x}}\)</mark>, and compute \( p({\bf{x}})\) just from those.</li>
+                                                       					                
+                                                      <ul/>                                                      
+                                                  </div>                                                       
+                                              </div>   
+                                                      <p class="paragraph2"> M. Shiffman.  <a href="http://blog.fastforwardlabs.com/2016/08/22/under-the-hood-of-the-variational-autoencoder-in.html">Under the Hood of the Variational Autoencoder (in Prose and Code).</a> 2016.</p>  
+                                                      <p class="paragraph2"> C. Doersch.  <a href="https://arxiv.org/pdf/1606.05908.pdf">Tutorial on Variational Autoencoders.</a> arxiv.org/pdf/1606.05908.pdf. 2016.</p>         
+                                                                                   
+                                          	  </aside>
+                                     </section>                       
+                                         <section> 
+                                                <mark class="red"></mark>
+                                               <div class="container">
+                                                   <h3>Variational autoencoders</h3>      
+                                    
+                                                  <div class="right">
+                                                  <h4>Network architecture</h4>
+                                                      <ul>      
+                                                        <img src="http://fastforwardlabs.github.io/blog-images/miriam/imgs_code/vae.4.png"  height="380" width="700"> 					                
+                                                      <ul/>                    
+                             
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Interpretation</h4>
+                                                      <ul>      
+						          <li class="paragraph2"> The encoder maps observed inputs to (approximate) posterior distributions over  <mark class="red">latent space</mark>.</li>
+						          <li class="paragraph2">The decoder works as a <mark class="red">generative network</mark>. It maps arbitrary latent coordinates back to distributions over the original data space. <mark class="red"></mark></li>
+
+						          <li class="paragraph2">The latent variable model can be seen as a <mark class="red">probability distribution</mark>  \(p(x|z)\) describing the generative process (of how \( x \) is generated from \(z\) ). <mark class="red"></mark></li>
+						         
+						      
+			                
+                                                      <ul/>    
+                                                  
+                                                  </div>    
+                                                   
+                                              </div>   
+
+                                                      <p class="paragraph2"> C. Doersch.  <a href="https://arxiv.org/pdf/1606.05908.pdf">Tutorial on Variational Autoencoders.</a> arxiv.org/pdf/1606.05908.pdf. 2016.</p>         
+                                                     <p class="paragraph2">  D. P. Kingma and M. Welling. <a href="https://arxiv.org/abs/1312.6114"> Auto-encoding variational Bayes. </a>  arXiv preprint arXiv:1312.6114.  2013. </p>              
+
+
+
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				         </section>
+
+				      <section>
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+                                                   <h4>VAE components</h4>
+                                                   <ol>
+                                                        <img src="http://fastforwardlabs.github.io/blog-images/miriam/imgs_code/vae.4.png"  height="350" width="1200"> 
+						         
+                                                    </ol>     		
+                                              
+                                                      <p class="paragraph2"> M. Shiffman.  <a href="http://blog.fastforwardlabs.com/2016/08/22/under-the-hood-of-the-variational-autoencoder-in.html">Under the Hood of the Variational Autoencoder (in Prose and Code).</a> 2016.</p>  
+                                              
+
+                          		 </div>   
+                                      
+                                                  <aside class="notes">                                               
+                                           	  </aside>
+ 				      </section>
+
+					 
+				      <section>
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+                                                   <h3>Reparametrization trick</h3>
+                                                   <ol>
+                                                        <img src="href=../../imgl14/VAE_Model.png"  height="380" width="1200"> 
+						         
+                                                    </ol>     		
+                                              
+                                                      <p class="paragraph2"> C. Doersch.  <a href="https://arxiv.org/pdf/1606.05908.pdf">Tutorial on Variational Autoencoders.</a> arxiv.org/pdf/1606.05908.pdf. 2016.</p>  
+                                              
+
+                          		 </div>   
+                                      
+                                                  <aside class="notes">
+                                                     There are a number of classes of DNNs. These are among the best known.                     
+                                           	  </aside>
+ 				      </section>
+
+                                      <section>
+                                             <mark class="red"></mark>
+                                             <div class="my_container">
+                                                   <h3>Variational autoencoders loss function</h3>
+
+                                                        <ul>					        
+
+						          <li class="paragraph2">
+							     <mark class="red">VAEs </mark> may be trained
+by maximizing the variational lower bound  \( \mathcal{L}(q)\)  associated with data point.</li>
+
+							  <li class="paragraph2">
+							    
+							   \[
+
+							      \mathcal{L}(q) = \mathbb{E}_{{\bf{z}}\sim q({\bf{z}}|{\bf{x}})} \log  p_{model}({\bf{x}}|{\bf{z}}) - D_{KL} (q({\bf{z}}|{\bf{x}})||p_{model}({\bf{z}}))
+							   \]
+                                                          </li> 						        
+                                                   </ul>						           
+                                                   
+                                               
+                 		 </div>                                                          
+                                                   
+                                                  <p class="paragraph2"> I. J. Goodfellow et al. <a  href="https://papers.nips.cc/paper/5423-generative-adversarial-nets.pdf"> Generative Adversarial Nets.</a> arXiv:1406.2661. 2014.</p>  
+                                                   <aside class="notes">
+  						      Adversarial examples show one of the current limitations of Neural Networks
+                                            	   </aside>
+        			      </section>
+
+				    
+
+				      
+				    <section>
+                                         <mark class="red"></mark>
+                                          <div class="my_container">
+                                            <h4>Variational autoencoders (manifolds)</h4>
+                                            <ul>
+
+                                                <li class="paragraph2">In machine learning, a manifold can serve to capture in a <mark class="red">low dimensional space</mark>  characteristics of the data in the high dimensional space.</li>
+                                                <li class="paragraph2"> In contrast to PCA and other methods, the manifold learning can provide more powerful <mark class="red">non-linear dimensionality reduction</mark> by preserving the local structure of the input data.</li>
+                                                <li class="paragraph2">The usability of manifolds can be measured in terms of their ability to <mark class="red">capture variability accross</mark> the data and in terms of their <mark class="red">generative capability</mark>.</li>
+                                                <li class="paragraph2"> <mark class="red">Manifold learning</mark> has mostly focused on unsupervised learning procedures that attempt to capture these manifolds.</li>
+                                                    </ul>     		
+                          		  </div>
+					    <p class="paragraph2"> E. Park. <a href="http://www.cs.unc.edu/~eunbyung/papers/manifold_variational.pdf"> Manifold Learning with Variational Auto-encoder for Medical Image Analysis.</a> Semantic Scholar.</p>
+                                                  <aside class="notes">
+                                           	  </aside>
+                             </section>
+
+
+				       <section>
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+                                            <h4>Variational autoencoders (manifolds)</h4>					    
+                                            <ol>
+					        <img src="href=../../imgl14/VAE_Manifold.png"  height="360" width="1000">           
+
+<br>
+                                                 <li class="paragraph2"> Manifold in a 2-d latent space.</li>
+                                              
+                                                    </ol>     		
+                          		  </div>
+					  	         <p class="paragraph2"> I. Goodfellow and Y. Bengio and A. Courville. <a href="http://www.deeplearningbook.org/"> Deep Learning. Chapter 20. Deep Generative Models.</a> MIT Press. 2016. </p>  
+                                                  <aside class="notes">
+                                           	  </aside>
+ 			            </section>
+				    
+				    <section>
+                                         <mark class="red"></mark>
+                                          <div class="my_container">
+                                            <h4>Variational autoencoders (manifolds)</h4>
+                                            <ul>
+                                                <img src="href=../../imgl14/MRI_VAE_2D.png"  height="370" width="1000">           <br>                                     
+                                                <li class="paragraph2">Visualization of 2d manifold space for MRI data.</li>
+                                              
+                                            </ul>     		
+                          		  </div>
+					    <p class="paragraph2"> E. Park. <a href="http://www.cs.unc.edu/~eunbyung/papers/manifold_variational.pdf"> Manifold Learning with Variational Auto-encoder for Medical Image Analysis.</a>Semantic Scholar </p>
+                                                  <aside class="notes">
+                                           	  </aside>
+                               </section>
+
+
+	                        <section>
+                                         <mark class="red"></mark>
+                                          <div class="my_container">
+                                            <h4>Variational autoencoders (manifolds)</h4>
+                                            <ul>
+                                                <img src="href=../../imgl14/MRI_VAE_multiple_d.png"  height="370" width="1000">           <br>                                     
+                                                <li class="paragraph2">T-SNE visualization of learned high dimensional manifold space.</li>
+                                              
+                                             </ul>     		
+                          		  </div>
+					    <p class="paragraph2"> E. Park. <a href="http://www.cs.unc.edu/~eunbyung/papers/manifold_variational.pdf"> Manifold Learning with Variational Auto-encoder for Medical Image Analysis.</a> Semantic Scholar.</p>
+                                                  <aside class="notes">
+                                           	  </aside>
+                               </section>
+
+
+			      <section>
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+                                            <h3>Variational autoencoders (extensions)</h3>					    
+                                            <ol>
+					        <img src="href=../../imgl14/Introduced_Autoencoders.png"  height="370" width="1000">           
+
+<br>
+                                                 <li class="paragraph2">VAEs are extended to consider additional, <mark class="red">functionally dependent variables</mark> as inputs. </li>
+                                                <li class="paragraph2">The application domain is also <mark class="red"> multi-objective optimization</mark>.</li>
+                                               
+                                                    </ol>     		
+                          		  </div>
+					  	 <p class="paragraph2"> U. Garciarena, R. Santana, A. Mendiburu. <a href="https://dl.acm.org/citation.cfm?id=3205645&dl=ACM&coll=DL">  Variational autoencoder for learning and exploiting latent representations in search distributions.</a> Proceedings of the Genetic and Evolutionary Computation Conference. Pp 849-856. Kyoto. Japan. 2018. </p>
+                                                  <aside class="notes">
+                                           	  </aside>
+ 			      </section>
+				  
+	                      <section>
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+                                            <h4>Variational autoencoders</h4>					    
+                                            <ol>
+					        <img src="href=../../imgl14/Extended_VAE.png"  height="360" width="1000">           
+
+<br>
+                                                 <li class="paragraph2"> Implementation of the Extended VAE </li>
+                                              
+                                                    </ol>     		
+                          		  </div>
+					  	 <p class="paragraph2"> U. Garciarena, R. Santana, A. Mendiburu. <a href="https://dl.acm.org/citation.cfm?id=3205645&dl=ACM&coll=DL">  Variational autoencoder for learning and exploiting latent representations in search distributions.</a> Proceedings of the Genetic and Evolutionary Computation Conference. Pp 849-856. Kyoto. Japan. 2018. </p>
+                                                  <aside class="notes">
+                                           	  </aside>
+ 			      </section>
+			          <section>
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+                                            <h4>Variational autoencoders</h4>					    
+                                            <ol>
+					        <img src="href=../../imgl14/Conditioned_Extended_VAE.png"  height="350" width="1000">           
+						<br>
+						<li class="paragraph2"> Implementation of the Conditionally Extended VAE </li>
+                                                 </ol>     		
+                          		  </div>
+	  
+					 <p class="paragraph2"> U. Garciarena, R. Santana, A. Mendiburu. <a href="https://dl.acm.org/citation.cfm?id=3205645&dl=ACM&coll=DL">  Variational autoencoder for learning and exploiting latent representations in search distributions.</a> Proceedings of the Genetic and Evolutionary Computation Conference. Pp 849-856. Kyoto. Japan. 2018. </p>
+                                                  <aside class="notes">
+                                           	  </aside>
+ 			                  </section>
+
+                                </section>
+                    	</div>
+		</div>
+
+
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+		  Reveal.initialize({		                        
+   	                        history: true,
+				transition: 'linear',
+				math: {
+					// mathjax: 'http://cdn.mathjax.org/mathjax/latest/MathJax.js',
+					config: 'TeX-AMS_HTML-full'
+				},
+
+				dependencies: [
+                                        { src: 'lib/js/fullscreen-img.js' },
+					{ src: 'lib/js/classList.js' },
+					{ src: 'plugin/math/math.js', async: true }
+
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
