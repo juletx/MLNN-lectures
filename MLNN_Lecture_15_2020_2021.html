@@ -1,0 +1,885 @@
+<!doctype html>
+<html lang="en">
+
+
+   
+    
+	<head>
+		<meta charset="utf-8">
+		<title>Machine Learning and Neural Networks</title>
+                <meta name="author" content="Roberto Santana">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<!-- <link rel="stylesheet" href="css/reveal.css">  -->
+                <link rel="stylesheet" href="css/fullscreen-img.css">
+                <link rel="stylesheet" href="css/added_css/notebook.css">
+   	        <link rel="stylesheet" href="css/reveal.css">
+                <link rel="stylesheet" href="css/theme/nncourse.css" id="theme">
+
+
+        <script>
+	  var link = document.createElement( 'link' );
+	  link.rel = 'stylesheet';
+	  link.type = 'text/css';
+	  link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+	  document.getElementsByTagName( 'head' )[0].appendChild( link );
+	</script>		
+
+	</head>
+
+	<body>
+
+
+		<div class="reveal">
+			<div class="slides">
+
+				<section>
+                                          <div class="my_container">
+                                        <h2>Machine Learning and Neural Networks</h2>
+					<p>Roberto Santana and Unai Garciarena<p>
+					<p>Department of Computer Science and Artificial Intelligence</p>
+                                        <p>University of the Basque Country</p>
+                          		 </div>   
+				</section>
+                                <section id="sec:NN_Intro">
+				           <mark class="red"></mark>
+                                            <div class="my_container">
+                                             <h3>Deep Neural Networks: Table of Contents </h3>
+                                        
+                                              <table style="width:100%"; border=solid>
+
+
+						    <tr>
+
+
+                                                     <td> <p class="paragraph2"> <a href="#/sec:DNNs_Types">Types of DNNs </a></p></td>      
+
+                                                     <td> <p class="paragraph2"> <a href="#/sec:NNs_RBMs"> RBMs review  </a></p></td>
+
+				                     <td> <p class="paragraph2"> <a href="#/sec:GMs"> Graphical Models  </a></p></td>
+
+
+                                                      <td><p class="paragraph2"> <a href="#/sec:DNNs_DBNs"> Deep Belief Networks </a></p></td>                                                 
+
+                                                    </tr>
+
+
+						    <tr>
+
+						      <td><p class="paragraph2"> <a href="#/sec:DNNs_DBMs"> Deep Boltzmann machines </a></p></td>
+
+                                                    </tr>
+
+					                                       
+
+				              </table>	  
+                          	          </div>   
+
+  		   	       </section> 				
+                          </section>
+
+                          <section>
+                                       <mark class="red"></mark>
+ 				      <section id="sec:DNNs_Types">
+                                          <div class="my_container">
+                                                   <h3>Deep neural networks</h3>                                                   
+                                                   <h4>Types of DNNs</h4>
+                                                   <ol>
+						          <li class="paragraph2">  <mark class="red">Deep Belief Nets</mark> (DBNs).  </li>
+						          <li class="paragraph2">  <mark class="red">Deep Boltzmann Machines</mark> (DBMs).  </li>
+						          <li class="paragraph2"> AutoEncoders (AEs). </li>
+						          <li class="paragraph2"> Convolutional Neural Networks (CNN). </li>
+						          <li class="paragraph2"> Recurrent Neural Networks (RNNs) and LSTM. </li>     
+						          <li class="paragraph2"> Generative Adversarial Networks (GAN). </li>
+
+  						  
+                                                    </ol>     						                
+                          		  </div>
+					                                                  <p class="paragraph2"> R. Salakhutdinov. <a href="http://www.annualreviews.org/doi/abs/10.1146/annurev-statistics-010814-020120">Learning deep generative models.</a> Annual Review of Statistics and Its Application. Vol. 2. Pp. 361-385. 2015.</p>
+
+                                                <p class="paragraph2">  P. Smolensky. <a href="http://dl.acm.org/citation.cfm?id=104290"> Information processing in dynamical systems: Foundations of harmony theory. </a> Technical report, DTIC Document, 1986. </p>     
+                                      
+                                                  <aside class="notes">
+                                                     There are a number of classes of DNNs. These are among the best known.                     
+                                           	  </aside>
+  				    </section>
+                                     <section  id="sec:NNs_RBMs"> 
+                                                <mark class="red"></mark>
+                                               <div class="container">
+                                                   <h3>Restricted Boltzmann machines</h3>      
+                                                   <h4>Review</h4>         
+                                    
+                                                  <div class="right">
+                                                  <h4>Network architecture</h4>
+                                                      <ul>      
+                                                            <img src="href=../../imgl_2019_Lect_13/RBM_Salakhutdinov.png"  height="300" width="500">           
+					                
+                                                      <ul/>                                             
+                                                          
+
+                         		          </div>
+                                                  <div class="left">   
+                                                      <h4>Characteristics</h4>
+                                                      <ul>      
+						          <li class="paragraph2">It is a Boltzmann Machine where there are <mark class="red">no connections either between visible units or between hidden units</mark>. </li>
+
+						          <li class="paragraph2">Like BMs, they  <mark class="red">learn to model the probability distribution of their inputs</mark>. </li>
+
+
+						          <li class="paragraph2"> They are  <mark class="red">probabilistic</mark> and <mark class="red">generative</mark> models and can be used to make inference.</li>
+
+
+
+ 					                  <li class="paragraph2">Successfully applied to image classification, speech recognition, and other ML tasks.  </li>   	
+			                
+                                                      </ul>    
+                                                       
+                                                    
+                                                  </div>    
+                                                   
+                                              </div>               
+                                                <aside class="notes">
+                                                      As the name indicates, the RBM introduces some sort of restriction to the Boltzmann machine.
+                                                      This restriction is in the network structure.
+                                                      We will remove the connections within hidden neurons and also the connections withing visible neurons. 
+                                                      In principle, this reduces the power of the network but on the other hand this makes training more efficient.                                                                     
+                                           	  </aside>
+ 				      </section>
+
+                                      <section>
+                                          <div class="my_container">
+                                   	  <h3>Restricted Boltzmann machine</h3>
+                                          <h4>Energy function</h4>
+                          		 
+                                              <p class="paragraph2"> 
+                                                \[
+                                                    E(v,h) = -\sum_i v_ib_i -\sum_k h_kd_k  -\sum_{i,k} v_ih_k w_{i,k}                                                                    \] 
+                                              </p>         
+                          		 
+                                              <p class="paragraph2"> \( v \): visible units. </p>
+                                              <p class="paragraph2"> \( h \): hidden units. </p>         
+                                              <p class="paragraph2"> \( w \): bidirectional weights. </p>
+                                              <p class="paragraph2"> \( i,k \):  indices of the units. </p>        
+
+                                              <p class="paragraph2"> \( b_i \):  bias visible units. </p>      
+                                              <p class="paragraph2"> \( d_k \):  bias hidden units. </p>      
+
+                          		  </div>   
+
+                                                <p class="paragraph2"> R. Salakhutdinov. <a href="http://www.annualreviews.org/doi/abs/10.1146/annurev-statistics-010814-020120">Learning deep generative models.</a> Annual Review of Statistics and Its Application. Vol. 2. Pp. 361-385. 2015.</p>
+
+                                                <p class="paragraph2">  P. Smolensky. <a href="http://dl.acm.org/citation.cfm?id=104290"> Information processing in dynamical systems: Foundations of harmony theory. </a> Technical report, DTIC Document, 1986. </p>     
+                                          <aside class="notes"
+                                                The energy function of the RBM is simplified as a result of simplified the structure. 
+                                                Then, to learn the parameters, we could apply MCMC methods to minimize the likelihood given the model.
+                                                However, Hinton proposed other types of methods. We will leave the discussion of these methods for after we do the practice with Boltzmann machines and RBMs.           
+						  </aside>
+
+      
+ 				      </section>    
+
+
+
+                                     <section>
+                                               <mark class="red"></mark>
+                                               <div class="container">     
+                                                   <h3>Restricted Boltzmann machines</h3>      
+                                                  <div class="right">      
+
+                                                       <div>                                   
+                                                         <h4>Difference to Boltzmann machines<h4>             	
+                          		                </div>	 
+                                            
+                                                       <ul>     
+                                                        <p class="paragraph2"> The visible nodes are <mark class="red">conditionally independent</mark> among them given the hidden nodes. 
+                                                        <p class="paragraph2"> The hidden nodes are <mark class="red">conditionally independent</mark>  among them given the visible nodes. 
+                                                 
+                                                      </ul>              
+                                         
+                                                   </div>                 		         
+
+                                                   <div class="left">  
+                          		           <div>	 
+                                                      <h4>Boltzmann distribution</h4>   
+                          		            </div>	                        		 
+                                                   <ul>  
+                                                    <p class="paragraph2"> The probability distribution of any global state is computed as:
+                                                      \[
+                                                         p({\bf{v}},{\bf{h}}) = \frac{e^{-E({\bf{v}},{\bf{h}})}}{Z},
+                                                      \] 
+                                                    </p>     
+                                                    <p class="paragraph2"> where \(Z\) is the <mark class="red">normalizing constant</mark>:
+                                                      \[
+                                                        Z = \sum_{{\bf{x}},{\bf{y}}} e^{-E({\bf{v}},{\bf{h}})}
+                                                      \] 
+                                                    </p>                              		 
+                                                   
+                                                  </ul>              
+                          		           <div>
+                                                   <h4>Marginal probabilities</h4> 
+                          		           </div>                         		 
+                                                   <ul>  
+                                                    <p class="paragraph2"> The <mark class="red"> probabilities of visible units</mark> are the sum of the probabilities of all the joint configurations that contain them: 
+                                                      \[
+                                                          p({\bf{v}}) = \sum_{{\bf{h}}} p({\bf{v}},{\bf{h}}) = \frac{\sum_{{\bf{h}}} e^{-E({\bf{v}},{\bf{h}})}}{Z}.
+                                                      \] 
+                                                    </p>                                                        
+                                                  </ul>              
+                                         
+                                               </div>  
+                                                     
+                                             </div>  
+                                          
+                                      
+                                                  <aside class="notes">
+                                            	  </aside>
+                              
+        		             </section>     
+        		           
+ 				      <section>
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+  
+                                                   <h4>RBM Learning Algorithm: Contrastive Divergence</h4>
+                                                   <ol>
+
+                                                          <li class="paragraph2"> For each training instance \( {\bf{x}} \), set the states of the <mark class="red">visible units</mark> to \(x_1,\dots,x_n \). </li>
+
+                                                          <li class="paragraph2"> Compute the states of the <mark class="red">hidden units </mark>  \(h_1,\dots,h_{|H|} \) using:
+							    </br>
+							   
+                                                          \[
+
+							    \begin{align}
+                                                              z_j(t)        & = d_j + \sum_i w_{ij} s_i(t) \\           		
+						              p(h_j(t)=1) &= \sigma(z_j) = \frac{1}{1+e^{-z_j}}  	
+							    \end{align}
+                                                          \]
+
+							  </li>
+
+
+                                                          <li class="paragraph2"> Compute the states of the <mark class="red">visible units </mark> using the corresponding stochastic equations for visible units. That way we get some estimated values  <mark class="red">\(\dot{x}_1,\dots, \dot{x}_{n} \)</mark>. </li>
+
+
+                                                          <li class="paragraph2"> Compute again the states of the <mark class="red">hidden units </mark> using the same stochastic equations. That way we get:  <mark class="red">\(\dot{h}_1,\dots, \dot{h}_{|H|} \)</mark>. </li>
+
+                                                          <li class="paragraph2">Finally, the <mark class="red">connection weights</mark> are  updated using:   
+							    </br>
+							    </br>
+                                                          \[
+
+							    \begin{align}
+                                                                 W(t+1) &= W(t) +  \eta \left ( {\bf{x}} {\bf{h}}^{\top} -  {\bf{\dot{x}}} {\bf{\dot{h}}}^{\top} \right ) \\           		
+							         b(t+1) &= b(t) +  \eta ({\bf{x}} -{\bf{\dot{x}}}) \\
+
+							         d(t+1) &= d(t) +  \eta ({\bf{h}}-{\bf{\dot{h}}}) 
+
+							    \end{align}
+                                                          \]
+
+							  </li>
+                                                    </ol>     		
+                                              
+                                                                     
+                          		  </div>
+
+					   <p class="paragraph2">  A. Geron. <a href=" http://shop.oreilly.com/product/0636920052289.do"> Hands-On Machine Learning with Scikit-Learn and TensorFlow. Concepts, Tools, and Techniques to Build Intelligent Systems. </a>  O'Reilly.  2017.</p>         
+                                      
+                                                  <aside class="notes">
+                                                     There are a number of classes of DNNs. These are among the best known.                     
+                                           	  </aside>
+ 				 </section>
+                           </section>
+
+
+
+                          <section>
+                                      <section id="sec:GMs"> 
+                                                <mark class="red"></mark>
+                                               <div class="container">
+                                                   <h3>Graphical models and probabilistic inference</h3>      
+                                    
+                                                  <div class="right">
+                                                  <h4>Probabilistic graphical models</h4>
+
+                                                      <ul>      
+                                                         <img src="https://www.researchgate.net/profile/Marija_Jankovic2/publication/258255299/figure/fig2/AS:392640165105665@1470624118508/Figure-2-Chest-Clinic-a-classical-example-in-the-Bayesian-networks-literature.png"  height="400" width="1200">     
+   					  					                
+                                                      <ul/>  
+                                                     
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Probabilistic inference</h4>
+                                                      <ul>      
+
+						          <li class="paragraph2"> <mark class="red">Probabilistic reasoning</mark> addresses problems in the presence of uncertainty.</li>
+						          <li class="paragraph2">In graphical models,  <mark class="red">probabilistic inference</mark> is the problem of computing a conditional probability distribution over values of some nodes (the hidden or unorserved nodes).</li>
+						          <li class="paragraph2">Usually, we also want to infer some  <mark class="red">marginal probabilities</mark> in the model given the evidence.</li>						    
+			                
+                                                      <ul/>    
+                                                  
+                                                  </div>    
+                                                   
+                                              </div>   
+                                                      <p class="paragraph2"> M-L. Moullec et al.  <a href="http://mechanicaldesign.asmedigitalcollection.asme.org/article.aspx?articleid=1685815"> Toward System Architecture Generation and Performances Assessment Under Uncertainty Using Bayesian Networks.</a> Journal of Mechanical Design. Vol. 135. No. 4. 2013.</p>  
+                                                                                   
+                                         	  </aside>
+                                </section>
+
+                                <section>
+                                          <div class="my_container">
+                                            <mark class="red"></mark>
+                                             <h3>Graphical models and probabilistic inference</h3>      
+
+                                                   <h4>Gibbs Sampling</h4> 
+                                             
+                                                   <ol>
+                                                         <li class="paragraph2"> \( t \leftarrow 0 \) </li>
+
+                                                          <li class="paragraph2">  Choose an arbitrary starting point \( x^t = (x_1^t,x_2^t,\dots, x_n^t) \). \( t \leftarrow t+1\) </li>
+
+
+                                                          
+                                                          <li class="paragraph2">  Obtain \(x_1^t\) from conditional distribution                                                   
+							    \[
+
+							       \hat{p} \left( x_1^t | x_2^{t-1}, x_3^{t-1}, \dots, x_n^{t-1} \right)
+                                                               
+							    \]                                                        
+
+                                                          </li>
+
+							  <li class="paragraph2">  Obtain \(x_2^t\) from conditional distribution                                                   
+							    \[
+
+							       \hat{p} \left( x_2^t | x_1^{t}, x_3^{t-1}, \dots, x_n^{t-1} \right)
+                                                               
+							    \]                                                        
+
+                                                         </li>
+
+
+                                                          <li class="paragraph2">  \( \dots \dots  \dots \) </li>
+							  
+							  <li class="paragraph2">  Obtain \(x_n^t\) from conditional distribution                                                   
+							    \[
+
+							       \hat{p} \left( x_2^t | x_1^{t}, x_2^{t}, \dots, x_{n-1}^{t} \right)
+                                                               
+							    \]                                                        
+
+                                                          </li>
+
+							  
+                                                          <li class="paragraph2"> Unless stop condition is satisfied, go to Step 3.</li>
+
+							  
+ 
+                                        
+						  
+                                                    </ol>     						           
+                          		 </div>                        
+                                                   <p class="paragraph2"> I. Goodfellow and Y. Bengio and A. Courville. <a href="http://www.deeplearningbook.org/"> Deep Learning. Chapter 20. Deep Generative Models.</a> MIT Press. 2016. </p>  
+                                                     
+                                                                            
+                                                  <aside class="notes">
+                                                                                                  
+                                           	  </aside>
+ 				      </section> 
+
+
+
+                              </section>
+
+   			      <section>
+                                      <section  id="sec:DNNs_DBNs"> 
+                                                <mark class="red"></mark>
+                                               <div class="container">
+                                                   <h3>Deep Belief Networks</h3>         
+                                   
+                                                  <div class="right">
+                                                  <h4>Network architecture</h4>
+                                                      <ul>      
+                                                        <img src="href=../../imgl_2019_Lect_13/DBN_Single_Salakhutdinov.png"  height="350" width="500">           
+                                                     </ul>      
+                                                                                                     
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Characteristics</h4>
+                                                      <ul>
+
+							<li class="paragraph2">Like RBMs, DBNs <mark class="red">learn to reproduce the probability distribution of their inputs</mark>.</li>
+
+
+							                                                                                                                    <li class="paragraph2"> They are  <mark class="red">probabilistic</mark> and <mark class="red">generative</mark> models.</li>
+
+						          <li class="paragraph2"><mark class="red"></mark> Contain <mark class="red">many layers of latent variables</mark>.</li>
+
+														                                                           <li class="paragraph2">It can be seen as different <mark class="red"> RBMs "stacked" together</mark>. </li>
+														  
+						      </ul>  
+                                                     
+                                                    
+                                                  </div>    
+                                                   
+                                               </div>
+					        <p class="paragraph2"> R. Salakhutdinov. <a href="http://www.annualreviews.org/doi/abs/10.1146/annurev-statistics-010814-020120">Learning deep generative models.</a> Annual Review of Statistics and Its Application. Vol. 2. Pp. 361-385. 2015.</p>         
+					        <p class="paragraph2"> I. Goodfellow and Y. Bengio and A. Courville. <a href="http://www.deeplearningbook.org/"> Deep Learning. Chapter 20. Deep Generative Models.</a> MIT Press. 2016. </p>  
+                                                <aside class="notes">
+                                                                     
+                                           	</aside>
+ 				      </section>
+
+				      <section> 
+                                                <mark class="red"></mark>
+                                               <div class="container">
+                                                   <h3>Deep Belief Networks</h3>         
+                                   
+                                                  <div class="right">
+                                                  <h4>Network architecture</h4>
+                                                      <ul>      
+                                                        <img src="href=../../imgl_2019_Lect_13/DBN_Single_Salakhutdinov.png"  height="350" width="500">           
+                                                     </ul>      
+                                                                                                    
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Characteristics</h4>
+                                                      <ul>
+
+							  <li class="paragraph2">Like in an RBM, there are no <mark class="red">intralayer connections</mark>.</li>
+						          <li class="paragraph2">The connections between the two top layers are <mark class="red">undirected</mark>.</li>
+						          <li class="paragraph2">The connections between all other layers form a <mark class="red">directed sigmoid belief network</mark>.</li>
+
+
+						          <li class="paragraph2">In comparison with the RBM, it can <mark class="red">capture much more structure</mark> in high-dimensional spaces.</li>
+						         
+						      </ul>  
+                                                     
+                                                    
+                                                  </div>    
+                                                   
+                                               </div>
+
+					        <p class="paragraph2"> R. Salakhutdinov. <a href="http://www.annualreviews.org/doi/abs/10.1146/annurev-statistics-010814-020120">Learning deep generative models.</a> Annual Review of Statistics and Its Application. Vol. 2. Pp. 361-385. 2015.</p>
+						
+					        <p class="paragraph2"> I. Goodfellow and Y. Bengio and A. Courville. <a href="http://www.deeplearningbook.org/"> Deep Learning. Chapter 20. Deep Generative Models.</a> MIT Press. 2016. </p>  
+                                                <aside class="notes">
+                                                                     
+                                           	</aside>
+ 				      </section>
+
+
+				      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>   
+                                                  <h3>Deep Belief Networks</h3>   
+                                                   <h4>Factorization of the probability</h4> 
+                                             
+                                                   <ol>
+                                                          <p class="paragraph2"> A <mark class="red">DBN</mark> with \(l\) <mark class="red">hidden layers</mark> contains  \(l\)  <mark class="red">weight matrices</mark>: \( {\bf{W}}^1, \dots,  {\bf{W}}^1 \) and  \(\; l+1\) <mark class="red">bias vectors</mark>  \( {\bf{b}}^0, \dots,  {\bf{b}}^{l+1} \), with  \( {\bf{b}}^0 \) providing the biases for the visible layer. </p>
+
+                                                          <p class="paragraph2"> The <mark class="red">probability distribution represented by the DBN</mark> is given by:                                                     
+							    \[
+							      P({\bf{v}},{\bf{h}}^1, \dots,{\bf{h}}^l) = P({\bf{v}}|{\bf{h}}^{1}) \left ( \prod_{k=1}^{l-2} P({\bf{h}}^{k}|{\bf{h}}^{k+1}) \right)  P({\bf{h}}^{l-1},{\bf{h}}^{l})
+
+							    \]                                                        
+
+                                                         </p>
+
+
+                                                          <p class="paragraph2">
+                                                            \[
+							          P(v_i=1 |{\bf{h}}^{1}) = \sigma \left( b_i^0 +  {{\bf{W}}_{:,i}^1}^{\top} {\bf{h}}^{1} \right) \; \forall i 
+							    \] 
+
+                                                          <p class="paragraph2">                                                   
+							    \[
+                                                              P(h_i^k=1 |{\bf{h}}^{k+1}) = \sigma \left( b_i^k +  {{\bf{W}}_{:,i}^{k+1}}^{\top} {\bf{h}}^{k+1} \right) \; \forall i \; \forall k \in 1, \dots, l-2
+							    \]                                                        
+
+                                                         </p>
+
+                                                          <p class="paragraph2">                                                   
+							    \[
+                                                              P({\bf{h}}^{l}|{\bf{h}}^{l-1}) \propto exp\left(  {{\bf{b}}^{l}}^{\top} {\bf{h}}^{l} +  {{\bf{b}}^{l-1}}^{\top} {\bf{h}}^{l-1} + {\bf{h}}^{l-1} {{\bf{W}}_{:,i}^{l}}^{\top} {\bf{h}}^{l} \right) 
+							    \]                                                        
+
+                                                         </p>
+ 
+                                        
+						  
+                                                    </ol>     						           
+                          		 </div>                        
+                                                   <p class="paragraph2"> I. Goodfellow and Y. Bengio and A. Courville. <a href="http://www.deeplearningbook.org/"> Deep Learning. Chapter 20. Deep Generative Models.</a> MIT Press. 2016. </p>  
+                                                     
+                                                                            
+                                                  <aside class="notes">
+                                                                                                  
+                                           	  </aside>
+ 				      </section> 
+
+
+
+                                      <section> 
+                                                <mark class="red"></mark>
+                                               <div class="container">
+                                                   <h3>Deep Belief Networks</h3>         
+                                   
+                                                  <div class="right">
+
+                                                    <h4>Factorization of the probability</h4>                                              
+                                                   <ol>
+                                                      <p class="paragraph2">                                                       
+							    \[
+							      P({\bf{v}},{\bf{h}}^1, {\bf{h}}^2) = P({\bf{v}}|{\bf{h}}^{1};W^1) P({\bf{h}}^{1},{\bf{h}}^{2};W^2)
+
+							    \]                                                        
+
+                                                         </p>
+                                                          <p class="paragraph2">\(\theta = \{W^1,W^2\} \) are the <mark class="red">model parameters</mark>. </p>
+
+                                                          <p class="paragraph2">\( P({\bf{v}}|{\bf{h}}^{1};W^1) \) represents the <mark class="red">probability of the sigmoid belief network</mark>. </p>
+
+
+                                                          <p class="paragraph2">\( P({\bf{h}}^{1},{\bf{h}}^{2};W^2) \)  is the <mark class="red">joint distribution defined by the second layer RBM</mark>. </p>
+
+
+                                                          <p class="paragraph2">
+                                                            \[
+							          P({\bf{v}} |{\bf{h}}^{1};W^1) = \prod_i p(v_i|{\bf{h}}^{1};W^1)
+							    \]                                                      
+
+                                                         </p>
+
+                                                          <p class="paragraph2">
+                                                            \[
+							          P(v_i=1 |{\bf{h}}^{1};W^1) =  \sigma \left(\sum_{j} W_{i,j} h_j^{1} \right) \; \forall i 
+							    \]                                                      
+
+                                                         </p>
+
+                                                          <p class="paragraph2">                                                   
+							    \[
+                                                              P({\bf{h}}^{1},{\bf{h}}^{2};W^2) = \frac{1}{Z(W^2)} exp\left({\bf{h}}^{1} W^2  {\bf{h}}^{2} \right) 
+							    \]                                                        
+
+                                                         </p>
+                                        
+                                                    </ol>     	 
+                       
+                          		          </div>
+                                                  <div class="left">   
+                                                    <h4>Example: DBN with two hidden layers</h4>        
+						    <ol>
+                                                          <p class="paragraph2"> We consider a <mark class="red">DBN</mark> with two  <mark class="red">hidden layers</mark>,  \({ \bf{h}}^1 \) and \({ \bf{h}}^2 \). </p>
+
+						    </ol>
+
+                                                  <h4>Network architecture</h4>
+                                                      <ul>      
+                                                        <img src="href=../../imgl_2019_Lect_13/DBN_Single_Salakhutdinov.png"  height="300" width="500">           
+                                                     </ul>      
+                                                    
+                                                  </div>    
+                                                   
+                                              </div>               
+                                                      <p class="paragraph2"> R. Salakhutdinov. <a href="http://www.annualreviews.org/doi/abs/10.1146/annurev-statistics-010814-020120">Learning deep generative models.</a> Annual Review of Statistics and Its Application. Vol. 2. Pp. 361-385. 2015.</p>                                 
+                                                <aside class="notes">
+                                                                     
+                                           	</aside>
+ 				      </section>
+
+				      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>   
+                                                  <h3>Learning Deep Belief Networks</h3>   
+                                                   
+                                                   <ol>
+
+                                                        <img src="href=../../imgl_2019_Lect_13/Learning_DBN_Salakhutdinov.png"  height="325" width="1200">           
+
+                                                          <p class="paragraph2"> A <mark class="red">DBN</mark> with \(l\) <mark class="red">hidden layers</mark> contains  \(l\)  <mark class="red">weight matrices</mark>: \( {\bf{W}}^1, \dots,  {\bf{W}}^1 \) and  \(l+1\) <mark class="red">bias vectors</mark>  \( {\bf{b}}^0, \dots,  {\bf{b}}^{l} \), with  \( {\bf{b}}^0 \) providing the biases for the visible layer. </p>
+
+                                        
+						  
+                                                    </ol>     						           
+                          		 </div>                
+                                                  <p class="paragraph2"> R. Salakhutdinov. <a href="http://www.annualreviews.org/doi/abs/10.1146/annurev-statistics-010814-020120">Learning deep generative models.</a> Annual Review of Statistics and Its Application. Vol. 2. Pp. 361-385. 2015.</p>                                    
+                                                  <aside class="notes">
+                                                                                                  
+                                           	  </aside>
+ 				      </section> 
+
+
+                                     <section> 
+                                                <mark class="red"></mark>
+                                               <div class="container">
+                                                   <h3>Deep Belief Networks</h3>         
+                                   
+                                                  <div class="right">
+                                                   <h4>Recursive greedy learning procedure</h4>                              
+                                                   <ol>
+                                                          <li class="paragraph2">Fit the parameters \(W^1 \) of the <mark class="red">first layer</mark> to data.</li>
+                                                          <li class="paragraph2">Fix the parameters \(W^1 \), and use samples \( {\bf{h}}^{1}\)  from  \(Q({\bf{h}}^{1}|{\bf{v}}) =   P({\bf{h}}^{1}|{\bf{v}},W^1) \) as the data for <mark class="red">training the next layer</mark> of binary features with an RBM.  </li>
+                                                          <li class="paragraph2">Fix the parameters \(W^2 \) that define the second layer of features, and use the  samples \( {\bf{h}}^{2}\)   from  \(Q({\bf{h}}^{2}|{\bf{h}}^{1},W^2) =   P({\bf{h}}^{2}|  {\bf{h}}^{1},W^2) \) as the data for <mark class="red">training the third layer</mark> of binary features.  </li>
+                                                          <li class="paragraph2"><mark class="red">Proceed recursively</mark> for the next layers.</li>                                       
+                                                    </ol>     	 
+                       
+                          		          </div>
+                                                  <div class="left">   
+                                                    <h4>Example: DBN with two hidden layers</h4>        
+						   
+                                                      <ul>      
+                                                        <img src="href=../../imgl_2019_Lect_13/DBN_Single_Salakhutdinov.png"  height="350" width="500">           
+                                                     </ul>      
+                                                    
+                                                  </div>    
+                                                   
+                                              </div>               
+                                                      <p class="paragraph2"> R. Salakhutdinov. <a href="http://www.annualreviews.org/doi/abs/10.1146/annurev-statistics-010814-020120">Learning deep generative models.</a> Annual Review of Statistics and Its Application. Vol. 2. Pp. 361-385. 2015.</p>                                 
+                                                <aside class="notes">
+                                                                     
+                                           	</aside>
+ 				      </section>
+ 				</section>
+
+
+
+ 				<section>
+                                      <section  id="sec:DNNs_DBMs"> 
+                                                <mark class="red"></mark>
+                                               <div class="container">
+                                                   <h3>Deep Boltzmann Machines</h3>         
+                                   
+                                                  <div class="right">
+                                                  <h4>Network architecture</h4>
+                                                      <ul>      
+                                                        <img src="href=../../imgl_2019_Lect_13/DBM__Salakhutdinov.png"  height="350" width="500">           
+                                                     </ul>                                                                                                            
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Characteristics</h4>
+                                                      <ul>      
+						          <li class="paragraph2">A particular type of <mark class="red">undirected probabilistic graphical model</mark>.</li>
+
+						          <li class="paragraph2"><mark class="red"></mark> Contain <mark class="red">many layers of latent variables</mark>.</li>
+
+						          <li class="paragraph2">It can be seen as different <mark class="red"> RBMs "stacked" together</mark>. </li>
+						          
+
+						      </ul>  
+                                                                                             
+                                                  </div>    
+                                                   
+                                              </div>               
+						       <p class="paragraph2"> I. Goodfellow and Y. Bengio and A. Courville. <a href="http://www.deeplearningbook.org/"> Deep Learning. Chapter 20. Deep Generative Models.</a> MIT Press. 2016. </p>  
+                                                      <p class="paragraph2"> R. Salakhutdinov. <a href="http://www.annualreviews.org/doi/abs/10.1146/annurev-statistics-010814-020120">Learning deep generative models.</a> Annual Review of Statistics and Its Application. Vol. 2. Pp. 361-385. 2015.</p>         
+                                                <aside class="notes">
+                                                                     
+                                           	</aside>
+ 				      </section>
+
+
+				      <section> 
+                                                <mark class="red"></mark>
+                                               <div class="container">
+                                                   <h3>Deep Boltzmann Machines</h3>         
+                                   
+                                                  <div class="right">
+                                                  <h4>Network architecture</h4>
+                                                      <ul>      
+                                                        <img src="href=../../imgl_2019_Lect_13/DBM__Salakhutdinov.png"  height="350" width="500">           
+                                                     </ul>                                                                                                            
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Characteristics</h4>
+                                                      <ul>      
+						       
+						          <li class="paragraph2">Like in a RBM, there are not <mark class="red">intralayer connections</mark>.</li>
+						          <li class="paragraph2">In comparison to DBNs, it can use higher-level knowledge to <mark class="red">resolve uncertainty about intermediate-level features</mark>.</li>
+						          <li class="paragraph2">It can be better at creating  <mark class="red">data-dependent representations </mark>, as well as  <mark class="red">better data-dependent statistics </mark> for learning.</li>
+
+
+						      </ul>  
+                                                                                             
+                                                  </div>    
+                                                   
+                                              </div>               
+						       <p class="paragraph2"> I. Goodfellow and Y. Bengio and A. Courville. <a href="http://www.deeplearningbook.org/"> Deep Learning. Chapter 20. Deep Generative Models.</a> MIT Press. 2016. </p>  
+                                                      <p class="paragraph2"> R. Salakhutdinov. <a href="http://www.annualreviews.org/doi/abs/10.1146/annurev-statistics-010814-020120">Learning deep generative models.</a> Annual Review of Statistics and Its Application. Vol. 2. Pp. 361-385. 2015.</p>         
+                                                <aside class="notes">
+                                                                     
+                                           	</aside>
+ 				      </section>
+
+				      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>   
+                                                 
+                                                  <h3>Differences between DBMs and DBNs</h3>   
+                                             
+                                                   <ol>
+
+                                                        <img src="href=../../imgl_2019_Lect_13/DBN_versus_DBM.png"  height="420" width="1200">           
+
+						  
+                                                    </ol>     						           
+                          		 </div>                  
+                                                      <p class="paragraph2"> R. Salakhutdinov. <a href="http://www.annualreviews.org/doi/abs/10.1146/annurev-statistics-010814-020120">Learning deep generative models.</a> Annual Review of Statistics and Its Application. Vol. 2. Pp. 361-385. 2015.</p>                                 
+                                                  <aside class="notes">
+                                                                                                  
+                                           	  </aside>
+ 				      </section> 
+
+
+				      
+				     <section>
+                                          <div class="my_container">
+                                            <mark class="red"></mark>
+					             <h3>Deep Boltzmann Machines</h3>         
+                                                     <h4>Example DBM with 3 hidden layers </h4>
+                                                      <ul>      
+                                                        <img src="href=../../imgl_2019_Lect_13/DBM__Salakhutdinov.png"  height="420" width="400">           
+                                                     </ul>                                                                                                    
+                                                        						           
+                          		 </div>                  
+                                                      <p class="paragraph2"> R. Salakhutdinov. <a href="http://www.annualreviews.org/doi/abs/10.1146/annurev-statistics-010814-020120">Learning deep generative models.</a> Annual Review of Statistics and Its Application. Vol. 2. Pp. 361-385. 2015.</p>                                 
+                                                  <aside class="notes">
+                                                                                                  
+                                           	  </aside>
+ 				     </section>
+
+				     <section>
+                                          <div class="my_container">
+                                            <mark class="red"></mark>
+					    <h3>DBM conditional distributions</h4>
+						      <ol>
+
+                                                          <p class="paragraph2">
+							    \[
+                                                              P({\bf{v}};\theta) = \frac{1}{Z(\theta)} \sum_{{\bf{h}}^1,{\bf{h}}^2,{\bf{h}}^3}  e^{-E({\bf{v}},{\bf{h}}^1,{\bf{h}}^2,{\bf{h}}^3;\theta)},
+							    \]    
+                                                         </p>
+                                                          <p class="paragraph2">
+							    \[
+							      p(h^1_j=1|{\bf{v}},{\bf{h}}^2) = \sigma \left( \sum_{i} W^1_{i,j} v_i +   \sum_{m} W^2_{j,m} h^2_m  \right),
+							    \]                                                        				     
+							  </p>
+                                                          <p class="paragraph2">
+							    \[
+							      p(h^2_m=1|{\bf{v}},{\bf{h}}^1,{\bf{h}}^3) = \sigma \left( \sum_{j} W^2_{j,m} h^1_j + \sum_{l} W^3_{m,l} h_l^3  \right),
+							    \]                                                        				     
+							  </p>
+                                                          <p class="paragraph2">
+							    \[
+							      p(h^3_l=1|{\bf{h}}^2) = \sigma \left( \sum_{m} W^3_{m,l} h^2_m \right),
+							    \]                                                        				     
+							  </p>
+                                                          <p class="paragraph2">
+							    \[
+							      p(v_i=1|{\bf{h}}^1) = \sigma \left( \sum_{j} W^1_{i,j} h^1_j \right).
+							    \]                                                        				     
+							  </p>
+
+						      </ol>       
+                                                    
+                          		 </div>                  
+                                                      <p class="paragraph2"> R. Salakhutdinov. <a href="http://www.annualreviews.org/doi/abs/10.1146/annurev-statistics-010814-020120">Learning deep generative models.</a> Annual Review of Statistics and Its Application. Vol. 2. Pp. 361-385. 2015.</p>                                 
+                                                  <aside class="notes">
+                                                                                                  
+                                           	  </aside>
+ 				      </section> 
+                                     
+
+				      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>   
+                                                   <h3>Deep Boltzmann Machines</h3>     
+                                                   <h4>Learning and inference of Deep Boltzman Machines</h3>   
+                                                    <ol>
+                                                          <li class="paragraph2">For learning DBMs a variational approach is used.</li>                                     
+                                                          <li class="paragraph2">This method uses mean-field inference to estimate data-dependent expectations.</li>                                                                                         
+                                                          <li class="paragraph2">Markov Chain MonteCarlo (MCMC)-based stochastic approximation is used to estimate the model's expected sufficient statistics.</li>                        
+							  <li class="paragraph2">Learning and inference of DBMs are <mark class="red">beyond the scope of this course</mark>.</li>                                     
+						  
+                                                    </ol>     						           
+                          		 </div>                  
+                                                      <p class="paragraph2"> R. Salakhutdinov. <a href="http://www.annualreviews.org/doi/abs/10.1146/annurev-statistics-010814-020120">Learning deep generative models.</a> Annual Review of Statistics and Its Application. Vol. 2. Pp. 361-385. 2015.</p>                                 
+                                                  <aside class="notes">
+                                                                                                  
+                                           	  </aside>
+ 				      </section> 
+
+
+				      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>   
+                                                 
+                                                   <h3>Combination of DBM and Multi-layer Perceptron</h3>   
+                                                    <ol>
+
+                                                        <img src="href=../../imgl_2019_Lect_13/DBM_MLP_Salakhutdinov.png"  height="420" width="1200">  
+
+						  
+                                                    </ol>     						           
+                          		 </div>                  
+                                                      <p class="paragraph2"> R. Salakhutdinov. <a href="http://www.annualreviews.org/doi/abs/10.1146/annurev-statistics-010814-020120">Learning deep generative models.</a> Annual Review of Statistics and Its Application. Vol. 2. Pp. 361-385. 2015.</p>                                 
+                                                  <aside class="notes">
+                                                                                                  
+                                           	  </aside>
+ 				      </section> 
+
+
+
+				      <section>
+                                          <div class="my_container">
+                                               <mark class="red"></mark>   
+                                                   <h3>Multimodal Deep Boltzmann Machines</h3>   
+                                                    <ol>
+
+                                                        <img src="href=../../imgl_2019_Lect_13/Multimodal_DBM_Salakhutdinov.png"  height="420" width="1200">                 
+
+						  
+                                                    </ol>     						           
+                          		 </div>                  
+
+                                                      <p class="paragraph2"> R. Salakhutdinov. <a href="http://www.annualreviews.org/doi/abs/10.1146/annurev-statistics-010814-020120">Learning deep generative models.</a> Annual Review of Statistics and Its Application. Vol. 2. Pp. 361-385. 2015.</p>                                 
+                                                  <aside class="notes">
+                                                                                                  
+                                           	  </aside>
+ 				      </section> 
+                              </section>                            
+
+			</div>
+		</div>
+
+
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			Reveal.initialize({
+                          	history: true,
+				transition: 'linear',
+
+
+				math: {
+					// mathjax: 'http://cdn.mathjax.org/mathjax/latest/MathJax.js',
+					config: 'TeX-AMS_HTML-full'
+				},
+
+				dependencies: [
+                                        { src: 'lib/js/fullscreen-img.js' },
+					{ src: 'lib/js/classList.js' },
+					{ src: 'plugin/math/math.js', async: true }
+
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
