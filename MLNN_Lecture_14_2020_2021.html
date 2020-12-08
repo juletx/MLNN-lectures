@@ -1,0 +1,953 @@
+<!doctype html>
+<html lang="en">
+
+
+   
+    
+	<head>
+		<meta charset="utf-8">
+		<title>Machine Learning and Neural Networks</title>
+                <meta name="author" content="Roberto Santana">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<!-- <link rel="stylesheet" href="css/reveal.css">  -->
+                <link rel="stylesheet" href="css/fullscreen-img.css">
+                <link rel="stylesheet" href="css/added_css/notebook.css">
+   	        <link rel="stylesheet" href="css/reveal.css">
+                <link rel="stylesheet" href="css/theme/nncourse.css" id="theme">
+                                
+
+	</head>
+
+	<body>
+
+
+		<div class="reveal">
+			<div class="slides">
+
+				<section>
+                                          <div class="my_container">
+                                        <h2>Machine Learning and Neural Networks</h2>
+					<p>Roberto Santana and Unai Garciarena<p>
+					<p>Department of Computer Science and Artificial Intelligence</p>
+                                        <p>University of the Basque Country</p>
+                          		 </div>   
+				</section>
+                                <section id="sec:NN_Intro">
+				           <mark class="red"></mark>
+                                            <div class="my_container">
+                                             <h3>Deep Neural Networks: Table of Contents </h3>
+                                        
+                                              <table style="width:100%"; border=solid>
+
+
+
+						 <tr>
+
+                                                     <td> <p class="paragraph2"> <a href="#/sec:Adv_Examples">Adversarial examples </a></p></td>      
+
+                                                      <td> <p class="paragraph2"> <a href="#/sec:Creating_Adv"> Creating Adversarial Examples </a></p></td>
+
+                                                      <td><p class="paragraph2"> <a href="#/sec:Univ_Adv"> Universal Adversarial Examples </a></p></td>
+
+                                                     <td><p class="paragraph2"> <a href="#/sec:Other_Adv_Domains"> Other Domains  </a></p></td>
+
+					     </tr>
+												  
+                                           
+
+				              <tr>
+
+                                                     <td> <p class="paragraph2"> <a href="#/sec:Adv_Defenses">Adversarial defenses </a></p></td>      
+
+                                                      <td> <p class="paragraph2"> <a href="#/sec:Creating_Adv"> Transferability </a></p></td>
+
+                                       
+					     </tr>
+												  
+                                                  
+
+                                                
+                                                                                       
+
+				              </table>	  
+                          	          </div>   
+
+  		   	       </section> 				
+                          </section>
+
+
+
+
+
+                              <section>
+                                       <section   id="sec:Adv_Examples"> 
+                                                <mark class="red"></mark>
+						<div class="container">
+						   <h3>Adversarial examples</h3>                                                       
+                                   
+                                                  <div class="right">
+                                                  <h4>Adversarial examples as traffic signs</h4>
+                                                      <ul>      
+                                                        <img src="href=../../img_2019_Lect_12/Adversiarial_Stop.png"  height="350" width="500">           
+                                                     </ul>      
+                                                                                                     
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Characteristics</h4>
+                                                      <ul>
+
+							<li class="paragraph2">  Inputs that are specifically designed to cause the target model to produce <mark class="red"> erroneous outputs</mark>.</li>
+
+
+							                                                                                                                    <li class="paragraph2"> They are one of the <mark class="red">weaknesses</mark> of ML models since many families of machine learning models are vulnerable to them.</li>
+
+						          <li class="paragraph2"> There is a variety of adversarial <mark class="red">  attack methods </mark> as well as <mark class="red"> adversarial defenses</mark>.</li>
+
+										                                                        													  
+						      </ul>  
+                                                     
+                                                    
+                                                  </div>    
+                                                   
+						</div>
+						<p class="paragraph2">R. Reza-Wiyatno, A. Xu, O. Dia, A. de Berke. <a href="https://arxiv.org/abs/1911.05268"> Adversarial Examples in Modern Machine Learning: A Review. </a> arXiv preprint arXiv:1911.05268. 2019.</p>
+						 <p class="paragraph2"> H. Yakura, Y. Akimoto, and J. Sakum. <a href="https://arxiv.org/pdf/1911.08644.pdf">Generate (non-software) Bugs to Fool Classifiers.</a> arXiv preprint arXiv:1911.08644. 2019.</p>         
+																																				  
+                                                <aside class="notes">
+                                                                     
+                                           	</aside>
+ 				       </section>
+
+                                       <section> 
+                                                <mark class="red"></mark>
+						<div class="container">
+						   <h3>Adversarial examples</h3>                                                       
+                                   
+                                                  <div class="right">
+                                                  <h4>Adversarial examples as traffic signs</h4>
+                                                      <ul>      
+                                                        <img src="href=../../img_2019_Lect_12/Adversiarial_Stop.png"  height="300" width="450">           
+                                                     </ul>      
+                                                                                                     
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Impact</h4>
+                                                      <ul>
+
+														
+							<li class="paragraph2"> Autonomous vehicles can be crashed.</li>
+
+							                                                                                                                                              <li class="paragraph2"> Illegal content can bypass content filters.</li>
+
+						        <li class="paragraph2"> Illicit or illegal content canbypass content filters.</li>
+
+							 <li class="paragraph2"> Biometric authentication systems can be manipulated to allow improper access.</li>
+
+										                                                        													  
+						      </ul>  
+                                                     
+                                                    
+                                                  </div>    
+                                                   
+						</div>
+						<p class="paragraph2">N. Papernot, P. McDaniel, X. Wu, S. Jha and A. Swami. <a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=7546524"> Distillation as a Defense to Adversarial Perturbations Against Deep Neural Networks. </a> Proceedings of the 2016 IEEE Symposium on Security and Privacy. Pp. 582-597. 2016.</p>
+						 <p class="paragraph2"> H. Yakura, Y. Akimoto, and J. Sakum. <a href="https://arxiv.org/pdf/1911.08644.pdf">Generate (non-software) Bugs to Fool Classifiers.</a> arXiv preprint arXiv:1911.08644. 2019.</p>         
+																																				  
+                                                <aside class="notes">
+                                                                     
+                                           	</aside>
+ 				      </section>
+
+
+				       
+			      <section>
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+                                                   <h3>Adversarial examples</h3>     
+                                                   <ol>
+                                                        <img src="http://karpathy.github.io/assets/break/szegedy.jpeg"  height="400" width="1200"> 
+						         
+                                                    </ol>     		
+                                                                                                 
+
+                          		  </div>
+					    <p class="paragraph2"> A. Karpathy. <a href="http://karpathy.github.io/2015/03/30/breaking-convnets/">Breaking Linear Classifiers on ImageNet.</a> Hacker's guide to Neural Networks. 2015.</p>  
+                                              
+                                      
+                                                  <aside class="notes">
+                  
+                                           	  </aside>
+ 				 </section>
+
+                                 <section>
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+                                                   <h3>Adversarial examples</h3>     
+
+                                                        <ul>
+						          <li class="paragraph2">Given a <mark class="red">classifier</mark>  \( f({\bf{x}}) \; \; : \; \; {\bf{x}} \in \mathcal{X} \rightarrow y \in  \mathcal{Y} \; \) and <mark class="red"> original inputs</mark> \( {\bf{x}} \in \mathcal{X} \). </li>
+						          <li class="paragraph2"> The problem of generating <mark class="red">untargeted adversarial examples</mark> can be expressed as the optimization:
+							   <br> 
+							   <br>
+							   \[
+
+							      argmin_{ {\bf{x}}^{*}} L({\bf{x}},{\bf{x}}^{*}), s.t. f({\bf{x}}) \neq f({\bf{x}}^{*}) 
+							   \]
+                                                          </li>
+						          <p class="paragraph2"> where \(L(\cdot)\) is a  <mark class="red">distance metric</mark> between examples from the input space. </p>
+
+						    
+
+                                                   </ul>						                                
+                                                   
+                 		           </div>                                                          
+                                                  <p class="paragraph2">S. Baluja and I. Fisher. <a href="https://arxiv.org/abs/1703.09387"> Adversarial Transformation Networks: Learning to Generate Adversarial Examples. </a> arXiv preprint arXiv:1703.09387. 2017.</p>  
+                                                   <aside class="notes">
+  						      Adversarial examples show one of the current limitations of Neural Networks
+                                            	   </aside>
+        			 </section>
+
+
+
+				 <section>
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+                                                   <h3>Adversarial examples</h3>     
+
+                                                        <ul>
+			
+						          <li class="paragraph2">Similarly, generating a <mark class="red">targeted adversarial attack</mark> on a classifier can be expressed as:
+							   <br> 
+							   <br>
+							   \[
+
+							      argmin_{ {\bf{x}}^{*}} L({\bf{x}},{\bf{x}}^{*}), s.t. f({\bf{x}}^{*}) = y_t  
+							   \]
+                                                          </li> 
+						          <p class="paragraph2"> where \( y_t \in  \mathcal{Y}  \) is some  <mark class="red">target label</mark> chosen by the attacker. </p>
+
+                                                   </ul>						                     
+                                                  
+                 		         </div>                                                          
+                                                    <p class="paragraph2">S. Baluja and I. Fisher. <a href="https://arxiv.org/abs/1703.09387"> Adversarial Transformation Networks: Learning to Generate Adversarial Examples. </a> arXiv preprint arXiv:1703.09387. 2017.</p> 
+                                                   <aside class="notes">
+  						      Adversarial examples show one of the current limitations of Neural Networks
+                                            	   </aside>
+        			  </section>
+
+	                           <section>
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+                                            <h3>Adversarial examples</h3>
+					          <h4>Characteristics</h4>
+                                                      <ul>      
+						          <li class="paragraph2">It can be seen as a strategy for <mark class="red">generating training data</mark>. </li>
+						          <li class="paragraph2">It is also a method to investigate the  <mark class="red">weaknesses of classification models</mark>, not only <mark class="red">DNNs</mark>. </li>
+						          <li class="paragraph2">Methods to construct adversarial examples try to  <mark class="red"> add small perturbations to the inputs</mark> to fool the network into <mark class="red">producing incorrect outputs</mark>.</li>
+                                                      <ul/>                      
+                                                   
+
+                          		 </div>   
+                                      
+                                                  <aside class="notes">
+                  
+                                           	  </aside>
+ 				   </section>
+
+				   <section>
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+                                            <h3>Adversarial examples</h3>
+					          <h4>Characteristics</h4>
+                                                      <ul>      
+						         
+
+						          <li class="paragraph2">In some scenarios it is possible to  <mark class="red">detect when an input is adversarial</mark>. </li>
+						          <li class="paragraph2">Another research direction is to devise learning  methods that make DNNs less <mark class="red">vulnerable to adversarial perturbations</mark>. </li>
+
+						          <li class="paragraph2">This is a current direction of active research. </li>
+                                                      <ul/>                      
+                                                   
+
+                          		 </div>   
+                                      
+                                                  <aside class="notes">
+                  
+                                           	  </aside>
+ 				   </section>
+ 			  </section>
+ 			   <section>
+				   <section id="sec:Creating_Adv">
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+					      <h3>Methods for creating adversarial examples</h3>
+					     
+                                                  
+                                                   <ol>
+
+						     <img src="href=../../img_2019_Lect_12/Adv_Attacks_Taxonomy.png"  height="400" width="1200">           
+						         
+                                                    </ol>     		
+                                                                                                 
+
+                          		  </div>
+					    <p class="paragraph2">R. Reza-Wiyatno, A. Xu, O. Dia, A. de Berke. <a href="https://arxiv.org/abs/1911.05268"> Adversarial Examples in Modern Machine Learning: A Review. </a> arXiv preprint arXiv:1911.05268. 2019.</p>
+					       
+                                      
+                                                  <aside class="notes">
+                  
+                                           	  </aside>
+ 				 </section>
+				  <section>
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+                                            <h3>Adversarial examples</h3>
+					      <h4>Methods for creating adversarial examples</h4>
+                                                      <ol>      
+						          <li class="paragraph2"><mark class="red">White Box Attacks</mark>: The
+attacker is assumed to have information about the target model such as the architecture, parameters, and training procedure. </li>
+						          <p class="paragraph2"> Two main groups include 
+<mark class="red">Gradient Based Optimization</mark> and  <mark class="red">Constrained Optimization</mark> methods. </p>
+						          <li class="paragraph2"> <mark class="red"> Blackbox attacks</mark>: Involve only access to the output of a target model, and not its internals.</li>
+						          <p class="paragraph2"> Include a variety of optimization methods such as <mark class="red">Evolutionary Algorithms</mark>  and other search-based heuristics.</p>
+						         
+                                                      <ol/>           
+                          		  </div>
+					    <p class="paragraph2">R. Reza-Wiyatno, A. Xu, O. Dia, A. de Berke. <a href="https://arxiv.org/abs/1911.05268"> Adversarial Examples in Modern Machine Learning: A Review. </a> arXiv preprint arXiv:1911.05268. 2019.</p>
+				            
+                                                  <aside class="notes">
+                  
+                                           	  </aside>
+ 				  </section>
+
+				  <section>
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+                                            <h3>Methods for creating adversarial examples</h3>
+					      <h4>L-BFGS targeted attack</h4>
+                                              <ol>
+					
+						<li class="paragraph2">The objective is to find a  <mark class="red">perceptually-minimal input perturbation</mark> \( \arg min_r  ||r||_2  \) where  \( r = x^{\prime}-x \), such that the targeted labeled is output.   </li>
+						
+						<li class="paragraph2"> The Limited Memory Broyden-Fletcher-Goldfarb-Shanno <mark class="red">(L-BFGS)</mark> algorithm is used to pose the problem as a <mark class="red">box-constrained formulation</mark>.  </li>
+
+						<li class="paragraph2"> The optimization problem is to find \( x^{\prime} \) that minimizes:
+						  <br>
+
+						  
+						  \begin{equation}
+                                                     c ||r||_2 +  \mathcal{L}(x^{\prime},t)
+						  \end{equation}
+
+						</li>
+
+					        <p class="paragraph2"> where \(x^{\prime}, x \in [0,1]^n\),  \( \mathcal{L}(x^{\prime},t) \) is the true loss function of the model, and \(t\) is the  <mark class="red">target misclassification label</mark>.</p>
+
+					
+						<li class="paragraph2"> The above optimization process is iterated for
+<mark class="red">increasingly large</mark> values of \(c\) until the models classifies as the targeted label.	</li>
+                                              <ol/>           
+                          		  </div>
+
+				  	<p class="paragraph2">R. Reza-Wiyatno, A. Xu, O. Dia, A. de Berke. <a href="https://arxiv.org/abs/1911.05268"> Adversarial Examples in Modern Machine Learning: A Review. </a> arXiv preprint arXiv:1911.05268. 2019.</p>
+                                                   
+                                                  <aside class="notes">
+                  
+                                           	  </aside>
+ 				  </section>
+
+				  <section>
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+                                            <h3>Methods for creating adversarial examples</h3>
+					      <h4>Fast Gradient Sign Method (FGSM) attack</h4>
+                                              <ol>
+
+					
+						<li class="paragraph2">Finds a perturbation such that the   <mark class="red"> loss function </mark>  of the target model will <mark class="red"> increase</mark>.   </li>
+						
+						<li class="paragraph2"> As a result the <mark class="red"> classification confidence will decrease</mark>.  </li>
+
+						<li class="paragraph2"> Then,  <mark class="red"> it will more likely</mark>  that the model will assign the highest probability to another (incorrect) class.  </li>
+
+						<li class="paragraph2"> FGSM works by calculating the <mark class="red"> gradient of the loss function</mark>   with respect to the input, and creating a small perturbation:
+						  <br>
+
+						  
+						  \begin{equation}
+                                                     x^{\prime} = x + \epsilon \cdot sign \left(\nabla_x \mathcal{L}(x, y) \right) 
+						  \end{equation}
+
+						</li>
+
+					        <p class="paragraph2"> where \( \nabla_x \mathcal{L}(x, y) \)    is the <mark class="red">first derivative</mark>  of the loss function with respect to the input x.</p>
+
+					
+						<li class="paragraph2">  FGSM <mark class="red"> does not explicitly optimize</mark>   for the adversary \(x^{\prime} \) to have a minimal perceptual differenc. Instead,  it uses a small  \( \epsilon \) to <mark class="red"> weakly bound</mark> the perturbation \( r \). </li>
+                                              <ol/>           
+                          		  </div>
+
+					    <p class="paragraph2"> I. Goodfellow, J. Shlens, and C. Szegedy. <a href="https://arxiv.org/abs/1412.6572">Explaining and Harnessing Adversarial Examples.</a> arXiv preprint arXiv:1412.6572. 2014.</p>  
+
+				  	          
+                                                  <aside class="notes">
+                  
+                                           	  </aside>
+ 				  </section>
+
+				  <section>
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+					      <h3>Methods for creating adversarial examples</h3>
+					      <h4>Fast Gradient Sign Method (FGSM) attack</h4>
+                                                  
+                                                   <ol>
+
+						     <img src="href=../../img_2019_Lect_12/Pandas_FGSM.png"  height="300" width="1200">           
+						         
+                                                    </ol>     		
+                                                                                                 
+
+                          		  </div>
+					    <p class="paragraph2"> I. Goodfellow, J. Shlens, and C. Szegedy. <a href="https://arxiv.org/abs/1412.6572">Explaining and Harnessing Adversarial Examples.</a> arXiv preprint arXiv:1412.6572. 2014.</p>  
+                                              
+                                      
+                                                  <aside class="notes">
+                  
+                                           	  </aside>
+ 				  </section>
+
+				  <section>
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+					      
+					      <h4>Fast Gradient Sign Method (FGSM) attack</h4>
+                                                  
+                                                   <ol>
+
+						     <img src="https://pytorch.org/tutorials/_images/sphx_glr_fgsm_tutorial_002.png"  height="450" width="550">           
+						         
+                                                    </ol>     		
+                                                                                                 
+
+                          		  </div>
+					    <p class="paragraph2"> I. Goodfellow, J. Shlens, and C. Szegedy. <a href="https://arxiv.org/abs/1412.6572">Explaining and Harnessing Adversarial Examples.</a> arXiv preprint arXiv:1412.6572. 2014.</p>  
+                                              
+                                      
+                                                  <aside class="notes">
+                  
+                                           	  </aside>
+ 				  </section>
+
+				  <section>
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+                                            <h3>Methods for creating adversarial examples</h3>
+					      <h4>Jacobian-based Saliency Map Attacks (JSMA)</h4>
+                                              <ol>
+
+					 						
+						<li class="paragraph2">It was originally conceived for <mark class="red">visualizing</mark>  how deep neural networks make predictions.   </li>
+						
+						<li class="paragraph2">The saliency map rates each input feature (e.g., each pixel in an image) by <mark class="red">its influence</mark>  upon  the network’s <mark class="red">class prediction</mark>. </li>
+
+						<li class="paragraph2"> JSMA exploits this information by <mark class="red">perturbing a small set</mark> of input features to cause misclassification.  </li>
+						<li class="paragraph2"> This is in contrast to attacks like the FGSM that modify most, if not all, input features. As such, JSMA attacks tend to <mark class="red">find sparse perturbations</mark>.  </li>					
+                                              <ol/>           
+                          		  </div>
+
+						<p class="paragraph2">N. Papernot, P. McDaniel, S. Jha, M. Fredrikson, Z. B. Celik, and A. Swami. <a href="https://arxiv.org/abs/1511.07528"> The Limitations of Deep Learning in Adversarial Settings. </a> arXiv preprint arXiv:1511.07528. 2015.</p>																  
+
+				  	           
+                                                  <aside class="notes">
+                  
+                                           	  </aside>
+ 				  </section>
+
+
+				     <section> 
+                                                <mark class="red"></mark>
+						<div class="container">
+    					            <h3>Jacobian-based Saliency Map Attacks (JSMA)</h3>
+                                
+                                   
+                                                  <div class="right">
+                                                  <h4>Saliency map</h4>
+                                                      <ul>      
+                                                        <img src="href=../../img_2019_Lect_12/Saliency_Map.png"  height="350" width="500">           
+                                                     </ul>      
+                                                                                                     
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Saliency Computation</h4>
+                                                      <ul>
+						
+							<li class="paragraph2"> The adversary wants to misclassify a sample \(X\) such that it is assigned a target class  \(t \neq label(X) \).</li>
+
+						          <li class="paragraph2"> To do so, the probability of target class  \(t\)  given by  \(F\), \(F_t(X) \), must be increased while the probabilities \(F_ j(X)\) of all other classes \( j\neq t\) should decrease.</li>
+							  
+
+							  
+						      </ul>  
+                                                     	     <ul>      
+                                                        <img src="href=../../img_2019_Lect_12/Saliency_Equation.png"  height="100" width="500">           
+                                                     </ul> 	
+                                                    
+                                                  </div>    
+                                                   
+						</div>
+						<p class="paragraph2">N. Papernot, P. McDaniel, S. Jha, M. Fredrikson, Z. B. Celik, and A. Swami. <a href="https://arxiv.org/abs/1511.07528"> The Limitations of Deep Learning in Adversarial Settings. </a> arXiv preprint arXiv:1511.07528. 2015.</p>																  
+                                                <aside class="notes">
+                                                                     
+                                           	</aside>
+ 				      </section>
+
+				     <section> 
+                                                <mark class="red"></mark>
+						<div class="container">
+    					            <h3>Jacobian-based Saliency Map Attacks (JSMA)</h3>
+                                
+                                   
+                                                  <div class="right">
+                                                  <h4>Attack</h4>
+                                                      <ul>      
+                                                        <img src="href=../../img_2019_Lect_12/Crafting_Jacobian.png"  height="350" width="500">           
+                                                     </ul>      
+                                                                                                     
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Saliency Computation</h4>
+                                                      <ul>
+						
+							<li class="paragraph2"> The adversary wants to misclassify a sample \(X\) such that it is assigned a target class  \(t \neq label(X) \).</li>
+
+						          <li class="paragraph2"> To do so, the probability of target class  \(t\)  given by  \(F\), \(F_t(X) \), must be increased while the probabilities \(F_ j(X)\) of all other classes \( j\neq t\) should decrease.</li>
+							  
+
+							  
+						      </ul>  
+                                                     	     <ul>      
+                                                        <img src="href=../../img_2019_Lect_12/Saliency_Equation.png"  height="100" width="500">           
+                                                     </ul> 	
+                                                    
+                                                  </div>    
+                                                   
+						</div>
+						<p class="paragraph2">N. Papernot, P. McDaniel, S. Jha, M. Fredrikson, Z. B. Celik, and A. Swami. <a href="https://arxiv.org/abs/1511.07528"> The Limitations of Deep Learning in Adversarial Settings. </a> arXiv preprint arXiv:1511.07528. 2015.</p>
+																																			  
+                                                <aside class="notes">
+                                                                     
+                                           	</aside>
+ 				      </section>
+				     
+
+				    <section> 
+                                                <mark class="red"></mark>
+						<div class="container">
+						   <h3>Adversarial examples</h3>                                                       
+                                   
+                                                  <div class="right">
+                                                       
+			                             
+						    <ul>
+
+						       <li class="paragraph2">  The patches are inserted in the STOP sign and fools the model</mark>.</li>
+                                                        <img src="href=../../img_2019_Lect_12/Stops_With_Bugs.png"  height="350" width="500">           
+                                                     </ul>  
+                                                                                                     
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Methods for creating adversarial examples</h4>
+                                                      <ul>
+
+							<li class="paragraph2">  A GAN is used to generate patches of butterflies </mark>.</li>
+						      </ul>  
+
+                                                       <ul>      
+                                                        <img src="href=../../img_2019_Lect_12/GAN_Butterflies.png"  height="300" width="600">           
+                                                      </ul>
+			                            
+                                                    
+                                                  </div>    
+                                                   
+                                               </div>
+					        <p class="paragraph2"> H. Yakura, Y. Akimoto, and J. Sakum. <a href="https://arxiv.org/pdf/1911.08644.pdf">Generate (non-software) Bugs to Fool Classifiers.</a> arXiv preprint arXiv:1911.08644. 2019.</p>         
+					     
+                                                <aside class="notes">
+                                                                     
+                                           	</aside>
+ 				  </section>
+				  <section>
+                                                <mark class="red"></mark>
+                                                <div class="container">
+                                                  <h3>Adversarial examples</h3>
+                                                  <div class="right">
+                                                  <h4>Adversarial transformation networks</h4>
+
+                                                      <ul>      
+                                                        <img src="href=../../img_2019_Lect_12/Adv_Network_Transformation.png"  height="400" width="500">           
+					                
+                                                      <ul/>      
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Using NNs to generate adversarial examples</h4>
+                                                      <ul>      
+
+						          <li class="paragraph2"><mark class="red">Adversarial transformation networks (ATNs)</mark>:  Use feed-forward neural networks in a self-supervised manner to generate adversarial examples against a target network. </li>
+						          <li class="paragraph2"> ATNs may be <mark class="red">untargeted</mark> or <mark class="red">targeted</mark>, and trained in a <mark class="red">black-box</mark> or <mark class="red">white-box </mark> manner. </li>
+
+ 
+						          <li class="paragraph2">They can also be applied to a <mark class="red"> set of networks</mark>. </li>
+
+						          
+					        						        
+                                                      <ul/>                         
+                                                  </div>    
+                                                   
+                                              </div>              
+                                                    <p class="paragraph2">S. Baluja and I. Fisher. <a href="https://arxiv.org/abs/1703.09387"> Adversarial Transformation Networks: Learning to Generate Adversarial Examples. </a> arXiv preprint arXiv:1703.09387. 2017.</p>
+
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				  </section>
+
+
+		                  <section>
+                                                <mark class="red"></mark>
+                                                <div class="container">
+                                                  <h3>Adversarial examples</h3>
+                                                  <div class="right">
+                                                  <h4>Adversarial transformation networks</h4>
+
+                                                      <ul>      
+                                                        <img src="href=../../img_2019_Lect_12/Adv_Network_Transformation.png"  height="400" width="500">           
+					                
+                                                      <ul/>      
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Using NNs to generate adversarial examples</h4>
+                                                      <ul>      
+
+						      
+						          <li class="paragraph2">The ATN can be trained to generate just the <mark class="red">perturbation</mark> to \( {\bf{x}} \), or it can be trained to generate an  <mark class="red">adversarial autoencoding</mark> of \( {\bf{x}} \). </li>						        
+						          <li class="paragraph2">Using ATNs for adversarial autoencoding is similar to using denoising or other regularization-enforced  autoencoders. </li>	
+
+						          <li class="paragraph2"> The difference is that an additional requirement is imposed on the AE to guarantee that decoded sample is an adversarial one <mark class="red"> \( r(f({\bf{x}}^{\prime})) = {\bf{y}}^{\prime} \)</mark>. </li>
+					        						        
+                                                      <ul/>                         
+                                                  </div>    
+                                                   
+                                              </div>              
+                                                    <p class="paragraph2">S. Baluja and I. Fisher. <a href="https://arxiv.org/abs/1703.09387"> Adversarial Transformation Networks: Learning to Generate Adversarial Examples. </a> arXiv preprint arXiv:1703.09387. 2017.</p>
+
+                                                <aside class="notes">
+                                                                                    
+                                           	  </aside>
+ 				  </section>
+                          </section>
+                          <section>
+                                    <section>
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+                                            <h3>Universal adversarial examples</h3>
+		  
+                                                      <ul>      
+						          <li class="paragraph2"> A single small image perturbation that fools a state-of-the-art deep neural network classifier on <mark class="red"> all natural images</mark>. </li>
+
+							 							  
+							  <ul/>
+
+
+						    <ul>      
+                                                        <img src="href=../../img_2019_Lect_12/Universal_Perturbations.png"  height="350" width="1200">           					                
+                                                      <ul/> 
+                                                   
+                          		  </div>
+					       	<p class="paragraph2"> M. Dezfooli, S. Mohsen, A. Fawzi, O. Fawzi, and P. Frossard. <a href="https://arxiv.org/pdf/1610.08401.pdf"> Universal adversarial perturbations. </a> Proceedings of the IEEE conference on computer vision and pattern recognition. Pp. 1765-1773. 2017.</p>  
+					  
+                                                  <aside class="notes">
+                  
+                                           	  </aside>
+ 				   </section>
+				  <section>
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+                                            <h3>Universal adversarial examples</h3>
+		  
+                                                      <ul>      
+						          <li class="paragraph2"> <mark class="red">Single-class universal perturbations</mark>: Expected to fool the target model only for inputs of one particular class.</li>
+
+							  <li class="paragraph2"> <mark class="red">Multiple-class universal perturbations</mark>:  Expected to fool target model only for a particular subset of \(N\) classes, with \(1 < N < k\).</li>
+
+							  <li class="paragraph2"> <mark class="red">Fully universal perturbations</mark>:  Expected to fool a target model for every possible input,  with a complete independence of the original class.</li>
+							  
+                                                      <ul/>                      
+                                                   
+                          		  </div>
+					       	<p class="paragraph2">J. Vadillo and R. Santana. <a href="https://github.com/vadel/AudioUniversalPerturbations"> Universal Adversarial Examples in Speech Command Classification. </a> arXiv preprint arXiv:1911.0000. 2019.</p>  
+					  
+                                                  <aside class="notes">
+                  
+                                           	  </aside>
+ 				   </section>
+ 		          </section>
+ 			  <section>
+				  <section>
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+                                            <h3>Adversarial examples</h3>
+					          <h4>Applications in other domains</h4>
+                                                      <ul>      
+						          <li class="paragraph2"> Adversarial examples has been mainly created for  <mark class="red">images</mark> in <mark class="red">computer vision problems</mark>. </li>
+
+							  <li class="paragraph2">However recent research proposes their use for other domains (e.g., audio, graphs problems). </li>
+
+							  <li class="paragraph2"> <mark class="red">Audio adversarial examples</mark> constructed from voice commands can be used to fool  <mark class="red">virtual assistants</mark> based on speech recognition.</li>
+
+							  							                                                           <li class="paragraph2"> <mark class="red">Speech-to-text systems</mark> and <mark class="red">medical images</mark> can be also negatively affected by adversarial examples. </li>
+                                                      <ul/>                      
+                                                   
+
+                          		  </div>
+					  	<p class="paragraph2">R. Reza-Wiyatno, A. Xu, O. Dia, A. de Berke. <a href="https://arxiv.org/abs/1911.05268"> Adversarial Examples in Modern Machine Learning: A Review. </a> arXiv preprint arXiv:1911.05268. 2019.</p
+                                      
+                                                  <aside class="notes">
+                  
+                                           	  </aside>
+ 				   </section>
+
+
+				   <section>
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+                                            <h3>Adversarial examples in Speech Command Classification</h3>
+					          <h4></h4>
+                                                  <ul>
+
+						       <ul>      
+                                                        <img src="href=../../img_2019_Lect_12/CNN_structure.png"  height="200" width="1200">           
+					                
+							<ul/>
+
+							
+						          <li class="paragraph2"> An audio waveform is transformed to fool the model while keeping the distortion <mark class="red">below a given threshold</mark>. </li>
+
+							  <li class="paragraph2">An end-to-end <mark class="red">differentiable classification process</mark>  is assumed from which all the information will be available.</li>
+							  							                                                           <li class="paragraph2">The  <mark class="red">gradients</mark>  of the model’s output can be computed with respect to the input audio waveform and used to create the adversarial example. </li>
+
+						
+                                                      <ul/>                      
+                                                   
+
+                          		  </div>
+					  	<p class="paragraph2">J. Vadillo and R. Santana. <a href="https://github.com/vadel/AudioUniversalPerturbations"> Universal Adversarial Examples in Speech Command Classification. </a> arXiv preprint arXiv:1911.0000. 2019.</p>  
+                                      
+                                                  <aside class="notes">
+                  
+                                           	  </aside>
+ 			           </section>
+
+				   				     
+                                   <section>
+
+				                  <h3>Adversarial examples in Speech Command Classification</h3>
+
+						   <iframe data-src="https://vadel.github.io/audio_adversarial/UniversalPerturbations.html" width="945" height="555" frameborder="0" marginwidth="0" marginheight="0" scrolling="yes" style="border:3px solid #666; margin-bottom:5px; max-width: 600%;" allowfullscreen=""></iframe>
+						   
+                                      </section>
+
+                           </section>
+
+			    <section>
+				   <section id="sec:Adv_Defenses">
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+					      <h3>Adversarial defenses</h3>
+					     
+                                                  
+                                                   <ol>
+
+						     <img src="href=../../img_2019_Lect_12/Adversarial_Defenses.png"  height="400" width="1200">           
+						         
+                                                    </ol>     		
+                                                                                                 
+
+                          		  </div>
+					    <p class="paragraph2">R. Reza-Wiyatno, A. Xu, O. Dia, A. de Berke. <a href="https://arxiv.org/abs/1911.05268"> Adversarial Examples in Modern Machine Learning: A Review. </a> arXiv preprint arXiv:1911.05268. 2019.</p>
+					       
+                                      
+                                                  <aside class="notes">
+                  
+                                           	  </aside>
+ 				   </section>
+				   
+
+				   <section> 
+                                                <mark class="red"></mark>
+						<div class="container">
+						   <h3>Adversarial defenses</h3>                                                       
+                                   
+                                                  <div class="right">
+                                                  <h4>Examples</h4>
+                                                  <ul>
+						        <li class="paragraph2">  <mark class="red">Reconstruction of adversarial images</mark>: Add an auxiliary decoder that takes the logits as input and <mark class="red">reconstructs the image</mark>. The detector takes the reconstruction and produces as output the probability of being an adversarial example.</li>
+                                                       	<li class="paragraph2">  <mark class="red">Kernel density estimates</mark>: Used to estimate the probability that the input belongs to the manifold of the true examples.</li>
+
+                                                       	<li class="paragraph2">  <mark class="red">Feature squeezing</mark>: Assumes that input features are often unnecessarily large, yielding a large attack surface. It compares the predictions between squeezed and unsqueezed inputs.</li>
+						     </ul>      
+                                                                                                     
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Detecting adversarial attacks</h4>
+                                                      <ul>
+
+							<li class="paragraph2"> Before passing to a classifier <mark class="red"> detect or predict </mark> whether the sample is adversarial.</li>
+
+							<li class="paragraph2"> Some of the methods  <mark class="red">can be bypassed</mark>  if the attacker is aware of the defense strategy.</li>
+							                                                                                                                                <li class="paragraph2"> Sophisticated methods combine different strategies to enhance adversarial detection performance.</li>									  
+						      </ul>  
+                                                     
+                                                    
+                                                  </div>    
+                                                   
+						</div>
+						<p class="paragraph2">R. Reza-Wiyatno, A. Xu, O. Dia, A. de Berke. <a href="https://arxiv.org/abs/1911.05268"> Adversarial Examples in Modern Machine Learning: A Review. </a> arXiv preprint arXiv:1911.05268. 2019.</p>																																								  
+                                                <aside class="notes">
+                                                                     
+                                           	</aside>
+ 				   </section>
+                                   <section>
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+                                            <h3>Adversarial defenses</h3>                                               
+					          <h4>Feature squeezing</h4>
+                                                  <ul>
+
+						       <ul>      
+                                                        <img src="href=../../img_2019_Lect_12/Feature_Squeezing.png"  height="200" width="1200">           
+					                
+							<ul/>
+
+							
+						          <li class="paragraph2"> The dimensionality of input features is often unnecessarily large, yielding a <mark class="red">large attack surface</mark>. </li>
+
+							  <li class="paragraph2">Predictions between squeezed and unsqueezed inputs are compared.</li>
+							  							                                                                     <li class="paragraph2"> Examples of squeezed features:  color bit-depth reduction and spatial smoothing. </li>
+
+						
+                                                      <ul/>                      
+                                                   
+
+                          		  </div>
+					  	<p class="paragraph2"> W. Xu, D. Evans, and Y. Qi <a href="https://arxiv.org/abs/1704.01155"> Feature squeezing: Detecting adversarial examples in deep neural
+networks. </a> arXiv preprint arXiv:1704.01155. 2017.</p>  
+                                      
+                                                  <aside class="notes">
+                  
+                                           	  </aside>
+ 			           </section>
+
+
+				    <section> 
+                                                <mark class="red"></mark>
+						<div class="container">
+						   <h3>Adversarial defenses</h3>                                                       
+                                   
+                                                  <div class="right">
+                                                  <h4>Examples</h4>
+                                                      <ul>      
+                                                       	<li class="paragraph2">  <mark class="red">Adversarial training</mark>: A model is retrained by injecting adversarial examples into training set at every training iteration.</li>
+                                                       	<li class="paragraph2">  <mark class="red">PixelDefend</mark>: A model is used to "purify" an input before passing it to the classifier.</li>
+                                                       	<li class="paragraph2">  <mark class="red">Guided denoiser</mark>: A denoiser is learned that removes adversarial noise from the adversarial example.</li>
+						     </ul>      
+                                                                                                     
+                          		          </div>
+                                                  <div class="left">   
+                                                      <h4>Increasing robustness</h4>
+                                                      <ul>
+
+							<li class="paragraph2"> Models that perform <mark class="red"> equally well </mark> with adversarial and normal inputs.</li>
+
+							<li class="paragraph2"> Seek to make models  <mark class="red"> less sensitive</mark> to irrelevant variations of the inputs.</li>
+							                                                                                                                                <li class="paragraph2"> Some approaches that were initially thought to be robust has shown to be vulnerable to <mark class="red">more sophisticated attacks</mark>.</li>									  
+						      </ul>  
+                                                     
+                                                    
+                                                  </div>    
+                                                   
+						</div>
+						<p class="paragraph2">Y. Song, T. Kim, S. Nowozin, S. Ermon, and N. Kushman. <a href="https://arxiv.org/abs/1710.10766"> PixelDefend: Leveraging Generative Models to Understand and Defend against Adversarial Examples. </a> arXiv preprint arXiv:1710.10766. 2017.</p>
+						<p class="paragraph2">N. Papernot, P. McDaniel, X. Wu, S. Jha and A. Swami. <a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=7546524"> Distillation as a Defense to Adversarial Perturbations Against Deep Neural Networks. </a> Proceedings of the 2016 IEEE Symposium on Security and Privacy. Pp. 582-597. 2016.</p>						
+																																									  
+                                                <aside class="notes">
+                                                                     
+                                           	</aside>
+ 				    </section>
+
+
+				   
+		 	    </section>
+
+			                              <section>
+                                    <section>
+                                          <mark class="red"></mark>
+                                          <div class="my_container">
+                                            <h3>Transferability</h3>
+		  
+                                                      <ul>      
+						          <li class="paragraph2"> Adversarial examples or perturbations generated to fool a particular model can be used to  <mark class="red">fool others</mark>. </li>
+						          <li class="paragraph2">Different ways of transferability: <mark class="red"></mark> 
+							  <ol>
+						          <li class="paragraph2"> Transferability  <mark class="red">between different models</mark>. </li>
+						          <li class="paragraph2"> Transferability  <mark class="red">between different
+machine learning techniques</mark>. </li>
+						          <li class="paragraph2"> Transferability  <mark class="red">between models that perform different tasks</mark>. </li>
+							  <ol/>
+							  </li>						
+							  <ul/>
+
+                          		  </div>
+					  	<p class="paragraph2">R. Reza-Wiyatno, A. Xu, O. Dia, A. de Berke. <a href="https://arxiv.org/abs/1911.05268"> Adversarial Examples in Modern Machine Learning: A Review. </a> arXiv preprint arXiv:1911.05268. 2019.</p>
+					  
+                                                  <aside class="notes">
+                  
+                                           	  </aside>
+ 				   </section>
+                          </section>
+                       
+ 
+
+			</div>
+		</div>
+
+
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			Reveal.initialize({
+                          	history: true,
+				transition: 'linear',
+
+
+				math: {
+					// mathjax: 'http://cdn.mathjax.org/mathjax/latest/MathJax.js',
+					config: 'TeX-AMS_HTML-full'
+				},
+
+				dependencies: [
+                                        { src: 'lib/js/fullscreen-img.js' },
+					{ src: 'lib/js/classList.js' },
+					{ src: 'plugin/math/math.js', async: true }
+
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
